@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::resource('/admin','AdminController');
 
-Route::get('/admin/user','AdminController@user_create');
+Route::get('/admin/user','AdminController@users_create');
 /*Route::get('/users/destroy/{id}','UsersController@destroy');
 Route::post('/users/update/{id}','UsersController@update');*/
 

@@ -108,9 +108,9 @@ class AdminController extends Controller
      * Return the create form
      */
 
-    public function user_create()
+    public function users_create()
     {
-        
+
         return view('admin.users.create');
 
     }
