@@ -19,8 +19,8 @@
                             </span>
                           </a>
                           <ul class="treeview-menu">
-                            <li><a href="/users"><i class="fa fa-circle-o"></i> List Users</a></li>
-                            <li><a href="/users/create"><i class="fa fa-circle-o"></i> Add User</a></li>
+                            <li><a href="/admin/users"><i class="fa fa-circle-o"></i> List Users</a></li>
+                            <li><a href="/admin/user"><i class="fa fa-circle-o"></i> Add User</a></li>
                           </ul>
                         </li>
                        

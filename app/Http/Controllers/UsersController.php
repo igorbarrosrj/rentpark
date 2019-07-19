@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
 class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     *
+     * Return the view page of index
      */
     public function index()
     {
+        
         return view('admin.users.index');
     }
 
@@ -23,6 +27,7 @@ class UsersController extends Controller
      */
     public function create()
     {
+        
         return view('admin.users.create');
     }
 
@@ -34,7 +39,31 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request,[
+            'name' => 'required|min:3',
+
+            'email' => 'required|email|unique:users,email',
+
+            'password' => 'required|min:6',
+
+            'cpassword' => 'required|same:password|min:6',
+        ]);
+
+        //Create Post
+        $user = New User;
+
+        $user->name = $request->input('name');
+
+        $user->unique_id = uniqid(base64_encode(str_random(60)));
+
+        $user->email = $request->input('email');
+
+        $user->password = bcrypt($request->password);
+
+        $user->save();
+
+        return redirect('/users')->with('success','User Updated');
     }
 
     /**

@@ -16,11 +16,12 @@ Route::get('/', function () {
 });
 
 //To show admin panel view
-Route::view('/dashboard','admin.dashboard');
+// Route::view('/dashboard','admin.dashboard');
 
-Route::resource('/users','UsersController');
+Route::resource('/admin','AdminController');
+
+Route::get('/admin/user','AdminController@user_create');
 /*Route::get('/users/destroy/{id}','UsersController@destroy');
 Route::post('/users/update/{id}','UsersController@update');*/
 
-Route::view('/admin_login','admin.login.index');
-Route::view('/admin_register','admin.register.index');
+Route::view('/admin_login','admin.auth.login');

@@ -66,6 +66,34 @@
                             
                         </div>
 
+                        <div class="form-group">
+                            
+                            <label class="description">Description</label>
+
+                            <input type="text" name="description" class="form-control" placeholder="description">
+
+                        </div>
+
+                        <div class="form-group">
+                            
+                            <label class="mobile">Mobile Number</label>
+
+                            <input type="text" name="mobile" class="form-control" placeholder="Mobile Number">
+
+                        </div>
+
+                        <div class="form-group">
+                            
+                            <label class="gender">Gender</label>
+
+                            <select name="gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="others">Others</option>
+                            </select>
+
+                        </div>
+
                         <input type="submit" name="Submit" class="btn btn-primary">
 
                     </form>

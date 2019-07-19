@@ -5,26 +5,26 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="/admin/login/images/icons/favicon.ico"/>
+	<link rel="icon" type="image/png" href="/admin_data/login/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="/admin/login/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/admin_data/login/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="/admin/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/admin_data/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="/admin/login/fonts/iconic/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/admin_data/login/fonts/iconic/css/material-design-iconic-font.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="/admin/login/vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="/admin_data/login/vendor/animate/animate.css">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="/admin/login/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="/admin_data/login/vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="/admin/login/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="/admin_data/login/vendor/animsition/css/animsition.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="/admin/login/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="/admin_data/login/vendor/select2/select2.min.css">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="/admin/login/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="/admin_data/login/vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="/admin/login/css/util.css">
-	<link rel="stylesheet" type="text/css" href="/admin/login/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/admin_data/login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/admin_data/login/css/main.css">
 <!--===============================================================================================-->
 </head>
 <body>
@@ -37,7 +37,7 @@
 						Welcome
 					</span>
 					<span class="login100-form-avatar">
-						<img src="/admin/login/images/avatar-01.jpg" alt="AVATAR">
+						<img src="/admin_data/login/images/avatar-01.jpg" alt="AVATAR">
 					</span>
 
 					<div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate = "Enter username">
@@ -72,7 +72,7 @@
 								Don’t have an account?
 							</span>
 
-							<a href="/admin_register" class="txt2">
+							<a href="/admin_data_register" class="txt2">
 								Sign up
 							</a>
 						</li>
@@ -86,21 +86,21 @@
 	<div id="dropDownSelect1"></div>
 	
 <!--===============================================================================================-->
-	<script src="/admin/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/admin_data/login/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-	<script src="/admin/login/vendor/animsition/js/animsition.min.js"></script>
+	<script src="/admin_data/login/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-	<script src="/admin/login/vendor/bootstrap/js/popper.js"></script>
-	<script src="/admin/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/admin_data/login/vendor/bootstrap/js/popper.js"></script>
+	<script src="/admin_data/login/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-	<script src="/admin/login/vendor/select2/select2.min.js"></script>
+	<script src="/admin_data/login/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-	<script src="/admin/login/vendor/daterangepicker/moment.min.js"></script>
-	<script src="/admin/login/vendor/daterangepicker/daterangepicker.js"></script>
+	<script src="/admin_data/login/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/admin_data/login/vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-	<script src="/admin/login/vendor/countdowntime/countdowntime.js"></script>
+	<script src="/admin_data/login/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-	<script src="/admin/login/js/main.js"></script>
+	<script src="/admin_data/login/js/main.js"></script>
 
 </body>
 </html>
