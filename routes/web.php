@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+//To show admin panel view
+Route::view('/dashboard','admin.dashboard');
+
+Route::resource('/users','UsersController');
+/*Route::get('/users/destroy/{id}','UsersController@destroy');
+Route::post('/users/update/{id}','UsersController@update');*/
+
+Route::view('/admin_login','admin.login.index');
+Route::view('/admin_register','admin.register.index');
