@@ -11,8 +11,10 @@ class CreateProvidersTable extends Migration
      *
      * @return void
      */
+
     public function up()
     {
+
         Schema::create('providers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('unique_id');
@@ -22,11 +24,11 @@ class CreateProvidersTable extends Migration
             $table->string('password');
             $table->string('description')->default("");
             $table->string('mobile')->default("");
-            $table->string('picture')->default(envfile('APP_URL')."/placeholder.jpg");
+            $table->string('picture')->default(env('APP_URL')."/placeholder.jpg");
             $table->string('token_expiry');
             $table->string('work')->default("");
             $table->string('school')->default("");
-            $table->text('languages')->default("");
+            $table->text('languages');
             $table->string('device_token')->default('');
             $table->enum('device_type',array('web','android','ios'));
             $table->enum('register_type',array('web','android','ios'));
@@ -39,7 +41,7 @@ class CreateProvidersTable extends Migration
             $table->string('payment_mode')->default('cod');
             $table->string('timezone')->default('America/Los_Angeles');
             $table->tinyInteger('status')->default(0);
-            $table->string('provider_type')->default(0);
+            $table->string('provider_type')->default("");
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });

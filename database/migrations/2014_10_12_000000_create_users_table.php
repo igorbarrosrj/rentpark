@@ -10,6 +10,8 @@ class CreateUsersTable extends Migration
      * Run the migrations.
      *
      * @return void
+     *
+     * The picture place \Config::get('app.url') is used to get the .env APP_URL
      */
     public function up()
     {
@@ -24,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('description')->default("");
             $table->string('mobile')->default("");
             $table->enum('gender',['male','female','others'])->default('male');
-            $table->string('picture')->default(envfile('APP_URL')."/placeholder.jpg");
+            $table->string('picture')->default(env('APP_URL')."/placeholder.jpg");
             $table->string('payment_mode')->default('cod');
             $table->string('token_expiry');
             $table->tinyInteger('user_type')->default(0);

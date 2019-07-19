@@ -19,7 +19,7 @@ class CreateAdminsTable extends Migration
             $table->string('email')->unique();
             $table->string('about')->default("");
             $table->string('mobile')->default("");
-            $table->string('picture')->default(envfile('APP_URL')."/placeholder.jpg");
+            $table->string('picture')->default(env('APP_URL')."/placeholder.jpg");
             $table->string('password');
             $table->string('timezone')->default('America/Los_Angeles');
             $table->tinyInteger('status')->default(1);
