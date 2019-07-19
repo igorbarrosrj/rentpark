@@ -19,15 +19,69 @@
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
-
+        {{ $no =0 }}
 
 		<div class="well">
 						
 			<div class="row">
 
 				<div class="col-sm-12 col-md-12">
+					<div class="box-body">
+		              <table class="table table-bordered">
+		                <tr>
+		                  	
+		                  	<th>SNo</th>
+		                  	<th>Name</th>
+		                  	<th>Email</th>
+		                  	<th>Description</th>
+		                  	<th>Mobile</th>
+		                  	<th>Gender</th>
+		                  	<th>Created At</th>
+		                </tr>
+		                <tr>
+					               	
+							@if(count($users)>0)
 
-		            <div class="box-body">
+									@foreach($users as $user)
+						                <tr>
+						                	<td>{{ ++$no }}</td>
+											<td>{{ $user->name }}</td>
+											<td>{{ $user->email }}</td>
+											<td>{{ $user->description }}</td>
+											<td>{{ $user->mobile }}</td>
+											<td>{{ $user->gender }}</td>
+											<td>{{ $user->created_at }}</td>
+				            				 <td><a href="/showusers/{{ $user->id }}" class="btn btn-info">View</a></td>
+											<td><a href="/editusers/{{ $user->id }}" class="btn btn-primary">Edit</a></td>
+											<td><a href="/deleteusers/{{ $user->id }}" class="btn btn-danger">Delete</a>			             			
+				               				</td>
+						                </tr>
+						             @endforeach
+				              </table>
+				              {{$users->links()}}
+				            </div>
+				             
+				            @else
+				            	<h3>No Users found</h3>
+				            @endif
+							
+				         </tr>
+		              </table>
+		            </div>		            
+	          </div>
+
+								
+			</div>							
+		</div>
+	</div>
+		
+
+@endsection
+
+
+
+{{-- 
+<div class="box-body">
 		              <table class="table table-bordered">
 		                <tr>
 		                  	
@@ -44,7 +98,7 @@
 							<td><a href="/users/1" class="btn btn-info">View</a></td>
 							<td><a href="/users/1/edit" class="btn btn-primary">Edit</a></td>
 							<td>
-		             			<form action="{{ route('users.destroy', 1)}}" method="post">
+		             			<form action="#" method="post">
 			                  	@csrf
 			                  	@method('DELETE')
 			                  	<button class="btn btn-danger" type="submit">Delete</button>
@@ -52,13 +106,4 @@
                				</td>
 				         </tr>
 		              </table>
-		            </div>
-	          </div>
-
-								
-			</div>							
-		</div>
-	</div>
-		
-
-@endsection
+		            </div> --}}

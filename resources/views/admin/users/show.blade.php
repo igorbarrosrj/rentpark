@@ -26,7 +26,7 @@
 			<div class="row">
 
 				<div class="col-sm-12 col-md-12">
-					<a href="/users" class="btn btn-primary">Go Back</a>
+					<a href="/listusers" class="btn btn-primary">Go Back</a>
 
 		            <div class="box-body">
 		              <table class="table table-bordered">
@@ -36,29 +36,40 @@
 		                </tr>
 		             	<tr>
 		             		<td> Name</td>
-		             		<td>naveen</td>	
+		             		<td>{{ $user->name }}</td>	
 		             	</tr>
 
 		             	<tr>
 		             		<td>Email</td>
-		             		<td>naveensnlbe@gmail.com</td>
+		             		<td>{{ $user->email }}</td>
+		             	</tr>	
+
+		             	<tr>
+		             		<td>Description</td>
+		             		<td>{{ $user->description }}</td>
+		             	</tr>	
+
+		             	<tr>
+		             		<td>Mobile</td>
+		             		<td>{{ $user->mobile }}</td>
+		             	</tr>	
+
+		             	<tr>
+		             		<td>Gender</td>
+		             		<td>{{ $user->gender }}</td>
 		             	</tr>	
 
 		             	<tr>
 		             		<td>Created At</td>
-		             		<td>11-7-2019</td>
-		             	</tr>	
+		             		<td>{{ $user->created_at }}</td>
+		             	</tr>
 
 		             	<tr>
-		             		<td> <a href="/users/1/edit" class="btn btn-primary">Edit</a></td>
+		             		<td> <a href="/editusers/{{ $user->id }}" class="btn btn-primary">Edit</a></td>
 		             		{{-- <td><a href="{{ route('users.destroy',1) }}"  class="btn btn-danger">Delete</a> --}}
 
 		             		<td>
-		             			<form action="{{ route('users.destroy', 1)}}" method="post">
-			                  	@csrf
-			                  	@method('DELETE')
-			                  	<button class="btn btn-danger" type="submit">Delete</button>
-               					</form>	
+		             			<a href="/deleteusers/{{ $user->id }}" class="btn btn-danger">Delete</a>
                				</td>
 		             	</tr>	
 		             	<tr>

@@ -27,7 +27,7 @@
 
                 <div class="col-sm-12 col-md-12">
 
-                    <form action="{{ route('users.update',1) }}" method="post">
+                    <form action="/updateusers/{{ $user->id}}" method="post">
 
                         {{ csrf_field() }}
 
@@ -37,14 +37,14 @@
                             
                             <label class="name">Name</label>
 
-                            <input type="text" name="name" class="form-control" placeholder="Name">
+                            <input type="text" name="name" class="form-control" value="{{ $user->name }}" placeholder="Name">
 
                         </div>
                         <div class="form-group">
                             
                             <label class="email">Email Address</label>
 
-                            <input type="text" name="email" class="form-control" placeholder="Email Address">
+                            <input type="text" name="email" class="form-control" value="{{ $user->email }}"placeholder="Email Address">
                             
                         </div>
 
@@ -62,6 +62,34 @@
 
                             <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password">
                             
+                        </div>
+
+                        <div class="form-group">
+                            
+                            <label class="description">Description</label>
+
+                            <input type="text" name="description" class="form-control" value="{{ $user->description }}" placeholder="description">
+
+                        </div>
+
+                        <div class="form-group">
+                            
+                            <label class="mobile">Mobile Number</label>
+
+                            <input type="text" name="mobile" class="form-control" value="{{ $user->mobile }}" placeholder="Mobile Number">
+
+                        </div>
+
+                        <div class="form-group">
+                            
+                            <label class="gender">Gender</label>
+
+                            <select name="gender">
+                                <option value="male" {{ $user->gender === 'male' ? 'selected' : '' }}>Male</option>
+                                <option value="female" {{ $user->gender === 'female' ? 'selected' : '' }}>Female</option>
+                                <option value="others" {{ $user->gender === 'others' ? 'selected' : '' }}>Others</option>
+                            </select>
+
                         </div>
 
                         <input type="submit" name="Submit" class="btn btn-primary">

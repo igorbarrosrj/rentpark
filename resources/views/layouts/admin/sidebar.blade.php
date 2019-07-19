@@ -7,7 +7,7 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li> <a class="waves-effect waves-dark" href="/dashboard" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
+                        <li> <a class="waves-effect waves-dark" href="/admin" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
                         </li>
                         
                         <li class="treeview">
@@ -19,8 +19,8 @@
                             </span>
                           </a>
                           <ul class="treeview-menu">
-                            <li><a href="/admin/users"><i class="fa fa-circle-o"></i> List Users</a></li>
-                            <li><a href="/admin/user"><i class="fa fa-circle-o"></i> Add User</a></li>
+                            <li><a href="/listusers"><i class="fa fa-circle-o"></i> List Users</a></li>
+                            <li><a href="/addusers"><i class="fa fa-circle-o"></i> Add User</a></li>
                           </ul>
                         </li>
                        

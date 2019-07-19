@@ -29,11 +29,9 @@
                 <div class="col-sm-12 col-md-12">
 
                     
-                    <form action="{{ route('users.create') }}" method="post">
+                    <form action="/storeusers" method="post">
 
                         {{ csrf_field() }}
-
-                        <input type="hidden" name="_method" value="PUT">
                         
                         <div class="form-group">
                             

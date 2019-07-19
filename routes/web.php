@@ -20,7 +20,15 @@ Route::get('/', function () {
 
 Route::resource('/admin','AdminController');
 
-Route::get('/admin/user','AdminController@users_create');
+
+Route::get('/addusers','AdminController@users_create');
+Route::post('/storeusers','AdminController@users_store');
+Route::get('/listusers','AdminController@users_index');
+Route::get('/editusers/{id}','AdminController@users_edit');
+Route::get('/showusers/{id}','AdminController@users_show');
+Route::put('/updateusers/{id}','AdminController@users_update');
+Route::get('/deleteusers/{id}','AdminController@users_destroy');
+
 /*Route::get('/users/destroy/{id}','UsersController@destroy');
 Route::post('/users/update/{id}','UsersController@update');*/
 

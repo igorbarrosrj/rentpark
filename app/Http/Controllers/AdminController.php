@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -25,7 +26,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -92,10 +93,12 @@ class AdminController extends Controller
      *
      * Return the view of index
      */
-    public function user_index()
+    public function users_index()
     {
 
-        return view('admin.users.create');
+        $users = User::orderBy('id')->paginate(10);
+
+        return view('admin.users.index')->with('users',$users);
 
     }
 
@@ -117,6 +120,21 @@ class AdminController extends Controller
 
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function users_show($id)
+    {
+
+        $user = User::find($id);
+
+        return view('admin.users.show')->with('user',$user);
+    }
+
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -124,9 +142,8 @@ class AdminController extends Controller
      *
      * Store the data from user create form
      */
-    public function user_store(Request $request)
+    public function users_store(Request $request)
     {
-        
         $this->validate($request,[
 
             'name' => 'required|min:3|max:50',
@@ -149,6 +166,8 @@ class AdminController extends Controller
 
         $user->name = $request->input('name');
 
+        $user->unique_id = uniqid(base64_encode(str_random(60)));
+
         $user->email = $request->input('email');
 
         $user->password = bcrypt($request->password);
@@ -161,6 +180,90 @@ class AdminController extends Controller
 
         $user->save();
 
-        return redirect('/users')->with('success','User Updated');
+        return redirect('/listusers')->with('success','User Updated');
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function users_edit($id)
+    {
+        
+        $user = User::find($id);
+
+        return view('admin.users.edit')->with('user',$user);
+
+    }
+
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function users_update(Request $request,$id){
+
+
+        $this->validate($request,[
+
+            'name' => 'required|min:3|max:50',
+
+            'email' => 'required|email',
+
+            'password' => 'required|min:6',
+
+            'cpassword' => 'required|same:password|min:6',
+
+            'description' => 'required| min:5',
+
+            'mobile' => 'regex:/[6-9][0-9]{9}/',
+
+        ]);
+
+        //Update Post
+
+        $user = User::find($id);
+
+        $user->name = $request->input('name');
+
+        $user->email = $request->input('email');
+
+        $user->password = bcrypt($request->password);
+
+        $user->description = $request->input('description');
+
+        $user->mobile = $request->input('mobile');
+
+        $user->gender = $request->input('gender');
+
+        $user->save();
+
+        return redirect('/listusers')->with('success','User Updated');
+
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function users_destroy($id)
+    {
+        $user = User::find($id);
+
+        $user->delete();
+        return redirect('/listusers')->with('success','User Removed');
+    }
+
+
+
 }

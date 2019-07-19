@@ -37,6 +37,8 @@
             {{-- Include the footer --}}
         	@include('layouts.admin.footer')
 
+            @include('layouts.admin.message')
+
         </div>
     </div>
 
