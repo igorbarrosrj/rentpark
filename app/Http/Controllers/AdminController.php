@@ -3,10 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use DB, Hash, Auth, Validator, Exception;
+
 use App\User;
 
 class AdminController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+
+        $this->middleware('auth:admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,75 +29,10 @@ class AdminController extends Controller
      */
     public function index()
     {
+        dd("Hello World");
+        
         return view('admin.dashboard');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('admin.users.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
 
     /**
      * Display a listing of the resource.
@@ -93,8 +41,7 @@ class AdminController extends Controller
      *
      * Return the view of index
      */
-    public function users_index()
-    {
+    public function users_index() {
 
         $users = User::orderBy('id')->paginate(10);
 
@@ -111,8 +58,7 @@ class AdminController extends Controller
      * Return the create form
      */
 
-    public function users_create()
-    {
+    public function users_create() {
 
         return view('admin.users.create');
 
@@ -125,8 +71,7 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function users_show($id)
-    {
+    public function users_show($id) {
 
         $user = User::find($id);
 
@@ -138,12 +83,13 @@ class AdminController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * 
      * @return \Illuminate\Http\Response
      *
      * Store the data from user create form
      */
-    public function users_store(Request $request)
-    {
+    public function users_store(Request $request) {
+
         $this->validate($request,[
 
             'name' => 'required|min:3|max:50',
@@ -187,11 +133,11 @@ class AdminController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
+     * 
      * @return \Illuminate\Http\Response
      */
 
-    public function users_edit($id)
-    {
+    public function users_edit($id) {
         
         $user = User::find($id);
 
@@ -199,17 +145,16 @@ class AdminController extends Controller
 
     }
 
-
-
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * 
      * @param  int  $id
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function users_update(Request $request,$id){
-
+    public function users_update(Request $request,$id) {
 
         $this->validate($request,[
 
@@ -253,17 +198,17 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function users_destroy($id)
-    {
+    public function users_destroy($id) {
+
         $user = User::find($id);
 
         $user->delete();
+
         return redirect('/listusers')->with('success','User Removed');
     }
-
-
 
 }

@@ -15,21 +15,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//To show admin panel view
-// Route::view('/dashboard','admin.dashboard');
-
-Route::resource('/admin','AdminController');
-
+Auth::routes();
 
 Route::get('/addusers','AdminController@users_create');
-Route::post('/storeusers','AdminController@users_store');
-Route::get('/listusers','AdminController@users_index');
-Route::get('/editusers/{id}','AdminController@users_edit');
-Route::get('/showusers/{id}','AdminController@users_show');
-Route::put('/updateusers/{id}','AdminController@users_update');
-Route::get('/deleteusers/{id}','AdminController@users_destroy');
 
-/*Route::get('/users/destroy/{id}','UsersController@destroy');
-Route::post('/users/update/{id}','UsersController@update');*/
+Route::post('/storeusers','AdminController@users_store');
+
+Route::get('/listusers','AdminController@users_index');
+
+Route::get('/editusers/{id}','AdminController@users_edit');
+
+Route::get('/showusers/{id}','AdminController@users_show');
+
+Route::put('/updateusers/{id}','AdminController@users_update');
+
+Route::get('/deleteusers/{id}','AdminController@users_destroy');
 
 Route::view('/admin_login','admin.auth.login');
