@@ -27,7 +27,7 @@
 
                 <div class="col-sm-12 col-md-12">
 
-                    <form action="/updateusers/{{ $user->id}}" method="post">
+                    <form action="/admin/users/update/{{ $user->id}}" method="post">
 
                         {{ csrf_field() }}
 

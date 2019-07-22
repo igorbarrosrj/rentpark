@@ -19,7 +19,9 @@
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
-        {{ $no =0 }}
+        
+        {{-- Declare the Serial no. Initially as 0 --}}
+        @php  $no = 0 @endphp
 
 		<div class="well">
 						
@@ -38,7 +40,6 @@
 		                  	<th>Gender</th>
 		                  	<th>Created At</th>
 		                </tr>
-		                <tr>
 					               	
 							@if(count($users)>0)
 
@@ -51,25 +52,22 @@
 											<td>{{ $user->mobile }}</td>
 											<td>{{ $user->gender }}</td>
 											<td>{{ $user->created_at }}</td>
-				            				 <td><a href="/showusers/{{ $user->id }}" class="btn btn-info">View</a></td>
-											<td><a href="/editusers/{{ $user->id }}" class="btn btn-primary">Edit</a></td>
-											<td><a href="/deleteusers/{{ $user->id }}" class="btn btn-danger">Delete</a>			             			
+				            				 <td><a href="view/{{ $user->id }}" class="btn btn-info">View</a></td>
+											<td><a href="edit/{{ $user->id }}" class="btn btn-primary">Edit</a></td>
+											<td><a href="delete/{{ $user->id }}" class="btn btn-danger">Delete</a>			             			
 				               				</td>
 						                </tr>
 						             @endforeach
 				              </table>
 				              {{$users->links()}}
-				            </div>
 				             
 				            @else
 				            	<h3>No Users found</h3>
 				            @endif
-							
-				         </tr>
-		              </table>
+
 		            </div>		            
 	          </div>
-
+	    
 								
 			</div>							
 		</div>
@@ -78,32 +76,3 @@
 
 @endsection
 
-
-
-{{-- 
-<div class="box-body">
-		              <table class="table table-bordered">
-		                <tr>
-		                  	
-		                  	<th>SNo</th>
-		                  	<th>Name</th>
-		                  	<th>Email</th>
-		                  	<th>Created at</th>
-		                </tr>
-		                <tr>
-			               	<td>1</td>
-							<td>Naveen</td>
-							<td>naveensnlbe@gmail.com</td>
-							<td>14/4/2013</td>
-							<td><a href="/users/1" class="btn btn-info">View</a></td>
-							<td><a href="/users/1/edit" class="btn btn-primary">Edit</a></td>
-							<td>
-		             			<form action="#" method="post">
-			                  	@csrf
-			                  	@method('DELETE')
-			                  	<button class="btn btn-danger" type="submit">Delete</button>
-               					</form>	
-               				</td>
-				         </tr>
-		              </table>
-		            </div> --}}

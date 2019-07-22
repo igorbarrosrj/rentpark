@@ -26,7 +26,7 @@
 			<div class="row">
 
 				<div class="col-sm-12 col-md-12">
-					<a href="/listusers" class="btn btn-primary">Go Back</a>
+					<a href="/admin/users/index" class="btn btn-primary">Go Back</a>
 
 		            <div class="box-body">
 		              <table class="table table-bordered">
@@ -65,25 +65,13 @@
 		             	</tr>
 
 		             	<tr>
-		             		<td> <a href="/editusers/{{ $user->id }}" class="btn btn-primary">Edit</a></td>
+		             		<td> <a href="/admin/users/edit/{{ $user->id }}" class="btn btn-primary">Edit</a></td>
 		             		{{-- <td><a href="{{ route('users.destroy',1) }}"  class="btn btn-danger">Delete</a> --}}
 
 		             		<td>
-		             			<a href="/deleteusers/{{ $user->id }}" class="btn btn-danger">Delete</a>
+		             			<a href="/admin/users/delete/{{ $user->id }}" class="btn btn-danger">Delete</a>
                				</td>
-		             	</tr>	
-		             	<tr>
-		             		<td>
-
-		             			{{-- {!!Form::open(['action' => ['UsersController@destroy', 1], 'method' => 'POST'])!!}
-                				
-                				{!!Form::hidden('_method','DELETE')!!}
-                				
-                				{!!Form::submit('delete',['class'=> 'btn btn-danger'])!!}
-            					{!!Form::close()!!} --}}
-            				</td>
-		             	</tr>
-		             					
+		             	</tr>			             					
 									
 		              </table>
 		        

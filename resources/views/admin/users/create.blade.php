@@ -29,7 +29,7 @@
                 <div class="col-sm-12 col-md-12">
 
                     
-                    <form action="/storeusers" method="post">
+                    <form action="/admin/users/save" method="post">
 
                         {{ csrf_field() }}
                         

@@ -9,7 +9,8 @@
                     <ul id="sidebarnav">
                         <li> <a class="waves-effect waves-dark" href="/admin" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
                         </li>
-                        
+
+                        <!--Users-->
                         <li class="treeview">
                           <a href="#">
                             <i class="fa fa-user-circle-o"></i>
@@ -19,8 +20,23 @@
                             </span>
                           </a>
                           <ul class="treeview-menu">
-                            <li><a href="/listusers"><i class="fa fa-circle-o"></i> List Users</a></li>
-                            <li><a href="/addusers"><i class="fa fa-circle-o"></i> Add User</a></li>
+                            <li><a href="/admin/users/index"><i class="fa fa-circle-o"></i> List Users</a></li>
+                            <li><a href="/admin/users/create"><i class="fa fa-circle-o"></i> Add User</a></li>
+                          </ul>
+                        </li>
+
+                        <!--Hosts-->
+                        <li class="treeview">
+                          <a href="#">
+                            <i class="fa fa-map-marker"></i>
+                            <span>Host</span>
+                            <span class="pull-right-container">
+                              <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                          </a>
+                          <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-circle-o"></i> List Hosts</a></li>
+                            <li><a href="#"><i class="fa fa-circle-o"></i> Add Host</a></li>
                           </ul>
                         </li>
                        

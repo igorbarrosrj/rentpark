@@ -28,10 +28,11 @@ class AdminController extends Controller
      * Return the view of dashboard
      */
     public function index()
-    {
-        dd("Hello World");
-        
-        return view('admin.dashboard');
+    { 
+
+        $users = User::orderBy('id')->paginate(10);
+
+        return view('admin.dashboard')->with('users',$users);
     }
 
     /**
@@ -71,7 +72,7 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function users_show($id) {
+    public function users_view($id) {
 
         $user = User::find($id);
 
@@ -88,7 +89,7 @@ class AdminController extends Controller
      *
      * Store the data from user create form
      */
-    public function users_store(Request $request) {
+    public function users_save(Request $request) {
 
         $this->validate($request,[
 
@@ -126,7 +127,7 @@ class AdminController extends Controller
 
         $user->save();
 
-        return redirect('/listusers')->with('success','User Updated');
+        return redirect('/admin/users/index')->with('success','User Updated');
     }
 
     /**
@@ -190,7 +191,7 @@ class AdminController extends Controller
 
         $user->save();
 
-        return redirect('/listusers')->with('success','User Updated');
+        return redirect('/admin/users/index')->with('success','User Updated');
 
 
     }
@@ -202,13 +203,13 @@ class AdminController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function users_destroy($id) {
+    public function users_delete($id) {
 
         $user = User::find($id);
 
         $user->delete();
 
-        return redirect('/listusers')->with('success','User Removed');
+        return redirect('/admin/users/index')->with('success','User Removed');
     }
 
 }

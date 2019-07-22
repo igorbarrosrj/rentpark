@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/addusers','AdminController@users_create');
+/*Route::get('/addusers','AdminController@users_create');
 
 Route::post('/storeusers','AdminController@users_store');
 
@@ -31,4 +31,6 @@ Route::put('/updateusers/{id}','AdminController@users_update');
 
 Route::get('/deleteusers/{id}','AdminController@users_destroy');
 
-Route::view('/admin_login','admin.auth.login');
+Route::view('/admin_login','admin.auth.login');*/
+
+?>

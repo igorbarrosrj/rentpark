@@ -1,5 +1,6 @@
 <?php
 
+ 
 Route::group(['middleware' => 'web'], function() {
 
     Route::group(['as' => 'admin.', 'prefix' => 'admin'], function() {
@@ -16,9 +17,10 @@ Route::group(['middleware' => 'web'], function() {
 
         Route::post('login', 'Auth\AdminLoginController@login')->name('login.post');
 
-        Route::get('logout', 'Auth\AdminLoginController@logout')->name('logout');
+        Route::post('logout', 'Auth\AdminLoginController@logout')->name('logout');
 
         Route::get('/', 'AdminController@index')->name('dashboard');
+
 
         /***
          *
@@ -29,15 +31,15 @@ Route::group(['middleware' => 'web'], function() {
 
         Route::get('/users/create', 'AdminController@users_create')->name('users.create');
 
-        Route::get('/users/edit', 'AdminController@users_edit')->name('users.edit');
+        Route::get('/users/edit/{id}', 'AdminController@users_edit')->name('users.edit');
 
         Route::post('/users/save', 'AdminController@users_save')->name('users.save');
 
-        Route::get('/users/view', 'AdminController@users_view')->name('users.view');
+        Route::get('/users/view/{id}', 'AdminController@users_view')->name('users.view');
 
-        Route::get('/users/delete', 'AdminController@users_delete')->name('users.delete');
+        Route::get('/users/delete/{id}', 'AdminController@users_delete')->name('users.delete');
 
-        Route::get('/users/status', 'AdminController@users_status')->name('users.status');
+        Route::put('/users/update/{id}', 'AdminController@users_update')->name('users.update');
 
     });
 

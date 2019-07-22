@@ -30,10 +30,12 @@
 
 <body>
 	
+	@include('layouts.admin.message')
 	<div class="limiter">
 		<div class="container-login100">
 			@yield('content')
 		</div>
+
 	</div>
 	
 	<script src="{{asset('admin-assets/focused/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
