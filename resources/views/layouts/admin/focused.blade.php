@@ -30,7 +30,7 @@
 
 <body>
 	
-	@include('layouts.admin.message')
+	@include('notifications.notification')
 	<div class="limiter">
 		<div class="container-login100">
 			@yield('content')

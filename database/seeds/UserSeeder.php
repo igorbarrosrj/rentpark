@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 
-class UsersTableSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,9 +12,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-    	$faker = Faker\Factory::create();
-
-        foreach (range(1,10) as $index) {
+        $faker = Faker\Factory::create();
 
         User::create([
  			
@@ -24,7 +22,7 @@ class UsersTableSeeder extends Seeder
 
             'email'	=>  $faker->email,
 
-            'password' => bcrypt('naveen123'),
+            'password' => \Hash::make('123456'),
 
             'description'	=>  $faker->city,
 
@@ -33,6 +31,6 @@ class UsersTableSeeder extends Seeder
             'mobile'	=>  $faker->phoneNumber,
         ]);
 
-    }
+        
     }
 }

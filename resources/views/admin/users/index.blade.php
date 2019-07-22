@@ -20,8 +20,7 @@
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
         
-        {{-- Declare the Serial no. Initially as 0 --}}
-        @php  $no = 0 @endphp
+        @php  $sno = 0; @endphp
 
 		<div class="well">
 						
@@ -40,21 +39,22 @@
 		                  	<th>Gender</th>
 		                  	<th>Created At</th>
 		                </tr>
+
+		                
 					               	
 							@if(count($users)>0)
-
 									@foreach($users as $user)
 						                <tr>
-						                	<td>{{ ++$no }}</td>
+						                	<td>{{ ++$sno }}</td>
 											<td>{{ $user->name }}</td>
 											<td>{{ $user->email }}</td>
 											<td>{{ $user->description }}</td>
 											<td>{{ $user->mobile }}</td>
 											<td>{{ $user->gender }}</td>
-											<td>{{ $user->created_at }}</td>
-				            				 <td><a href="view/{{ $user->id }}" class="btn btn-info">View</a></td>
-											<td><a href="edit/{{ $user->id }}" class="btn btn-primary">Edit</a></td>
-											<td><a href="delete/{{ $user->id }}" class="btn btn-danger">Delete</a>			             			
+											<td>{{ $user->created_at }}</td>	
+											<td><a href="{{ route('admin.users.view',$user->id) }}" class="btn btn-info">View</a></td>
+											<td><a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-primary">Edit</a></td>
+											<td><a href="{{ route('admin.users.delete',$user->id) }}" class="btn btn-danger">Delete</a>	             			
 				               				</td>
 						                </tr>
 						             @endforeach
