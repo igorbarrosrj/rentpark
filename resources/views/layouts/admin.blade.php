@@ -27,10 +27,10 @@
             <!-- Content will extend in another file -->
         	@yield('content')
 
+            @include('notifications.notification')
+
             <!-- Include the footer -->
         	@include('layouts.admin.footer')
-
-            @include('layouts.admin.message')
 
         </div>
     </div>
