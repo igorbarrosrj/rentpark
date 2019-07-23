@@ -9,7 +9,7 @@
                     <ul id="sidebarnav">
                         <li> <a class="waves-effect waves-dark" href="/admin" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
                         </li>
-                        
+                        </li>
                         <li class="treeview">
                           <a href="#">
                             <i class="fa fa-user-circle-o"></i>
