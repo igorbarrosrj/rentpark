@@ -39,6 +39,24 @@ Route::group(['middleware' => 'web'], function() {
 
         Route::get('/users/delete/{id}', 'AdminController@users_delete')->name('users.delete');
 
+
+        /***
+         *
+         * Service Locations management
+         *
+         */       
+        Route::get('/locations/index', 'AdminController@service_locations_index')->name('service_locations.index');
+
+        Route::get('/locations/create', 'AdminController@service_locations_create')->name('service_locations.create');
+
+        Route::get('/locations/edit/{id}', 'AdminController@service_locations_edit')->name('service_locations.edit');
+
+        Route::post('/locations/save', 'AdminController@service_locations_save')->name('service_locations.save');
+
+        Route::get('/locations/view/{id}', 'AdminController@service_locations_view')->name('service_locations.view');
+
+        Route::get('/locations/delete/{id}', 'AdminController@service_locations_delete')->name('service_locations.delete');
+
         
         /***
          *
@@ -58,22 +76,7 @@ Route::group(['middleware' => 'web'], function() {
         Route::get('/hosts/delete/{id}', 'AdminController@hosts_delete')->name('hosts.delete');
 
 
-        /***
-         *
-         * Service Locations management
-         *
-         */       
-        Route::get('/locations/index', 'AdminController@locations_index')->name('locations.index');
-
-        Route::get('/locations/create', 'AdminController@locations_create')->name('locations.create');
-
-        Route::get('/locations/edit/{id}', 'AdminController@locations_edit')->name('locations.edit');
-
-        Route::post('/locations/save', 'AdminController@locations_save')->name('locations.save');
-
-        Route::get('/locations/view/{id}', 'AdminController@locations_view')->name('locations.view');
-
-        Route::get('/locations/delete/{id}', 'AdminController@locations_delete')->name('locations.delete');
+        
 
     });
 

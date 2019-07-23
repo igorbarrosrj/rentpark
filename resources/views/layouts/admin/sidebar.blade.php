@@ -50,8 +50,8 @@
                             </span>
                           </a>
                           <ul class="treeview-menu">
-                            <li><a href="{{ route('admin.locations.index') }}"><i class="fa fa-circle-o"></i> List Service Locations</a></li>
-                            <li><a href="{{ route('admin.locations.create') }}"><i class="fa fa-circle-o"></i> Add Service Locations</a></li>
+                            <li><a href="{{ route('admin.service_locations.index') }}"><i class="fa fa-circle-o"></i> List Service Locations</a></li>
+                            <li><a href="{{ route('admin.service_locations.create') }}"><i class="fa fa-circle-o"></i> Add Service Locations</a></li>
                           </ul>
                         </li>
                        

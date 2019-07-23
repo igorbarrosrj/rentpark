@@ -18,34 +18,34 @@
                         
                         <div class="form-group">
                             
-                            <label class="name">Name</label>
+                            <label class="name">Name *</label>
 
-                            <input type="text" name="name" class="form-control" @if($user!=NULL)value="{{ $user->name }}"@endif placeholder="Name">
+                            <input type="text" name="name" class="form-control" @if($user!=NULL)value="{{ $user->name }}"@endif placeholder="Name" required>
 
                         </div>
                         
                         <div class="form-group">
                             
-                            <label class="email">Email Address</label>
+                            <label class="email">Email Address *</label>
 
-                            <input type="text" name="email" class="form-control" @if($user!=NULL)value="{{ $user->email }}"@endif placeholder="Email Address">
+                            <input type="text" name="email" class="form-control" @if($user!=NULL)value="{{ $user->email }}"@endif placeholder="Email Address" required>
                             
                         </div>
 
                          @if($user==NULL) 
                             <div class="form-group">
                                 
-                                <label class="password">Password</label>
+                                <label class="password">Password *</label>
 
-                                <input type="password" name="password" class="form-control" placeholder="Password">
+                                <input type="password" name="password" class="form-control" placeholder="Password" required>
                                 
                             </div>
 
                              <div class="form-group">
                                 
-                                <label class="cpassword">Confirm Password</label>
+                                <label class="cpassword">Confirm Password *</label>
 
-                                <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password">
+                                <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password" required>
                                 
                             </div>
                         @endif
@@ -53,9 +53,9 @@
 
                         <div class="form-group">
                             
-                            <label class="description">Description</label>
+                            <label class="description">Description *</label>
 
-                            <input type="text" name="description" class="form-control" @if($user!=NULL)value="{{ $user->description }}"@endif placeholder="description">
+                            <input type="text" name="description" class="form-control" @if($user!=NULL)value="{{ $user->description }}"@endif placeholder="description" required>
 
                         </div>
 

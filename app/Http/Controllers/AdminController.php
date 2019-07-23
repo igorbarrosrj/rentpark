@@ -10,7 +10,13 @@ use App\User;
 
 use App\Host;
 
+use App\ServiceLocation;
+
 use Illuminate\Validation\Rule;
+
+use Illuminate\Support\Facades\Storage;
+
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
@@ -44,6 +50,15 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
+
+
+    /**
+    *
+    *
+    * User Management in Admin Panel
+    *
+    */
+    
     /**
      * @method users_index()
      * 
@@ -256,6 +271,264 @@ class AdminController extends Controller
 
 
 
+
+    /**
+    *
+    *
+    * Service Location Management in Admin Panel
+    *
+    */
+    
+    /**
+     * @method locations_index()
+     * 
+     * @uses used to display the list of service location
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param NULL
+     *
+     * @return view of service location list
+     *
+     */
+    public function service_locations_index() {
+
+        $service_locations = ServiceLocation::orderBy('id')->paginate(10);
+
+        if(!$service_locations) {
+            
+            return redirect()->route('admin.service_locations.index')->with('error',"No Service Location found");
+        }
+
+        return view('admin.service_locations.index')->with('service_locations',$service_locations);
+        
+
+    }
+
+
+    /**
+     * @method service_locations_create()
+     * 
+     * @uses used to create the profile of Service Loction
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param NULL
+     *
+     * @return view of Create Service Location Page
+     *
+     */
+
+    public function service_locations_create() {
+
+        $service_location = NULL;
+
+        return view('admin.service_locations.create')->with('service_location',$service_location);
+
+    }
+
+
+    /**
+     * @method service_locations_view()
+     * 
+     * @uses used to display the view page of Service Location
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param id
+     *
+     * @return view of particular Service location
+     *
+     */
+    public function service_locations_view($id) {
+
+        $service_location = ServiceLocation::find($id);
+
+        if(!$service_location) {
+            
+            return redirect()->route('admin.service_locations.index')->with('error',"No Service Location found");
+        }
+
+        return view('admin.service_locations.show')->with('service_location',$service_location);
+        
+    }
+
+
+   /**
+     * @method service_locations_save()
+     * 
+     * @uses used to save the data of Service Location
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param Request of all data
+     *
+     * @return view of Service Locations index
+     *
+     */
+    public function service_locations_save(Request $request) {
+
+        $this->validate($request,[
+
+            'name' => 'required|min:3|max:50',
+
+            'full_address' => 'required|min:3|max:200',
+
+            'picture' => 'image|nullable|max:2999|mimes:jpeg,bmp,png,jpg',
+
+            'description' => 'required| min:5',
+
+        ]);
+
+        //Handle File Upload
+        if($request->hasFile('picture')){
+            //Get file name with extension
+            $fileNameWithExt = $request ->file('picture')->getClientOriginalName();
+
+            //dd($fileNameWithExt);
+
+            //Get the file name only
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+            //Get the file extension only
+            $extension = $request->file('picture')->getClientOriginalExtension();
+
+            //Filename to store
+            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+
+            //Upload Image
+
+            $path = $request->file('picture')->storeAs('/admin',$fileNameToStore,'public');
+
+
+        }else{
+            $fileNameToStore = 'noimage.jpg';
+        }
+
+
+        if($request->id == NULL){
+        
+            //Create Post
+
+            $service_location = New ServiceLocation;
+
+            $service_location->unique_id = uniqid(base64_encode(str_random(60)));
+
+            $service_location->picture = $fileNameToStore;
+
+        }
+        else {
+
+            $service_location = ServiceLocation::find($request->id);
+
+             if($request->picture != NULL) {
+
+                Storage::disk('public')->delete('/admin/'.$service_location->picture);
+
+                $service_location->picture = $fileNameToStore;
+            }
+
+        }
+
+
+        $service_location->name = $request->name;        
+
+        $service_location->full_address = $request->full_address;        
+
+        $service_location->description = $request->description;
+
+
+        $service_location->save();
+
+        return redirect()->route('admin.service_locations.index')->with('success','Service Location Saved');
+    }
+
+    /**
+     * @method service_locations_edit()
+     * 
+     * @uses used to display the edit page
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return view of edit page
+     *
+     */
+
+    public function service_locations_edit($id) {
+        
+        $service_location = ServiceLocation::find($id);
+
+
+        if(!$service_location) {
+            
+            return redirect()->route('admin.service_locations.index')->with('error',"No Service Location found");
+        }
+
+        return view('admin.service_locations.edit')->with('service_location',$service_location);
+
+    }
+
+
+    /**
+     * @method service_locations_delete()
+     * 
+     * @uses used to delete the service location
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return view of service location's index
+     *
+     */
+    public function service_locations_delete($id) {
+
+        $service_location = ServiceLocation::find($id);
+
+        if(!$service_location) {
+            
+            return redirect()->route('admin.service_locations.index')->with('error',"No Service Location found");
+        }
+
+        if($service_location->picture != 'noimage.jpg'){
+
+
+            Storage::disk('public')->delete('/admin/'.$service_location->picture);
+
+        }
+
+        $service_location->delete();
+
+        return redirect()->route('admin.service_locations.index')->with('success','Service Location Removed');
+        
+        
+    }
+
+
+
+    /**
+    *
+    *
+    * Host Management in Admin Panel
+    *
+    */
+
+
+
     /**
      * @method hosts_index()
      * 
@@ -305,7 +578,9 @@ class AdminController extends Controller
 
     public function hosts_create() {
 
-        return view('admin.hosts.create');
+        $host = NULL;
+
+        return view('admin.hosts.create')->with('host',$host);
 
     }
 
