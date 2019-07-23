@@ -406,7 +406,7 @@ class AdminController extends Controller
 
             //Upload Image
 
-            $path = $request->file('picture')->storeAs('/admin',$fileNameToStore,'public');
+            $path = $request->file('picture')->storeAs('/service_locations',$fileNameToStore,'public');
 
 
         }else{
@@ -431,7 +431,7 @@ class AdminController extends Controller
 
              if($request->picture != NULL) {
 
-                Storage::disk('public')->delete('/admin/'.$service_location->picture);
+                Storage::disk('public')->delete('/service_locations/'.$service_location->picture);
 
                 $service_location->picture = $fileNameToStore;
             }
@@ -507,7 +507,7 @@ class AdminController extends Controller
         if($service_location->picture != 'noimage.jpg'){
 
 
-            Storage::disk('public')->delete('/admin/'.$service_location->picture);
+            Storage::disk('public')->delete('/service_locations/'.$service_location->picture);
 
         }
 

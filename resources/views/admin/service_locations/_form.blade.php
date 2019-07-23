@@ -22,7 +22,7 @@
 
                             <input type="text" name="name" class="form-control" @if($service_location!=NULL)value="{{ $service_location->name }}"@endif placeholder="Name" required>
 
-                            @if($service_location!=NULL) <img src="/uploads/admin/{{ $service_location->picture }}" style="width: 200px;height: 200px"> @endif
+                            @if($service_location!=NULL) <img src="/uploads/service_locations/{{ $service_location->picture }}" style="width: 200px;height: 200px"> @endif
 
                         </div>
 
