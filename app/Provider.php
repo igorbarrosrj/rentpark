@@ -12,18 +12,18 @@ class Provider extends Model
 {
     use Notifiable;
 
-    protected $fillable = [
+ //    protected $fillable = [
 
-    'name',
-    'email', 
-    'password', 
-    'description',
-    'mobile',
-    'picture',
-    'work',
-    'school',
-    'language',
-	];
+ //    'name',
+ //    'email', 
+ //    'password', 
+ //    'description',
+ //    'mobile',
+ //    'picture',
+ //    'work',
+ //    'school',
+ //    'languages',
+	// ];
 
 	protected $hidden = [
         'password', 'remember_token',

@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use DB, Hash, Auth, Validator, Exception;
-
-use App\User;
-
 use App\Host;
-
+use App\Provider;
+use App\User;
+use DB, Hash, Auth, Validator, Exception;
+use Faker\Provider\Image;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+//use Image;
 
 class AdminController extends Controller
 {
@@ -478,6 +477,213 @@ class AdminController extends Controller
             return redirect()->route('admin.hosts.index')->with('danger',"No User found");
         }
         
+    }
+
+    /**
+     * @method providers_index()
+     * 
+     * @uses used to list the providers
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return provider's list
+     *
+     */
+
+    public function providers_index(Request $request) {
+
+        $providers = Provider::orderBy('id')->paginate(2);
+
+        return view('admin.providers.index')->with('providers',$providers);
+    }
+
+    /**
+     * @method providers_create()
+     * 
+     * @uses used to create the provider
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return provider's create form
+     *
+     */
+
+    public function providers_create()
+    {
+        return view('admin.providers.create');
+    }
+/**
+     * @method providers_save()
+     * 
+     * @uses used to save the provider's detail in db
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return provider's index page
+     *
+     */
+
+    public function providers_save(Request $request)
+    {
+        $request->validate([
+            
+            'name' => 'required|min:3|max:50',
+
+            'email' => 'required|email',
+
+            'password' => 'required|min:6',
+        ]);
+
+        $request->request->add(['picture' => asset('placeholder.jpg')]);
+
+        $provider_details = new Provider;
+
+        $provider_details->unique_id = rand();
+
+        $provider_details->name = $request->name ?: "";
+
+        $provider_details->email = $request->email ?: ""; 
+
+        $provider_details->description = $request->description ?: "";
+
+        $provider_details->mobile = $request->mobile ?: "";
+
+        $provider_details->work = $request->work ?: "";
+
+        $provider_details->school = $request->school ?: "";
+
+        $provider_details->languages = $request->languages ?: "";
+
+        $provider_details->password = Hash::make($request->password) ?: "";
+
+        // Uploads folder move the image 
+
+        // Get the url or image name store on the table 
+
+        if($request->hasFile('picture')) {
+
+            $image = $request->file('picture');
+
+            $extension = $image->getClientOriginalExtension();
+
+            $filename = rand().".".$extension;
+
+            $image_url = url('/uploads/providers/').'/'.$filename;
+
+            $image->move(public_path().'/uploads/providers/', $filename);  
+
+            $provider_details->picture = $image_url;
+        
+        }
+
+        $provider_details->save();
+
+
+       return redirect()->route('admin.providers.index')->with('success','Provider Saved');
+            }
+
+/**
+     * @method providers_view()
+     * 
+     * @uses used to show the provider detail
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return provider's detail
+     *
+     */
+    public function providers_view($provider_id) {
+
+        $provider = Provider::find($id);
+
+        return view('admin.providers.view')->with('providers',$provider);
+    }
+/**
+     * @method providers_edit()
+     * 
+     * @uses used to edit the provider detail
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return provider's edit form
+     *
+     */
+    public function providers_edit($provider_id) {
+        
+        $provider = Provider::find($provider_id);
+
+        return view('admin.providers.edit')->with('provider',$provider);
+
+    }
+
+    public function providers_update(Request $request,$provider_id) {
+
+        $this->validate($request,[
+
+            'name' => 'required|min:3|max:50',
+
+            'email' => 'required|email',
+
+            'password' => 'required|min:6',
+
+        ]);
+
+
+        $provider = Provider::find($provider_id);
+
+        $provider->name = $request->input('name');
+
+        $provider->email = $request->input('email');
+
+        //$provider->description = $request->input('description');
+
+        $provider->mobile = $request->input('mobile');
+
+        $provider->work = $request->input('work');
+
+        $provider->school = $request->input('school');
+
+        $provider->languages = $request->input('languages');
+
+        //$provider->picture = $request->input('picture');
+
+        $provider->save();
+
+        return redirect('/admin/providers/index')->with('success','Provider Updated');
+
+    }
+
+     public function providers_delete($provider_id) {
+
+        $provider = Provider::find($provider_id);
+
+        if(!$provider) {
+            return "error";
+        }
+
+        $provider->delete();
+
+        return redirect('/admin/providers/index')->with('success','Provider Removed');
     }
 
 }

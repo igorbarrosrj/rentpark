@@ -39,6 +39,26 @@ Route::group(['middleware' => 'web'], function() {
 
         Route::get('/users/delete/{id}', 'AdminController@users_delete')->name('users.delete');
 
+        /***
+         *
+         * Providers management
+         *
+         */       
+        Route::get('/providers/index', 'AdminController@providers_index')->name('providers.index');
+
+        Route::get('/providers/create', 'AdminController@providers_create')->name('providers.create');
+
+        Route::get('/providers/edit/{id}', 'AdminController@providers_edit')->name('providers.edit');
+
+
+        Route::post('/providers/update/', 'AdminController@providers_update')->name('providers.update');
+
+        Route::post('/providers/save', 'AdminController@providers_save')->name('providers.save');
+
+        Route::get('/providers/view/{id}', 'AdminController@providers_view')->name('providers.view');
+
+        Route::delete('/providers/delete/{provider_id}', 'AdminController@providers_delete')->name('providers.delete');
+
         
         /***
          *

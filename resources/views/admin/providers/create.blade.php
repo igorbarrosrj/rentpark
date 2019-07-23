@@ -29,7 +29,7 @@
                 <div class="col-sm-12 col-md-12">
 
                     
-                    <form action="/storeusers" method="post">
+                    <form action="{{route('admin.providers.save')}}" method="post" enctype="multipart/form-data">
 
                         {{ csrf_field() }}
                         
@@ -37,14 +37,14 @@
                             
                             <label class="name">Name</label>
 
-                            <input type="text" name="name" class="form-control" placeholder="Name">
+                            <input type="text" name="name" class="form-control" placeholder="Name" value="{{old('name')}}">
 
                         </div>
                         <div class="form-group">
                             
                             <label class="email">Email Address</label>
 
-                            <input type="text" name="email" class="form-control" placeholder="Email Address">
+                            <input type="text" name="email" class="form-control" placeholder="Email Address" value="{{old('email')}}">
                             
                         </div>
 
@@ -52,7 +52,7 @@
                             
                             <label class="password">Password</label>
 
-                            <input type="password" name="password" class="form-control" placeholder="Password">
+                            <input type="password" name="password" class="form-control" placeholder="Password" value="{{old('password')}}">
                             
                         </div>
 
@@ -60,7 +60,7 @@
                             
                             <label class="cpassword">Confirm Password</label>
 
-                            <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password">
+                            <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password" value="cpassword">
                             
                         </div>
 
@@ -82,33 +82,33 @@
 
                          <div class="form-group">
                             
-                            <label class="description">Picture</label>
+                            <label class="picture">Picture</label>
 
-                            <input type="file" name="description" class="form-control" placeholder="Picture">
-
-                        </div>
-
-                         <div class="form-group">
-                            
-                            <label class="description">Work</label>
-
-                            <input type="text" name="description" class="form-control" placeholder="Work">
+                            <input type="file" name="picture" class="form-control" value="picture" id="picture" placeholder="Picture">
 
                         </div>
 
                          <div class="form-group">
                             
-                            <label class="description">School</label>
+                            <label class="work">Work</label>
 
-                            <input type="text" name="description" class="form-control" placeholder="School">
+                            <input type="text" name="work" class="form-control" placeholder="Work">
 
                         </div>
 
                          <div class="form-group">
                             
-                            <label class="description">Languages</label>
+                            <label class="school">School</label>
 
-                            <input type="text" name="description" class="form-control" placeholder="Languages">
+                            <input type="text" name="school" class="form-control" placeholder="School">
+
+                        </div>
+
+                         <div class="form-group">
+                            
+                            <label class="languages">Languages</label>
+
+                            <input type="text" name="languages" class="form-control" placeholder="Languages">
 
                         </div>
 
