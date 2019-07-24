@@ -9,10 +9,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">User List</h3>
+                        <h3 class="text-themecolor">Service Locations List</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">List Users</li>
+                            <li class="breadcrumb-item active">List Service Locations</li>
                         </ol>
                     </div>
                 </div>
@@ -33,38 +33,34 @@
 		                  	
 		                  	<th>SNo</th>
 		                  	<th>Name</th>
-		                  	<th>Email</th>
+		                  	<th>Full Address</th>
 		                  	<th>Description</th>
-		                  	<th>Mobile</th>
-		                  	<th>Gender</th>
 		                  	<th>Created At</th>
 		                  	<th>Updated At</th>
 		                </tr>
 
 		                
 					               	
-							@if(count($users)>0)
-									@foreach($users as $user)
+							@if(count($service_locations)>0)
+									@foreach($service_locations as $service_location)
 						                <tr>
 						                	<td>{{ ++$sno }}</td>
-											<td>{{ $user->name }}</td>
-											<td>{{ $user->email }}</td>
-											<td>{{ $user->description }}</td>
-											<td>{{ $user->mobile }}</td>
-											<td>{{ $user->gender }}</td>
-											<td>{{ $user->created_at }}</td>	
-											<td>{{ $user->updated_at }}</td>
-											<td><a href="{{ route('admin.users.view',$user->id) }}" class="btn btn-info">View</a></td>
-											<td><a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-primary">Edit</a></td>
-											<td><a href="{{ route('admin.users.delete',$user->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')" >Delete</a>	             			
+											<td>{{ $service_location->name }}</td>
+											<td>{{ $service_location->full_address }}</td>
+											<td>{{ $service_location->description }}</td>
+											<td>{{ $service_location->created_at }}</td>
+											<td>{{ $service_location->updated_at }}</td>	
+											<td><a href="{{ route('admin.service_locations.view',$service_location->id) }}" class="btn btn-info">View</a></td>
+											<td><a href="{{ route('admin.service_locations.edit',$service_location->id) }}" class="btn btn-primary">Edit</a></td>
+											<td><a href="{{ route('admin.service_locations.delete',$service_location->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')" >Delete</a>	             			
 				               				</td>
 						                </tr>
 						             @endforeach
 				              </table>
-				              {{$users->links()}}
+				              {{$service_locations->links()}}
 				             
 				            @else
-				            	<h3>No Users found</h3>
+				            	<h3>No Service Location found</h3>
 				            @endif
 
 		            </div>		            

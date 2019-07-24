@@ -69,3 +69,98 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+
+
+public function providers_save(Request $request, $provider_id=null)
+    {//dd($request->all());
+        $request->validate([
+                
+                'name' => 'required|min:3|max:50',
+
+                'email' => 'required|email',
+                
+                'password' => 'sometimes|required|min:6|confirmed',
+
+
+        ]);
+
+        $provider = Provider::find($provider_id);
+
+
+        if($provider_id==null)
+        {
+            $provider = new Provider;
+
+            $provider->unique_id = rand();
+
+            $provider->password = Hash::make($request->password) ?: "";
+         } 
+
+            $provider->name = $request->name?: "";
+
+            $provider->email = $request->email?: "";
+
+            $provider->description = $request->description?: "";
+
+            $provider->mobile = $request->mobile?: "";
+
+            $provider->work = $request->work?: "";
+
+            $provider->school = $request->school?: "";
+
+            $provider->languages = $request->languages?: "";
+
+            //$provider->picture = $request->picture?: "";
+
+             // Uploads folder move the image 
+
+            // Get the url or image name store on the table 
+
+             if($request->hasFile('picture'))
+             {
+
+                $image = $request->file('picture');
+                dd($request->picture);
+
+                $extension = $image->getClientOriginalExtension();
+
+                $filename = rand().".".$extension;
+
+                $image_url = url('/uploads/providers/').'/'.$filename;
+
+                $image->move(public_path().'/uploads/providers/', $filename);  
+
+                $provider->picture = $image_url;
+            
+             }
+
+            $provider->save();
+
+        return redirect('/admin/providers/index')->with('success','Provider Saved');
+       
+    }
+
+
+
+
+
+if($request->hasFile('picture'))
+             {
+
+                $image = $request->file('picture');
+
+                $extension = $image->getClientOriginalExtension();
+
+                $filename = rand().".".$extension;
+
+                $image_url = url('/uploads/providers/').'/'.$filename;
+
+                $image->move(public_path().'/uploads/providers/', $filename);  
+
+                $provider_details->picture = $image_url;
+            
+             }
+
+            $provider_details->save();

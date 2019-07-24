@@ -20,6 +20,7 @@
                           <ul class="treeview-menu">
                             <li><a href="{{ route('admin.providers.index')}}"><i class="fa fa-circle-o"></i> List Providers</a></li>
                             <li><a href="{{ route('admin.providers.create')}}"><i class="fa fa-circle-o"></i> Add Provider</a></li>
+                          
                           </ul>
                         </li>
                         <li class="treeview">
@@ -31,9 +32,19 @@
                             </span>
                           </a>
                           <ul class="treeview-menu">
+
                             <li><a href="/listusers"><i class="fa fa-circle-o"></i> List Users</a></li>
                             <li><a href="/addusers"><i class="fa fa-circle-o"></i> Add User</a></li>
+
+                            <li><a href="{{ route('admin.service_locations.index') }}"><i class="fa fa-circle-o"></i> List Service Locations</a></li>
+                            <li><a href="{{ route('admin.service_locations.create') }}"><i class="fa fa-circle-o"></i> Add Service Locations</a></li>
+
                           </ul>
+                        </li>
+
+                        <!-- Booking Management -->
+
+                         <li> <a class="waves-effect waves-dark" href="{{ route('admin.bookings.index') }}" aria-expanded="false"><i class="fa fa-calendar-check-o"></i><span class="hide-menu">Bookings</span></a>
                         </li>
                        
                     </ul>

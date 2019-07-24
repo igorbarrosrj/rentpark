@@ -43,6 +43,8 @@ class CreateProvidersTable extends Migration
             $table->tinyInteger('status')->default(0);
             $table->string('provider_type')->default("");
             $table->timestamp('email_verified_at')->nullable();
+            // $table->boolean('admin')->default(false);
+            // $table->timestamp('approved_at')->nullable();
             $table->timestamps();
         });
     }

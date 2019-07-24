@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Booking;
 use App\Host;
 use App\Provider;
+use App\ServiceLocation;
 use App\User;
 use DB, Hash, Auth, Validator, Exception;
+
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
-//use Image;
 
 class AdminController extends Controller
 {
@@ -43,6 +47,15 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
+
+
+    /**
+    *
+    *
+    * User Management in Admin Panel
+    *
+    */
+    
     /**
      * @method users_index()
      * 
@@ -118,7 +131,7 @@ class AdminController extends Controller
             return redirect()->route('admin.users.index')->with('error',"No User found");
         }
 
-        return view('admin.users.show')->with('user',$user);
+        return view('admin.users.view')->with('user',$user);
         
     }
 
@@ -163,7 +176,7 @@ class AdminController extends Controller
 
             ]);
 
-            //Create Post
+            //Create User
 
             $user = New User;
 
@@ -255,6 +268,264 @@ class AdminController extends Controller
 
 
 
+
+    /**
+    *
+    *
+    * Service Location Management in Admin Panel
+    *
+    */
+    
+    /**
+     * @method locations_index()
+     * 
+     * @uses used to display the list of service location
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param NULL
+     *
+     * @return view of service location list
+     *
+     */
+    public function service_locations_index() {
+
+        $service_locations = ServiceLocation::orderBy('id')->paginate(10);
+
+        if(!$service_locations) {
+            
+            return redirect()->route('admin.service_locations.index')->with('error',"No Service Location found");
+        }
+
+        return view('admin.service_locations.index')->with('service_locations',$service_locations);
+        
+
+    }
+
+
+    /**
+     * @method service_locations_create()
+     * 
+     * @uses used to create the profile of Service Loction
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param NULL
+     *
+     * @return view of Create Service Location Page
+     *
+     */
+
+    public function service_locations_create() {
+
+        $service_location = NULL;
+
+        return view('admin.service_locations.create')->with('service_location',$service_location);
+
+    }
+
+
+    /**
+     * @method service_locations_view()
+     * 
+     * @uses used to display the view page of Service Location
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param id
+     *
+     * @return view of particular Service location
+     *
+     */
+    public function service_locations_view($id) {
+
+        $service_location = ServiceLocation::find($id);
+
+        if(!$service_location) {
+            
+            return redirect()->route('admin.service_locations.index')->with('error',"No Service Location found");
+        }
+
+        return view('admin.service_locations.view')->with('service_location',$service_location);
+        
+    }
+
+
+   /**
+     * @method service_locations_save()
+     * 
+     * @uses used to save the data of Service Location
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param Request of all data
+     *
+     * @return view of Service Locations index
+     *
+     */
+    public function service_locations_save(Request $request) {
+
+        $this->validate($request,[
+
+            'name' => 'required|min:3|max:50',
+
+            'full_address' => 'required|min:3|max:200',
+
+            'picture' => 'image|nullable|max:2999|mimes:jpeg,bmp,png,jpg',
+
+            'description' => 'required| min:5',
+
+        ]);
+
+        //Handle File Upload
+        if($request->hasFile('picture')){
+            //Get file name with extension
+            $fileNameWithExt = $request ->file('picture')->getClientOriginalName();
+
+            //dd($fileNameWithExt);
+
+            //Get the file name only
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+            //Get the file extension only
+            $extension = $request->file('picture')->getClientOriginalExtension();
+
+            //Filename to store
+            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+
+            //Upload Image
+
+            $path = $request->file('picture')->storeAs('/service_locations',$fileNameToStore,'public');
+
+
+        }else{
+            $fileNameToStore = 'noimage.jpg';
+        }
+
+
+        if($request->id == NULL){
+        
+            //Create Service Location
+
+            $service_location = New ServiceLocation;
+
+            $service_location->unique_id = uniqid(base64_encode(str_random(60)));
+
+            $service_location->picture = $fileNameToStore;
+
+        }
+        else {
+
+            $service_location = ServiceLocation::find($request->id);
+
+             if($request->picture != NULL) {
+
+                Storage::disk('public')->delete('/service_locations/'.$service_location->picture);
+
+                $service_location->picture = $fileNameToStore;
+            }
+
+        }
+
+
+        $service_location->name = $request->name;        
+
+        $service_location->full_address = $request->full_address;        
+
+        $service_location->description = $request->description;
+
+
+        $service_location->save();
+
+        return redirect()->route('admin.service_locations.index')->with('success','Service Location Saved');
+    }
+
+    /**
+     * @method service_locations_edit()
+     * 
+     * @uses used to display the edit page
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return view of edit page
+     *
+     */
+
+    public function service_locations_edit($id) {
+        
+        $service_location = ServiceLocation::find($id);
+
+
+        if(!$service_location) {
+            
+            return redirect()->route('admin.service_locations.index')->with('error',"No Service Location found");
+        }
+
+        return view('admin.service_locations.edit')->with('service_location',$service_location);
+
+    }
+
+
+    /**
+     * @method service_locations_delete()
+     * 
+     * @uses used to delete the service location
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return view of service location's index
+     *
+     */
+    public function service_locations_delete($id) {
+
+        $service_location = ServiceLocation::find($id);
+
+        if(!$service_location) {
+            
+            return redirect()->route('admin.service_locations.index')->with('error',"No Service Location found");
+        }
+
+        if($service_location->picture != 'noimage.jpg'){
+
+
+            Storage::disk('public')->delete('/service_locations/'.$service_location->picture);
+
+        }
+
+        $service_location->delete();
+
+        return redirect()->route('admin.service_locations.index')->with('success','Service Location Removed');
+        
+        
+    }
+
+
+
+    /**
+    *
+    *
+    * Host Management in Admin Panel
+    *
+    */
+
+
+
     /**
      * @method hosts_index()
      * 
@@ -273,16 +544,13 @@ class AdminController extends Controller
 
         $hosts = Host::orderBy('id')->paginate(10);
 
-        if($hosts){
+        if(!$hosts){
 
-            return view('admin.hosts.index')->with('hosts',$hosts);
-
+            return redirect()->route('admin.hosts.index')->with('error',"No Host found");
+            
         }
-        else {
 
-            return view('admin.hosts.index')->with('danger',"No Users found");
-        }
-        
+        return view('admin.hosts.index')->with('hosts',$hosts);        
 
     }
 
@@ -304,7 +572,25 @@ class AdminController extends Controller
 
     public function hosts_create() {
 
-        return view('admin.hosts.create');
+        $host = NULL;
+
+        $service_locations = ServiceLocation::orderBy('name')->get();
+
+        if(!$service_locations){
+
+            return redirect()->route('admin.hosts.index')->with('error',"No Service Locations found");
+            
+        }
+
+        $providers = Provider::orderBy('name')->get();
+
+        if(!$providers){
+
+            return redirect()->route('admin.hosts.index')->with('error',"No providers found");
+            
+        }
+
+        return view('admin.hosts.create')->with(['host' => $host, 'service_locations' => $service_locations, 'providers' => $providers ]);
 
     }
 
@@ -325,16 +611,15 @@ class AdminController extends Controller
      */
     public function hosts_view($id) {
 
-        $user = Host::find($id);
+        $host = Host::find($id);
 
-        if($host){
+        if(!$host){
 
-            return view('admin.hosts.show')->with('host',$host);
+            return redirect()->route('admin.hosts.index')->with('error',"No Host found");
+            
         }
-        else {
-
-            return view('admin.hosts.index')->with('danger',"No User found");
-        }
+        
+        return view('admin.hosts.view')->with('host',$host);
     }
 
 
@@ -359,60 +644,95 @@ class AdminController extends Controller
 
             'host_name' => 'required|min:3|max:50',
 
-            'provider' => 'required|min:3|max:50',
+            'provider_name' => 'required|min:3|max:50',
 
-            'host_type' => 'required|email',
+            'host_type' => 'required|min:6|max:8',
 
             'description' => 'required| min:5',
 
-            'picture' => 'regex:/[6-9][0-9]{9}/',
+            'picture' => 'image|nullable|max:2999|mimes:jpeg,bmp,png,jpg',
 
             'service_location' => 'required|min:3|max:50',
 
-            'total_spaces' => 'required|min:3|max:50',
+            'total_spaces' => 'required|min:1|max:5000|numeric',
 
             'full_address' => 'required|min:3|max:50',
 
-            'per_hour' => 'required|min:3|max:50',
+            'per_hour' => 'required|min:1|max:5000|numeric',
 
         ]);
+
+        $service_location_id = ServiceLocation::where('name',$request->service_location)->first()->id;
+
+        $provider_id = Provider::where('name',$request->provider_name)->first()->id;
+
+
+        //Handle File Upload
+        if($request->hasFile('picture')){
+            //Get file name with extension
+            $fileNameWithExt = $request ->file('picture')->getClientOriginalName();
+
+            //dd($fileNameWithExt);
+
+            //Get the file name only
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+            //Get the file extension only
+            $extension = $request->file('picture')->getClientOriginalExtension();
+
+            //Filename to store
+            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+
+            //Upload Image
+
+            $path = $request->file('picture')->storeAs('/hosts',$fileNameToStore,'public');
+
+
+        } else {
+
+            $fileNameToStore = 'noimage.jpg';
+        }
 
 
         if($request->id == NULL){
         
-            $this->validate($request,[
 
-                'email' => 'required|unique:users,email|email',
-
-                'password' => 'required|min:6',
-
-                'cpassword' => 'required|same:password|min:6',
-            ]);
-
-            //Create Post
+            //Create Host
 
             $host = New Host;
 
             $host->unique_id = uniqid(base64_encode(str_random(60)));
 
-            $host->password = bcrypt($request->password);
+            $host->picture = $fileNameToStore;
         }
         else {
             $host = Host::find($request->id);
 
+            if($request->picture != NULL) {
+
+                Storage::disk('public')->delete('/hosts/'.$host->picture);
+
+                $host->picture = $fileNameToStore;
+            }
             
         }
 
 
-        $host->name = $request->name;        
+        $host->provider_id = $provider_id;        
 
-        $host->email = $request->email;        
+        $host->host_name = $request->host_name;        
+
+        $host->host_type = $request->host_type;
 
         $host->description = $request->description;
 
-        $host->mobile = $request->mobile;
+        $host->service_location_id = $service_location_id;
 
-        $host->gender = $request->gender;
+        $host->total_spaces = $request->total_spaces;        
+
+        $host->full_address = $request->full_address;
+
+        $host->per_hour = $request->per_hour;
 
         $host->save();
 
@@ -438,14 +758,31 @@ class AdminController extends Controller
         
         $host = Host::find($id);
 
-        if($host){
+        if(!$host){
 
-            return view('admin.hosts.edit')->with('host',$host);
-        }
-        else {
-            return view('admin.hosts.index')->with('danger',"No User found");
+            return redirect()->route('admin.hosts.index')->with('error',"No Host found");
+            
         }
 
+        $service_locations = ServiceLocation::orderBy('name')->get();
+
+        if(!$service_locations){
+
+            return redirect()->route('admin.hosts.index')->with('error',"No Service Locations found");
+            
+        }
+
+        $providers = Provider::orderBy('name')->get();
+
+        if(!$providers){
+
+            return redirect()->route('admin.hosts.index')->with('error',"No providers found");
+            
+        }
+
+
+        return view('admin.hosts.edit')->with(['host' => $host, 'service_locations' => $service_locations, 'providers' => $providers]);
+    
     }
 
 
@@ -460,23 +797,96 @@ class AdminController extends Controller
      *
      * @param integer id
      *
-     * @return view of user's index
+     * @return view of host's index
      *
      */
     public function hosts_delete($id) {
 
         $host = Host::find($id);
 
-        if($host){
+        if(!$host){
 
-            $host->delete();
-
-            return redirect()->route('admin.host.index')->with('success','User Removed');
+            return redirect()->route('admin.hosts.index')->with('error',"No Host found");
+            
         }
-        else {
-            return redirect()->route('admin.hosts.index')->with('danger',"No User found");
+
+         if($host->picture != 'noimage.jpg'){
+
+
+            Storage::disk('public')->delete('/hosts/'.$host->picture);
+
+        }
+
+        $host->delete();
+
+        return redirect()->route('admin.hosts.index')->with('success','User Removed');
+        
+    }
+
+
+    /**
+    *
+    *
+    * Booking Management in Admin Panel
+    *
+    */
+
+
+
+    /**
+     * @method bookings_index()
+     * 
+     * @uses used to display the list of booking 
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param NULL
+     *
+     * @return view of boobooking list
+     *
+     */
+    public function bookings_index() {
+
+        $bookings = Booking::orderBy('id')->paginate(10);
+
+        if(!$bookings){
+
+            return redirect()->route('admin.bookings.index')->with('error',"No Booking found");
+            
+        }
+
+        return view('admin.bookings.index')->with('bookings',$bookings);        
+
+    }
+
+
+    /**
+     * @method bookings_view()
+     * 
+     * @uses used to display the Booking Details Page
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param id
+     *
+     * @return view of particular Booking
+     *
+     */
+    public function bookings_view($id) {
+
+        $booking = Booking::find($id);
+
+        if(!$booking){
+
+            return redirect()->route('admin.bookings.index')->with('error',"No Booking found");
+            
         }
         
+        return view('admin.bookings.view')->with('booking',$booking);
     }
 
     /**
@@ -496,7 +906,7 @@ class AdminController extends Controller
 
     public function providers_index(Request $request) {
 
-        $providers = Provider::orderBy('id')->paginate(2);
+        $providers = Provider::orderBy('id')->paginate(1);
 
         return view('admin.providers.index')->with('providers',$providers);
     }
@@ -535,44 +945,57 @@ class AdminController extends Controller
      *
      */
 
-    public function providers_save(Request $request)
+    
+public function providers_save(Request $request, $provider_id=null)
     {
         $request->validate([
-            
+                
             'name' => 'required|min:3|max:50',
 
             'email' => 'required|email',
+                
+            'password' => 'sometimes|required|min:6|confirmed',
 
-            'password' => 'required|min:6',
+            'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
         ]);
 
-        $request->request->add(['picture' => asset('placeholder.jpg')]);
+        $provider = Provider::find($provider_id);
 
-        $provider_details = new Provider;
+        if($provider_id==null)
+        {
+            $provider = new Provider;
 
-        $provider_details->unique_id = rand();
+            $provider->unique_id = rand();
 
-        $provider_details->name = $request->name ?: "";
+            $provider->password = Hash::make($request->password) ?: "";
+        } 
 
-        $provider_details->email = $request->email ?: ""; 
+        $provider->name = $request->name?: "";
 
-        $provider_details->description = $request->description ?: "";
+        $provider->email = $request->email?: "";
 
-        $provider_details->mobile = $request->mobile ?: "";
+        $provider->description = $request->description?: "";
 
-        $provider_details->work = $request->work ?: "";
+        $provider->mobile = $request->mobile?: "";
 
-        $provider_details->school = $request->school ?: "";
+        $provider->work = $request->work?: "";
 
-        $provider_details->languages = $request->languages ?: "";
+        $provider->school = $request->school?: "";
 
-        $provider_details->password = Hash::make($request->password) ?: "";
+        $provider->languages = $request->languages?: ""; 
 
-        // Uploads folder move the image 
+        if($request->hasFile('picture'))
 
-        // Get the url or image name store on the table 
+        {
+            $imageName=$provider->picture;
 
-        if($request->hasFile('picture')) {
+            $image_path = public_path('/uploads/providers/'.$imageName);  
+
+            if(File::exists($image_path)) 
+            {
+            File::delete($image_path);
+            }   
 
             $image = $request->file('picture');
 
@@ -580,21 +1003,22 @@ class AdminController extends Controller
 
             $filename = rand().".".$extension;
 
-            $image_url = url('/uploads/providers/').'/'.$filename;
+            //$image_url = url('/uploads/providers/').'/'.$filename;
 
             $image->move(public_path().'/uploads/providers/', $filename);  
 
-            $provider_details->picture = $image_url;
+            $provider->picture = $filename;
         
         }
 
-        $provider_details->save();
+        $provider->save();
+
+        return redirect(route('admin.providers.index'))->with('success','Provider Saved');
+       
+    }
 
 
-       return redirect()->route('admin.providers.index')->with('success','Provider Saved');
-            }
-
-/**
+    /**
      * @method providers_view()
      * 
      * @uses used to show the provider detail
@@ -608,13 +1032,14 @@ class AdminController extends Controller
      * @return provider's detail
      *
      */
-    public function providers_view($provider_id) {
+    public function providers_view($provider_id) 
+    {
 
         $provider = Provider::find($id);
 
         return view('admin.providers.view')->with('providers',$provider);
     }
-/**
+    /**
      * @method providers_edit()
      * 
      * @uses used to edit the provider detail
@@ -628,62 +1053,41 @@ class AdminController extends Controller
      * @return provider's edit form
      *
      */
-    public function providers_edit($provider_id) {
+    public function providers_edit($provider_id) 
+    {
         
         $provider = Provider::find($provider_id);
 
         return view('admin.providers.edit')->with('provider',$provider);
 
     }
-
-    public function providers_update(Request $request,$provider_id) {
-
-        $this->validate($request,[
-
-            'name' => 'required|min:3|max:50',
-
-            'email' => 'required|email',
-
-            'password' => 'required|min:6',
-
-        ]);
-
-
-        $provider = Provider::find($provider_id);
-
-        $provider->name = $request->input('name');
-
-        $provider->email = $request->input('email');
-
-        //$provider->description = $request->input('description');
-
-        $provider->mobile = $request->input('mobile');
-
-        $provider->work = $request->input('work');
-
-        $provider->school = $request->input('school');
-
-        $provider->languages = $request->input('languages');
-
-        //$provider->picture = $request->input('picture');
-
-        $provider->save();
-
-        return redirect('/admin/providers/index')->with('success','Provider Updated');
-
-    }
-
-     public function providers_delete($provider_id) {
+    /**
+     * @method providers_delete()
+     * 
+     * @uses used to delete the provider detail
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return provider's index
+     *
+     */
+    public function providers_delete($provider_id) 
+    {
 
         $provider = Provider::find($provider_id);
 
-        if(!$provider) {
+        if(!$provider) 
+        {
             return "error";
         }
 
         $provider->delete();
 
-        return redirect('/admin/providers/index')->with('success','Provider Removed');
+        return redirect(route('admin.providers.index'))->with('success','Provider Removed');
     }
 
 }

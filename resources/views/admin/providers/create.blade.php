@@ -60,7 +60,7 @@
                             
                             <label class="cpassword">Confirm Password</label>
 
-                            <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password" value="cpassword">
+                            <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password" value="{{old('password_confirmation')}}">
                             
                         </div>
 
@@ -68,7 +68,7 @@
                             
                             <label class="description">Description</label>
 
-                            <input type="text" name="description" class="form-control" placeholder="description">
+                            <input type="text" name="description" class="form-control" value="{{old('description')}}" placeholder="description">
 
                         </div>
 
@@ -76,7 +76,7 @@
                             
                             <label class="mobile">Mobile Number</label>
 
-                            <input type="text" name="mobile" class="form-control" placeholder="Mobile Number">
+                            <input type="text" name="mobile" class="form-control" value="{{old('mobile')}}" placeholder="Mobile Number">
 
                         </div> 
 
@@ -84,7 +84,7 @@
                             
                             <label class="picture">Picture</label>
 
-                            <input type="file" name="picture" class="form-control" value="picture" id="picture" placeholder="Picture">
+                            <input type="file" name="picture" class="form-control" value="{{old('picture')}}" id="picture" placeholder="Picture">
 
                         </div>
 
@@ -92,7 +92,7 @@
                             
                             <label class="work">Work</label>
 
-                            <input type="text" name="work" class="form-control" placeholder="Work">
+                            <input type="text" name="work" class="form-control" value="{{old('work')}}" placeholder="Work">
 
                         </div>
 
@@ -100,7 +100,7 @@
                             
                             <label class="school">School</label>
 
-                            <input type="text" name="school" class="form-control" placeholder="School">
+                            <input type="text" name="school" class="form-control" value="{{old('school')}}" placeholder="School">
 
                         </div>
 
@@ -108,11 +108,9 @@
                             
                             <label class="languages">Languages</label>
 
-                            <input type="text" name="languages" class="form-control" placeholder="Languages">
+                            <input type="text" name="languages" class="form-control" value="{{old('languages')}}" placeholder="Languages">
 
                         </div>
-
-                       
 
                         <input type="submit" name="Submit" class="btn btn-primary">
 

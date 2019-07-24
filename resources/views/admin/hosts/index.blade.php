@@ -9,10 +9,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">User List</h3>
+                        <h3 class="text-themecolor">Hosts List</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">List Users</li>
+                            <li class="breadcrumb-item active">List Hosts</li>
                         </ol>
                     </div>
                 </div>
@@ -32,39 +32,38 @@
 		                <tr>
 		                  	
 		                  	<th>SNo</th>
-		                  	<th>Name</th>
-		                  	<th>Email</th>
-		                  	<th>Description</th>
-		                  	<th>Mobile</th>
-		                  	<th>Gender</th>
-		                  	<th>Created At</th>
+		                  	<th>Host Name</th>
+		                  	<th>Provider Name</th>
+		                  	<th>Host Type</th>
+		                  	<th>Service Location</th>
+		                  	<th>Total Spaces</th>
+		                  	<th>Per Hour</th>
 		                  	<th>Updated At</th>
 		                </tr>
 
-		                
-					               	
-							@if(count($users)>0)
-									@foreach($users as $user)
+		            	               	
+							@if(count($hosts)>0)
+									@foreach($hosts as $host)
 						                <tr>
 						                	<td>{{ ++$sno }}</td>
-											<td>{{ $user->name }}</td>
-											<td>{{ $user->email }}</td>
-											<td>{{ $user->description }}</td>
-											<td>{{ $user->mobile }}</td>
-											<td>{{ $user->gender }}</td>
-											<td>{{ $user->created_at }}</td>	
-											<td>{{ $user->updated_at }}</td>
-											<td><a href="{{ route('admin.users.view',$user->id) }}" class="btn btn-info">View</a></td>
-											<td><a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-primary">Edit</a></td>
-											<td><a href="{{ route('admin.users.delete',$user->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')" >Delete</a>	             			
+											<td>{{ $host->host_name }}</td>
+											<td>{{ $host->provider()->first()->name }}</td>
+											<td>{{ $host->host_type }}</td>
+											<td>{{ $host->service_location()->first()->name }}</td>
+											<td>{{ $host->total_spaces }}</td>
+											<td>{{ $host->per_hour }}</td>
+											<td>{{ $host->updated_at }}</td>
+											<td><a href="{{ route('admin.hosts.view',$host->id) }}" class="btn btn-info">View</a></td>
+											<td><a href="{{ route('admin.hosts.edit',$host->id) }}" class="btn btn-primary">Edit</a></td>
+											<td><a href="{{ route('admin.hosts.delete',$host->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')" >Delete</a>	             			
 				               				</td>
 						                </tr>
 						             @endforeach
 				              </table>
-				              {{$users->links()}}
+				              {{$hosts->links()}}
 				             
 				            @else
-				            	<h3>No Users found</h3>
+				            	<h3>No Hosts found</h3>
 				            @endif
 
 		            </div>		            
