@@ -36,6 +36,7 @@
 		                  	<th>Full Address</th>
 		                  	<th>Description</th>
 		                  	<th>Created At</th>
+		                  	<th>Updated At</th>
 		                </tr>
 
 		                
@@ -47,10 +48,11 @@
 											<td>{{ $service_location->name }}</td>
 											<td>{{ $service_location->full_address }}</td>
 											<td>{{ $service_location->description }}</td>
-											<td>{{ $service_location->created_at }}</td>	
+											<td>{{ $service_location->created_at }}</td>
+											<td>{{ $service_location->updated_at }}</td>	
 											<td><a href="{{ route('admin.service_locations.view',$service_location->id) }}" class="btn btn-info">View</a></td>
 											<td><a href="{{ route('admin.service_locations.edit',$service_location->id) }}" class="btn btn-primary">Edit</a></td>
-											<td><a href="{{ route('admin.service_locations.delete',$service_location->id) }}" class="btn btn-danger">Delete</a>	             			
+											<td><a href="{{ route('admin.service_locations.delete',$service_location->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')" >Delete</a>	             			
 				               				</td>
 						                </tr>
 						             @endforeach

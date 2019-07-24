@@ -32,29 +32,30 @@
 		                <tr>
 		                  	
 		                  	<th>SNo</th>
-		                  	<th>Name</th>
-		                  	<th>Email</th>
-		                  	<th>Description</th>
-		                  	<th>Mobile</th>
-		                  	<th>Gender</th>
-		                  	<th>Created At</th>
+		                  	<th>Host Name</th>
+		                  	<th>Provider Name</th>
+		                  	<th>Host Type</th>
+		                  	<th>Service Location</th>
+		                  	<th>Total Spaces</th>
+		                  	<th>Per Hour</th>
+		                  	<th>Updated At</th>
 		                </tr>
 
-		                
-					               	
+		            	               	
 							@if(count($hosts)>0)
 									@foreach($hosts as $host)
 						                <tr>
 						                	<td>{{ ++$sno }}</td>
-											<td>{{ $host->name }}</td>
-											<td>{{ $host->email }}</td>
-											<td>{{ $host->description }}</td>
-											<td>{{ $host->mobile }}</td>
-											<td>{{ $host->gender }}</td>
-											<td>{{ $host->created_at }}</td>	
+											<td>{{ $host->host_name }}</td>
+											<td>{{ $host->provider()->first()->name }}</td>
+											<td>{{ $host->host_type }}</td>
+											<td>{{ $host->service_location()->first()->name }}</td>
+											<td>{{ $host->total_spaces }}</td>
+											<td>{{ $host->per_hour }}</td>
+											<td>{{ $host->updated_at }}</td>
 											<td><a href="{{ route('admin.hosts.view',$host->id) }}" class="btn btn-info">View</a></td>
 											<td><a href="{{ route('admin.hosts.edit',$host->id) }}" class="btn btn-primary">Edit</a></td>
-											<td><a href="{{ route('admin.hosts.delete',$host->id) }}" class="btn btn-danger">Delete</a>	             			
+											<td><a href="{{ route('admin.hosts.delete',$host->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')" >Delete</a>	             			
 				               				</td>
 						                </tr>
 						             @endforeach

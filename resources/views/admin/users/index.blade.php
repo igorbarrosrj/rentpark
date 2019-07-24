@@ -38,6 +38,7 @@
 		                  	<th>Mobile</th>
 		                  	<th>Gender</th>
 		                  	<th>Created At</th>
+		                  	<th>Updated At</th>
 		                </tr>
 
 		                
@@ -52,9 +53,10 @@
 											<td>{{ $user->mobile }}</td>
 											<td>{{ $user->gender }}</td>
 											<td>{{ $user->created_at }}</td>	
+											<td>{{ $user->updated_at }}</td>
 											<td><a href="{{ route('admin.users.view',$user->id) }}" class="btn btn-info">View</a></td>
 											<td><a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-primary">Edit</a></td>
-											<td><a href="{{ route('admin.users.delete',$user->id) }}" class="btn btn-danger">Delete</a>	             			
+											<td><a href="{{ route('admin.users.delete',$user->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')" >Delete</a>	             			
 				               				</td>
 						                </tr>
 						             @endforeach

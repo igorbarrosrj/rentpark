@@ -5,6 +5,8 @@
 
                 <div class="col-sm-12 col-md-12">
 
+                    <a href="{{ route('admin.service_locations.index') }}" class="btn btn-primary">Go Back</a>
+
                     <form action="{{ route('admin.service_locations.save') }}" method="post" enctype="multipart/form-data">
 
                         {{ csrf_field() }}
@@ -20,12 +22,13 @@
                             
                             <label class="name">Name *</label>
 
-                            <input type="text" name="name" class="form-control" @if($service_location!=NULL)value="{{ $service_location->name }}"@endif placeholder="Name" required>
-
-                            @if($service_location!=NULL) <img src="/uploads/service_locations/{{ $service_location->picture }}" style="width: 200px;height: 200px"> @endif
+                            <input type="text" name="name" class="form-control" @if($service_location!=NULL)value="{{ $service_location->name }}"@endif placeholder="Name" required> 
 
                         </div>
 
+                        <div class="form-group">
+                            @if($service_location!=NULL) <img src="/uploads/service_locations/{{ $service_location->picture }}" style="width: 200px;height: 200px"> @endif
+                        </div>
                         <div class="form-group">
                             
                             <label class="picture">Picture</label>

@@ -5,6 +5,8 @@
 
                 <div class="col-sm-12 col-md-12">
 
+                    <a href="{{ route('admin.users.index') }}" class="btn btn-primary">Go Back</a>
+
                     <form action="{{ route('admin.users.save') }}" method="post">
 
                         {{ csrf_field() }}
