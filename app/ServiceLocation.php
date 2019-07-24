@@ -14,4 +14,10 @@ class ServiceLocation extends Model
     protected $fillable = [
         'name', 'full_address', 'description',
     ];
+
+    
+    public function bookings() {
+
+        return $this->hasMany('App\Booking');
+    }
 }

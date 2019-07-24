@@ -54,6 +54,11 @@
                             <li><a href="{{ route('admin.service_locations.create') }}"><i class="fa fa-circle-o"></i> Add Service Locations</a></li>
                           </ul>
                         </li>
+
+                        <!-- Booking Management -->
+
+                         <li> <a class="waves-effect waves-dark" href="{{ route('admin.bookings.index') }}" aria-expanded="false"><i class="fa fa-calendar-check-o"></i><span class="hide-menu">Bookings</span></a>
+                        </li>
                        
                     </ul>
                 </nav>

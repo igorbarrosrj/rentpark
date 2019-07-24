@@ -74,7 +74,16 @@ Route::group(['middleware' => 'web'], function() {
         Route::get('/hosts/view/{id}', 'AdminController@hosts_view')->name('hosts.view');
 
         Route::get('/hosts/delete/{id}', 'AdminController@hosts_delete')->name('hosts.delete');
+        
 
+        /***
+         *
+         * Booking management
+         *
+         */       
+        Route::get('/bookings/index', 'AdminController@bookings_index')->name('bookings.index');
+
+        Route::get('/bookings/view/{id}', 'AdminController@bookings_view')->name('bookings.view');
 
         
 

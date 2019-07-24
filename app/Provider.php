@@ -19,4 +19,9 @@ class Provider extends Model
 
         return $this->hasMany('App\ServiceLocation');
     }
+
+    public function bookings() {
+
+        return $this->hasMany('App\Booking');
+    }
 }

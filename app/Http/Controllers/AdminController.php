@@ -14,6 +14,8 @@ use App\ServiceLocation;
 
 use App\Provider;
 
+use App\Booking;
+
 use Illuminate\Validation\Rule;
 
 use Illuminate\Support\Facades\Storage;
@@ -826,6 +828,72 @@ class AdminController extends Controller
 
         return redirect()->route('admin.hosts.index')->with('success','User Removed');
         
+    }
+
+
+    /**
+    *
+    *
+    * Booking Management in Admin Panel
+    *
+    */
+
+
+
+    /**
+     * @method bookings_index()
+     * 
+     * @uses used to display the list of booking 
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param NULL
+     *
+     * @return view of boobooking list
+     *
+     */
+    public function bookings_index() {
+
+        $bookings = Booking::orderBy('id')->paginate(10);
+
+        if(!$bookings){
+
+            return redirect()->route('admin.bookings.index')->with('error',"No Booking found");
+            
+        }
+
+        return view('admin.bookings.index')->with('bookings',$bookings);        
+
+    }
+
+
+    /**
+     * @method bookings_view()
+     * 
+     * @uses used to display the Booking Details Page
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param id
+     *
+     * @return view of particular Booking
+     *
+     */
+    public function bookings_view($id) {
+
+        $booking = Booking::find($id);
+
+        if(!$booking){
+
+            return redirect()->route('admin.bookings.index')->with('error',"No Booking found");
+            
+        }
+        
+        return view('admin.bookings.view')->with('booking',$booking);
     }
 
 }

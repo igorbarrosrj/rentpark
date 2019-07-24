@@ -23,4 +23,9 @@ class Host extends Model
     	return $this->belongsTo('App\ServiceLocation');
     } 
 
+    public function booking() {
+
+        return $this->hasMany('App\Booking');
+    }
+
 }
