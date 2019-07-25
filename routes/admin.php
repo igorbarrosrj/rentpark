@@ -39,6 +39,8 @@ Route::group(['middleware' => 'web'], function() {
 
         Route::get('/users/delete/{id}', 'AdminController@users_delete')->name('users.delete');
 
+        Route::get('/users/status/{id}', 'AdminController@users_status')->name('users.status');
+
 
         /***
          *
@@ -57,6 +59,7 @@ Route::group(['middleware' => 'web'], function() {
 
         Route::get('/locations/delete/{id}', 'AdminController@service_locations_delete')->name('service_locations.delete');
 
+        Route::get('/service_locations/status/{id}', 'AdminController@service_locations_status')->name('service_locations.status');
         
         /***
          *
@@ -74,6 +77,8 @@ Route::group(['middleware' => 'web'], function() {
         Route::get('/hosts/view/{id}', 'AdminController@hosts_view')->name('hosts.view');
 
         Route::get('/hosts/delete/{id}', 'AdminController@hosts_delete')->name('hosts.delete');
+
+        Route::get('/hosts/status/{id}', 'AdminController@hosts_status')->name('hosts.status');
         
 
         /***
@@ -84,6 +89,19 @@ Route::group(['middleware' => 'web'], function() {
         Route::get('/bookings/index', 'AdminController@bookings_index')->name('bookings.index');
 
         Route::get('/bookings/view/{id}', 'AdminController@bookings_view')->name('bookings.view');
+
+
+
+        /***
+         *
+         * Settings
+         *
+         */ 
+        Route::get('/settings/index', 'AdminController@settings_index')->name('settings.index');
+
+        Route::post('/settings/save', 'AdminController@settings_save')->name('settings.save');
+
+
 
         
 

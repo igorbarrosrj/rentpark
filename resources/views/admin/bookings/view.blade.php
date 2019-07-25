@@ -20,28 +20,42 @@
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
 
+        <a href="{{ route('admin.bookings.index') }}" class="btn btn-primary">Go Back</a>
 
-		<div class="well">
-						
-			<div class="row">
-
-				<div class="col-sm-12 col-md-12">
-					<a href="{{ route('admin.bookings.index') }}" class="btn btn-primary">Go Back</a>
-
+		< <div class="row">
+        <!-- column -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
 		            <div class="box-body">
-		              <table class="table table-bordered">
+		              <table class="table ">
 		                <tr>
 		                  	<th>Details</th>
 		                  	<th>Booking Data</th>
 		                </tr>
 		             	<tr>
 		             		<td>User Name</td>
-		             		<td><a href="{{ route('admin.users.view',$booking->user()->first()->id) }}">{{ $booking->user()->first()->name }}</a></td>	
+		             		<td>
+
+		             			@if($booking->user()->first()!=NULL)
+
+						            <a href="{{ route('admin.users.view',$booking->user()->first()->id) }}">{{ $booking->user()->first()->name }}</a>
+						        @else
+						            No User Available
+						        @endif	
+						     </td>	
 		             	</tr>
 
 		             	<tr>
 		             		<td>Provider Name</td>
-		             		<td><a href="#">{{ $booking->provider()->first()->name}}</a></td>
+		             		<td>
+		             			@if($booking->provider()->first()!=NULL)
+
+						            <a href="#">{{ $booking->provider()->first()->name }}</a>
+						        @else
+						            No Provider Available
+						        @endif
+		             		</td>
 		             	</tr>
 
 		             	{{-- <tr>
@@ -51,7 +65,16 @@
  --}}
 		             	<tr>
 		             		<td>Host Name</td>
-		             		<td><a href="{{ route('admin.hosts.view',$booking->host()->first()->id) }}">{{ $booking->host()->first()->host_name }}</a></td>
+		             		<td>
+
+		             			@if($booking->host()->first()!=NULL)
+
+									<a href="{{ route('admin.hosts.view',$booking->host()->first()->id) }}">{{ $booking->host()->first()->host_name }}</a>										
+								@else
+									No Host Available
+								@endif
+
+		             		</td>
 		             	</tr>	
 
 		             	<tr>

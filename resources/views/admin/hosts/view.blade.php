@@ -15,21 +15,24 @@
                             <li class="breadcrumb-item active">Host Detail</li>
                         </ol>
                     </div>
+                    <div class="col-md-7 align-self-center">
+                        <a href="{{ route('admin.hosts.index') }}" class="btn btn-primary pull-right hidden-sm-down">Go Back</a>
+                    </div>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
 
-
-		<div class="well">
-						
-			<div class="row">
-
-				<div class="col-sm-12 col-md-12">
-					<a href="{{ route('admin.hosts.index') }}" class="btn btn-primary">Go Back</a>
+		 <div class="row">
+        <!-- column -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Host Detail</h4>
+					
 
 		            <div class="box-body">
-		              <table class="table table-bordered">
+		              <table class="table ">
 		                <tr>
 		                  	<th>Details</th>
 		                  	<th>User Data</th>
@@ -41,7 +44,14 @@
 
 		             	<tr>
 		             		<td>Provider Name</td>
-		             		<td>{{ $host->provider()->first()->name}}</td>
+		             		<td>
+		             			@if($host->provider()->first()!=NULL)
+									<a href="#">{{ $host->provider()->first()->name }}</a>
+								@else
+									No Provider Available
+								@endif
+
+		             		</td>
 		             	</tr>	
 
 		             	<tr>
@@ -61,7 +71,14 @@
 
 		             	<tr>
 		             		<td>Service Loction</td>
-		             		<td>{{ $host->service_location()->first()->name }}</td>
+		             		<td>
+		             			@if($host->service_location()->first()!=NULL)
+									<a href="{{ route('admin.service_locations.view',$host->service_location()->first()->id) }}">{{ $host->service_location()->first()->name }}</a>
+								@else
+									No Service Location Found
+								@endif
+
+		             		</td>
 		             	</tr>	
 
 		             	<tr>
@@ -90,7 +107,41 @@
 		             	</tr>
 
 		             	<tr>
+		             		<td>Status</td>
+		             		@switch($host->status)
+
+                                @case(0)
+                                    <td><div class="label label-danger">Declined</div></td>
+                                @break
+
+                                @case(1)
+                                    <td><div class="label label-success">Approved</div></td>
+                                @break
+
+                            @endswitch
+		             	</tr>
+
+		             	<tr>
 		             		<td> <a href="{{ route('admin.hosts.edit',$host->id) }}" class="btn btn-primary">Edit</a></td>
+
+		             		<td>
+		             			
+		             			<a href="{{ route('admin.hosts.status',$host->id) }}" class="btn btn-info">
+                                                             
+                                    @switch($host->status)
+
+                                    @case(0)
+                                        Approve
+                                    @break
+
+                                    @case(1)
+                                        Decline
+                                    @break
+
+                                   	@endswitch
+
+                                </a>
+		             		</td>
 
 		             		<td>
 		             			<a href="{{ route('admin.hosts.delete',$host->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>

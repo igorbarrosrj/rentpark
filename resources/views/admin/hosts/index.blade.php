@@ -20,15 +20,16 @@
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
         
-        @php  $sno = 0; @endphp
+    @php  $sno = 0; @endphp
 
-		<div class="well">
+	<div class="row">
 						
-			<div class="row">
-
-				<div class="col-sm-12 col-md-12">
-					<div class="box-body">
-		              <table class="table table-bordered">
+		<div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Hosts</h4>
+                    <div class="table-responsive">
+		            <table class="table">
 		                <tr>
 		                  	
 		                  	<th>SNo</th>
@@ -39,37 +40,83 @@
 		                  	<th>Total Spaces</th>
 		                  	<th>Per Hour</th>
 		                  	<th>Updated At</th>
+		                  	<th>Status</th>
+		                  	<th>Action</th>
 		                </tr>
 
-		            	               	
-							@if(count($hosts)>0)
-									@foreach($hosts as $host)
-						                <tr>
-						                	<td>{{ ++$sno }}</td>
-											<td>{{ $host->host_name }}</td>
-											<td>{{ $host->provider()->first()->name }}</td>
-											<td>{{ $host->host_type }}</td>
-											<td>{{ $host->service_location()->first()->name }}</td>
-											<td>{{ $host->total_spaces }}</td>
-											<td>{{ $host->per_hour }}</td>
-											<td>{{ $host->updated_at }}</td>
-											<td><a href="{{ route('admin.hosts.view',$host->id) }}" class="btn btn-info">View</a></td>
-											<td><a href="{{ route('admin.hosts.edit',$host->id) }}" class="btn btn-primary">Edit</a></td>
-											<td><a href="{{ route('admin.hosts.delete',$host->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')" >Delete</a>	             			
-				               				</td>
-						                </tr>
-						             @endforeach
-				              </table>
-				              {{$hosts->links()}}
-				             
-				            @else
-				            	<h3>No Hosts found</h3>
-				            @endif
+		                @if(count($hosts)>0)
+							@foreach($hosts as $host)
+								<tr>
+								 	<td>{{ ++$sno }}</td>
+									<td><a href="{{ route('admin.hosts.view',$host->id) }}">{{ $host->host_name }}</a></td>
+									<td>
+										@if($host->provider()->first()!=NULL)
+											<a href="#">{{ $host->provider()->first()->name }}</a>
+										@else
+											No Provider Available
+										@endif
+									</td>
+									<td>{{ $host->host_type }}</td>
+									<td>
+										@if($host->service_location()->first()!=NULL)
+											<a href="{{ route('admin.service_locations.view',$host->service_location()->first()->id) }}">{{ $host->service_location()->first()->name }}</a>
+										@else
+											No Service Location Found
+										@endif
+									</td>
+									<td>{{ $host->total_spaces }}</td>
+									<td>{{ $host->per_hour }}</td>
+									<td>{{ $host->updated_at }}</td>
+									 @switch($host->status)
+
+                                                @case(0)
+                                                    <td><div class="label label-danger">Declined</div></td>
+                                                @break
+
+                                                @case(1)
+                                                    <td><div class="label label-success">Approved</div></td>
+                                                @break
+
+                                            @endswitch
+									<td>
+										<div class="dropdown">
+                                            <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Action
+                                            <span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{{ route('admin.hosts.view',$host->id) }}" class="dropdown-item" >View</a></li>
+                                                <li><a href="{{ route('admin.hosts.edit',$host->id) }}" class="dropdown-item">Edit</a></li>
+                                                <li><a href="{{ route('admin.hosts.delete',$host->id) }}" class="dropdown-item" onclick="return confirm('Are you sure want to delete host {{ $host->host_name }}?')" >Delete</a></li>
+                                                <div class="dropdown-divider"></div>
+                                                         <li><a href="{{ route('admin.hosts.status',$host->id) }}" class="dropdown-item">
+                                                             
+                                                             @switch($host->status)
+
+                                                                @case(0)
+                                                                    Approve
+                                                                @break
+
+                                                                @case(1)
+                                                                    Decline
+                                                                @break
+
+                                                            @endswitch
+
+                                                         </a></li>
+                                            </ul>
+                                         </div> 
+									</td>								
+								</tr>
+							@endforeach
+						@else
+				            <tr><td colspan=5><h3>No Hosts found</h3></td></tr>
+				        @endif
+						       		
+				    </table>
+				    
+				    {{$hosts->links()}}
 
 		            </div>		            
-	          </div>
-	    
-								
+	          </div>		
 			</div>							
 		</div>
 	</div>

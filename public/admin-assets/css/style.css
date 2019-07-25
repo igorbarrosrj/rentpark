@@ -989,7 +989,7 @@ File: scss
   width: 100%; }
 
 .fix-header .page-wrapper {
-  padding-top: 70px; }
+  padding-top: 90px; }
 
 .fix-header .right-side-panel {
   top: 70px;
@@ -5684,7 +5684,14 @@ File: scss
  ============================================================== */
 @media (min-width: 1024px) {
   .page-wrapper {
-    margin-left: 260px; } }
+    margin-left: 260px; 
+
+    padding-left: 20px;
+
+    padding-right: 20px;
+
+
+    } }
 
 @media (max-width: 1023px) {
   .page-wrapper {

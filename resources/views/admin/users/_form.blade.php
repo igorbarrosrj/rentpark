@@ -1,11 +1,10 @@
 
- <div class="well">
-                        
-            <div class="row">
-
-                <div class="col-sm-12 col-md-12">
-
-                    <a href="{{ route('admin.users.index') }}" class="btn btn-primary">Go Back</a>
+ <div class="row">
+    <!-- column -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">User Details</h4>
 
                     <form action="{{ route('admin.users.save') }}" method="post">
 
@@ -87,3 +86,4 @@
               </div>                                
             </div>                          
         </div>
+    </div>
