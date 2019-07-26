@@ -1344,4 +1344,11 @@ class AdminController extends Controller
         return redirect()->route('admin.settings.index')->with('success','Settings Saved');
     }
 
+    public function admin_profile($admin_id)
+    {
+        $admin = Admin::find($admin_id);
+
+        return view('admin.profile.admin-profile')->with('admin',$admin);
+    }
+
 }
