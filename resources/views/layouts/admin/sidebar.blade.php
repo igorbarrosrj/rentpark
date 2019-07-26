@@ -28,7 +28,6 @@
                             <i class="fa fa-user-circle-o"></i>
                             <span>User</span>
                             <i class="fa fa-home"></i>
-                            <span>Host</span>
                             <span class="pull-right-container">
                               <i class="fa fa-angle-left pull-right"></i>
                             </span>
@@ -36,6 +35,25 @@
                           <ul class="treeview-menu">
                             <li><a href="/listusers"><i class="fa fa-circle-o"></i> List Users</a></li>
                             <li><a href="/addusers"><i class="fa fa-circle-o"></i> Add User</a></li>
+                          </ul>
+                        </li>
+
+                        <!-- Host -->
+                        <li class="treeview">
+                          <a href="#">
+                            <i class="fa fa-user-circle-o"></i>
+                            <span>Host</span>
+                            <i class="fa fa-home"></i>
+                            <span class="pull-right-container">
+                              <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                          </a>
+                          <ul class="treeview-menu">
+                             <li><a href="{{ route('admin.hosts.index') }}"><i class="fa fa-circle-o"></i> List Hosts</a></li>
+                             <li><a href="{{ route('admin.hosts.create') }}"><i class="fa fa-circle-o"></i> Add Host</a></li>
+                          </ul>
+                        </li>
+
 
                         <!--Service Loctions-->
                         <li class="treeview">
