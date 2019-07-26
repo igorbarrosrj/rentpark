@@ -7,7 +7,7 @@
                 <!-- Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="/admin">
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
@@ -58,6 +58,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/admin">Dashboard</a>
+                                <a class="dropdown-item" href="/admin/providers/index">Profile</a>
                                 <a class="dropdown-item" href="/admin/logout"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">

@@ -16,6 +16,9 @@
                             <li class="breadcrumb-item active">Create Service Location</li>
                         </ol>
                     </div>
+                    <div class="col-md-7 align-self-center">
+                        <a href="{{ route('admin.service_locations.index') }}" class="btn btn-primary pull-right hidden-sm-down">Go Back</a>
+                    </div>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->

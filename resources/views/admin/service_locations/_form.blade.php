@@ -1,11 +1,11 @@
+<div class="row">
+        <!-- column -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Service Location Detail</h4>
 
- <div class="well">
-                        
-            <div class="row">
-
-                <div class="col-sm-12 col-md-12">
-
-                    <a href="{{ route('admin.service_locations.index') }}" class="btn btn-primary">Go Back</a>
+                    
 
                     <form action="{{ route('admin.service_locations.save') }}" method="post" enctype="multipart/form-data">
 
@@ -59,3 +59,4 @@
               </div>                                
             </div>                          
         </div>
+    </div>

@@ -39,6 +39,9 @@
             <td>{{$provider->school}}</td>
             <td>{{$provider->languages}}</td>
             <td>
+                <a href="{{ route('admin.providers.view',$provider->id)}}" class="btn btn-primary">View</a>
+            </td>
+            <td>
                 <a href="{{ route('admin.providers.edit',$provider->id)}}" class="btn btn-primary">Edit</a>
             </td>
             <td>

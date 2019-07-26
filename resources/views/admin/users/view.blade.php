@@ -15,21 +15,25 @@
                             <li class="breadcrumb-item active">User Detail</li>
                         </ol>
                     </div>
+                    <div class="col-md-7 align-self-center">
+                        <a href="{{ route('admin.users.index') }}" class="btn btn-primary pull-right hidden-sm-down">Go Back</a>
+                    </div>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
 
+        
 
-		<div class="well">
-						
-			<div class="row">
-
-				<div class="col-sm-12 col-md-12">
-					<a href="{{ route('admin.users.index') }}" class="btn btn-primary">Go Back</a>
+		<div class="row">
+	    <!-- column -->
+	    <div class="col-12">
+	        <div class="card">
+	            <div class="card-body">
+                <h4 class="card-title">User Details</h4>
 
 		            <div class="box-body">
-		              <table class="table table-bordered">
+		              <table class="table ">
 		                <tr>
 		                  	<th>Details</th>
 		                  	<th>User Data</th>
@@ -70,11 +74,45 @@
 		             	</tr>
 
 		             	<tr>
+		             		<td>Status</td>
+		             		@switch($user->status)
+
+                                @case(0)
+                                    <td><div class="label label-danger">Declined</div></td>
+                                @break
+
+                                @case(1)
+                                    <td><div class="label label-success">Approved</div></td>
+                                @break
+
+                            @endswitch
+		             	</tr>
+
+		             	<tr>
+
 		             		<td> <a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-primary">Edit</a></td>
-		             		{{-- <td><a href="{{ route('users.destroy',1) }}"  class="btn btn-danger">Delete</a> --}}
 
 		             		<td>
-		             			<a href="{{ route('admin.users.delete',$user->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')" >Delete</a>
+		             			
+		             			<a href="{{ route('admin.users.status',$user->id) }}" class="btn btn-info">
+                                                             
+                                    @switch($user->status)
+
+                                    @case(0)
+                                        Approve
+                                    @break
+
+                                    @case(1)
+                                        Decline
+                                    @break
+
+                                   	@endswitch
+
+                                </a>
+		             		</td>
+
+		             		<td>
+		             			<a href="{{ route('admin.users.delete',$user->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure want to delete the user {{ $user->name }}?')" >Delete</a>
                				</td>
 		             	</tr>			             					
 									
@@ -85,4 +123,5 @@
 			</div>							
 		</div>
 	</div>
+</div>
 @endsection

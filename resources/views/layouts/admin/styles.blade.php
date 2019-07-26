@@ -11,9 +11,9 @@
 
 <!-- Favicon icon -->
 
-<link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon.png')}}">
+<link rel="icon" type="image/png" sizes="16x16" href="/uploads/admin/{{ setting()->get('favicon')}}"> 
 
-<title>RentPark Lite</title>
+<title>{{ setting()->get('site_name') }}</title> 
 
 <!-- Bootstrap Core CSS -->
 <link href="{{asset('admin-assets/node_modules/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">

@@ -8,12 +8,15 @@ use App\Provider;
 use App\ServiceLocation;
 use App\User;
 use DB, Hash, Auth, Validator, Exception;
+use Illuminate\Support\Facades\Cookie;
 
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+
+use Setting;
 
 class AdminController extends Controller
 {
@@ -201,6 +204,8 @@ class AdminController extends Controller
 
         $user->gender = $request->gender;
 
+        $user->status = 1;
+
         $user->save();
 
         return redirect()->route('admin.users.index')->with('success','User Saved');
@@ -262,6 +267,50 @@ class AdminController extends Controller
         $user->delete();
 
         return redirect()->route('admin.users.index')->with('success','User Removed');
+        
+        
+    }
+
+    /**
+     * @method users_status()
+     * 
+     * @uses used to status of the user
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return view of user's index
+     *
+     */
+    public function users_status($id) {
+
+        $user = User::find($id);
+
+        if(!$user) {
+            
+            return redirect()->route('admin.users.index')->with('error',"No User found");
+        }
+
+        switch ($user->status) {
+            case 0:
+                
+                $user->status = 1;
+
+                break;
+
+            case 1:
+                
+                $user->status = 0;
+
+                break;
+            
+        }
+        $user->save();
+
+        return redirect()->back()->with('success','Status Updated !');
         
         
     }
@@ -515,6 +564,50 @@ class AdminController extends Controller
         
     }
 
+     /**
+     * @method service_locations_status()
+     * 
+     * @uses used to status of the service_location
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return view of service_location's index
+     *
+     */
+    public function service_locations_status($id) {
+
+        $service_location = ServiceLocation::find($id);
+
+        if(!$service_location) {
+            
+            return redirect()->route('admin.service_locations.index')->with('error',"No Host found");
+        }
+
+        switch ($service_location->status) {
+            case 0:
+                
+                $service_location->status = 1;
+
+                break;
+
+            case 1:
+                
+                $service_location->status = 0;
+
+                break;
+            
+        }
+        $service_location->save();
+
+        return redirect()->back()->with('Success','Status updated !');
+        
+        
+    }
+
 
 
     /**
@@ -734,6 +827,8 @@ class AdminController extends Controller
 
         $host->per_hour = $request->per_hour;
 
+        $host->status = 1;
+
         $host->save();
 
         return redirect()->route('admin.hosts.index')->with('success','User Saved');
@@ -823,6 +918,50 @@ class AdminController extends Controller
         
     }
 
+    /**
+     * @method hosts_status()
+     * 
+     * @uses used to status of the host
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return view of host's index
+     *
+     */
+    public function hosts_status($id) {
+
+        $host = Host::find($id);
+
+        if(!$host) {
+            
+            return redirect()->route('admin.hosts.index')->with('error',"No Host found");
+        }
+
+        switch ($host->status) {
+            case 0:
+                
+                $host->status = 1;
+
+                break;
+
+            case 1:
+                
+                $host->status = 0;
+
+                break;
+            
+        }
+        $host->save();
+
+        return redirect()->back()->with('Success','Status updated !');
+        
+        
+    }
+
 
     /**
     *
@@ -844,7 +983,7 @@ class AdminController extends Controller
      *
      * @param NULL
      *
-     * @return view of boobooking list
+     * @return view of booking list
      *
      */
     public function bookings_index() {
@@ -888,7 +1027,6 @@ class AdminController extends Controller
         
         return view('admin.bookings.view')->with('booking',$booking);
     }
-
     /**
      * @method providers_index()
      * 
@@ -944,9 +1082,7 @@ class AdminController extends Controller
      * @return provider's index page
      *
      */
-
-    
-public function providers_save(Request $request, $provider_id=null)
+    public function providers_save(Request $request, $provider_id=null)
     {
         $request->validate([
                 
@@ -956,9 +1092,10 @@ public function providers_save(Request $request, $provider_id=null)
                 
             'password' => 'sometimes|required|min:6|confirmed',
 
-            'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
         ]);
+
 
         $provider = Provider::find($provider_id);
 
@@ -969,9 +1106,13 @@ public function providers_save(Request $request, $provider_id=null)
             $provider->unique_id = rand();
 
             $provider->password = Hash::make($request->password) ?: "";
+
+            //$request->flashExcept('password');
         } 
 
         $provider->name = $request->name?: "";
+        // $value = Cookie::get('$provider->name');
+        // dd($value);
 
         $provider->email = $request->email?: "";
 
@@ -985,9 +1126,18 @@ public function providers_save(Request $request, $provider_id=null)
 
         $provider->languages = $request->languages?: ""; 
 
+       // $request->flashOnly(['username', 'email']);
+
+        // if($request->flashOnly(['username','email'])){
+        //     dd('hello'); }
+        
+    //     if ($request->filled('name')) {
+    // dd('yes');
+    //}
+
         if($request->hasFile('picture'))
 
-        {
+        {   
             $imageName=$provider->picture;
 
             $image_path = public_path('/uploads/providers/'.$imageName);  
@@ -1008,16 +1158,20 @@ public function providers_save(Request $request, $provider_id=null)
             $image->move(public_path().'/uploads/providers/', $filename);  
 
             $provider->picture = $filename;
+
+            // $path = $request->picture->path();
+            //dd($image);
         
         }
+
+
+
 
         $provider->save();
 
         return redirect(route('admin.providers.index'))->with('success','Provider Saved');
        
     }
-
-
     /**
      * @method providers_view()
      * 
@@ -1035,9 +1189,9 @@ public function providers_save(Request $request, $provider_id=null)
     public function providers_view($provider_id) 
     {
 
-        $provider = Provider::find($id);
+        $provider = Provider::find($provider_id);
 
-        return view('admin.providers.view')->with('providers',$provider);
+        return view('admin.providers.view')->with('provider',$provider);
     }
     /**
      * @method providers_edit()
@@ -1088,6 +1242,106 @@ public function providers_save(Request $request, $provider_id=null)
         $provider->delete();
 
         return redirect(route('admin.providers.index'))->with('success','Provider Removed');
+    }
+
+    /**
+    *
+    *
+    * Settings in Admin Panel
+    *
+    */
+
+
+
+    /**
+     * @method settingss_index()
+     * 
+     * @uses used to display the Setting Page 
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param NULL
+     *
+     * @return view of settings
+     *
+     */
+    public function settings_index() {
+
+        return view('admin.settings.index');
+    }
+
+
+    public function settings_save(Request $request) {
+
+
+        $this->validate($request,[
+
+            'site_name' => 'required|min:3|max:50',
+
+            'site_logo' => 'image|nullable|max:2999|mimes:png',
+
+            'favicon' => 'image|nullable|max:2999|mimes:png',
+
+        ]);
+        setting();
+
+        //Handle File Upload
+        if($request->hasFile('favicon')){
+
+            Storage::disk('public')->delete('/admin/'.Setting::get('favicon'));
+
+            //Get file name with extension
+            $fileNameWithExt = $request ->file('favicon')->getClientOriginalName();;
+            //dd($fileNameWithExt);
+
+            //Get the file name only
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+            //Get the file extension only
+            $extension = $request->file('favicon')->getClientOriginalExtension();
+
+            //Filename to store
+            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+
+            //Upload Image
+
+            $path = $request->file('favicon')->storeAs('/admin',$fileNameToStore,'public');
+
+            setting(['favicon' => $fileNameToStore])->save();
+
+        } 
+
+         if($request->hasFile('site_logo')){
+
+            Storage::disk('public')->delete('/admin/'.Setting::get('site_logo'));
+
+            //Get file name with extension
+            $fileNameWithExt = $request ->file('site_logo')->getClientOriginalName();;
+            //dd($fileNameWithExt);
+
+            //Get the file name only
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+            //Get the file extension only
+            $extension = $request->file('site_logo')->getClientOriginalExtension();
+
+            //Filename to store
+            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+
+            //Upload Image
+
+            $path = $request->file('site_logo')->storeAs('/admin',$fileNameToStore,'public');
+
+            setting(['site_logo' => $fileNameToStore])->save();
+
+        } 
+            
+        setting(['site_name' => $request->site_name])->save();
+
+
+        return redirect()->route('admin.settings.index')->with('success','Settings Saved');
     }
 
 }
