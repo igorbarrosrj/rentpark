@@ -35,7 +35,7 @@ return [
 	|
 	*/
 	// If set to null, the default connection will be used.
-	'connection' => 'localhost',
+	'connection' => '',
 	// Name of the table used.
 	'table' => 'settings',
 	// If you want to use custom column names in database store you could 

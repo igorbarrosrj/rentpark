@@ -41,10 +41,13 @@
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="/admin-assets/images/admins{{ Auth::user()->picture }}" alt="user" class="" /> <span class="hidden-md-down">{{ Auth::user()->name }} &nbsp;</span> </a>
                         </li> --}}
 
-                        @auth('admin')
+{{--                         @auth('admin') --}}
                         <li class="nav-item dropdown">
                            
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('uploads/admin'.Auth::user()->picture) }}" alt="user" class="" /> <span class="hidden-md-down">{{ Auth::user()->name }} &nbsp;</span> </a>
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{-- <img src="{{ asset('uploads/admin'.Auth::user()->picture) }}" alt="user" class="" /> <span class="hidden-md-down">{{ Auth::user()->name }} &nbsp;</span> --}} 
+                                Provider
+                             </a>
 
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -61,14 +64,14 @@
                                 
                             </div>
                         </li>
-
+{{-- 
                     @else
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.login') }}">{{ __('Login') }}</a>
                         </li>
                     
-                    @endauth
+                    @endauth --}}
                     </ul>
 
                 </div>

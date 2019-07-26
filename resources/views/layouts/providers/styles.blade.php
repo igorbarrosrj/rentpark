@@ -11,7 +11,7 @@
 
 <!-- Favicon icon -->
 
-<link rel="icon" type="image/png"  href="{{ setting()->get('favicon')}}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ Setting::get('favicon')}}">
 
 <title>{{ setting()->get('site_name') }}</title>
 

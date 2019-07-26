@@ -18,13 +18,12 @@
 
                          <div class="form-group">
 
-                           <img src="/uploads/admin/{{ Setting::get(
-                                'favicon')}}" style="width: 200px;height: 200px"> 
+                           <img src="{{ setting()->get('favicon')}}" style="width: 200px;height: 200px"> 
                         </div>
 
                         <div class="form-group">
                             
-                            <label class="favicon">Favicon</label><br>
+                            <label class="favicon">Favicon *</label><br>
 
                             <span>Only .png images</span>
 
@@ -34,13 +33,13 @@
 
                         <div class="form-group">
 
-                           <img src="/uploads/admin/{{ Setting::get(
+                           <img src="{{ Setting::get(
                                 'site_logo')}}" style="width: 200px;height: 200px"> 
                         </div>
 
                         <div class="form-group">
                             
-                            <label class="site_logo">Site Logo</label><br>
+                            <label class="site_logo">Site Logo *</label><br>
 
                             <span>Only .png images</span>
 
