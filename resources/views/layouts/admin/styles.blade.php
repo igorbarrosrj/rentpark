@@ -13,7 +13,8 @@
 
 <link rel="icon" type="image/png"  href="{{ setting()->get('favicon')}}">
 
-<title>{{ setting()->get('site_name') }}</title>
+
+<title>{{ setting()->get('site_name') }}</title> 
 
 <!-- Bootstrap Core CSS -->
 <link href="{{asset('admin-assets/node_modules/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">

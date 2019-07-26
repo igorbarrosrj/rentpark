@@ -31,7 +31,7 @@ class RedirectIfAuthenticated
 
                 if (Auth::guard($guard)->check()) {
 
-                    return redirect()->route('provider.profile');
+                    return redirect()->route('provider.profile.view');
                 }
                 break;
             

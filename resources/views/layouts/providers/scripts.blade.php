@@ -1,38 +1,23 @@
-<!-- ============================================================== -->
-<!-- All Jquery -->
- <!-- ============================================================== -->
-<script src="{{asset('admin-assets/node_modules/jquery/jquery.min.js')}}"></script>
+ <!-- Bootstrap core JavaScript-->
+  <script src="{{ asset('provider-assets/vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{ asset('provider-assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
-<!-- Bootstrap popper Core JavaScript -->
-<script src="{{asset('admin-assets/node_modules/bootstrap/js/popper.min.js')}}"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="{{ asset('provider-assets/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
-<script src="{{asset('admin-assets/node_modules/bootstrap/js/bootstrap.min.js')}}"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="{{ asset('provider-assets/js/sb-admin-2.min.js')}}"></script>
 
-<!-- slimscrollbar scrollbar JavaScript -->
-<script src="{{asset('admin-assets/js/perfect-scrollbar.jquery.min.js')}}"></script>
+  <!-- Page level plugins -->
+  <script src="{{ asset('provider-assets/vendor/chart.js/Chart.min.js')}}"></script>
 
-<!--Wave Effects -->
-<script src="{{asset('admin-assets/js/waves.js')}}"></script>
-    
-<!--Menu sidebar -->
-<script src="{{asset('admin-assets/js/sidebarmenu.js')}}"></script>
-    
-<!--Custom JavaScript -->
-<script src="{{asset('admin-assets/js/custom.min.js')}}"></script>
+  <!-- Page level custom scripts -->
+  <script src="{{ asset('provider-assets/js/demo/chart-area-demo.js')}}"></script>
+  <script src="{{ asset('provider-assets/js/demo/chart-pie-demo.js')}}"></script>
 
-<!-- ============================================================== -->
-<!-- This page plugins -->
-<!-- ============================================================== -->
+  <!-- Page level plugins -->
+  <script src="{{ asset('provider-assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('provider-assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
-<!--morris JavaScript -->
-<script src="{{asset('admin-assets/node_modules/raphael/raphael-min.js')}}"></script>
-
-<script src="{{asset('admin-assets/node_modules/morrisjs/morris.min.js')}}"></script>
-    
-<!--c3 JavaScript -->
-<script src="{{asset('admin-assets/node_modules/d3/d3.min.js')}}"></script>
-  
-<script src="{{asset('admin-assets/node_modules/c3-master/c3.min.js')}}"></script>
-    
-<!-- Chart JS -->
-<script src="{{asset('admin-assets/js/dashboard1.js')}}"></script>
+  <!-- Page level custom scripts -->
+  <script src="{{ asset('provider-assets/js/demo/datatables-demo.js') }}"></script>

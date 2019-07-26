@@ -2,25 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use DB, Hash, Auth, Validator, Exception;
-
-use App\User;
-
-use App\Host;
-
-use App\ServiceLocation;
-
-use App\Provider;
-
 use App\Booking;
+use App\Host;
+use App\Provider;
+use App\ServiceLocation;
+use App\User;
+use DB, Hash, Auth, Validator, Exception;
+use Illuminate\Support\Facades\Cookie;
 
-use Illuminate\Validation\Rule;
-
-use Illuminate\Support\Facades\Storage;
-
+use Faker\Provider\Image;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 use Setting;
 
@@ -222,12 +216,11 @@ class AdminController extends Controller
 
             $to_email = $request->email;
 
-            $data = array("name"=> $request->name, "body" => "You account is created ", "username" => $request->email, "password" => $request->password, "link" => url('/')."/login");
+            $data = array("name"=> $request->name, "body" => "You account is created ", "username" => $request->email, "password" => $request->password, "link" => route('login'));
 
             Mail::send('admin.users.mail.index', $data, function($message) use ($to_name, $to_email) {$message->to($to_email, $to_name)->subject("Account Activation");
 
-
-            $message->from("naveensnlbe@gmail.com","RentPark");;});
+            $message->from(\Config::get('mail.from.address'),"RentPark");;});
 
             return redirect()->route('admin.users.index')->with('success','User Saved');
 
@@ -1050,9 +1043,229 @@ class AdminController extends Controller
         return view('admin.bookings.view')->with('booking',$booking);
     }
 
+    /**
+    *
+    * Providers Management
+    *
+    **/
+
+
+    /**
+     * @method providers_index()
+     * 
+     * @uses used to list the providers
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return provider's list
+     *
+     */
+
+    public function providers_index(Request $request) {
+
+        $providers = Provider::orderBy('id')->paginate(5);
+
+        return view('admin.providers.index')->with('providers',$providers);
+    }
+
+    /**
+     * @method providers_create()
+     * 
+     * @uses used to create the provider
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return provider's create form
+     *
+     */
+
+    public function providers_create()
+    {
+        return view('admin.providers.create');
+    }
+/**
+     * @method providers_save()
+     * 
+     * @uses used to save the provider's detail in db
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return provider's index page
+     *
+     */
+    public function providers_save(Request $request, $provider_id=null)
+    {
+        $request->validate([
+                
+            'name' => 'required|min:3|max:50',
+
+            'email' => 'required|email',
+                
+            'password' => 'sometimes|required|min:6|confirmed',
+
+            'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+        ]);
+
+
+        $provider = Provider::find($provider_id);
+
+        if($provider_id==null)
+        {
+            $provider = new Provider;
+
+            $provider->unique_id = rand();
+
+            $provider->password = Hash::make($request->password) ?: "";
+
+            //$request->flashExcept('password');
+        } 
+
+        $provider->name = $request->name?: "";
+        // $value = Cookie::get('$provider->name');
+        // dd($value);
+
+        $provider->email = $request->email?: "";
+
+        $provider->description = $request->description?: "";
+
+        $provider->mobile = $request->mobile?: "";
+
+        $provider->work = $request->work?: "";
+
+        $provider->school = $request->school?: "";
+
+        $provider->languages = $request->languages?: ""; 
+
+       // $request->flashOnly(['username', 'email']);
+
+        // if($request->flashOnly(['username','email'])){
+        //     dd('hello'); }
+        
+    //     if ($request->filled('name')) {
+    // dd('yes');
+    //}
+
+        if($request->hasFile('picture'))
+
+        {   
+            $imageName=$provider->picture;
+
+            $image_path = public_path('/uploads/providers/'.$imageName);  
+
+            if(File::exists($image_path)) 
+            {
+            File::delete($image_path);
+            }   
+
+            $image = $request->file('picture');
+
+            $extension = $image->getClientOriginalExtension();
+
+            $filename = rand().".".$extension;
+
+            //$image_url = url('/uploads/providers/').'/'.$filename;
+
+            $image->move(public_path().'/uploads/providers/', $filename);  
+
+            $provider->picture = $filename;
+
+            // $path = $request->picture->path();
+            //dd($image);
+        
+        }
 
 
 
+
+        $provider->save();
+
+        return redirect(route('admin.providers.index'))->with('success','Provider Saved');
+       
+    }
+    /**
+     * @method providers_view()
+     * 
+     * @uses used to show the provider detail
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return provider's detail
+     *
+     */
+    public function providers_view($provider_id) 
+    {
+
+        $provider = Provider::find($provider_id);
+
+        return view('admin.providers.view')->with('provider',$provider);
+    }
+    /**
+     * @method providers_edit()
+     * 
+     * @uses used to edit the provider detail
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return provider's edit form
+     *
+     */
+    public function providers_edit($provider_id) 
+    {
+        
+        $provider = Provider::find($provider_id);
+
+        return view('admin.providers.edit')->with('provider',$provider);
+
+    }
+    /**
+     * @method providers_delete()
+     * 
+     * @uses used to delete the provider detail
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return provider's index
+     *
+     */
+    public function providers_delete($provider_id) 
+    {
+
+        $provider = Provider::find($provider_id);
+
+        if(!$provider) 
+        {
+            return "error";
+        }
+
+        $provider->delete();
+
+        return redirect(route('admin.providers.index'))->with('success','Provider Removed');
+    }
 
     /**
     *
@@ -1133,6 +1346,13 @@ class AdminController extends Controller
 
 
         return redirect()->route('admin.settings.index')->with('success','Settings Saved');
+    }
+
+    public function admin_profile($admin_id)
+    {
+        $admin = Admin::find($admin_id);
+
+        return view('admin.profile.admin-profile')->with('admin',$admin);
     }
 
 }

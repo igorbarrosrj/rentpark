@@ -7,10 +7,28 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
+
+                        <!-- Dashboard -->
                         <li> <a class="waves-effect waves-dark" href="/admin" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
                         </li>
 
-                        <!--Users-->
+                        <!-- Provider -->
+                        <li class="treeview">
+                          <a href="#">
+                            <i class="fa fa-user-circle-o"></i>
+                            <span>Provider</span>
+                            <span class="pull-right-container">
+                              <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                          </a>
+                          <ul class="treeview-menu">
+                            <li><a href="{{ route('admin.providers.index')}}"><i class="fa fa-circle-o"></i> List Providers</a></li>
+                            <li><a href="{{ route('admin.providers.create')}}"><i class="fa fa-circle-o"></i> Add Provider</a></li>
+                          
+                          </ul>
+                        </li>
+
+                        <!-- User -->
                         <li class="treeview">
                           <a href="#">
                             <i class="fa fa-user-circle-o"></i>
@@ -25,20 +43,22 @@
                           </ul>
                         </li>
 
-                        <!--Hosts-->
+                        <!-- Host -->
                         <li class="treeview">
                           <a href="#">
                             <i class="fa fa-home"></i>
                             <span>Host</span>
+                            
                             <span class="pull-right-container">
                               <i class="fa fa-angle-left pull-right"></i>
                             </span>
                           </a>
                           <ul class="treeview-menu">
-                            <li><a href="{{ route('admin.hosts.index') }}"><i class="fa fa-circle-o"></i> List Hosts</a></li>
-                            <li><a href="{{ route('admin.hosts.create') }}"><i class="fa fa-circle-o"></i> Add Host</a></li>
+                             <li><a href="{{ route('admin.hosts.index') }}"><i class="fa fa-circle-o"></i> List Hosts</a></li>
+                             <li><a href="{{ route('admin.hosts.create') }}"><i class="fa fa-circle-o"></i> Add Host</a></li>
                           </ul>
                         </li>
+
 
                         <!--Service Loctions-->
                         <li class="treeview">
@@ -53,6 +73,7 @@
                           <ul class="treeview-menu">
                             <li><a href="{{ route('admin.service_locations.index') }}"><i class="fa fa-circle-o"></i> List Service Locations</a></li>
                             <li><a href="{{ route('admin.service_locations.create') }}"><i class="fa fa-circle-o"></i> Add Service Locations</a></li>
+
                           </ul>
                         </li>
 

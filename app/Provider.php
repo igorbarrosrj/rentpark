@@ -2,10 +2,39 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Provider extends Model
+use App\Notifications\ProviderResetPasswordNotification;
+
+
+class Provider extends Authenticatable
 {
+
+    use Notifiable;
+
+ //    protected $fillable = [
+
+ //    'name',
+ //    'email', 
+ //    'password', 
+ //    'description',
+ //    'mobile',
+ //    'picture',
+ //    'work',
+ //    'school',
+ //    'languages',
+	// ];
+
+	protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
 	protected $fillable = [
         'name', 'email', 'password', 'description',
     ];
@@ -24,4 +53,10 @@ class Provider extends Model
 
         return $this->hasMany('App\Booking');
     }
+
+     public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ProviderResetPasswordNotification($token));
+    }
+
 }

@@ -20,12 +20,12 @@ class CreateProvidersTable extends Migration
             $table->string('unique_id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('token');
+            $table->string('token')->default('');
             $table->string('password');
             $table->string('description')->default("");
             $table->string('mobile')->default("");
             $table->string('picture')->default(env('APP_URL')."/placeholder.jpg");
-            $table->string('token_expiry');
+            $table->string('token_expiry')->default('');
             $table->string('work')->default("");
             $table->string('school')->default("");
             $table->text('languages');
@@ -35,14 +35,16 @@ class CreateProvidersTable extends Migration
             $table->enum('login_by',array('manual','facebook','google','twitter' , 'linkedin'));
             $table->string('social_unique_id')->default('');
             $table->enum('gender',array('male','female','others'));
-            $table->double('latitude',15,8);
-            $table->double('longitude',15,8);
+            $table->double('latitude',15,8)->default();
+            $table->double('longitude',15,8)->default();
             $table->text('full_address')->nullable();
             $table->string('payment_mode')->default('cod');
             $table->string('timezone')->default('America/Los_Angeles');
             $table->tinyInteger('status')->default(0);
             $table->string('provider_type')->default("");
             $table->timestamp('email_verified_at')->nullable();
+            // $table->boolean('admin')->default(false);
+            // $table->timestamp('approved_at')->nullable();
             $table->timestamps();
         });
     }

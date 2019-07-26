@@ -1,7 +1,7 @@
 <?php
 Route::group(['middleware' => 'web'], function() {
 
-    Route::group(['as' => 'provider.', 'prefix' => 'provider'], function() {
+    Route::group(['as' => 'provider.', 'prefix' => ''], function() {
 
         Route::get('/clear-cache', function() {
 
@@ -10,15 +10,28 @@ Route::group(['middleware' => 'web'], function() {
             return back();
 
         })->name('clear-cache');
-/*
-        Route::get('login', 'Auth\AdminLoginController@showLoginForm')->name('login');
 
-        Route::post('login', 'Auth\AdminLoginController@login')->name('login.post');
+        Route::get('login', 'Auth\ProviderLoginController@showLoginForm')->name('login');
 
-        Route::post('logout', 'Auth\AdminLoginController@logout')->name('logout');
+        Route::post('login', 'Auth\ProviderLoginController@login')->name('login.post');
 
-        Route::get('/', 'AdminController@index')->name('dashboard');
-*/
+        Route::get('register', 'Auth\ProviderRegisterController@showRegisterForm')->name('register');
+
+        Route::post('register', 'Auth\ProviderRegisterController@register')->name('register.post');
+
+        Route::post('logout', 'Auth\ProviderLoginController@logout')->name('logout');
+
+        Route::get('/', 'ProviderController@index')->name('dashboard');
+
+        //password reset Routes
+        Route::post('/password/email','Auth\ProviderForgotPasswordController@sendResetLinkEmail')->name('password.email');
+
+        Route::get('/password/reset','Auth\ProviderForgotPasswordController@showLinkRequestForm')->name('password.request');
+
+        Route::post('/password/reset','Auth\ProviderResetPasswordController@reset');
+
+        Route::get('/password/reset/{token}','Auth\ProviderResetPasswordController@showResetForm')->name('password.reset');
+
 
     
         /***
@@ -41,7 +54,24 @@ Route::group(['middleware' => 'web'], function() {
         Route::get('/hosts/status/{id}', 'ProviderController@hosts_status')->name('hosts.status');
 
 
-        
+        /***
+         *
+         * Profile management
+         *
+         */       
+
+        Route::get('/profile/edit/{id}', 'ProviderController@profile_edit')->name('profile.edit');
+
+        Route::post('/profile/save', 'ProviderController@profile_save')->name('profile.save');
+
+        Route::get('/profile/view', 'ProviderController@profile_view')->name('profile.view');
+
+        Route::get('/profile/delete/{id}', 'ProviderController@profile_delete')->name('profile.delete');
+
+        Route::get('/profile/password/', 'ProviderController@profile_password')->name('profile.password');
+
+        Route::post('/profile/password/save', 'ProviderController@profile_password_save')->name('profile.password.save');
+
 
     });
 
