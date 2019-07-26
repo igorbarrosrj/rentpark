@@ -906,7 +906,7 @@ class AdminController extends Controller
 
     public function providers_index(Request $request) {
 
-        $providers = Provider::orderBy('id')->paginate(1);
+        $providers = Provider::orderBy('id')->paginate(5);
 
         return view('admin.providers.index')->with('providers',$providers);
     }
