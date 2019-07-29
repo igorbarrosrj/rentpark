@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use App\Booking;
 use App\Host;
 use App\Provider;
 use App\ServiceLocation;
 use App\User;
-use DB, Hash, Auth, Validator, Exception;
-use Illuminate\Support\Facades\Cookie;
-
+use DB, Auth, Hash, Validator, Exception;
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
-
 use Setting;
 
 class AdminController extends Controller
@@ -1106,13 +1105,9 @@ class AdminController extends Controller
             $provider->unique_id = rand();
 
             $provider->password = Hash::make($request->password) ?: "";
-
-            //$request->flashExcept('password');
         } 
 
         $provider->name = $request->name?: "";
-        // $value = Cookie::get('$provider->name');
-        // dd($value);
 
         $provider->email = $request->email?: "";
 
@@ -1125,15 +1120,6 @@ class AdminController extends Controller
         $provider->school = $request->school?: "";
 
         $provider->languages = $request->languages?: ""; 
-
-       // $request->flashOnly(['username', 'email']);
-
-        // if($request->flashOnly(['username','email'])){
-        //     dd('hello'); }
-        
-    //     if ($request->filled('name')) {
-    // dd('yes');
-    //}
 
         if($request->hasFile('picture'))
 
@@ -1153,19 +1139,10 @@ class AdminController extends Controller
 
             $filename = rand().".".$extension;
 
-            //$image_url = url('/uploads/providers/').'/'.$filename;
-
             $image->move(public_path().'/uploads/providers/', $filename);  
 
             $provider->picture = $filename;
-
-            // $path = $request->picture->path();
-            //dd($image);
-        
         }
-
-
-
 
         $provider->save();
 
@@ -1344,11 +1321,171 @@ class AdminController extends Controller
         return redirect()->route('admin.settings.index')->with('success','Settings Saved');
     }
 
-    public function admin_profile($admin_id)
+    /**
+     * @method admin_profile_save()
+     * 
+     * @uses used to store the admin detail
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return admin profile view page
+     *
+     */
+    public function admin_profile_save(Request $request, $admin_id)
+    {
+        $request->validate([
+                
+            'name' => 'required|min:3|max:50',
+
+            'email' => 'required|email',
+                
+            'password' => 'sometimes|required|min:6|confirmed',
+
+            'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+        ]);
+
+        $admin = Admin::find($admin_id);
+
+        $admin->name = $request->name?: "";
+        
+        $admin->email = $request->email?: "";
+
+        $admin->about = $request->about?: "";
+
+        $admin->mobile = $request->mobile?: "";
+
+        if($request->hasFile('picture'))
+
+        {   
+            $imageName=$admin->picture;
+
+            $image_path = public_path('/uploads/admin/'.$imageName);  
+
+            if(File::exists($image_path)) 
+            {
+            File::delete($image_path);
+            }   
+
+            $image = $request->file('picture');
+
+            $extension = $image->getClientOriginalExtension();
+
+            $filename = rand().".".$extension;
+
+            $image->move(public_path().'/uploads/admin/', $filename);  
+
+            $admin->picture = $filename;
+    
+        }
+
+
+        $admin->save();
+
+        return view('admin.profile.view')->with('admin',$admin);
+       
+    }
+    /**
+     * @method admin_profile_edit()
+     * 
+     * @uses used to edit the admin detail
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return admin profile edit form
+     *
+     */
+    public function admin_profile_edit($admin_id) 
+    {
+        
+        $admin = Admin::find($admin_id);
+
+        return view('admin.profile.edit')->with('admin',$admin);
+
+    }
+    /**
+     * @method admin_profile_view()
+     * 
+     * @uses used to view the admin detail
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return admin profile view page
+     *
+     */
+    public function admin_profile_view($admin_id)
     {
         $admin = Admin::find($admin_id);
 
-        return view('admin.profile.admin-profile')->with('admin',$admin);
+        return view('admin.profile.view')->with('admin',$admin);
+
+    }
+    /**
+     * @method change_password()
+     * 
+     * @uses used to view the password change form
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return admin profile view page
+     *
+     */
+    public function change_password($admin_id)
+    {
+         $admin = Admin::find($admin_id);
+
+        return view('admin.profile.password')->with('admin',$admin);
+    }
+    /**
+     * @method change_password_save()
+     * 
+     * @uses used to change the admin password
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return admin profile view page
+     *
+     */
+    public function change_password_save(Request $request, $admin_id)
+    {
+
+         $admin = Admin::find($admin_id);
+
+        if (Hash::check($request->oldpassword, $admin->password)) {
+            
+            $admin->password = Hash::make($request->password);
+            $admin->save();
+        }
+        else
+        {
+
+        return redirect()->back()->with('error','Wrong Old password!');
+        }
+//dd("password changed");
+        return redirect()->()->with('success', 'Password changed successfully');
+
     }
 
 }
+
+

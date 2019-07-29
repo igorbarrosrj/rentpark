@@ -121,6 +121,19 @@ Route::group(['middleware' => 'web'], function() {
         Route::post('/settings/save', 'AdminController@settings_save')->name('settings.save');
 
 
+         //admin profile
+
+        Route::get('/profile/view/{id}', 'AdminController@admin_profile_view')->name('profile.view');
+
+        Route::PUT('/profile/save/{id}', 'AdminController@admin_profile_save')->name('profile.save');
+
+        Route::get('/profile/edit/{id}', 'AdminController@admin_profile_edit')->name('profile.edit');
+
+        Route::get('/profile/password/{id}', 'AdminController@change_password')->name('profile.password');
+
+        Route::put('/profile/password/{id}','AdminController@change_password_save')->name('profile.password');
+
+
 
         
 
