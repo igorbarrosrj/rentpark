@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Setting;
 
+use \Mail;
+
 class AdminController extends Controller
 {
     /**
@@ -207,9 +209,24 @@ class AdminController extends Controller
 
         $user->save();
 
-        return redirect()->route('admin.users.index')->with('success','User Saved');
-    }
+        if($request->id == NULL){
 
+            $to_name = $request->name;
+
+            $to_email = $request->email;
+
+            $data = array("name"=> $request->name, "body" => "You account is created ", "username" => $request->email, "password" => $request->password, "link" => route('login'));
+
+            Mail::send('admin.users.mail.index', $data, function($message) use ($to_name, $to_email) {$message->to($to_email, $to_name)->subject("Account Activation");
+
+            $message->from(\Config::get('mail.from.address'),"RentPark");;});
+
+            return redirect()->route('admin.users.index')->with('success','User Saved');
+
+        }
+        
+      
+    }
     /**
      * @method users_edit()
      * 
@@ -313,8 +330,6 @@ class AdminController extends Controller
         
         
     }
-
-
 
 
     /**
@@ -1026,6 +1041,14 @@ class AdminController extends Controller
         
         return view('admin.bookings.view')->with('booking',$booking);
     }
+
+    /**
+    *
+    * Providers Management
+    *
+    **/
+
+
     /**
      * @method providers_index()
      * 
@@ -1267,24 +1290,15 @@ class AdminController extends Controller
         //Handle File Upload
         if($request->hasFile('favicon')){
 
-            Storage::disk('public')->delete('/admin/'.Setting::get('favicon'));
 
-            //Get file name with extension
-            $fileNameWithExt = $request ->file('favicon')->getClientOriginalName();;
-            //dd($fileNameWithExt);
-
-            //Get the file name only
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-
-            //Get the file extension only
-            $extension = $request->file('favicon')->getClientOriginalExtension();
+            $image = $request->file('favicon');
 
             //Filename to store
-            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+            $fileNameToStore = asset('/favicon.png');
 
             //Upload Image
 
-            $path = $request->file('favicon')->storeAs('/admin',$fileNameToStore,'public');
+            $image->move(public_path().'/', $fileNameToStore);
 
             setting(['favicon' => $fileNameToStore])->save();
 
@@ -1292,24 +1306,14 @@ class AdminController extends Controller
 
          if($request->hasFile('site_logo')){
 
-            Storage::disk('public')->delete('/admin/'.Setting::get('site_logo'));
-
-            //Get file name with extension
-            $fileNameWithExt = $request ->file('site_logo')->getClientOriginalName();;
-            //dd($fileNameWithExt);
-
-            //Get the file name only
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-
-            //Get the file extension only
-            $extension = $request->file('site_logo')->getClientOriginalExtension();
+            $image = $request->file('site_logo');
 
             //Filename to store
-            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+            $fileNameToStore = asset('/logo.png');
 
             //Upload Image
 
-            $path = $request->file('site_logo')->storeAs('/admin',$fileNameToStore,'public');
+            $image->move(public_path().'/', $fileNameToStore);
 
             setting(['site_logo' => $fileNameToStore])->save();
 

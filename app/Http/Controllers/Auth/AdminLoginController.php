@@ -35,7 +35,7 @@ class AdminLoginController extends Controller
 
       	}
 
-      	return redirect()->back()->withInput($request->only('email','remember'));
+      	return redirect()->back()->with("error", "Username or password not match");
        
     }
 

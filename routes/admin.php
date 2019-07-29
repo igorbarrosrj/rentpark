@@ -78,7 +78,7 @@ Route::group(['middleware' => 'web'], function() {
         Route::get('/locations/delete/{id}', 'AdminController@service_locations_delete')->name('service_locations.delete');
 
 
-        Route::get('/service_locations/status/{id}', 'AdminController@service_locations_status')->name('service_locations.status');
+        Route::get('/locations/status/{id}', 'AdminController@service_locations_status')->name('service_locations.status');
         
         /***
          *

@@ -6,9 +6,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Notifications\ProviderResetPasswordNotification;
 
-class Provider extends Model
+
+class Provider extends Authenticatable
 {
 
     use Notifiable;
@@ -51,6 +52,11 @@ class Provider extends Model
     public function bookings() {
 
         return $this->hasMany('App\Booking');
+    }
+
+     public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ProviderResetPasswordNotification($token));
     }
 
 }
