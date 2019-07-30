@@ -1485,7 +1485,7 @@ class AdminController extends Controller
 
         return redirect()->back()->with('error','Wrong Old password!');
         }
-        return redirect()->()->with('success', 'Password changed successfully');
+        return redirect()->back()->with('success', 'Password changed successfully');
 
     }
 

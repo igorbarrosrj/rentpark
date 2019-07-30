@@ -59,4 +59,9 @@ class Provider extends Authenticatable
         $this->notify(new ProviderResetPasswordNotification($token));
     }
 
+    public function provider_review() {
+
+        return $this->hasMany('App\ProviderReview');
+    }
+
 }

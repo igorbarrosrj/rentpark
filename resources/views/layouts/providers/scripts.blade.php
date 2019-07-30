@@ -21,3 +21,49 @@
 
   <!-- Page level custom scripts -->
   <script src="{{ asset('provider-assets/js/demo/datatables-demo.js') }}"></script>
+
+{{-- Rating --}}
+<script type="text/javascript">
+  $(':radio').change(function() {
+  console.log('New star rating: ' + this.value);
+});
+</script>
+
+
+
+{{-- Charts --}}
+
+<script>
+
+    var url = "{{ route('provider.chart') }}";
+        var host_id = new Array();
+        var Labels = new Array();
+        var Prices = new Array();
+        $(document).ready(function(){
+          $.get(url, function(response){
+            response.forEach(function(data){
+                Years.push(data.stockYear);
+                Labels.push(data.stockName);
+                Prices.push(data.stockPrice);
+            });
+    var myChart = new Chart(ctx, {...});
+</script>
+
+
+{{-- DataTables --}}
+<script type="text/javascript">
+  
+if ( $.fn.dataTable.isDataTable( '#dataTable' ) ) {
+    table = $('#').DataTable();
+}
+else {
+    table = $('#dataTable').DataTable( {
+       "searching": false,
+        "paging": false, 
+        "info": false,         
+        "lengthChange":false
+
+    } );
+}
+
+</script>

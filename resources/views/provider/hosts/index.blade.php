@@ -81,6 +81,7 @@
                       
             </table>
 
+              {{$hosts->links()}}
               </div>
             </div>
           </div>

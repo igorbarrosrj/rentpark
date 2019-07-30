@@ -32,6 +32,13 @@ Route::group(['middleware' => 'web'], function() {
 
         Route::get('/password/reset/{token}','Auth\ProviderResetPasswordController@showResetForm')->name('password.reset');
 
+        /**
+        *
+        * Dashboard
+        *
+        **/
+
+        Route::get('/chart', 'ProviderController@chart')->name('chart');
 
     
         /***
@@ -71,6 +78,19 @@ Route::group(['middleware' => 'web'], function() {
         Route::get('/profile/password/', 'ProviderController@profile_password')->name('profile.password');
 
         Route::post('/profile/password/save', 'ProviderController@profile_password_save')->name('profile.password.save');
+
+        /***
+         *
+         * Booking management
+         *
+         */       
+        Route::get('/bookings/index', 'ProviderController@bookings_index')->name('bookings.index');
+
+        Route::get('/bookings/view/{id}', 'ProviderController@bookings_view')->name('bookings.view');
+
+        Route::get('/bookings/status/{id}', 'ProviderController@bookings_status')->name('bookings.status');
+
+        Route::post('/bookings/rating/{id}', 'ProviderController@bookings_rating')->name('bookings.rating');
 
 
     });
