@@ -41,7 +41,7 @@
 
 		             	<tr>
 		             		<td>Picture</td>
-		             		<td><img src="/uploads/service_locations/{{ $service_location->picture }}" style="width: 200px;height: 200px"></td>
+		             		<td><img src="{{ $service_location->picture }}" style="width: 200px;height: 200px"></td>
 		             	</tr>	
 
 		             	<tr>

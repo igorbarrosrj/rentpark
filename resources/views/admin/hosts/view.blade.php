@@ -66,7 +66,7 @@
 
 		             	<tr>
 		             		<td>Picture</td>
-		             		<td><img src="/uploads/hosts/{{ $host->picture }}" style="width: 200px;height: 200px"></td>
+		             		<td><img src="{{ $host->picture }}" style="width: 200px;height: 200px"></td>
 		             	</tr>
 
 		             	<tr>

@@ -32,7 +32,7 @@
                             <th>Labels</th>
                             <th>admin's Details</th>
                         </tr>
-                        <tr><img src="/uploads/admin/{{$admin->picture}}" width="25%" height="25%"></tr> 
+                        <tr><img src="{{$admin->picture}}" width="25%" height="25%"></tr> 
                         <tr>
                             <td> Name</td>
                             <td>{{ $admin->name }}</td>  
