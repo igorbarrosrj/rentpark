@@ -14,14 +14,14 @@
           <!-- Content Row -->
           <div class="row">
 
-            <!-- Earnings (Monthly) Card Example -->
+            <!-- Hosts Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Hosts Available</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">####</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -133,22 +133,19 @@
                   
                 </div>
                 <!-- Card Body -->
-                {{-- <div class="card-body">
-                  <div class="chart-pie pt-4 pb-2">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-primary"></i> Direct
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> Social
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-info"></i> Referral
-                    </span>
-                  </div>
-                </div> --}}
+                <div class="card-body">
+                  <div class="row">
+                     <div class="col-md-10 col-md-offset-1">
+                         <div class="panel panel-default">
+                             <div class="panel-heading"><b>Hosts Status</b></div>
+                             <div class="panel-body">
+                                 <canvas id="canvas" height="880" width="800"></canvas>
+                             </div>
+                         </div>
+                     </div>
+                   </div>
+                
+                </div>
 
 
                 

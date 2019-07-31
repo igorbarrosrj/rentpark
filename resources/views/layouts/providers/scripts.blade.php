@@ -36,17 +36,58 @@
 <script>
 
     var url = "{{ route('provider.chart') }}";
-        var host_id = new Array();
-        var Labels = new Array();
-        var Prices = new Array();
+        var Status = new Array();
+        var Approved = 0;
+        var Declined = 0;
+
+
         $(document).ready(function(){
           $.get(url, function(response){
             response.forEach(function(data){
-                Years.push(data.stockYear);
-                Labels.push(data.stockName);
-                Prices.push(data.stockPrice);
+                Status.push(data.status);
             });
-    var myChart = new Chart(ctx, {...});
+
+            for(var i = 0; i < Status.length; ++i){
+            if(Status[i] == 1){
+                Approved++;
+            }else{
+              Declined++;
+            }
+        }
+
+    var ctx = document.getElementById("canvas").getContext('2d');
+    var myChart = new Chart(ctx, {
+
+      type: 'doughnut',
+
+      data: {
+        labels: Status,
+        
+        datasets: [{
+          
+          label: 'Hosts Status',
+          
+          data: [Approved,Declined],
+          
+          borderWidth: 1,
+
+          backgroundColor:['green','red']
+        }],
+
+        labels: [
+          'Approved',
+          'Declined'
+        ]
+
+      },
+                  
+      options: {
+        
+      }
+
+    });
+    });
+  });
 </script>
 
 
