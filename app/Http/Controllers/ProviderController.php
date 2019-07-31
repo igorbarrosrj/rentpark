@@ -50,8 +50,17 @@ class ProviderController extends Controller
     public function index()
     { 
 
-        return view('provider.dashboard');
+        $provider_id = Auth()->guard('provider')->user()->id;
 
+        $total_hosts = Host::where('provider_id',$provider_id)->orderBy('id')->get()->count();
+
+        $total_bookings = Booking::where('provider_id',$provider_id)->orderBy('id', 'desc')->get()->count();
+
+        $bookings = Booking::where('provider_id',$provider_id)->orderBy('id', 'desc')->take(10)->get();
+
+        $earnings = Booking::where('provider_id',$provider_id)->orderBy('id')->sum('total');
+
+        return view('provider.dashboard')->with(['total_hosts'=>$total_hosts, 'total_bookings'=>$total_bookings, 'bookings'=>$bookings, 'earnings'=>$earnings]);
     }
 
     /**

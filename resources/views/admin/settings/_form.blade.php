@@ -47,6 +47,14 @@
 
                         </div>
 
+                        <div class="form-group">
+                            
+                            <label class="currency">Currency *</label>
+ 
+                            <input type="text" name="currency" class="form-control" value="{{ Setting::get('currency') }}" placeholder="Currency" required>
+
+                        </div>
+
                         <input type="submit" name="Submit" class="btn btn-primary">                       
 
                     </form>

@@ -59,5 +59,7 @@ return [
         'site_name' => '',
 
         'favicon' => 'sitelogo.png',
+
+        'currency' => '$',
     ]
 ];
