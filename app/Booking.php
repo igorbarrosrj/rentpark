@@ -23,4 +23,8 @@ class Booking extends Model
     public function host(){
     	return $this->belongsTo('App\Host');
     } 
+
+    public function provider_review(){
+        return $this->hasOne('App\ProviderReview');
+    } 
 }

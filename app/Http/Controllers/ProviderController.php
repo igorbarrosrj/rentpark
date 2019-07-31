@@ -10,6 +10,10 @@ use App\ServiceLocation;
 
 use App\Provider;
 
+use App\Booking;
+
+use App\ProviderReview;
+
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Facades\File;
@@ -40,13 +44,45 @@ class ProviderController extends Controller
      *
      * @param NULL
      *
-     * @return view of  index
+     * @return view of  index and response
      *
      */
     public function index()
     { 
 
         return view('provider.dashboard');
+
+    }
+
+    /**
+    *
+    * Dashboard
+    *
+    **/
+
+     /**
+     * @method chart()
+     * 
+     * @uses used to display the chart
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param NULL
+     *
+     * @return json response
+     *
+     */
+    public function chart()
+    { 
+
+        $provider_id = Auth()->guard('provider')->user()->id;
+
+        $hosts = Host::where('provider_id',$provider_id)->orderBy('id')->get();
+
+        return response()->json($hosts);
+
     }
 
 
@@ -78,7 +114,7 @@ class ProviderController extends Controller
 
         $provider_id = Auth()->guard('provider')->user()->id;
 
-        $hosts = Host::where('provider_id',$provider_id)->orderBy('id')->get();
+        $hosts = Host::where('provider_id',$provider_id)->orderBy('id')->paginate(10);
 
         if(!$hosts){
 
@@ -659,6 +695,176 @@ class ProviderController extends Controller
         return redirect()->route('provider.login')->with('success','Account Deleted');
         
     }
+
+    /**
+    *
+    *
+    * Booking Management in Admin Panel
+    *
+    */
+
+
+
+    /**
+     * @method bookings_index()
+     * 
+     * @uses used to display the list of booking 
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param NULL
+     *
+     * @return view of booking list
+     *
+     */
+    public function bookings_index() {
+
+        $provider_id = Auth()->guard('provider')->user()->id;
+
+        $bookings = Booking::where('provider_id',$provider_id)->orderBy('id')->paginate(10);
+
+        return view('provider.bookings.index')->with('bookings',$bookings);        
+
+    }
+
+
+    /**
+     * @method bookings_view()
+     * 
+     * @uses used to display the Booking Details Page
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param id
+     *
+     * @return view of particular Booking
+     *
+     */
+    public function bookings_view($id) {
+
+        $provider_id = Auth()->guard('provider')->user()->id;
+
+        $booking = Booking::where('provider_id', $provider_id)
+            ->where('id',$id)->first();
+
+        if(!$booking){
+
+            return redirect()->route('provider.bookings.index')->with('error',"No Booking found");
+            
+        }
+        
+        return view('provider.bookings.view')->with('booking',$booking);
+    }
+
+    /**
+     * @method bookings_status()
+     * 
+     * @uses used to status of the booking
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return view of booking's index
+     *
+     */
+    public function bookings_status($id) {
+
+
+
+        $provider_id = Auth()->guard('provider')->user()->id;
+
+        $booking = Booking::where('provider_id', $provider_id)
+            ->where('id',$id)->first();
+
+        if(!$booking){
+
+            return redirect()->route('provider.bookings.index')->with('error',"No Booking found");
+            
+        }
+
+        $booking->status = BOOKING_PROVIDER_CANCEL;
+
+        $booking->save();
+
+        return redirect()->back()->with('success','Status Updated !');
+        
+        
+    }
+
+    /**
+     * @method bookings_rating()
+     * 
+     * @uses used to rating of the booking
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return view of booking's index
+     *
+     */
+    public function bookings_rating(Request $request, $id) {
+
+        $provider_id = Auth()->guard('provider')->user()->id;
+
+        $booking = Booking::where('provider_id', $provider_id)
+            ->where('id',$id)->first();
+
+        if(!$booking){
+
+            return redirect()->route('provider.bookings.index')->with('error',"No Booking found");
+            
+        }
+
+
+        if($booking->provider_review()->first()!=NULL) {
+
+            return redirect()->back()->with('error',"Already Review Updated");
+        }
+
+         $this->validate($request,[
+
+            'booking_id' => 'required',
+
+            'comment' => 'required|min:3',
+
+            'stars' => 'required|numeric|min:1|max:5',
+
+        ]);
+        
+        $provider_review = new ProviderReview;
+
+        $provider_review->user_id = $booking->user()->first()->id;
+
+        $provider_review->booking_id = $id;
+
+        $provider_review->provider_id = $provider_id;
+
+        $provider_review->comment = $request->comment;
+
+        $provider_review->review = $request->stars;
+
+        $booking->status = BOOKING_COMPLETED;
+
+        $booking->save();
+
+        $provider_review->save();
+
+        return redirect()->back()->with('success',"Review Updated");
+  
+        
+        
+    }
+
 
 
 }

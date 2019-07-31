@@ -21,3 +21,90 @@
 
   <!-- Page level custom scripts -->
   <script src="{{ asset('provider-assets/js/demo/datatables-demo.js') }}"></script>
+
+{{-- Rating --}}
+<script type="text/javascript">
+  $(':radio').change(function() {
+  console.log('New star rating: ' + this.value);
+});
+</script>
+
+
+
+{{-- Charts --}}
+
+<script>
+
+    var url = "{{ route('provider.chart') }}";
+        var Status = new Array();
+        var Approved = 0;
+        var Declined = 0;
+
+
+        $(document).ready(function(){
+          $.get(url, function(response){
+            response.forEach(function(data){
+                Status.push(data.status);
+            });
+
+            for(var i = 0; i < Status.length; ++i){
+            if(Status[i] == 1){
+                Approved++;
+            }else{
+              Declined++;
+            }
+        }
+
+    var ctx = document.getElementById("canvas").getContext('2d');
+    var myChart = new Chart(ctx, {
+
+      type: 'doughnut',
+
+      data: {
+        labels: Status,
+        
+        datasets: [{
+          
+          label: 'Hosts Status',
+          
+          data: [Approved,Declined],
+          
+          borderWidth: 1,
+
+          backgroundColor:['green','red']
+        }],
+
+        labels: [
+          'Approved',
+          'Declined'
+        ]
+
+      },
+                  
+      options: {
+        
+      }
+
+    });
+    });
+  });
+</script>
+
+
+{{-- DataTables --}}
+<script type="text/javascript">
+  
+if ( $.fn.dataTable.isDataTable( '#dataTable' ) ) {
+    table = $('#').DataTable();
+}
+else {
+    table = $('#dataTable').DataTable( {
+       "searching": false,
+        "paging": false, 
+        "info": false,         
+        "lengthChange":false
+
+    } );
+}
+
+</script>
