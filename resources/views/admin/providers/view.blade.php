@@ -33,7 +33,7 @@
                     <label><h3>Work : {{$provider->work}}</h3></label><br>
                     <label><h3>School : {{$provider->school}}</h3></label><br>
                     <label><h3>Languages : {{$provider->languages}}</h3></label><br>
-                    <img src="/uploads/providers/{{$provider->picture}}" width="50%"><br>
+                    <img src="{{$provider->picture}}" width="50%"><br>
                     <br>
                     <a href="{{ route('admin.providers.edit',$provider->id)}}" class="btn btn-primary">Edit</a>
                 

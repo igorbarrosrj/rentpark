@@ -44,12 +44,12 @@
                         @auth('admin')
                         <li class="nav-item dropdown">
                            
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('uploads/admin'.Auth::user()->picture) }}" alt="user" class="" /> <span class="hidden-md-down">{{ Auth::user()->name }} &nbsp;</span> </a>
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{Auth::user()->picture }}" alt="user" class="" /> <span class="hidden-md-down">{{ Auth::user()->name }} &nbsp;</span> </a>
 
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/admin">Dashboard</a>
-                                <a class="dropdown-item" href="/admin/profile/view/1">Profile</a>
+                                <a class="dropdown-item" href="{{route('admin.profile.view',Auth::guard('admin')->user()->id)}}">Profile</a>
                                 <a class="dropdown-item" href="/admin/logout"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">

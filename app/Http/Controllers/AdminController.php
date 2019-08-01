@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Admin;
@@ -427,7 +426,7 @@ class AdminController extends Controller
      *
      * @created NAVEEN S
      *
-     * @updated
+     * @updated BALAJI M
      *
      * @param Request of all data
      *
@@ -442,37 +441,11 @@ class AdminController extends Controller
 
             'full_address' => 'required|min:3|max:200',
 
-            'picture' => 'image|nullable|max:2999|mimes:jpeg,bmp,png,jpg',
+            'picture' => 'sometimes|image|nullable|max:2999|mimes:jpeg,bmp,png,jpg',
 
             'description' => 'required| min:5',
 
         ]);
-
-        //Handle File Upload
-        if($request->hasFile('picture')){
-            //Get file name with extension
-            $fileNameWithExt = $request ->file('picture')->getClientOriginalName();
-
-            //dd($fileNameWithExt);
-
-            //Get the file name only
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-
-            //Get the file extension only
-            $extension = $request->file('picture')->getClientOriginalExtension();
-
-            //Filename to store
-            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
-
-            //Upload Image
-
-            $path = $request->file('picture')->storeAs('/service_locations',$fileNameToStore,'public');
-
-
-        }else{
-            $fileNameToStore = 'noimage.jpg';
-        }
-
 
         if($request->id == NULL){
         
@@ -482,29 +455,36 @@ class AdminController extends Controller
 
             $service_location->unique_id = uniqid(base64_encode(str_random(60)));
 
-            $service_location->picture = $fileNameToStore;
-
         }
         else {
 
             $service_location = ServiceLocation::find($request->id);
 
-             if($request->picture != NULL) {
-
-                Storage::disk('public')->delete('/service_locations/'.$service_location->picture);
-
-                $service_location->picture = $fileNameToStore;
-            }
-
         }
 
+        $imageName = $service_location->picture;
 
+        if($request->hasFile('picture')){
+
+            $destination = '/uploads/service_locations';
+
+            $image = $request->file('picture');
+
+            $url = upload_picture($imageName,$image,$destination);
+
+        }
+        else{
+
+            $url = 'noimage.jpg';
+        }
+
+        $service_location->picture = $url;
+        
         $service_location->name = $request->name;        
 
         $service_location->full_address = $request->full_address;        
 
         $service_location->description = $request->description;
-
 
         $service_location->save();
 
@@ -548,7 +528,7 @@ class AdminController extends Controller
      *
      * @created NAVEEN S
      *
-     * @updated
+     * @updated BALAJI M
      *
      * @param integer id
      *
@@ -564,12 +544,11 @@ class AdminController extends Controller
             return redirect()->route('admin.service_locations.index')->with('error',"No Service Location found");
         }
 
-        if($service_location->picture != 'noimage.jpg'){
+        $imageName=$service_location->picture;
 
+        $destination = '/uploads/service_locations';
 
-            Storage::disk('public')->delete('/service_locations/'.$service_location->picture);
-
-        }
+        delete_picture($imageName,$destination);
 
         $service_location->delete();
 
@@ -737,7 +716,7 @@ class AdminController extends Controller
      *
      * @created NAVEEN S
      *
-     * @updated
+     * @updated BALAJI M
      *
      * @param Request of all data
      *
@@ -773,34 +752,6 @@ class AdminController extends Controller
 
         $provider_id = Provider::where('name',$request->provider_name)->first()->id;
 
-
-        //Handle File Upload
-        if($request->hasFile('picture')){
-            //Get file name with extension
-            $fileNameWithExt = $request ->file('picture')->getClientOriginalName();
-
-            //dd($fileNameWithExt);
-
-            //Get the file name only
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-
-            //Get the file extension only
-            $extension = $request->file('picture')->getClientOriginalExtension();
-
-            //Filename to store
-            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
-
-            //Upload Image
-
-            $path = $request->file('picture')->storeAs('/hosts',$fileNameToStore,'public');
-
-
-        } else {
-
-            $fileNameToStore = 'noimage.jpg';
-        }
-
-
         if($request->id == NULL){
         
 
@@ -809,21 +760,30 @@ class AdminController extends Controller
             $host = New Host;
 
             $host->unique_id = uniqid(base64_encode(str_random(60)));
-
-            $host->picture = $fileNameToStore;
         }
         else {
+
             $host = Host::find($request->id);
 
-            if($request->picture != NULL) {
-
-                Storage::disk('public')->delete('/hosts/'.$host->picture);
-
-                $host->picture = $fileNameToStore;
-            }
-            
         }
 
+        $imageName = $host->picture;
+
+        if($request->hasFile('picture')){
+
+            $destination = '/uploads/hosts';
+
+            $image = $request->file('picture');
+
+            $url = upload_picture($imageName,$image,$destination);
+
+        }
+        else {
+
+            $url = 'noimage.jpg';
+        }
+
+        $host->picture = $url;
 
         $host->provider_id = $provider_id;        
 
@@ -902,7 +862,7 @@ class AdminController extends Controller
      *
      * @created NAVEEN S
      *
-     * @updated
+     * @updated BALAJI M
      *
      * @param integer id
      *
@@ -919,12 +879,11 @@ class AdminController extends Controller
             
         }
 
-         if($host->picture != 'noimage.jpg'){
+        $imageName=$host->picture;
 
+        $destination = '/uploads/hosts';
 
-            Storage::disk('public')->delete('/hosts/'.$host->picture);
-
-        }
+        delete_picture($imageName,$destination);
 
         $host->delete();
 
@@ -1144,28 +1103,19 @@ class AdminController extends Controller
 
         $provider->languages = $request->languages?: ""; 
 
-        if($request->hasFile('picture'))
+        $imageName=$provider->picture;
 
-        {   
-            $imageName=$provider->picture;
+        if($request->hasFile('picture')){
 
-            $image_path = public_path('/uploads/providers/'.$imageName);  
-
-            if(File::exists($image_path)) 
-            {
-            File::delete($image_path);
-            }   
+            $destination = '/uploads/providers';
 
             $image = $request->file('picture');
 
-            $extension = $image->getClientOriginalExtension();
+            $url = upload_picture($imageName,$image,$destination);
 
-            $filename = rand().".".$extension;
-
-            $image->move(public_path().'/uploads/providers/', $filename);  
-
-            $provider->picture = $filename;
         }
+
+        $provider->picture = $url;
 
         $provider->save();
 
@@ -1238,6 +1188,12 @@ class AdminController extends Controller
         {
             return "error";
         }
+
+        $imageName=$provider->picture;
+
+        $destination = '/uploads/providers';
+
+        delete_picture($imageName,$destination);
 
         $provider->delete();
 
@@ -1363,30 +1319,19 @@ class AdminController extends Controller
 
         $admin->mobile = $request->mobile?: "";
 
-        if($request->hasFile('picture'))
+        $imageName = $admin->picture;
 
-        {   
-            $imageName=$admin->picture;
+        if($request->hasFile('picture')){
 
-            $image_path = public_path('/uploads/admin/'.$imageName);  
-
-            if(File::exists($image_path)) 
-            {
-            File::delete($image_path);
-            }   
+            $destination = '/uploads/admin';
 
             $image = $request->file('picture');
 
-            $extension = $image->getClientOriginalExtension();
+            $url = upload_picture($imageName,$image,$destination);
 
-            $filename = rand().".".$extension;
-
-            $image->move(public_path().'/uploads/admin/', $filename);  
-
-            $admin->picture = $filename;
-    
         }
 
+        $admin->picture = $url;
 
         $admin->save();
 
@@ -1452,7 +1397,7 @@ class AdminController extends Controller
      */
     public function change_password($admin_id)
     {
-         $admin = Admin::find($admin_id);
+        $admin = Admin::find($admin_id);
 
         return view('admin.profile.password')->with('admin',$admin);
     }
@@ -1473,17 +1418,17 @@ class AdminController extends Controller
     public function change_password_save(Request $request, $admin_id)
     {
 
-         $admin = Admin::find($admin_id);
+        $admin = Admin::find($admin_id);
 
         if (Hash::check($request->oldpassword, $admin->password)) {
             
             $admin->password = Hash::make($request->password);
+
             $admin->save();
-        }
-        else
+        } else
         {
 
-        return redirect()->back()->with('error','Wrong Old password!');
+            return redirect()->back()->with('error','Wrong Old password!');
         }
         return redirect()->back()->with('success', 'Password changed successfully');
 
