@@ -20,220 +20,129 @@
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Sales Chart and browser state-->
+
+                 <!-- ============================================================== -->
+                <!-- List -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <!-- Column -->
-                    <div class="col-lg-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex no-block">
-                                    <div>
-                                        <h5 class="card-title m-b-0">Sales Chart</h5>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <ul class="list-inline text-center font-12">
-                                            <li><i class="fa fa-circle text-success"></i> SITE A</li>
-                                            <li><i class="fa fa-circle text-info"></i> SITE B</li>
-                                            <li><i class="fa fa-circle text-primary"></i> SITE C</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="" id="sales-chart" style="height: 355px;"></div>
+                    <!-- Total Users -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card card-body mailbox " style="height: 135px">
+                            <h5 class="card-title">Total Users</h5>
+                            <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
+                                <!-- Messag3-->
+                                <a href="#">
+                                    <div class="btn btn-danger btn-circle"><i class="fa fa-user"></i></div>
+                                    <div class="mail-contnet pl-3 pt-2"> <span class="mail-desc"> <h2>{{ $total_users ?? 0 }}</h2> </span> </div>
+                                </a>
+                                
                             </div>
                         </div>
                     </div>
-                    <!-- Column -->
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex m-b-30 no-block">
-                                    <h5 class="card-title m-b-0 align-self-center">Our Visitors</h5>
-                                    <div class="ml-auto">
-                                        <select class="custom-select b-0">
-                                            <option selected="">Today</option>
-                                            <option value="1">Tomorrow</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div id="visitor" style="height:260px; width:100%;"></div>
-                                <ul class="list-inline m-t-30 text-center font-12">
-                                    <li><i class="fa fa-circle text-purple"></i> Tablet</li>
-                                    <li><i class="fa fa-circle text-success"></i> Desktops</li>
-                                    <li><i class="fa fa-circle text-info"></i> Mobile</li>
-                                </ul>
+                    <!-- End Total Users -->
+
+                  <!-- Total Providers -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card card-body mailbox " style="height: 135px">
+                            <h5 class="card-title">Total Providers</h5>
+                            <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
+                                <!-- Message-->
+                                <a href="#">
+                                    <div class="btn btn-info btn-circle"><i class="fa fa-user"></i></div>
+                                    <div class="mail-contnet pl-3 pt-2"> <span class="mail-desc"> <h2>{{ $total_providers ?? 0 }}</h2> </span> </div>
+                                </a>
+                                
                             </div>
                         </div>
                     </div>
+                    <!-- End Total Providers -->
+
+                    <!-- Total Bookings -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card card-body mailbox " style="height: 135px">
+                            <h5 class="card-title">Total Bookings</h5>
+                            <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
+                                <!-- Messag-->
+                                <a href="#">
+                                    <div class="btn btn-primary btn-circle"><i class="fa fa-calendar"></i></div>
+                                    <div class="mail-contnet pl-3 pt-2"> <span class="mail-desc"> <h2>{{ $total_bookings ?? 0 }}</h2> </span> </div>
+                                </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Total Users -->
+                    <!-- Total Users -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card card-body mailbox " style="height: 135px">
+                            <h5 class="card-title">Total Earnings</h5>
+                            <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
+                                <!-- Messag-->
+                                <a href="#">
+                                    <div class="btn btn-danger btn-circle"><i class="fa fa-dollar"></i></div>
+                                    <div class="mail-contnet pl-3 pt-2"> <span class="mail-desc"> <h2>{{ Setting::get('currency') }} {{ $total_earnings ?? 0 }}</h2> </span> </div>
+                                </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Total Users -->
                 </div>
                 <!-- ============================================================== -->
-                <!-- End Sales Chart -->
+                <!-- End List -->
                 <!-- ============================================================== -->
+                
                 <!-- ============================================================== -->
-                <!-- Projects of the Month -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <!-- Column -->
-                    <div class="col-lg-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div>
-                                        <h5 class="card-title">Projects of the Month</h5>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <select class="custom-select b-0">
-                                            <option selected="">January</option>
-                                            <option value="1">February</option>
-                                            <option value="2">March</option>
-                                            <option value="3">April</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="table-responsive m-t-20 no-wrap">
-                                    <table class="table vm no-th-brd pro-of-month">
-                                        <thead>
-                                            <tr>
-                                                <th colspan="2">Assigned</th>
-                                                <th>Name</th>
-                                                <th>Budget</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td style="width:50px;"><span class="round">S</span></td>
-                                                <td>
-                                                    <h6>Sunil Joshi</h6><small class="text-muted">Web Designer</small></td>
-                                                <td>Elite Admin</td>
-                                                <td>$3.9K</td>
-                                            </tr>
-                                            <tr class="active">
-                                                <td><span class="round"><img src="../assets/images/users/2.jpg" alt="user" width="50"></span></td>
-                                                <td>
-                                                    <h6>Andrew</h6><small class="text-muted">Project Manager</small></td>
-                                                <td>Real Homes</td>
-                                                <td>$23.9K</td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="round round-success">B</span></td>
-                                                <td>
-                                                    <h6>Bhavesh patel</h6><small class="text-muted">Developer</small></td>
-                                                <td>MedicalPro Theme</td>
-                                                <td>$12.9K</td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="round round-primary">N</span></td>
-                                                <td>
-                                                    <h6>Nirav Joshi</h6><small class="text-muted">Frontend Eng</small></td>
-                                                <td>Elite Admin</td>
-                                                <td>$10.9K</td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="round round-warning">M</span></td>
-                                                <td>
-                                                    <h6>Micheal Doe</h6><small class="text-muted">Content Writer</small></td>
-                                                <td>Helping Hands</td>
-                                                <td>$12.9K</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="up-img" style="background-image:url(/assets/images/big/img1.jpg)"></div>
-                            <div class="card-body">
-                                <h5 class=" card-title">Business development of rules</h5>
-                                <span class="label label-info label-rounded">Technology</span>
-                                <p class="m-b-0 m-t-20">Titudin venenatis ipsum aciat. Vestibu ullamer quam. nenatis ipsum ac feugiat. Ibulum ullamcorper.</p>
-                                <div class="d-flex m-t-20">
-                                    <a class="link" href="javascript:void(0)">Read more</a>
-                                    <div class="ml-auto align-self-center">
-                                        <a href="javascript:void(0)" class="link m-r-10"><i class="fa fa-heart-o"></i></a>
-                                        <a href="javascript:void(0)" class="link m-r-10"><i class="fa fa-share-alt"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- End Projects of the Month -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Notification And Feeds -->
+                <!-- Users and Providers -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <!-- Start Notification -->
+                    <!-- Start Users -->
                     <div class="col-lg-6 col-md-12">
                         <div class="card card-body mailbox">
-                            <h5 class="card-title">Notification</h5>
+                            <h5 class="card-title">Recent Users</h5>
                             <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
+                                @if(count($users)>0)
+                                    @foreach($users as $user)
                                 <!-- Message -->
-                                <a href="#">
-                                    <div class="btn btn-danger btn-circle"><i class="fa fa-link"></i></div>
+                                <a href="{{ route('admin.users.view',$user->id) }}">
+                                    <img src="{{ $user->picture }}" style="height: 40px; width: 40px" class="rounded-circle">
                                     <div class="mail-contnet">
-                                        <h5>Luanch Admin</h5> <span class="mail-desc">Just see the my new admin!</span> <span class="time">9:30 AM</span> </div>
+                                        <h5>{{ $user->name }}</h5> <span class="mail-desc">{{ $user->email }}</span> <span class="time">{{ $user->mobile }}</span> </div>
                                 </a>
-                                <!-- Message -->
-                                <a href="#">
-                                    <div class="btn btn-success btn-circle"><i class="fa fa-calendar-check-o"></i></div>
-                                    <div class="mail-contnet">
-                                        <h5>Event today</h5> <span class="mail-desc">Just a reminder that you have event</span> <span class="time">9:10 AM</span> </div>
-                                </a>
-                                <!-- Message -->
-                                <a href="#">
-                                    <div class="btn btn-info btn-circle"><i class="fa fa-cog"></i></div>
-                                    <div class="mail-contnet">
-                                        <h5>Settings</h5> <span class="mail-desc">You can customize this template as you want</span> <span class="time">9:08 AM</span> </div>
-                                </a>
-                                <!-- Message -->
-                                <a href="#">
-                                    <div class="btn btn-primary btn-circle"><i class="fa fa-user"></i></div>
-                                    <div class="mail-contnet">
-                                        <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span> </div>
-                                </a>
+                                    @endforeach
+                                @endif
+                                
                             </div>
+                            <br>
+                            <a href="{{ route('admin.users.index') }}"><button class="btn btn-primary pl-10">View All</button></a>
                         </div>
                     </div>
-                    <!-- End Notification -->
-                    <!-- Start Feeds -->
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Feeds</h5>
-                                <ul class="feeds">
-                                    <li>
-                                        <div class="bg-light-info"><i class="fa fa-bell-o"></i></div> You have 4 pending tasks. <span class="text-muted">Just Now</span></li>
-                                    <li>
-                                        <div class="bg-light-success"><i class="fa fa-server"></i></div> Server #1 overloaded.<span class="text-muted">2 Hours ago</span></li>
-                                    <li>
-                                        <div class="bg-light-warning"><i class="fa fa-shopping-cart"></i></div> New order received.<span class="text-muted">31 May</span></li>
-                                    <li>
-                                        <div class="bg-light-danger"><i class="fa fa-user"></i></div> New user registered.<span class="text-muted">30 May</span></li>
-                                    <li>
-                                        <div class="bg-light-inverse"><i class="fa fa-bell-o"></i></div> New Version just arrived. <span class="text-muted">27 May</span></li>
-                                    <li>
-                                        <div class="bg-light-info"><i class="fa fa-bell-o"></i></div> You have 4 pending tasks. <span class="text-muted">Just Now</span></li>
-                                    <li>
-                                        <div class="bg-light-danger"><i class="fa fa-user"></i></div> New user registered.<span class="text-muted">30 May</span></li>
-                                    <li>
-                                        <div class="bg-light-inverse"><i class="fa fa-bell-o"></i></div> New Version just arrived. <span class="text-muted">27 May</span></li>
-                                    <li>
-                                        <div class="bg-light-primary"><i class="fa fa-cog"></i></div> You have 4 pending tasks. <span class="text-muted">27 May</span></li>
-                                </ul>
+                    <!-- End Users -->
+                   <!-- Start Providers -->
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card card-body mailbox">
+                            <h5 class="card-title">Recent Providers</h5>
+                            <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
+                                @if(count($providers)>0)
+                                    @foreach($providers as $provider)
+                                <!-- Message -->
+                                <a href="{{ route('admin.providers.view',$provider->id) }}">
+                                    <img src="{{ $provider->picture }}" style="height: 40px; width: 40px" class="rounded-circle">
+                                    <div class="mail-contnet">
+                                        <h5>{{ $provider->name }}</h5> <span class="mail-desc">{{ $provider->email }}</span> <span class="time">{{ $provider->mobile }}</span> </div>
+                                </a>
+                                    @endforeach
+                                @endif
+                                
                             </div>
+                            <br>
+                            <a href="{{ route('admin.providers.index') }}"><button class="btn btn-primary pl-10">View All</button></a>
                         </div>
                     </div>
-                    <!-- End Feeds -->
+                    <!-- End Providers -->
                 </div>
                 <!-- ============================================================== -->
-                <!-- End Notification And Feeds -->
+                <!-- End Users and Providers -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
                 <!-- End Page Content -->
