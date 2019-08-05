@@ -61,6 +61,22 @@
                             </div>
                         </div>
 
+
+                         <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Mobile</label>
+
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control{{ $errors->has('mobile') ? ' is-invalid' : '' }}" name="mobile" value="{{ old('mobile') }}" required autofocus>
+
+                                @if ($errors->has('mobile'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('mobile') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
