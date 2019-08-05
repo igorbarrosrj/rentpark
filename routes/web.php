@@ -18,3 +18,21 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+/**
+*
+* Users
+*
+**/
+
+
+/**
+*
+* Booking Management
+*
+**/
+
+
+Route::post('/booking/save', 'UserController@booking_save')->name('booking');
+

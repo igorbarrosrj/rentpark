@@ -55,11 +55,5 @@ return [
     */
     'defaults' => [
         'foo' => 'bar',
-
-        'site_name' => '',
-
-        'favicon' => 'sitelogo.png',
-
-        'currency' => '$',
     ]
 ];

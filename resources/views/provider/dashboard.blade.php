@@ -83,9 +83,8 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-area align-items-center">
+                  <div class="chart-area">
                       
-
                         @if(count($bookings)>0)
                            @foreach($bookings as $booking)
 
@@ -98,16 +97,15 @@
                                 
 
                                  <h6 class="ml-1 mb-1">
-                                            @if($booking->user()->first()!=NULL)
 
-                                              {{ $booking->user()->first()->name }}
-                                            @else
-                                              No User Available
-                                            @endif  
+                                          {{ $booking->user()->first() ? $booking->user()->first()->name : 'No User Available' }}
+
                                           </h6>
 
                                           <small class="text-muted ml-auto">
                                             <i class="fa fa-home" aria-hidden="true"></i>
+
+                                    
                                             @if($booking->host()->first()!=NULL)
 
                                               <a href="{{ route('provider.hosts.view',$booking->host()->first()->id) }}">{{ $booking->host()->first()->host_name }}</a>                    
@@ -117,18 +115,13 @@
                                           </small>
 
                                            <br>  
-                                          <small class=" d-flex text-muted mb-0">
-                                            
-                                            <i class="fa fa-dollar-sign mr-2" aria-hidden="true"></i>
-                                            
-                                            @if($booking->user()->first()!=NULL)
+                                          <small class="text-muted ml-auto">
 
-                                              {{ $booking->total }}
-                                            @else
-                                              0
-                                            @endif  
+                                            {{ $booking->user()->first() ? $booking->currency.$booking->total : 0.00 }}
+
                                           </small> 
                                     </div>
+
 
                                     <div class="d-flex col-lg-3 float-left pull-left justify-content-lg-end" style="float:left;">
                                       
@@ -138,7 +131,7 @@
 
                                   </div>
                                 
-                                 
+                                 <br>
                             
                           @endforeach
     
@@ -148,7 +141,7 @@
 
 
                   </div>
-
+                  <br>
                   <a href="{{ route('provider.bookings.index') }}"><button class="btn btn-primary pl-10">View All</button></a>
                 </div>
               </div>

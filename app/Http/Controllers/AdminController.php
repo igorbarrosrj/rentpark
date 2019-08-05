@@ -47,7 +47,19 @@ class AdminController extends Controller
     public function index()
     { 
 
-        return view('admin.dashboard');
+        $total_users = Host::orderBy('id')->get()->count();
+
+        $total_providers = Provider::orderBy('id')->get()->count();
+
+        $total_bookings = Booking::orderBy('id')->get()->count();
+
+        $total_earnings = Booking::orderBy('id')->sum('total');
+
+        $users = User::orderBy('id', 'desc')->take(10)->get();
+
+        $providers = Provider::orderBy('id', 'desc')->take(10)->get();
+
+        return view('admin.dashboard')->with(['total_users'=>$total_users, 'total_providers'=>$total_providers, 'total_bookings'=>$total_bookings, 'total_earnings'=> $total_earnings, 'users' => $users, 'providers' => $providers]);
     }
 
 
@@ -1240,6 +1252,8 @@ class AdminController extends Controller
 
             'favicon' => 'image|nullable|max:2999|mimes:png',
 
+            'currency' => 'required',
+
         ]);
         setting();
 
@@ -1275,7 +1289,7 @@ class AdminController extends Controller
 
         } 
             
-        setting(['site_name' => $request->site_name])->save();
+        setting(['site_name' => $request->site_name, 'currency' => $request->currency])->save();
 
 
         return redirect()->route('admin.settings.index')->with('success','Settings Saved');
