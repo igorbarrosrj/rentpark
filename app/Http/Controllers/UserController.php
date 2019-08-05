@@ -26,7 +26,7 @@ class UserController extends Controller
     /**
      * @method profile_view()
      * 
-     * @uses used to view the user detail
+     * @uses used to view the user's detail
      *
      * @created NAVEEN S
      *
@@ -34,7 +34,7 @@ class UserController extends Controller
      *
      * @param NULL
      *
-     * @return user profile view page
+     * @return user's profile view page
      *
      */
     public function profile_view()
@@ -56,7 +56,7 @@ class UserController extends Controller
     /**
      * @method profile_save()
      * 
-     * @uses used to store the user detail
+     * @uses used to store the user's detail
      *
      * @created NAVEEN S
      *
@@ -64,7 +64,7 @@ class UserController extends Controller
      *
      * @param  NULL
      *
-     * @return user profile view page
+     * @return user's profile view page
      *
      */
     public function profile_save(Request $request)
@@ -86,11 +86,12 @@ class UserController extends Controller
 
             'email' => 'required|email',
 
-            'description' => 'min:5',
+            'description' => 'min:5|max:255',
+
+            'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg|max:2048',
 
             'mobile' => 'regex:/[6-9][0-9]{9}/',
-
-            'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            
 
         ]);
 
@@ -99,7 +100,7 @@ class UserController extends Controller
 
         if($request->hasFile('picture')){
 
-            $destination = '/uploads/admin';
+            $destination = '/uploads/users';
 
             $imageName=$user->picture;
 
