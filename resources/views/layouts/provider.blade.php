@@ -13,14 +13,16 @@
   	 <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
-      
+     
       <!-- Main Content -->
      	<div id="content">
-
+        
+         
      		@include('layouts.providers.header')
-
-     		@yield('content')
         @include('notifications.notification')
+        
+     		@yield('content')
+        
      	</div>
      	<!-- End of Main Content -->
      	@include('layouts.providers.footer')

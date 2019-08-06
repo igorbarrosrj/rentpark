@@ -15,12 +15,16 @@
                             <li class="breadcrumb-item active">Booking Detail</li>
                         </ol>
                     </div>
+                    <div class="col-md-7 align-self-center">
+                        <a href="{{ route('admin.bookings.index') }}" class="btn btn-primary pull-right hidden-sm-down">Go Back</a>
+                    </div>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
 
-        <a href="{{ route('admin.bookings.index') }}" class="btn btn-primary">Go Back</a>
+
+         @include('notifications.notification')
 
 		< <div class="row">
         <!-- column -->
@@ -51,7 +55,7 @@
 		             		<td>
 		             			@if($booking->provider()->first()!=NULL)
 
-						            <a href="#">{{ $booking->provider()->first()->name }}</a>
+						            <a href="{{ route('admin.providers.view',$booking->provider()->first()->id) }}">{{ $booking->provider()->first()->name }}</a>
 						        @else
 						            No Provider Available
 						        @endif
@@ -67,7 +71,7 @@
 		             		<td>Host Name</td>
 		             		<td>
 
-		             			@if($booking->host()->first()!=NULL)
+		             			@if($booking->host()->first())
 
 									<a href="{{ route('admin.hosts.view',$booking->host()->first()->id) }}">{{ $booking->host()->first()->host_name }}</a>										
 								@else
@@ -125,9 +129,44 @@
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Review</td>
-		             		<td><input type="text" name="review"></td>
+		             		<td>Comment</td>
+		             		<td>
+		             			@if($booking->provider_review()->first())
+		             				{{ $booking->provider_review()->first()->comment }}
+		             			@else
+									No Comment Available
+								@endif
+							</td>
 		             	</tr>	
+
+		             	<tr>
+                      <td>Rating  </td>
+
+                      <td>
+
+
+                        @if($booking->provider_review()->first())                           
+                          <div class="rating">
+                                <label>
+                                  
+                                  <input type="radio" name="stars"  checked/>
+                                  @for($i=0; $i< $booking->provider_review()->first()->review; $i++)
+                                    <span class="icon">★</span>
+                                  @endfor
+                                  
+                                </label>
+                                <label> 
+                                  <span class="icon">★</span>
+                                  <span class="icon">★</span>
+                                  <span class="icon">★</span>
+                                  <span class="icon">★</span>
+                                  <span class="icon">★</span>
+                                </label>
+                              </div>
+
+                            @endif
+                      </td>
+                    </tr>
 
 		              </table>
 		        

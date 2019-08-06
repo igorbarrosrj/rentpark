@@ -18,7 +18,7 @@
                     <input type="text" class="form-control form-control-user" id="Name" name="name" placeholder="Name" required>
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="Mobile" name="mobile" placeholder="Mobile Number" required>
+                    <input type="tel" class="form-control form-control-user" id="Mobile" name="mobile" placeholder="Mobile Number" required>
                   </div>
                 </div>
                 <div class="form-group">
@@ -29,7 +29,7 @@
                     <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" name="password" required>
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password" name="password_confirmation" required>
+                    <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Confirm Password" name="password_confirmation" required>
                   </div>
                 </div>
                 <input type="submit" value="Register Account" class="btn btn-primary btn-user btn-block">

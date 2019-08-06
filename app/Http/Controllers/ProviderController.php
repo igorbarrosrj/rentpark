@@ -125,12 +125,6 @@ class ProviderController extends Controller
 
         $hosts = Host::where('provider_id',$provider_id)->orderBy('id')->paginate(10);
 
-        if(!$hosts){
-
-            return redirect()->route('provider.hosts.index')->with('error',"No Host found");
-            
-        }
-
         return view('provider.hosts.index')->with('hosts',$hosts);        
 
     }
@@ -155,7 +149,7 @@ class ProviderController extends Controller
 
         $host = NULL;
 
-        $service_locations = ServiceLocation::where('status',1)->get();
+        $service_locations = ServiceLocation::where('status',APPROVED)->get();
 
         if(!$service_locations){
 
@@ -226,7 +220,7 @@ class ProviderController extends Controller
 
         $this->validate($request,[
 
-            'host_name' => 'required|min:3|max:50',
+            'host_name' => 'required|min:3|max:50|regex:/^[a-z A-Z]+$/',
 
             'host_type' => 'required|min:6|max:8',
 
@@ -250,34 +244,7 @@ class ProviderController extends Controller
 
 
 
-        //Handle File Upload
-        if($request->hasFile('picture')){
-
-            
-
-            //Get file name with extension
-            $fileNameWithExt = $request ->file('picture')->getClientOriginalName();
-
-            //dd($fileNameWithExt);
-
-            //Get the file name only
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-
-            //Get the file extension only
-            $extension = $request->file('picture')->getClientOriginalExtension();
-
-            //Filename to store
-            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
-
-            //Upload Image
-
-            $path = $request->file('picture')->storeAs('/hosts',$fileNameToStore,'public');
-
-
-        } else {
-
-            $fileNameToStore = 'noimage.jpg';
-        }
+       
 
 
         if($request->id == NULL){
@@ -289,22 +256,45 @@ class ProviderController extends Controller
 
             $host->unique_id = uniqid(base64_encode(str_random(60)));
 
-            $host->picture = $fileNameToStore;
-        }
-        else {
-            $host = Host::find($request->id);
+             //Handle File Upload
+            if($request->hasFile('picture')){
 
-            if($request->hasFile('picture')) {
+                $imageName = $host->picture;
 
-                if($host->picture != 'noimage.jpg'){
+                $destination = FILE_PATH_HOST;
 
-                    Storage::disk('public')->delete('/hosts/'.$host->picture);
+                $image = $request->file('picture');
 
-                }
-   
+                $url = upload_picture($imageName,$image,$destination);
+
+            } else {
+
+                $url = '/noimage.jpg';
             }
 
-            $host->picture = $fileNameToStore;
+            $host->picture = $url;
+        }
+        else {
+
+            $host = Host::find($request->id);
+
+            $imageName = $host->picture;
+
+             //Handle File Upload
+            if($request->hasFile('picture')){
+
+                $destination = FILE_PATH_HOST;
+
+                $image = $request->file('picture');
+
+                $url = upload_picture($imageName,$image,$destination);
+
+                $host->picture = $url;
+
+
+            } 
+
+            
         }
 
 
@@ -324,7 +314,7 @@ class ProviderController extends Controller
 
         $host->per_hour = $request->per_hour;
 
-        $host->status = 0;
+        $host->status = DECLINED;
 
         $host->save();
 
@@ -360,7 +350,7 @@ class ProviderController extends Controller
         }
         
 
-        $service_locations = ServiceLocation::where('status',1)->get();
+        $service_locations = ServiceLocation::where('status',APPROVED)->get();
 
         if(!$service_locations){
 
@@ -390,6 +380,8 @@ class ProviderController extends Controller
      */
     public function hosts_delete($id) {
 
+        $provider_id = Auth()->guard('provider')->user()->id;
+
         $host = Host::where('provider_id', $provider_id)
             ->where('id',$id)->first();
 
@@ -401,16 +393,15 @@ class ProviderController extends Controller
             
         }
 
-         if($host->picture != 'noimage.jpg'){
+        $imageName=$host->picture;
 
+        $destination = FILE_PATH_HOST;
 
-            Storage::disk('public')->delete('/hosts/'.$host->picture);
-
-        }
+        delete_picture($imageName,$destination);
 
         $host->delete();
 
-        return redirect()->route('provider.hosts.index')->with('success','User Removed');
+        return redirect()->route('provider.hosts.index')->with('success','Host Removed');
         
     }
 
@@ -475,7 +466,7 @@ class ProviderController extends Controller
 
 
     /**
-     * @method profile_save()
+     * @method profile_save() 
      * 
      * @uses used to save the data of profile
      *
@@ -503,7 +494,7 @@ class ProviderController extends Controller
 
         $this->validate($request,[
 
-            'name' => 'required|min:3|max:50',
+            'name' => 'required|min:3|max:50|regex:/^[a-z A-Z]+$/',
 
             'email' => 'required|email',
 
@@ -525,51 +516,36 @@ class ProviderController extends Controller
         //Handle File Upload
         if($request->hasFile('picture')){
 
-            if($provider_details->picture != 'noimage.jpg'){
+            if($provider_details->picture != 'placeholder.jpg'){
 
                 Storage::disk('public')->delete('/providers/'.$provider_details->picture);
             }
 
-            //Get file name with extension
-            $fileNameWithExt = $request ->file('picture')->getClientOriginalName();
+            $imageName = $request->picture;
 
-            //dd($fileNameWithExt);
+            $destination = PROFILE_PATH_PROVIDER;
 
-            //Get the file name only
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $image = $request->file('picture');
 
-            //Get the file extension only
-            $extension = $request->file('picture')->getClientOriginalExtension();
+            $url = upload_picture($imageName,$image,$destination);
 
-            //Filename to store
-            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+            $provider_details->picture = $url;
 
-            //Upload Image
-
-            $path = $request->file('picture')->storeAs('/providers',$fileNameToStore,'public');
-
-
-        } else {
-
-            $fileNameToStore = 'noimage.jpg';
-        }
-
-            
-        $provider_details->picture = $fileNameToStore;
+        } 
 
         $provider_details->name = $request->name;        
 
         $provider_details->email = $request->email;
 
-        $provider_details->description = $request->description;
+        $provider_details->description = $request->description?: "";
 
-        $provider_details->mobile = $request->mobile;
+        $provider_details->mobile = $request->mobile?: "";
 
-        $provider_details->work = $request->work;        
+        $provider_details->work = $request->work?: "";        
 
-        $provider_details->school = $request->school;
+        $provider_details->school = $request->school?: "";
 
-        $provider_details->languages = $request->languages;
+        $provider_details->languages = $request->languages?: "";
 
         $provider_details->gender = $request->gender;
 
@@ -692,10 +668,13 @@ class ProviderController extends Controller
         }
           
 
-        if($provider_details->picture != 'noimage.jpg'){
+        if($provider_details->picture != 'placeholder.jpg'){
 
+            $imageName=$provider_details->picture;
 
-            Storage::disk('public')->delete('/providers/'.$provider_details->picture);
+            $destination = PROFILE_PATH_PROVIDER;
+
+            delete_picture($imageName,$destination);
 
         }
 

@@ -23,6 +23,8 @@
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
 
+                 @include('notifications.notification')
+
 		 <div class="row">
         <!-- column -->
         <div class="col-12">
@@ -46,7 +48,7 @@
 		             		<td>Provider Name</td>
 		             		<td>
 		             			@if($host->provider()->first()!=NULL)
-									<a href="#">{{ $host->provider()->first()->name }}</a>
+									<a href="{{ route('admin.providers.view', $host->provider()->first()->id) }}">{{ $host->provider()->first()->name }}</a>
 								@else
 									No Provider Available
 								@endif
@@ -110,11 +112,11 @@
 		             		<td>Status</td>
 		             		@switch($host->status)
 
-                                @case(0)
+                                @case(DECLINED)
                                     <td><div class="label label-danger">Declined</div></td>
                                 @break
 
-                                @case(1)
+                                @case(APPROVED)
                                     <td><div class="label label-success">Approved</div></td>
                                 @break
 
@@ -128,17 +130,7 @@
 		             			
 		             			<a href="{{ route('admin.hosts.status',$host->id) }}" class="btn btn-info">
                                                              
-                                    @switch($host->status)
-
-                                    @case(0)
-                                        Approve
-                                    @break
-
-                                    @case(1)
-                                        Decline
-                                    @break
-
-                                   	@endswitch
+                                    {{  $host->status = $host->status == APPROVED ? 'Decline' : 'Approve'}}
 
                                 </a>
 		             		</td>

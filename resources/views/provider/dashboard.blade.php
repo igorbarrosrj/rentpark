@@ -91,7 +91,7 @@
                             <div class="row wrapper d-flex align-items-center py-2 border-bottom pl-10">
                               
                               <div class="d-flex col-lg-3 float-left align-items-center  justify-content-lg-end">
-                                 <img src="/uploads/users{{ $booking->user()->first()->picture }}" class="img-sm rounded-circle" style="width: 40px; height: 40px" alt="profile">
+                                 <img src="{{ $booking->user()->first()->picture }}" class="img-sm rounded-circle" style="width: 40px; height: 40px" alt="profile">
                               </div>
                               <div class="col-lg-4">
                                 

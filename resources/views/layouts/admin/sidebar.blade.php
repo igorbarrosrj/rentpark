@@ -67,7 +67,7 @@
                             <span>Service</span>
                             <span class="pull-right-container">
                               <i class="fa fa-angle-left pull-right"></i>
-                            <span style="padding-left: 35px;">Location</span>
+                            <span style="padding-left: 43px;">Location</span>
                             
                           </a>
                           <ul class="treeview-menu">

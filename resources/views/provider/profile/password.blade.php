@@ -13,7 +13,7 @@
           <p class="mb-4">Your Profile password update here:</p>
                         </div>
                         <div class="col-md-7">
-                            <a href="{{ route('provider.profile.index') }}"  class="btn btn-primary float-right hidden-sm-down">Go Back</a>
+                            <a href="{{ route('provider.profile.view') }}"  class="btn btn-primary float-right hidden-sm-down">Go Back</a>
                         </div>
                     </div>  
          
@@ -32,7 +32,7 @@
                         <div class="form-group">
                             
 
-                            <input type="hidden" name="id" class="form-control" value="{{ $profile->id }}" >
+                            <input type="hidden" name="id" class="form-control" value="{{ $provider_details->id }}" >
 
                         </div>
                         

@@ -15,11 +15,17 @@
                             <li class="breadcrumb-item active">List Service Locations</li>
                         </ol>
                     </div>
+
+                    <div class="col-md-7 align-self-center">
+                        <a href="{{ route('admin.service_locations.create') }}" class="btn btn-primary pull-right hidden-sm-down">Add Service Location</a>
+                    </div>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
-        
+         
+         @include('notifications.notification')
+
         @php  $sno = 0; @endphp
 
 	<div class="row">
@@ -49,17 +55,19 @@
 										<td>{{ $service_location->full_address }}</td>
 										<td>{{ $service_location->description }}</td>
 										<td>{{ $service_location->updated_at }}</td>
-										@switch($service_location->status)
+										
+                                        @switch($service_location->status)
 
-                                                @case(0)
-                                                    <td><div class="label label-danger">Declined</div></td>
-                                                @break
+                                            @case(DECLINED)
+                                                <td><div class="label label-danger">Declined</div></td>
+                                            @break
 
-                                                @case(1)
-                                                    <td><div class="label label-success">Approved</div></td>
-                                                @break
+                                            @case(APPROVED)
+                                                <td><div class="label label-success">Approved</div></td>
+                                            @break
 
-                                            @endswitch
+                                        @endswitch
+
 										<td>
 											 <div class="dropdown">
                                                       <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Action
@@ -71,17 +79,7 @@
                                                         <div class="dropdown-divider"></div>
                                                          <li><a href="{{ route('admin.service_locations.status',$service_location->id) }}" class="dropdown-item">
                                                              
-                                                             @switch($service_location->status)
-
-                                                                @case(0)
-                                                                    Approve
-                                                                @break
-
-                                                                @case(1)
-                                                                    Decline
-                                                                @break
-
-                                                            @endswitch
+                                                             {{  $service_location->status = $service_location->status == APPROVED ? 'Decline' : 'Approve'}}
 
                                                          </a></li>
                                                       </ul>

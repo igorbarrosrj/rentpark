@@ -36,3 +36,10 @@
     
 <!-- Chart JS -->
 <script src="{{asset('admin-assets/js/dashboard1.js')}}"></script>
+
+{{-- Rating --}}
+<script type="text/javascript">
+  $(':radio').change(function() {
+  console.log('New star rating: ' + this.value);
+});
+</script>

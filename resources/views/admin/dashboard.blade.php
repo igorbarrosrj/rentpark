@@ -27,7 +27,7 @@
                 <div class="row">
                     <!-- Total Users -->
                     <div class="col-lg-3 col-md-6">
-                        <div class="card card-body mailbox " style="height: 135px">
+                        <div class="card card-body mailbox " style="height: 150px">
                             <h5 class="card-title">Total Users</h5>
                             <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
                                 <!-- Messag3-->
@@ -43,7 +43,7 @@
 
                   <!-- Total Providers -->
                     <div class="col-lg-3 col-md-6">
-                        <div class="card card-body mailbox " style="height: 135px">
+                        <div class="card card-body mailbox " style="height: 150px">
                             <h5 class="card-title">Total Providers</h5>
                             <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
                                 <!-- Message-->
@@ -59,7 +59,7 @@
 
                     <!-- Total Bookings -->
                     <div class="col-lg-3 col-md-6">
-                        <div class="card card-body mailbox " style="height: 135px">
+                        <div class="card card-body mailbox " style="height: 150px">
                             <h5 class="card-title">Total Bookings</h5>
                             <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
                                 <!-- Messag-->
@@ -74,7 +74,7 @@
                     <!-- End Total Users -->
                     <!-- Total Users -->
                     <div class="col-lg-3 col-md-6">
-                        <div class="card card-body mailbox " style="height: 135px">
+                        <div class="card card-body mailbox " style="height: 150px">
                             <h5 class="card-title">Total Earnings</h5>
                             <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
                                 <!-- Messag-->

@@ -15,10 +15,15 @@
                             <li class="breadcrumb-item active">List Users</li>
                         </ol>
                     </div>
+                    <div class="col-md-7 align-self-center">
+                        <a href="{{ route('admin.users.create') }}" class="btn btn-primary pull-right hidden-sm-down">Add User</a>
+                    </div>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
+
+                 @include('notifications.notification')
         
     @php  $sno = 0; @endphp
 
@@ -72,18 +77,7 @@
                                                          <div class="dropdown-divider"></div>
                                                          <li><a href="{{ route('admin.users.status',$user->id) }}" class="dropdown-item">
                                                              
-                                                             @switch($user->status)
-
-                                                                @case(0)
-                                                                    Approve
-                                                                @break
-
-                                                                @case(1)
-                                                                    Decline
-                                                                @break
-
-                                                            @endswitch
-
+                                                             {{  $user->status = $user->status == APPROVED ? 'Decline' : 'Approve'}}
                                                          </a></li>
                                                       </ul>
                                                 </div> 

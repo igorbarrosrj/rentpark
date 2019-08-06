@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="form-group">
-                            @if($service_location!=NULL) <img src="/uploads/service_locations/{{ $service_location->picture }}" style="width: 200px;height: 200px"> @endif
+                            @if($service_location!=NULL) <img src="{{ $service_location->picture }}" style="width: 200px;height: 200px"> @endif
                         </div>
                         <div class="form-group">
                             

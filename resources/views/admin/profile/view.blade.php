@@ -2,89 +2,86 @@
 
 @section('content')
 
-    <div class="content-wrapper">
+	<div class="content-wrapper">
 
-
-         <!-- ============================================================== -->
+		 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">Admin Profile</h3>
+                        <h3 class="text-themecolor">Admin Detail</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Admin Details</li>
+                            <li class="breadcrumb-item active">Admin Detail</li>
                         </ol>
                     </div>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
+
+                @include('notifications.notification')
+
         
 
-        <div class="well">        
-            
-            <div class="col-sm-12 col-md-12">
+		<div class="row">
+	    <!-- column -->
+	    <div class="col-12">
+	        <div class="card">
+	            <div class="card-body">
+                <h4 class="card-title">Admin Details</h4>
 
-                     <div class="box-body">
-                      <table class="table ">
-                        <tr>
-                            <th>Labels</th>
-                            <th>admin's Details</th>
-                        </tr>
-                        <tr><img src="{{$admin->picture}}" width="25%" height="25%"></tr> 
-                        <tr>
-                            <td> Name</td>
-                            <td>{{ $admin->name }}</td>  
-                        </tr>
+		            <div class="box-body">
+		              <table class="table ">
+		                <tr>
+		                  	<th>Details</th>
+		                  	<th>Admin Data</th>
+		                </tr>
+		             	<tr>
+		             		<td> Name</td>
+		             		<td>{{ $admin->name }}</td>	
+		             	</tr>
 
-                        <tr>
-                            <td>Email</td>
-                            <td>{{ $admin->email }}</td>
-                        </tr>   
+		             	<tr>
+		             		<td>Email</td>
+		             		<td>{{ $admin->email }}</td>
+		             	</tr>	
 
-                        <tr>
-                            <td>About</td>
-                            <td>{{ $admin->about }}</td>
-                        </tr>   
+		             	<tr>
+		             		<td>About</td>
+		             		<td>{{ $admin->about }}</td>
+		             	</tr>	
 
-                        <tr>
-                            <td>Mobile</td>
-                            <td>{{ $admin->mobile }}</td>
-                        </tr>   
+		             	<tr>
+		             		<td>Mobile</td>
+		             		<td>{{ $admin->mobile }}</td>
+		             	</tr>	
 
-                        <tr>
-                            <td>Work</td>
-                            <td>{{ $admin->work }}</td>
-                        </tr>     
-                        <tr>
-                            <td>Created At</td>
-                            <td>{{ $admin->created_at }}</td>
-                        </tr>
+		             	<tr>
+		             		<td>Picture</td>
+		             		<td><img src="{{ $admin->picture }}" style="width: 200px;height: 200px"></td>
+		             	</tr>	
 
-                        <tr>
-                            <td>Updated At</td>
-                            <td>{{ $admin->updated_at }}</td>
-                        </tr>
+		             	<tr>
+		             		<td>Updated At</td>
+		             		<td>{{ $admin->updated_at }}</td>
+		             	</tr>
 
-                        <td> 
-                            <a href="{{ route('admin.profile.edit',$admin->id) }}" class="btn btn-primary">Edit</a>
-                        </td>
+		        
 
-                        <td> 
-                            <a href="{{ route('admin.profile.password',$admin->id) }}" class="btn btn-primary">Change Password</a>
-                        </td>
+		             		<td> <a href="{{ route('admin.profile.edit',$admin->id) }}" class="btn btn-primary">Edit</a></td>
 
-
-                        
-                                                      
-                                    
-                      </table>
-                
-                    </div>
-                
-            </div>
-        </div>                                    
-                                     
-    </div>
+		             		<td>
+		             			<a href="{{ route('admin.profile.password',$admin->id) }}" class="btn btn-danger" >Change Password</a>
+               				</td>
+		             	</tr>			             					
+									
+		              </table>
+		        
+		            </div>
+	          </div>								
+			</div>							
+		</div>
+	</div>
+</div>
 @endsection

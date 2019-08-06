@@ -47,7 +47,7 @@
 
                         @if($booking->user()->first()!=NULL)
 
-                         <img src="/uploads/users{{ $booking->user()->first()->picture }}" style="width: 200px;height: 200px">
+                         <img src="{{ $booking->user()->first()->picture }}" style="width: 200px;height: 200px">
                         @else
                             No User Available
                         @endif  
@@ -165,7 +165,7 @@
                             <form action="{{ route('provider.bookings.rating', $booking->id) }}" method="post">       
                               @csrf
 
-                              <input type="hidden" name="id" class="form-control" value="{{ $booking->id }}" >
+                              <input type="hidden" name="booking_id" class="form-control" value="{{ $booking->id }}" >
 
                                   <div class="rating" class="form-control">
                                   
@@ -228,14 +228,19 @@
 
                     <tr>
                       <td>Comment</td>
-                      <td>{{ $booking->provider_review()->first()->comment}}</td>
+                      <td>@if($booking->provider_review()->first()!=NULL) 
+                          {{ $booking->provider_review()->first()->comment}}
+                        @endif
+                      </td>
                     </tr>
 
                     <tr>
                       <td>Rating  </td>
 
                       <td>
-                          
+
+
+                        @if($booking->provider_review()->first()!=NULL)                           
                           <div class="rating">
                                 <label>
                                   
@@ -254,7 +259,7 @@
                                 </label>
                               </div>
 
-
+                            @endif
                       </td>
                     </tr>
 

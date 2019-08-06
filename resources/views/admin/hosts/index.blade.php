@@ -15,10 +15,15 @@
                             <li class="breadcrumb-item active">List Hosts</li>
                         </ol>
                     </div>
+                    <div class="col-md-7 align-self-center">
+                        <a href="{{ route('admin.hosts.create') }}" class="btn btn-primary pull-right hidden-sm-down">Add Host</a>
+                    </div>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
+
+                 @include('notifications.notification')
         
     @php  $sno = 0; @endphp
 
@@ -51,7 +56,7 @@
 									<td><a href="{{ route('admin.hosts.view',$host->id) }}">{{ $host->host_name }}</a></td>
 									<td>
 										@if($host->provider()->first()!=NULL)
-											<a href="#">{{ $host->provider()->first()->name }}</a>
+											<a href="{{ route('admin.providers.view', $host->provider()->first()->id) }}">{{ $host->provider()->first()->name }}</a>
 										@else
 											No Provider Available
 										@endif
@@ -89,17 +94,7 @@
                                                 <div class="dropdown-divider"></div>
                                                          <li><a href="{{ route('admin.hosts.status',$host->id) }}" class="dropdown-item">
                                                              
-                                                             @switch($host->status)
-
-                                                                @case(0)
-                                                                    Approve
-                                                                @break
-
-                                                                @case(1)
-                                                                    Decline
-                                                                @break
-
-                                                            @endswitch
+                                                            {{  $host->status = $host->status == APPROVED ? 'Decline' : 'Approve'}}
 
                                                          </a></li>
                                             </ul>

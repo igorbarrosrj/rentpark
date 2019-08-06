@@ -5,7 +5,7 @@
           <p class="mb-4">Your Profile information can update here:</p>
                         </div>
                         <div class="col-md-7">
-                            <a href="{{ route('provider.profile.index') }}"  class="btn btn-primary float-right hidden-sm-down">Go Back</a>
+                            <a href="{{ route('provider.profile.view') }}"  class="btn btn-primary float-right hidden-sm-down">Go Back</a>
                         </div>
                     </div>  
          
@@ -24,7 +24,7 @@
                         <div class="form-group">
                             
 
-                            <input type="hidden" name="id" class="form-control" value="{{ $profile->id }}" >
+                            <input type="hidden" name="id" class="form-control" value="{{ $provider_details->id }}" >
 
                         </div>
                         
@@ -32,7 +32,7 @@
                             
                             <label class="name">Name *</label>
  
-                            <input type="text" name="name" class="form-control" value="{{ $profile->name }}" placeholder="Name" required>
+                            <input type="text" name="name" class="form-control" value="{{ $provider_details->name }}" placeholder="Name" required>
 
                         </div>
 
@@ -40,7 +40,7 @@
                             
                             <label class="email">Email *</label>
  
-                            <input type="text" name="email" class="form-control" value="{{ $profile->email }}" placeholder="Email" required>
+                            <input type="text" name="email" class="form-control" value="{{ $provider_details->email }}" placeholder="Email" required>
 
                         </div>
 
@@ -49,7 +49,7 @@
                             
                             <label class="description">Description *</label>
 
-                            <input type="text" name="description" class="form-control" value="{{ $profile->description }}" placeholder="Description" required>
+                            <input type="text" name="description" class="form-control" value="{{ $provider_details->description }}" placeholder="Description" required>
 
                         </div>
 
@@ -57,12 +57,12 @@
                             
                             <label class="mobile">Mobile *</label>
 
-                            <input type="text" name="mobile" class="form-control" value="{{ $profile->mobile }}" placeholder="Mobile" required>
+                            <input type="text" name="mobile" class="form-control" value="{{ $provider_details->mobile }}" placeholder="Mobile" required>
 
                         </div>
 
                         <div class="form-group">
-                              <img src="/uploads/providers/{{ $profile->picture }}" style="width: 200px;height: 200px"> 
+                              <img src="{{ $provider_details->picture }}" style="width: 200px;height: 200px"> 
 
                         </div>
 
@@ -70,7 +70,7 @@
                             
                             <label class="picture">Picture</label>
 
-                             <input type="file" name="picture" class="form-control" value="{{ $profile->picture }}">
+                             <input type="file" name="picture" class="form-control" value="{{ $provider_details->picture }}">
 
                         </div>
 
@@ -79,7 +79,7 @@
                             
                             <label class="work">Work </label>
 
-                            <input type="text" name="work" class="form-control" value="{{ $profile->work }}" placeholder="Work" >
+                            <input type="text" name="work" class="form-control" value="{{ $provider_details->work }}" placeholder="Work" >
 
                         </div>
                         
@@ -87,7 +87,7 @@
                             
                             <label class="school">School </label>
 
-                            <input type="text" name="school" class="form-control" value="{{ $profile->school }}" placeholder="School">
+                            <input type="text" name="school" class="form-control" value="{{ $provider_details->school }}" placeholder="School">
 
                         </div>
 
@@ -95,7 +95,7 @@
                             
                             <label class="languages">Languages *</label>
 
-                            <input type="text" name="languages" class="form-control" value="{{ $profile->languages }}" placeholder="Languages" required>
+                            <input type="text" name="languages" class="form-control" value="{{ $provider_details->languages }}" placeholder="Languages" required>
 
                         </div>
 
@@ -104,9 +104,9 @@
                             <label class="gender">Gender</label>
 
                             <select name="gender">
-                                <option  @if($profile!=NULL){{ $profile->gender === 'male' ? 'selected' : '' }}@endif>Male</option>
-                                <option @if($profile!=NULL) {{ $profile->gender === 'female' ? 'selected' : '' }}@endif>Female</option>
-                                <option  @if($profile!=NULL) {{ $profile->gender === 'others' ? 'selected' : '' }}@endif>Others</option>
+                                <option  @if($provider_details!=NULL){{ $provider_details->gender === 'male' ? 'selected' : '' }}@endif>Male</option>
+                                <option @if($provider_details!=NULL) {{ $provider_details->gender === 'female' ? 'selected' : '' }}@endif>Female</option>
+                                <option  @if($provider_details!=NULL) {{ $provider_details->gender === 'others' ? 'selected' : '' }}@endif>Others</option>
                             </select>
 
                         </div>

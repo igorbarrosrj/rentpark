@@ -19,7 +19,9 @@
         <!-- ============================================================== -->
         <!-- End Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
-        
+         
+        @include('notifications.notification')
+
         @php  $sno = 0; @endphp
 
 		<div class="row">
@@ -61,7 +63,7 @@
 						            <td>
 						            	@if($booking->provider()->first()!=NULL)
 
-						            		<a href="#">{{ $booking->provider()->first()->name }}</a>
+						            		<a href="{{ route('admin.providers.view',$booking->provider()->first()->id) }}">{{ $booking->provider()->first()->name }}</a>
 						            	@else
 						            		No Provider Available
 						            	@endif

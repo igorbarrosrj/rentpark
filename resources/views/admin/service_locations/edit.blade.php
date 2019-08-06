@@ -23,6 +23,7 @@
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
 
+                 @include('notifications.notification')
 
         @include('admin.service_locations._form')
     </div>

@@ -57,7 +57,9 @@ Route::group(['middleware' => 'web'], function() {
 
         Route::get('/providers/view/{id}', 'AdminController@providers_view')->name('providers.view');
 
-        Route::delete('/providers/delete/{provider_id}', 'AdminController@providers_delete')->name('providers.delete');
+        Route::get('/providers/delete/{id}', 'AdminController@providers_delete')->name('providers.delete');
+        
+        Route::get('/providers/status/{id}', 'AdminController@providers_status')->name('providers.status');
 
 
         /***
@@ -125,13 +127,13 @@ Route::group(['middleware' => 'web'], function() {
 
         Route::get('/profile/view/{id}', 'AdminController@admin_profile_view')->name('profile.view');
 
-        Route::PUT('/profile/save/{id}', 'AdminController@admin_profile_save')->name('profile.save');
+        Route::post('/profile/save/{id}', 'AdminController@admin_profile_save')->name('profile.save');
 
         Route::get('/profile/edit/{id}', 'AdminController@admin_profile_edit')->name('profile.edit');
 
         Route::get('/profile/password/{id}', 'AdminController@change_password')->name('profile.password');
 
-        Route::put('/profile/password/{id}','AdminController@change_password_save')->name('profile.password');
+        Route::post('/profile/password/{id}','AdminController@change_password_save')->name('profile.password');
 
 
 

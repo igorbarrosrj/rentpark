@@ -56,7 +56,7 @@
 
                         </div>
                         <div class="form-group">
-                             @if($host!=NULL) <img src="/uploads/hosts/{{ $host->picture }}" style="width: 200px;height: 200px"> @endif
+                             @if($host!=NULL) <img src="{{ $host->picture }}" style="width: 200px;height: 200px"> @endif
 
                         </div>
 

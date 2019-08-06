@@ -23,6 +23,8 @@
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
 
+                 @include('notifications.notification')
+
     <div class="row">
     	<!-- column -->
     	<div class="col-12">
@@ -68,11 +70,11 @@
 		             		<td>Status</td>
 		             		@switch($service_location->status)
 
-                                @case(0)
+                                @case(DECLINED)
                                     <td><div class="label label-danger">Declined</div></td>
                                 @break
 
-                                @case(1)
+                                @case(APPROVED)
                                     <td><div class="label label-success">Approved</div></td>
                                 @break
 
@@ -86,17 +88,7 @@
 		             			
 		             			<a href="{{ route('admin.service_locations.status',$service_location->id) }}" class="btn btn-info">
                                                              
-                                    @switch($service_location->status)
-
-                                    @case(0)
-                                        Approve
-                                    @break
-
-                                    @case(1)
-                                        Decline
-                                    @break
-
-                                   	@endswitch
+                                    {{  $service_location->status = $service_location->status == APPROVED ? 'Decline' : 'Approve'}}
 
                                 </a>
 		             		</td>

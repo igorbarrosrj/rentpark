@@ -21,6 +21,8 @@
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
 
+                 @include('notifications.notification')
+
 
         @include('admin.settings._form')
     </div>

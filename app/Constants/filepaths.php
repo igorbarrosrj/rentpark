@@ -17,10 +17,10 @@ if(!defined('PROFILE_PATH_USER')) define('PROFILE_PATH_USER', "/uploads/users/")
 
 if(!defined('PROFILE_PATH_PROVIDER')) define('PROFILE_PATH_PROVIDER', "/uploads/providers/");
 
-if(!defined('PROFILE_PATH_ADMIN')) define('PROFILE_PATH_ADMIN', "/uploads/admins/");
+if(!defined('PROFILE_PATH_ADMIN')) define('PROFILE_PATH_ADMIN', "/uploads/admin/");
 
 
-if(!defined('FILE_PATH_SERVICE_LOCATION')) define('FILE_PATH_SERVICE_LOCATION', "/uploads/servicelocations/");
+if(!defined('FILE_PATH_SERVICE_LOCATION')) define('FILE_PATH_SERVICE_LOCATION', "/uploads/service_locations/");
 
 
 if(!defined('FILE_PATH_HOST')) define('FILE_PATH_HOST', "/uploads/hosts/");

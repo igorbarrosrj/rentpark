@@ -45,7 +45,7 @@
 
                   <tr>
                     <td>Picture</td>
-                    <td><img src="/uploads/hosts/{{ $host->picture }}" style="width: 200px;height: 200px"></td>
+                    <td><img src="{{ $host->picture }}" style="width: 200px;height: 200px"></td>
                   </tr>
 
                   <tr>
@@ -88,11 +88,11 @@
                     <td>Status</td>
                     @switch($host->status)
 
-                                @case(0)
+                                @case(DECLINED)
                                     <td><div class="label label-danger">Declined</div></td>
                                 @break
 
-                                @case(1)
+                                @case(APPROVED)
                                     <td><div class="label label-success">Approved</div></td>
                                 @break
 

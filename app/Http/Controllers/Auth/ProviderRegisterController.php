@@ -47,7 +47,9 @@ class ProviderRegisterController extends Controller
 
       	$provider->password = Hash::make($request->password);
 
-        $provider->picture = 'noimage.jpg';
+        $provider->picture = '/placeholder.jpg';
+
+        $provider->languages = '';
 
         $provider->save();
 
