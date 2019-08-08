@@ -30,7 +30,7 @@
                         <div class="card card-body mailbox " style="height: 150px">
                             <h5 class="card-title">Total Users</h5>
                             <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
-                                <!-- Messag3-->
+                                <!-- Message-->
                                 <a href="#">
                                     <div class="btn btn-danger btn-circle"><i class="fa fa-user"></i></div>
                                     <div class="mail-contnet pl-3 pt-2"> <span class="mail-desc"> <h2>{{ $total_users ?? 0 }}</h2> </span> </div>
