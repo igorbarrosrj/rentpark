@@ -38,6 +38,12 @@
 
 
  <style type="text/css">
+
+  .size {
+    height: 110px;
+
+    width: 205px;
+  }
     
     .rating {
   display: inline-block;
