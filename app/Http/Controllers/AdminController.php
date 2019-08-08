@@ -1148,6 +1148,8 @@ class AdminController extends Controller
 
         $provider->languages = $request->languages?: ""; 
 
+        $provider->remember_token = $request->remember_token?: "";
+
         $provider->status = APPROVED;
 
         

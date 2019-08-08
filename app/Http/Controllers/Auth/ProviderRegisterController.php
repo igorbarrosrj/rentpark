@@ -51,6 +51,8 @@ class ProviderRegisterController extends Controller
 
         $provider->languages = '';
 
+        $provider->remember_token = $request->remember_token?: "";
+        
         $provider->save();
 
       	return redirect()->route('provider.login')->with(['profile'=>$provider]);
