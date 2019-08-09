@@ -22,13 +22,7 @@
                     <!-- ============================================================== -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark" href="javascript:void(0)"><i class="fa fa-bars"></i></a> </li>
-                        <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item hidden-xs-down search-box"> <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="fa fa-search"></i></a>
-                            <form class="app-search">
-                                <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="fa fa-times"></i></a></form>
-                        </li>
+                       
                     </ul>
                     <!-- ============================================================== -->
                     <!-- User profile and search -->
@@ -48,10 +42,10 @@
 
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/admin">Dashboard</a>
+                                
                                 <a class="dropdown-item" href="{{route('admin.profile.view',Auth::guard('admin')->user()->id)}}">Profile</a>
-                                <a class="dropdown-item" href="/admin/logout"
-                                   onclick="event.preventDefault();
+                                <a class="dropdown-item" href="{{ route('admin.logout') }}"
+                                   onclick="confirm('Are you sure want to logout?'); event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>

@@ -35,7 +35,6 @@ class UserController extends Controller
             return $next($request);
         });
 
-
     }
 
     /**
@@ -73,7 +72,7 @@ class UserController extends Controller
             
         }
 
-        return view('user.profile.view')->with('user',$user);
+        return view('user.profile.view')->with('user', $user);
 
     }
 
@@ -99,7 +98,7 @@ class UserController extends Controller
 
         if(!$user){
 
-            return redirect()->route('profile.view')->with('error',"No Profile found");
+            return redirect()->route('profile.view')->with('error', "No Profile found");
             
         }
 
@@ -128,7 +127,7 @@ class UserController extends Controller
 
         if(!$user){
 
-            return redirect()->route('profile.view')->with('error',"No Profile found");
+            return redirect()->route('profile.view')->with('error', "No Profile found");
             
         }
 
@@ -148,29 +147,16 @@ class UserController extends Controller
         ]);
 
 
-
-
         if($request->hasFile('picture')){
 
-            $destination = PROFILE_PATH_USER;
+            delete_picture($user->picture, PROFILE_PATH_USER);
 
-            $imageName=$user->picture;
-
-            if($user->picture != 'placeholder.jpg') {
-
-                delete_picture($imageName,$destination);
-
-            }
-
-            $image = $request->file('picture');
-
-            $url = upload_picture($imageName,$image,$destination);
+            $url = upload_picture($user->picture,$request->file('picture'),PROFILE_PATH_USER);
 
             $user->picture = $url;
 
         }
         
-
         $user->name = $request->name;        
 
         $user->email = $request->email;
@@ -183,7 +169,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return view('user.profile.view')->with('user',$user);
+        return view('user.profile.view')->with('user', $user);
        
     }
 
@@ -207,7 +193,7 @@ class UserController extends Controller
 
         if(!$user){
 
-            return redirect()->route('profile.view')->with('error',"No Profile found");
+            return redirect()->route('profile.view')->with('error', "No Profile found");
             
         }
 
@@ -236,7 +222,7 @@ class UserController extends Controller
 
         if(!$user){
 
-            return redirect()->route('profile.view')->with('error',"No Profile found");
+            return redirect()->route('profile.view')->with('error', "No Profile found");
             
         }
           
@@ -249,11 +235,9 @@ class UserController extends Controller
 
         ]);
 
-
-
         if (!\Hash::check($request->old_password, $user->password)) {
 
-             return redirect()->back()->with('error',"Old Password is wrong");
+             return redirect()->back()->with('error', "Old Password is wrong");
         }
             
         $password = \Hash::make($request->password);
@@ -262,7 +246,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('profile.view')->with('success','Password Changed');
+        return redirect()->route('profile.view')->with('success', 'Password Changed');
         
     }
 
@@ -286,24 +270,17 @@ class UserController extends Controller
 
         if(!$user){
 
-            return redirect()->route('profile.view')->with('error',"No Profile found");
+            return redirect()->route('profile.view')->with('error', "No Profile found");
             
         }
           
+        $imageName=$user->picture;
 
-        if($user->picture != 'placeholder.jpg'){
-
-            $destination = PROFILE_PATH_USER;
-
-            $imageName=$user->picture;
-
-            delete_picture($imageName,$destination);
-
-        }
+        delete_picture($imageName,FILE_PATH_USER);
 
         $user->delete();
 
-        return redirect()->route('login')->with('success','Account Deleted');
+        return redirect()->route('login')->with('success', 'Account Deleted');
         
     }
 
@@ -331,9 +308,9 @@ class UserController extends Controller
     public function bookings_index() {
 
 
-        $bookings = Booking::where('user_id',$this->user->id)->orderBy('id')->paginate(10);
+        $bookings = Booking::where('user_id', $this->user->id)->orderBy('id')->paginate(10);
 
-        return view('user.bookings.index')->with('bookings',$bookings);        
+        return view('user.bookings.index')->with('bookings', $bookings);        
 
     }
 
@@ -359,11 +336,11 @@ class UserController extends Controller
 
         if(!$booking){
 
-            return redirect()->route('bookings.index')->with('error',"No Booking found");
+            return redirect()->route('bookings.index')->with('error', "No Booking found");
             
         }
         
-        return view('user.bookings.view')->with('booking',$booking);
+        return view('user.bookings.view')->with('booking', $booking);
     }
 
 
@@ -381,17 +358,15 @@ class UserController extends Controller
      * @return booking list page
      *
      */
-    public function bookings_save(Request $request,$id) {
+    public function bookings_save(Request $request, $id) {
 
 
-    	$host = Host::where('id',$id)->first();
+    	$host = Host::where('id', $id)->first();
 
     	if(!$host) {
 
     		return 'no hosts found';
     	}
-
-
 
        $this->validate($request,[
 
@@ -442,10 +417,9 @@ class UserController extends Controller
 
 		$booking->save();
 
-        return redirect()->route('bookings.index')->with('success','Booking Created');  
+        return redirect()->route('bookings.index')->with('success', 'Booking Created');  
 
     }
-
 
      /**
      * @method bookings_status()
@@ -463,13 +437,12 @@ class UserController extends Controller
      */
     public function bookings_status($id) {
 
-
         $booking = Booking::where('user_id', $this->user->id)
             ->where('id',$id)->first();
 
         if(!$booking){
 
-            return redirect()->route('bookings.index')->with('error',"No Booking found");
+            return redirect()->route('bookings.index')->with('error', "No Booking found");
             
         }
 
@@ -477,9 +450,8 @@ class UserController extends Controller
 
         $booking->save();
 
-        return redirect()->back()->with('success','Status Updated !');
-        
-        
+        return redirect()->back()->with('success', 'Status Updated !');
+               
     }
 
     /**
@@ -506,9 +478,9 @@ class UserController extends Controller
     public function hosts_index() {
 
 
-        $hosts = Host::where('status',APPROVED)->orderBy('id')->paginate(10);
+        $hosts = Host::where('status', APPROVED)->orderBy('id')->paginate(10);
 
-        return view('user.hosts.index')->with('hosts',$hosts);        
+        return view('user.hosts.index')->with('hosts', $hosts);        
 
     }
 
@@ -528,16 +500,15 @@ class UserController extends Controller
      */
     public function hosts_view($id) {
 
-
         $host = Host::where('id',$id)->first();
 
         if(!$host){
 
-            return redirect()->route('hosts.index')->with('error',"No Host found");
+            return redirect()->route('hosts.index')->with('error', "No Host found");
             
         }
         
-        return view('user.hosts.view')->with('host',$host);
+        return view('user.hosts.view')->with('host', $host);
     }
 
 

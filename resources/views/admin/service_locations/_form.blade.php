@@ -17,39 +17,53 @@
                             <input type="hidden" name="id" class="form-control" @if($service_location!=NULL)value="{{ $service_location->id }}"@endif >
 
                         </div>
+
+                        <div class="row">
+                            
+                             <div class="form-group col-md-6 col-lg-6">
+                            
+                                <label class="name">Name *</label>
+
+                                <input type="text" name="name" class="form-control" @if($service_location!=NULL)value="{{ $service_location->name }}" @else value="{{ old('name') }}" @endif placeholder="Name" required> 
+
+                            </div>
+
+                        </div>
                         
-                        <div class="form-group">
-                            
-                            <label class="name">Name *</label>
-
-                            <input type="text" name="name" class="form-control" @if($service_location!=NULL)value="{{ $service_location->name }}"@endif placeholder="Name" required> 
-
+                       
+                        <div class="form-group ">
+                            @if($service_location!=NULL) <img src="{{ $service_location->picture }}" id="preview" style="width: 200px;height: 200px"> @endif
                         </div>
 
-                        <div class="form-group">
-                            @if($service_location!=NULL) <img src="{{ $service_location->picture }}" style="width: 200px;height: 200px"> @endif
-                        </div>
-                        <div class="form-group">
+                        <div class="row">
                             
-                            <label class="picture">Picture</label>
-
-                            <input type="file" name="picture" class="form-control" @if($service_location!=NULL)value="{{ $service_location->picture }}"@endif>
-
-                        </div>
-
-                        <div class="form-group">
+                            <div class="form-group col-md-6 col-lg-6">
                             
-                            <label class="full_address">Full Address *</label>
+                                <label class="picture">Picture</label>
 
-                            <textarea name="full_address" class="form-control" required> @if($service_location!=NULL){{$service_location->full_address }}@endif</textarea> 
+                                <input type="file" name="picture" onchange="readURL(this);" class="form-control" @if($service_location!=NULL)value="{{ $service_location->picture }}"@endif accept="image/*">
+
+                            </div>
 
                         </div>
-
-                        <div class="form-group">
+                        
+                        <div class="row">
                             
-                            <label class="description">Description *</label>
+                            <div class="form-group col-md-6 col-lg-6">
+                            
+                                <label class="full_address">Full Address *</label>
 
-                            <input type="text" name="description" class="form-control" @if($service_location!=NULL)value="{{ $service_location->description }}"@endif placeholder="description" required>
+                                <textarea name="full_address" class="form-control" required> @if($service_location!=NULL){{$service_location->full_address }} @else {{ old('full_address') }} @endif</textarea> 
+
+                            </div>
+
+                            <div class="form-group col-md-6 col-lg-6">
+                                
+                                <label class="description">Description *</label>
+
+                                <input type="text" name="description" class="form-control" @if($service_location!=NULL)value="{{ $service_location->description }}" @else value="{{ old('description') }}" @endif placeholder="description" required>
+
+                            </div>
 
                         </div>
 

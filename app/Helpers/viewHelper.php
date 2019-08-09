@@ -4,17 +4,21 @@ use App\Http\Controllers\AdminController;
 
 use Illuminate\Support\Facades\File;
 
-
-function upload_picture($imageName, $image, $destination){
-
-    $image_name = basename($imageName);
-
-    $image_path = public_path($destination.'/'.$image_name);
-   
-    if(File::exists($image_path)){
-            
-        File::delete($image_path);
-    }
+/**
+     * @method upload_picture()
+     * 
+     * @uses used to upload the picture
+     *
+     * @created BALAJI M
+     *
+     * @updated VITHYA
+     *
+     * @param image, destination
+     *
+     * @return url of image
+     *
+     */
+function upload_picture($image, $destination) {
 
     $extension = $image->getClientOriginalExtension();
 
@@ -22,17 +26,32 @@ function upload_picture($imageName, $image, $destination){
 
     $image->move(public_path().$destination, $filename);
 
-    return url($destination,$filename);     
+    return url($destination, $filename);     
 
 }
 
-function delete_picture($imageName, $destination ){
+/**
+     * @method delete_picture()
+     * 
+     * @uses used to delete the image
+     *
+     * @created BALAJI M
+     *
+     * @updated VITHYA
+     *
+     * @param image and destination
+     *
+     * @return null
+     *
+     */
 
-    $image_name = basename($imageName);
+function delete_picture($image, $destination) {
+
+    $image_name = basename($image);
 
     $image_path = public_path($destination.'/'.$image_name);
    
-    if(File::exists($image_path)){
+    if(File::exists($image_path)) {
             
         File::delete($image_path);
     }

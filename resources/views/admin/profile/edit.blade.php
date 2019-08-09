@@ -9,10 +9,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">Admin Detail</h3>
+                        <h3 class="text-themecolor">Admin Profile</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.profile.view',$admin->id) }}">Admin Detail</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.profile.view',$admin->id) }}">Admin Profile</a></li>
                             <li class="breadcrumb-item active">Edit Admin</li>
                         </ol>
                     </div>

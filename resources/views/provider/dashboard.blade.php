@@ -134,15 +134,16 @@
                                  <br>
                             
                           @endforeach
-    
+                          <br>
+                            <a href="{{ route('provider.bookings.index') }}"><button class="btn btn-primary pl-10">View All</button></a>
+              
                           @else
                               <tr><td colspan=5><h3>No Booking found</h3></td></tr>
                           @endif
 
 
                   </div>
-                  <br>
-                  <a href="{{ route('provider.bookings.index') }}"><button class="btn btn-primary pl-10">View All</button></a>
+                  
                 </div>
               </div>
             </div>

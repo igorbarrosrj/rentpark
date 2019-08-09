@@ -12,11 +12,26 @@
                         <li> <a class="waves-effect waves-dark" href="/admin" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
                         </li>
 
-                        <!-- Provider -->
+                        <!-- Users -->
                         <li class="treeview">
                           <a href="#">
-                            <i class="fa fa-user-circle-o"></i>
-                            <span>Provider</span>
+                            <i class="fa fa-user"></i>
+                            <span>Users</span>
+                            <span class="pull-right-container">
+                              <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                          </a>
+                          <ul class="treeview-menu">
+                            <li><a href="{{ route('admin.users.index') }}"><i class="fa fa-circle-o"></i> List Users</a></li>
+                            <li><a href="{{ route('admin.users.create') }}"><i class="fa fa-circle-o"></i> Add User</a></li>
+                          </ul>
+                        </li>
+
+                        <!-- Providers -->
+                        <li class="treeview">
+                          <a href="#">
+                            <i class="fa fa-users"></i>
+                            <span>Providers</span>
                             <span class="pull-right-container">
                               <i class="fa fa-angle-left pull-right"></i>
                             </span>
@@ -28,26 +43,28 @@
                           </ul>
                         </li>
 
-                        <!-- User -->
+                        <!--Service Loctions-->
                         <li class="treeview">
                           <a href="#">
-                            <i class="fa fa-user-circle-o"></i>
-                            <span>User</span>
+                            <i class="fa fa-map-marker"></i>
+                            <span>Service</span>
                             <span class="pull-right-container">
                               <i class="fa fa-angle-left pull-right"></i>
-                            </span>
+                            <span style="padding-left: 43px;">Locations</span>
+                            
                           </a>
                           <ul class="treeview-menu">
-                            <li><a href="{{ route('admin.users.index') }}"><i class="fa fa-circle-o"></i> List Users</a></li>
-                            <li><a href="{{ route('admin.users.create') }}"><i class="fa fa-circle-o"></i> Add User</a></li>
+                            <li><a href="{{ route('admin.service_locations.index') }}"><i class="fa fa-circle-o"></i> List Service Locations</a></li>
+                            <li><a href="{{ route('admin.service_locations.create') }}"><i class="fa fa-circle-o"></i> Add Service Locations</a></li>
+
                           </ul>
                         </li>
 
-                        <!-- Host -->
+                        <!-- Hosts -->
                         <li class="treeview">
                           <a href="#">
                             <i class="fa fa-home"></i>
-                            <span>Host</span>
+                            <span>Hosts</span>
                             
                             <span class="pull-right-container">
                               <i class="fa fa-angle-left pull-right"></i>
@@ -56,24 +73,6 @@
                           <ul class="treeview-menu">
                              <li><a href="{{ route('admin.hosts.index') }}"><i class="fa fa-circle-o"></i> List Hosts</a></li>
                              <li><a href="{{ route('admin.hosts.create') }}"><i class="fa fa-circle-o"></i> Add Host</a></li>
-                          </ul>
-                        </li>
-
-
-                        <!--Service Loctions-->
-                        <li class="treeview">
-                          <a href="#">
-                            <i class="fa fa-map-marker"></i>
-                            <span>Service</span>
-                            <span class="pull-right-container">
-                              <i class="fa fa-angle-left pull-right"></i>
-                            <span style="padding-left: 43px;">Location</span>
-                            
-                          </a>
-                          <ul class="treeview-menu">
-                            <li><a href="{{ route('admin.service_locations.index') }}"><i class="fa fa-circle-o"></i> List Service Locations</a></li>
-                            <li><a href="{{ route('admin.service_locations.create') }}"><i class="fa fa-circle-o"></i> Add Service Locations</a></li>
-
                           </ul>
                         </li>
 
@@ -87,6 +86,22 @@
                          <li> <a class="waves-effect waves-dark" href="{{ route('admin.settings.index') }}" aria-expanded="false"><i class="fa fa-gear"></i><span class="hide-menu">Settings</span></a>
                         </li>
                        
+
+                       <!-- Profile -->
+
+                         <li> <a class="waves-effect waves-dark" href="{{ route('admin.profile.view', Auth()->user()->id) }}" aria-expanded="false"><i class="fa fa-user-circle-o"></i><span class="hide-menu">Profile</span></a>
+                        </li>
+
+                        <!-- Logout -->
+
+                         <li> <a class="waves-effect waves-dark" href="{{ route('admin.logout')}}" aria-expanded="false" onclick="confirm('Are you sure want to logout?');event.preventDefault();
+                                                 document.getElementById('logout-form').submit();" ><i class="fa fa-sign-out"></i><span class="hide-menu">Logout</span></a>\
+
+                          <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                        </li>
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\File;
 class ProviderController extends Controller
 {
 
-
     /**
      * Create a new controller instance.
      *
@@ -94,7 +93,6 @@ class ProviderController extends Controller
 
     }
 
-
     
     /**
     *
@@ -102,8 +100,6 @@ class ProviderController extends Controller
     * Host Management in provider Panel
     *
     */
-
-
 
     /**
      * @method hosts_index()
@@ -125,7 +121,7 @@ class ProviderController extends Controller
 
         $hosts = Host::where('provider_id',$provider_id)->orderBy('id')->paginate(10);
 
-        return view('provider.hosts.index')->with('hosts',$hosts);        
+        return view('provider.hosts.index')->with('hosts', $hosts);        
 
     }
 
@@ -149,21 +145,9 @@ class ProviderController extends Controller
 
         $host = NULL;
 
-        $service_locations = ServiceLocation::where('status',APPROVED)->get();
-
-        if(!$service_locations){
-
-            return redirect()->route('provider.hosts.index')->with('error',"No Service Locations found");
-            
-        }
+        $service_locations = ServiceLocation::where('status', APPROVED)->get();
 
         $providers = Provider::orderBy('name')->get();
-
-        if(!$providers){
-
-            return redirect()->route('provider.hosts.index')->with('error',"No providers found");
-            
-        }
 
         return view('provider.hosts.create')->with(['host' => $host, 'service_locations' => $service_locations, 'providers' => $providers ]);
 
@@ -189,15 +173,15 @@ class ProviderController extends Controller
         $provider_id = Auth()->guard('provider')->user()->id;
 
         $host = Host::where('provider_id', $provider_id)
-            ->where('id',$id)->first();
+            ->where('id', $id)->first();
 
         if(!$host){
 
-            return redirect()->route('provider.hosts.index')->with('error',"No Host found");
+            return redirect()->route('provider.hosts.index')->with('error', "No Host found");
             
         }
         
-        return view('provider.hosts.view')->with('host',$host);
+        return view('provider.hosts.view')->with('host', $host);
     }
 
 
@@ -216,7 +200,6 @@ class ProviderController extends Controller
      *
      */
     public function hosts_save(Request $request) {
-
 
         $this->validate($request,[
 
@@ -242,13 +225,7 @@ class ProviderController extends Controller
 
         $provider_id = Auth()->guard('provider')->user()->id;
 
-
-
-       
-
-
-        if($request->id == NULL){
-        
+        if(!$request->id){
 
             //Create Host
 
@@ -256,47 +233,23 @@ class ProviderController extends Controller
 
             $host->unique_id = uniqid(base64_encode(str_random(60)));
 
+            $host->status = DECLINED;
+
              //Handle File Upload
-            if($request->hasFile('picture')){
 
-                $imageName = $host->picture;
-
-                $destination = FILE_PATH_HOST;
-
-                $image = $request->file('picture');
-
-                $url = upload_picture($imageName,$image,$destination);
-
-            } else {
-
-                $url = '/noimage.jpg';
-            }
-
-            $host->picture = $url;
-        }
-        else {
+            $host->picture = asset('noimage.jpg');
+        } else {
 
             $host = Host::find($request->id);
 
-            $imageName = $host->picture;
-
              //Handle File Upload
             if($request->hasFile('picture')){
 
-                $destination = FILE_PATH_HOST;
+                delete_picture($host->picture, FILE_PATH_HOST);
 
-                $image = $request->file('picture');
-
-                $url = upload_picture($imageName,$image,$destination);
-
-                $host->picture = $url;
-
-
-            } 
-
+            }
             
         }
-
 
         $host->provider_id = $provider_id;        
 
@@ -312,13 +265,17 @@ class ProviderController extends Controller
 
         $host->full_address = $request->full_address;
 
-        $host->per_hour = $request->per_hour;
+        $host->per_hour = $request->per_hour; 
 
-        $host->status = DECLINED;
+        if($request->hasFile('picture')){
+
+            $url = upload_picture($host->picture, $request->file('picture'), FILE_PATH_HOST);
+
+        } 
 
         $host->save();
 
-        return redirect()->route('provider.hosts.index')->with('success','Host Saved');
+        return redirect()->route('provider.hosts.index')->with('success', 'Host Saved');
     }
 
     /**
@@ -341,28 +298,19 @@ class ProviderController extends Controller
         $provider_id = Auth()->guard('provider')->user()->id;
         
         $host = Host::where('provider_id', $provider_id)
-            ->where('id',$id)->first();
+            ->where('id', $id)->first();
 
         if(!$host){
 
-            return redirect()->route('provider.hosts.index')->with('error',"No Host found");
-            
-        }
-        
-
-        $service_locations = ServiceLocation::where('status',APPROVED)->get();
-
-        if(!$service_locations){
-
-            return redirect()->route('provider.hosts.index')->with('error',"No Service Locations found");
+            return redirect()->route('provider.hosts.index')->with('error', "No Host found");
             
         }
 
+        $service_locations = ServiceLocation::where('status', APPROVED)->get();
 
         return view('provider.hosts.edit')->with(['host' => $host, 'service_locations' => $service_locations]);
     
     }
-
 
     /**
      * @method hosts_delete()
@@ -383,7 +331,7 @@ class ProviderController extends Controller
         $provider_id = Auth()->guard('provider')->user()->id;
 
         $host = Host::where('provider_id', $provider_id)
-            ->where('id',$id)->first();
+            ->where('id', $id)->first();
 
         $provider_id = Auth()->guard('provider')->user()->id;
 
@@ -393,19 +341,13 @@ class ProviderController extends Controller
             
         }
 
-        $imageName=$host->picture;
-
-        $destination = FILE_PATH_HOST;
-
-        delete_picture($imageName,$destination);
+        delete_picture($host->picture, FILE_PATH_HOST);
 
         $host->delete();
 
-        return redirect()->route('provider.hosts.index')->with('success','Host Removed');
+        return redirect()->route('provider.hosts.index')->with('success', 'Host Removed');
         
     }
-
-
 
 
     /**
@@ -413,8 +355,6 @@ class ProviderController extends Controller
     * Profile Management
     *
     **/
-
-
 
 
     /**
@@ -435,28 +375,41 @@ class ProviderController extends Controller
 
         $provider_id = Auth()->guard('provider')->user()->id;
 
-        $provider_details = Provider::where('id',$provider_id)->first();
+        $provider_details = Provider::where('id', $provider_id)->first();
 
         if(!$provider_details){
 
-            return redirect()->route('provider.profile.view')->with('error',"No Profile found");
+            return redirect()->route('provider.profile.view')->with('error', "No Profile found");
             
         }
         
-        return view('provider.profile.view')->with('provider_details',$provider_details);
+        return view('provider.profile.view')->with('provider_details', $provider_details);
     }
 
-
+    /**
+     * @method profile_edit()
+     * 
+     * @uses used to edit the profile
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return profile edit form
+     *
+     */
 
     public function profile_edit($id) {
 
         $provider_id = Auth()->guard('provider')->user()->id;
         
-        $provider_details = Provider::where('id',$provider_id)->first();
+        $provider_details = Provider::where('id', $provider_id)->first();
 
         if(!$provider_details){
 
-            return redirect()->route('provider.profile.view')->with('error',"No Profile found");
+            return redirect()->route('provider.profile.view')->with('error', "No Profile found");
             
         }
 
@@ -484,11 +437,11 @@ class ProviderController extends Controller
 
         $provider_id = Auth()->guard('provider')->user()->id;
         
-        $provider_details = Provider::where('id',$provider_id)->first();
+        $provider_details = Provider::where('id', $provider_id)->first();
 
         if(!$provider_details){
 
-            return redirect()->route('provider.profile.view')->with('error',"No Profile found");
+            return redirect()->route('provider.profile.view')->with('error', "No Profile found");
             
         }
 
@@ -516,20 +469,9 @@ class ProviderController extends Controller
         //Handle File Upload
         if($request->hasFile('picture')){
 
-            if($provider_details->picture != 'placeholder.jpg'){
+            delete_picture($request->picture,PROFILE_PATH_PROVIDER);
 
-                Storage::disk('public')->delete('/providers/'.$provider_details->picture);
-            }
-
-            $imageName = $request->picture;
-
-            $destination = PROFILE_PATH_PROVIDER;
-
-            $image = $request->file('picture');
-
-            $url = upload_picture($imageName,$image,$destination);
-
-            $provider_details->picture = $url;
+            $provider_details->picture = upload_picture($request->picture,$request->file('picture'),PROFILE_PATH_PROVIDER);
 
         } 
 
@@ -551,7 +493,7 @@ class ProviderController extends Controller
 
         $provider_details->save();
 
-        return redirect()->route('provider.profile.view')->with('success','Profile Saved');
+        return redirect()->route('provider.profile.view')->with('success', 'Profile Saved');
     }
 
 
@@ -573,7 +515,7 @@ class ProviderController extends Controller
     
         $provider_id = Auth()->guard('provider')->user()->id;
         
-        $provider_details = Provider::where('id',$provider_id)->first();
+        $provider_details = Provider::where('id', $provider_id)->first();
 
         if(!$provider_details){
 
@@ -582,7 +524,6 @@ class ProviderController extends Controller
         }
 
         return view('provider.profile.password')->with(['provider_details' => $provider_details]);
-
 
     }
 
@@ -606,7 +547,7 @@ class ProviderController extends Controller
 
         $provider_id = Auth()->guard('provider')->user()->id;
         
-        $provider_details = Provider::where('id',$provider_id)->first();
+        $provider_details = Provider::where('id', $provider_id)->first();
 
         if(!$provider_details){
 
@@ -627,7 +568,7 @@ class ProviderController extends Controller
 
         if (!\Hash::check($request->old_password, $provider_details->password)) {
 
-             return redirect()->back()->with('error',"Old Password is wrong");
+             return redirect()->back()->with('error', "Old Password is wrong");
         }
             
         $password = \Hash::make($request->password);
@@ -636,7 +577,7 @@ class ProviderController extends Controller
 
         $provider_details->save();
 
-        return redirect()->route('provider.profile.view')->with('success','Password Changed');
+        return redirect()->route('provider.profile.view')->with('success', 'Password Changed');
         
     }
 
@@ -659,28 +600,19 @@ class ProviderController extends Controller
 
         $provider_id = Auth()->guard('provider')->user()->id;
         
-        $provider_details = Provider::where('id',$provider_id)->first();
+        $provider_details = Provider::where('id', $provider_id)->first();
 
         if(!$provider_details){
 
-            return redirect()->route('provider.profile.view')->with('error',"No Profile found");
+            return redirect()->route('provider.profile.view')->with('error', "No Profile found");
             
         }
-          
 
-        if($provider_details->picture != 'placeholder.jpg'){
-
-            $imageName=$provider_details->picture;
-
-            $destination = PROFILE_PATH_PROVIDER;
-
-            delete_picture($imageName,$destination);
-
-        }
+        delete_picture($provider_details->picture, PROFILE_PATH_PROVIDER);
 
         $provider_details->delete();
 
-        return redirect()->route('provider.login')->with('success','Account Deleted');
+        return redirect()->route('provider.login')->with('success', 'Account Deleted');
         
     }
 
@@ -690,8 +622,6 @@ class ProviderController extends Controller
     * Booking Management in Admin Panel
     *
     */
-
-
 
     /**
      * @method bookings_index()
@@ -711,10 +641,10 @@ class ProviderController extends Controller
 
         $provider_id = Auth()->guard('provider')->user()->id;
 
-        $bookings = Booking::where('provider_id',$provider_id)->orderBy('id')->paginate(10);
+        $bookings = Booking::where('provider_id', $provider_id)->orderBy('id')->paginate(10);
 
-        return view('provider.bookings.index')->with('bookings',$bookings);        
-
+        return view('provider.bookings.index')->with('bookings', $bookings);        
+ 
     }
 
 
@@ -741,11 +671,11 @@ class ProviderController extends Controller
 
         if(!$booking){
 
-            return redirect()->route('provider.bookings.index')->with('error',"No Booking found");
+            return redirect()->route('provider.bookings.index')->with('error', "No Booking found");
             
         }
         
-        return view('provider.bookings.view')->with('booking',$booking);
+        return view('provider.bookings.view')->with('booking', $booking);
     }
 
     /**
@@ -764,16 +694,14 @@ class ProviderController extends Controller
      */
     public function bookings_status($id) {
 
-
-
         $provider_id = Auth()->guard('provider')->user()->id;
 
         $booking = Booking::where('provider_id', $provider_id)
-            ->where('id',$id)->first();
+            ->where('id', $id)->first();
 
         if(!$booking){
 
-            return redirect()->route('provider.bookings.index')->with('error',"No Booking found");
+            return redirect()->route('provider.bookings.index')->with('error', "No Booking found");
             
         }
 
@@ -782,8 +710,7 @@ class ProviderController extends Controller
         $booking->save();
 
         return redirect()->back()->with('success','Status Updated !');
-        
-        
+      
     }
 
     /**
@@ -809,14 +736,14 @@ class ProviderController extends Controller
 
         if(!$booking){
 
-            return redirect()->route('provider.bookings.index')->with('error',"No Booking found");
+            return redirect()->route('provider.bookings.index')->with('error', "No Booking found");
             
         }
 
 
         if($booking->provider_review()->first()!=NULL) {
 
-            return redirect()->back()->with('error',"Already Review Updated");
+            return redirect()->back()->with('error', "Already Review Updated");
         }
 
          $this->validate($request,[
@@ -848,11 +775,7 @@ class ProviderController extends Controller
         $provider_review->save();
 
         return redirect()->back()->with('success',"Review Updated");
-  
-        
         
     }
-
-
 
 }

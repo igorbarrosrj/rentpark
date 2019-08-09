@@ -9,7 +9,7 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">Service Locations List</h3>
+                        <h3 class="text-themecolor">List Service Locations</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
                             <li class="breadcrumb-item active">List Service Locations</li>
@@ -70,7 +70,7 @@
 
 										<td>
 											 <div class="dropdown">
-                                                      <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Action
+                                                      <button class="btn btn-success dropdown-toggle " type="button" data-toggle="dropdown">Action
                                                       <span class="caret"></span></button>
                                                       <ul class="dropdown-menu">
                                                         <li ><a href="{{ route('admin.service_locations.view',$service_location->id) }}" class="dropdown-item" >View</a></li>

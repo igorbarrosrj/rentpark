@@ -31,6 +31,10 @@ class SettingSeeder extends Seeder
             	'key' => 'currency',
             	'value' => '$'
             ],
+            [
+                'key' => 'is_email_configured',
+                'value' => '0'
+            ],
         ]);
     }
 }

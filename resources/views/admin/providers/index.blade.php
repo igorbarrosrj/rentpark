@@ -9,7 +9,7 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">provider List</h3>
+                        <h3 class="text-themecolor">List Providers</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
                             <li class="breadcrumb-item active">List providers</li>
@@ -32,7 +32,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">providers</h4>
+                    <h4 class="card-title">Providers</h4>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>

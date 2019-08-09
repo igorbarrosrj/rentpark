@@ -55,7 +55,7 @@ class ProviderRegisterController extends Controller
         
         $provider->save();
 
-      	return redirect()->route('provider.login')->with(['profile'=>$provider]);
+      	return redirect()->route('provider.login')->with(['profile'=>$provider, 'success'=>$provider->name .' registered as provider successfully']);
        
     }
 }

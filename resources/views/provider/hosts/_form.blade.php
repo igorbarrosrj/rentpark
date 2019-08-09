@@ -28,89 +28,102 @@
 
                         </div>
                         
-                        <div class="form-group">
+                        <div class="row">
                             
-                            <label class="host_name">Host Name *</label>
- 
-                            <input type="text" name="host_name" class="form-control " @if($host!=NULL)value="{{ $host->host_name }}"@endif placeholder="Host Name" required>
+                             <div class="form-group col-md-6 col-lg-6">
+                            
+                                <label class="host_name">Host Name *</label>
+     
+                                <input type="text" name="host_name" class="form-control " @if($host!=NULL)value="{{ $host->host_name }}" @else value="{{ old('host_name') }}" @endif placeholder="Host Name" required>
+
+                            </div>
+
+                            <div class="form-group col-md-6 col-lg-6">
+                                
+                                <label class="host_type">Host Type *</label>
+
+                                <select name="host_type" required class="form-control">
+                                    <option value="Driveway" @if($host!=NULL){{ $host->host_type === 'Driveway' ? 'selected' : '' }}@endif>Driveway</option>
+                                    <option value="Garage" @if($host!=NULL) {{ $host->host_type === 'Garage' ? 'selected' : '' }}@endif>Garage</option>
+                                    <option value="Carpark" @if($host!=NULL) {{ $host->host_type === 'Carpark' ? 'selected' : '' }}@endif>Carpark</option>
+                                </select>
+
+                            </div>
 
                         </div>
+                       
+                        <div class="row"> 
 
-                        <div class="form-group">
+                            <div class="form-group col-md-6 col-lg-6">
                             
-                            <label class="host_type">Host Type *</label>
+                                <label class="picture">Picture</label>
 
-                            <select name="host_type" required>
-                                <option value="Driveway" @if($host!=NULL){{ $host->host_type === 'Driveway' ? 'selected' : '' }}@endif>Driveway</option>
-                                <option value="Garage" @if($host!=NULL) {{ $host->host_type === 'Garage' ? 'selected' : '' }}@endif>Garage</option>
-                                <option value="Carpark" @if($host!=NULL) {{ $host->host_type === 'Carpark' ? 'selected' : '' }}@endif>Carpark</option>
-                            </select>
+                                 <input type="file" name="picture" onchange="readURL(this);"  class="form-control" @if($host!=NULL)value="{{ $host->picture }}"@endif accept="image/*">
 
-                        </div>
+                            </div>
 
-                        <div class="form-group">
+                            <div class="form-group col-md-6 col-lg-6">
                             
-                            <label class="description">Description *</label>
+                                <label class="description">Description *</label>
 
-                            <input type="text" name="description" class="form-control" @if($host!=NULL)value="{{ $host->description }}"@endif placeholder="description" required>
+                                <input type="text" name="description" class="form-control" @if($host!=NULL)value="{{ $host->description }}" @else value="{{ old('description') }}" @endif placeholder="description" required>
 
-                        </div>
-                        <div class="form-group">
-                             @if($host!=NULL) <img src="{{ $host->picture }}" style="width: 200px;height: 200px"> @endif
-
-                        </div>
-
-                        <div class="form-group">
-                            
-                            <label class="picture">Picture</label>
-
-                             <input type="file" name="picture" class="form-control" @if($host!=NULL)value="{{ $host->picture }}"@endif>
-
-                        </div>
-
-
-                        <div class="form-group">
-                            
-                            <label class="service_location">Location *</label>
-
-                            <select name="service_location" required>
-                                    @foreach($service_locations as $service_location)
-                                        
-                                       <option @if($host!=NULL)
-                                                    {{ $host->service_location_id ===  $service_location->id ? 'selected' : '' }}     @endif >{{ $service_location->name}}
-                                            </option>
-
-                                    @endforeach
-                            </select>
-
+                            </div>
                         </div>
                         
                         <div class="form-group">
-                            
-                            <label class="total_spaces">Total Spaces *</label>
-
-                            <input type="text" name="total_spaces" class="form-control" @if($host!=NULL)value="{{ $host->total_spaces }}"@endif placeholder="Total Spaces" required>
+                             @if($host!=NULL) <img src="{{ $host->picture }}" id="preview" style="width: 200px;height: 200px"> @endif
 
                         </div>
 
-                        <div class="form-group">
+                        <div class="row">
                             
-                            <label class="full_address">Full Address *</label>
+                            <div class="form-group col-md-6 col-lg-6">
+                            
+                                <label class="service_location">Location *</label>
 
-                            <input type="text" name="full_address" class="form-control" @if($host!=NULL)value="{{ $host->full_address }}"@endif placeholder="Full Address" required>
+                                <select name="service_location" required class="form-control">
+                                        @foreach($service_locations as $service_location)
+                                            
+                                           <option @if($host!=NULL)
+                                                {{ $host->service_location_id ===  $service_location->id ? 'selected' : '' }}     @endif >{{ $service_location->name}}
+                                            </option>
+
+                                        @endforeach
+                                </select>
+
+                            </div>
+                            
+                            <div class="form-group col-md-6 col-lg-6">
+                                
+                                <label class="total_spaces">Total Spaces *</label>
+
+                                <input type="text" name="total_spaces" class="form-control" @if($host!=NULL)value="{{ $host->total_spaces }}" @else value="{{ old('total_spaces') }}" @endif placeholder="Total Spaces" required>
+
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            
+                            <div class="form-group col-md-6 col-lg-6">
+                            
+                                <label class="full_address">Full Address *</label>
+
+                                <input type="text" name="full_address" class="form-control" @if($host!=NULL)value="{{ $host->full_address }}" @else value="{{ old('full_address') }}" @endif placeholder="Full Address" required>
+
+                            </div>
+
+
+                             <div class="form-group col-md-6 col-lg-6">
+                                
+                                <label class="per_hour">Per Hour *</label>
+
+                                <input type="text" name="per_hour" class="form-control" @if($host!=NULL)value="{{ $host->per_hour }}" @else value="{{ old('per_hour') }}" @endif placeholder="Per Hour" required>
+
+                            </div>
 
                         </div>
-
-
-                         <div class="form-group">
-                            
-                            <label class="per_hour">Per Hour *</label>
-
-                            <input type="text" name="per_hour" class="form-control" @if($host!=NULL)value="{{ $host->per_hour }}"@endif placeholder="Per Hour" required>
-
-                        </div>
-
-
+                        
                         <input type="submit" name="Submit" class="btn btn-primary">
 
                     </form>

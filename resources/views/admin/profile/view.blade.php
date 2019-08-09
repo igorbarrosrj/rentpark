@@ -9,10 +9,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">Admin Detail</h3>
+                        <h3 class="text-themecolor">Admin Profile</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Admin Detail</li>
+                            <li class="breadcrumb-item active">Admin Profile</li>
                         </ol>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
 	    <div class="col-12">
 	        <div class="card">
 	            <div class="card-body">
-                <h4 class="card-title">Admin Details</h4>
+                <h4 class="card-title">Admin Profile</h4>
 
 		            <div class="box-body">
 		              <table class="table ">
@@ -48,14 +48,14 @@
 		             	</tr>	
 
 		             	<tr>
-		             		<td>About</td>
-		             		<td>{{ $admin->about }}</td>
-		             	</tr>	
-
-		             	<tr>
 		             		<td>Mobile</td>
 		             		<td>{{ $admin->mobile }}</td>
 		             	</tr>	
+		             	
+		             	<tr>
+		             		<td>About</td>
+		             		<td>{{ $admin->about }}</td>
+		             	</tr>
 
 		             	<tr>
 		             		<td>Picture</td>

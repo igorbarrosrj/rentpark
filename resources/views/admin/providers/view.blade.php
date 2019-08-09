@@ -51,13 +51,13 @@
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Description</td>
-		             		<td>{{ $provider->description }}</td>
-		             	</tr>	
-
-		             	tr>
 		             		<td>Mobile</td>
 		             		<td>{{ $provider->mobile }}</td>
+		             	</tr>	
+
+		             	<tr>
+		             		<td>Description</td>
+		             		<td>{{ $provider->description }}</td>
 		             	</tr>	
 
 		             	<tr>

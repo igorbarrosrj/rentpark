@@ -50,6 +50,25 @@
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Provider
+      </div>
+
+      <!-- Nav Item - Profile -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('provider.profile.view', Auth()->user()->id) }}">
+          <i class="fas fa-user"></i>
+          <span>Profile</span></a>
+      </li>
+
+      <!-- Nav Item - Logout -->
+      <li class="nav-item">
+          <a class="nav-link" href="{{ route('provider.logout') }}" data-toggle="modal" data-target="#logoutModal">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>LogOut</span></a>
+      </li>
+
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

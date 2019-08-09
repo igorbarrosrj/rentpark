@@ -50,14 +50,19 @@
 		             	</tr>	
 
 		             	<tr>
+		             		<td>Mobile</td>
+		             		<td>{{ $user->mobile }}</td>
+		             	</tr>
+
+		             	<tr>
 		             		<td>Description</td>
 		             		<td>{{ $user->description }}</td>
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Mobile</td>
-		             		<td>{{ $user->mobile }}</td>
-		             	</tr>	
+		             		<td>Picture</td>
+		             		<td><img src="{{ $user->picture }}" style="width: 200px;height: 200px"></td>
+		             	</tr>
 
 		             	<tr>
 		             		<td>Gender</td>

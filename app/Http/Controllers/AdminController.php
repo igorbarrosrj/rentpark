@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Setting;
-
 use \Mail;
 
 class AdminController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *
@@ -28,6 +28,7 @@ class AdminController extends Controller
     public function __construct() {
 
         $this->middleware('auth:admin');
+
     }
 
     /**
@@ -62,8 +63,6 @@ class AdminController extends Controller
         return view('admin.dashboard')->with(['total_users'=>$total_users, 'total_providers'=>$total_providers, 'total_bookings'=>$total_bookings, 'total_earnings'=> $total_earnings, 'users' => $users, 'providers' => $providers]);
     }
 
-
-
     /**
     *
     *
@@ -85,15 +84,14 @@ class AdminController extends Controller
      * @return view of users list
      *
      */
+
     public function users_index() {
 
         $users = User::orderBy('id')->paginate(10);
 
-        return view('admin.users.index')->with('users',$users);
+        return view('admin.users.index')->with('users', $users);
         
-
     }
-
 
     /**
      * @method users_create()
@@ -113,7 +111,8 @@ class AdminController extends Controller
     public function users_create() {
 
         $user = NULL;
-        return view('admin.users.create')->with('user',$user);
+
+        return view('admin.users.create')->with('user', $user);
 
     }
 
@@ -132,6 +131,7 @@ class AdminController extends Controller
      * @return view of particular user
      *
      */
+
     public function users_view($id) {
 
         $user = User::find($id);
@@ -141,10 +141,9 @@ class AdminController extends Controller
             return redirect()->route('admin.users.index')->with('error',"No User found");
         }
 
-        return view('admin.users.view')->with('user',$user);
+        return view('admin.users.view')->with('user', $user);
         
     }
-
 
    /**
      * @method users_save()
@@ -160,14 +159,16 @@ class AdminController extends Controller
      * @return view of users index
      *
      */
-    public function users_save(Request $request) {
 
+    public function users_save(Request $request) {
 
         $this->validate($request,[
 
             'name' => 'required|min:3|max:50|regex:/^[a-z A-Z]+$/',
 
             'email' => 'required|email',
+
+            'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg|max:2048',
 
             'description' => 'required| min:5',
 
@@ -176,7 +177,7 @@ class AdminController extends Controller
         ]);
 
 
-        if($request->id == NULL){
+        if(!$request->id) {
         
             $this->validate($request,[
 
@@ -193,13 +194,22 @@ class AdminController extends Controller
             $user->unique_id = uniqid(base64_encode(str_random(60)));
 
             $user->password = \Hash::make($request->password);
-        }
-        else {
+
+            $user->status = APPROVED;
+
+            $user->picture = asset('placeholder.jpg');
+
+        } else {
 
             $user = User::find($request->id);
+
+            if($request->hasFile('picture')) {
+
+                delete_picture($user->picture, PROFILE_PATH_USER);
+
+            }
             
         }
-
 
         $user->name = $request->name;        
 
@@ -215,37 +225,36 @@ class AdminController extends Controller
 
         $user->token_expiry = $request->token_expiry?:"";
 
-        $user->status = APPROVED;
+        if($request->hasFile('picture')) {
+
+            $user->picture = upload_picture($request->file('picture'), PROFILE_PATH_USER);
+
+        }
 
         $user->save();
 
-        if($request->id == NULL){
+        if(!$request->id) {
 
-            $to_name = $request->name;
+            if(Setting::get('is_email_configured') == YES) {
 
-            $to_email = $request->email;
+                $to_name = $request->name;
 
-            try{
+                $to_email = $request->email;            
 
                 $data = ["name"=> $request->name, "body" => "You account is created ", "username" => $request->email, "password" => $request->password, "link" => route('login')];
 
                 Mail::send('admin.users.mail.index', $data, function($message) use ($to_name, $to_email) {$message->to($to_email, $to_name)->subject("Account Activation");
 
-                $message->from(\Config::get('mail.from.address'),"RentPark");;});
-
-                return redirect()->route('admin.users.index')->with('success','User Saved');
+                $message->from(\Config::get('mail.from.address'), "RentPark");;}); 
 
             }
-            catch(Exception $e) {
-
-                return redirect()->back()->with('error','Problem on Information send to Mail, But User Saved');
-            }
-            
 
         }
+
+        return redirect()->route('admin.users.index')->with('success', 'User Saved');
         
-      
     }
+
     /**
      * @method users_edit()
      * 
@@ -265,13 +274,12 @@ class AdminController extends Controller
         
         $user = User::find($id);
 
-
         if(!$user) {
             
-            return redirect()->route('admin.users.index')->with('error',"No User found");
+            return redirect()->route('admin.users.index')->with('error', "No User found");
         }
 
-        return view('admin.users.edit')->with('user',$user);
+        return view('admin.users.edit')->with('user', $user);
 
     }
 
@@ -296,13 +304,14 @@ class AdminController extends Controller
 
         if(!$user) {
             
-            return redirect()->route('admin.users.index')->with('error',"No User found");
+            return redirect()->route('admin.users.index')->with('error', "No User found");
         }
+
+        delete_picture($user->picture, PROFILE_PATH_USER);
 
         $user->delete();
 
-        return redirect()->route('admin.users.index')->with('success','User Removed');
-        
+        return redirect()->route('admin.users.index')->with('success', 'User Removed');       
         
     }
 
@@ -326,14 +335,14 @@ class AdminController extends Controller
 
         if(!$user) {
             
-            return redirect()->route('admin.users.index')->with('error',"No User found");
+            return redirect()->route('admin.users.index')->with('error', "No User found");
         }
 
         $user->status = $user->status == APPROVED ? DECLINED : APPROVED;
 
         $user->save();
 
-        return redirect()->back()->with('success','Status Updated !');
+        return redirect()->back()->with('success', 'Status Updated !');
         
         
     }
@@ -347,7 +356,7 @@ class AdminController extends Controller
     */
     
     /**
-     * @method locations_index()
+     * @method service_locations_index()
      * 
      * @uses used to display the list of service location
      *
@@ -364,8 +373,7 @@ class AdminController extends Controller
 
         $service_locations = ServiceLocation::orderBy('id')->paginate(10);
 
-        return view('admin.service_locations.index')->with('service_locations',$service_locations);
-        
+        return view('admin.service_locations.index')->with('service_locations', $service_locations);
 
     }
 
@@ -389,7 +397,7 @@ class AdminController extends Controller
 
         $service_location = NULL;
 
-        return view('admin.service_locations.create')->with('service_location',$service_location);
+        return view('admin.service_locations.create')->with('service_location', $service_location);
 
     }
 
@@ -414,10 +422,10 @@ class AdminController extends Controller
 
         if(!$service_location) {
             
-            return redirect()->route('admin.service_locations.index')->with('error',"No Service Location found");
+            return redirect()->route('admin.service_locations.index')->with('error', "No Service Location found");
         }
 
-        return view('admin.service_locations.view')->with('service_location',$service_location);
+        return view('admin.service_locations.view')->with('service_location', $service_location);
         
     }
 
@@ -450,7 +458,7 @@ class AdminController extends Controller
 
         ]);
 
-        if($request->id == NULL){
+        if(!$request->id){
         
             //Create Service Location
 
@@ -458,43 +466,21 @@ class AdminController extends Controller
 
             $service_location->unique_id = uniqid(base64_encode(str_random(60)));
 
-            if($request->hasFile('picture')){
+            $service_location->status = APPROVED;
 
-            $imageName = $service_location->picture;
+            $service_location->picture = asset('/noimage.jpg');
 
-            $destination = FILE_PATH_SERVICE_LOCATION;
-
-            $image = $request->file('picture');
-
-            $url = upload_picture($imageName,$image,$destination);
-
-            }
-            else{
-
-                $url = '/noimage.jpg';
-            }
-
-            $service_location->picture = $url;
-
-        }
-        else {
+        } else {
 
 
             $service_location = ServiceLocation::find($request->id);
 
-            $imageName = $service_location->picture;
+            if($request->hasFile('picture')) {
 
-            if($request->hasFile('picture')){
-
-            $destination = FILE_PATH_SERVICE_LOCATION;
-
-            $image = $request->file('picture');
-
-            $url = upload_picture($imageName,$image,$destination);
-
-            $service_location->picture = $url;
+                delete_picture($service_location->picture, FILE_PATH_SERVICE_LOCATION);
 
             }
+
         }
         
         
@@ -504,11 +490,15 @@ class AdminController extends Controller
 
         $service_location->description = $request->description;
 
-        $service_location->status = APPROVED;
+        if($request->hasFile('picture')){
+
+            $service_location->picture = upload_picture($service_location->picture, $request->file('picture'), FILE_PATH_SERVICE_LOCATION);
+
+        }
 
         $service_location->save();
 
-        return redirect()->route('admin.service_locations.index')->with('success','Service Location Saved');
+        return redirect()->route('admin.service_locations.index')->with('success', 'Service Location Saved');
     }
 
     /**
@@ -530,13 +520,12 @@ class AdminController extends Controller
         
         $service_location = ServiceLocation::find($id);
 
-
         if(!$service_location) {
             
-            return redirect()->route('admin.service_locations.index')->with('error',"No Service Location found");
+            return redirect()->route('admin.service_locations.index')->with('error', "No Service Location found");
         }
 
-        return view('admin.service_locations.edit')->with('service_location',$service_location);
+        return view('admin.service_locations.edit')->with('service_location', $service_location);
 
     }
 
@@ -561,18 +550,14 @@ class AdminController extends Controller
 
         if(!$service_location) {
             
-            return redirect()->route('admin.service_locations.index')->with('error',"No Service Location found");
+            return redirect()->route('admin.service_locations.index')->with('error', "No Service Location found");
         }
 
-        $imageName=$service_location->picture;
-
-        $destination = FILE_PATH_SERVICE_LOCATION;
-
-        delete_picture($imageName,$destination);
+        delete_picture($service_location->picture, FILE_PATH_SERVICE_LOCATION);
 
         $service_location->delete();
 
-        return redirect()->route('admin.service_locations.index')->with('success','Service Location Removed');
+        return redirect()->route('admin.service_locations.index')->with('success', 'Service Location Removed');
         
         
     }
@@ -597,18 +582,16 @@ class AdminController extends Controller
 
         if(!$service_location) {
             
-            return redirect()->route('admin.service_locations.index')->with('error',"No Service Location found");
+            return redirect()->route('admin.service_locations.index')->with('error', "No Service Location found");
         }
 
         $service_location->status = $service_location->status == APPROVED ? DECLINED : APPROVED;
 
         $service_location->save();
 
-        return redirect()->back()->with('Success','Status updated !');
-        
+        return redirect()->back()->with('Success', 'Status updated !');
         
     }
-
 
 
     /**
@@ -617,8 +600,6 @@ class AdminController extends Controller
     * Host Management in Admin Panel
     *
     */
-
-
 
     /**
      * @method hosts_index()
@@ -642,7 +623,6 @@ class AdminController extends Controller
 
     }
 
-
     /**
      * @method hosts_create()
      * 
@@ -662,21 +642,9 @@ class AdminController extends Controller
 
         $host = NULL;
 
-        $service_locations = ServiceLocation::where('status',APPROVED)->orderBy('name')->get();
+        $service_locations = ServiceLocation::where('status', APPROVED)->orderBy('name')->get();
 
-        if(!$service_locations){
-
-            return redirect()->route('admin.hosts.index')->with('error',"No Service Locations found");
-            
-        }
-
-        $providers = Provider::where('status',APPROVED)->orderBy('name')->get();
-
-        if(!$providers){
-
-            return redirect()->route('admin.hosts.index')->with('error',"No providers found");
-            
-        }
+        $providers = Provider::where('status', APPROVED)->orderBy('name')->get();
 
         return view('admin.hosts.create')->with(['host' => $host, 'service_locations' => $service_locations, 'providers' => $providers ]);
 
@@ -703,11 +671,11 @@ class AdminController extends Controller
 
         if(!$host){
 
-            return redirect()->route('admin.hosts.index')->with('error',"No Host found");
+            return redirect()->route('admin.hosts.index')->with('error', "No Host found");
             
         }
         
-        return view('admin.hosts.view')->with('host',$host);
+        return view('admin.hosts.view')->with('host', $host);
     }
 
 
@@ -750,57 +718,32 @@ class AdminController extends Controller
 
         ]);
 
-        $service_location_id = ServiceLocation::where('name',$request->service_location)->first()->id;
+        $service_location_id = ServiceLocation::where('name', $request->service_location)->first()->id;
 
-        $provider_id = Provider::where('name',$request->provider_name)->first()->id;
+        $provider_id = Provider::where('name', $request->provider_name)->first()->id;
 
-        if($request->id == NULL){
+        if(!$request->id){
         
-
             //Create Host
 
             $host = New Host;
 
             $host->unique_id = uniqid(base64_encode(str_random(60)));
 
-            $imageName = $host->picture;
+            $host->status = APPROVED;
 
-            if($request->hasFile('picture')){
+            $host->picture = asset('noimage.jpg');
 
-                $destination = FILE_PATH_HOST;
-
-                $image = $request->file('picture');
-
-                $url = upload_picture($imageName,$image,$destination);
-
-            }
-            else {
-
-                $url = '/noimage.jpg';
-            }
-
-            $host->picture = $url;
-
-        }
-        else {
+        } else {
 
             $host = Host::find($request->id);
 
-            $imageName = $host->picture;
-
             if($request->hasFile('picture')){
 
-                $destination = FILE_PATH_HOST;
-
-                $image = $request->file('picture');
-
-                $url = upload_picture($imageName,$image,$destination);
-
-                $host->picture = $url;
+                delete_picture($host->picture, FILE_PATH_HOST);
             }
 
         }
-
 
         $host->provider_id = $provider_id;        
 
@@ -818,11 +761,15 @@ class AdminController extends Controller
 
         $host->per_hour = $request->per_hour;
 
-        $host->status = APPROVED;
+        if($request->hasFile('picture')){
+
+            $url = upload_picture($host->picture, $request->file('picture'), $image, FILE_PATH_HOST);
+
+        }
 
         $host->save();
 
-        return redirect()->route('admin.hosts.index')->with('success','Host Saved');
+        return redirect()->route('admin.hosts.index')->with('success', 'Host Saved');
     }
 
     /**
@@ -846,26 +793,13 @@ class AdminController extends Controller
 
         if(!$host){
 
-            return redirect()->route('admin.hosts.index')->with('error',"No Host found");
+            return redirect()->route('admin.hosts.index')->with('error', "No Host found");
             
         }
 
         $service_locations = ServiceLocation::orderBy('name')->get();
 
-        if(!$service_locations){
-
-            return redirect()->route('admin.hosts.index')->with('error',"No Service Locations found");
-            
-        }
-
         $providers = Provider::orderBy('name')->get();
-
-        if(!$providers){
-
-            return redirect()->route('admin.hosts.index')->with('error',"No providers found");
-            
-        }
-
 
         return view('admin.hosts.edit')->with(['host' => $host, 'service_locations' => $service_locations, 'providers' => $providers]);
     
@@ -896,15 +830,11 @@ class AdminController extends Controller
             
         }
 
-        $imageName=$host->picture;
-
-        $destination = FILE_PATH_HOST;
-
-        delete_picture($imageName,$destination);
+        delete_picture($host->picture, FILE_PATH_HOST);
 
         $host->delete();
 
-        return redirect()->route('admin.hosts.index')->with('success','User Removed');
+        return redirect()->route('admin.hosts.index')->with('success', 'User Removed');
         
     }
 
@@ -928,14 +858,14 @@ class AdminController extends Controller
 
         if(!$host) {
             
-            return redirect()->route('admin.hosts.index')->with('error',"No Host found");
+            return redirect()->route('admin.hosts.index')->with('error', "No Host found");
         }
 
         $host->status = $host->status == APPROVED ? DECLINED : APPROVED;
 
         $host->save();
 
-        return redirect()->back()->with('Success','Status updated !');
+        return redirect()->back()->with('Success', 'Status updated !');
         
         
     }
@@ -947,7 +877,6 @@ class AdminController extends Controller
     * Booking Management in Admin Panel
     *
     */
-
 
 
     /**
@@ -993,11 +922,11 @@ class AdminController extends Controller
 
         if(!$booking){
 
-            return redirect()->route('admin.bookings.index')->with('error',"No Booking found");
+            return redirect()->route('admin.bookings.index')->with('error', "No Booking found");
             
         }
         
-        return view('admin.bookings.view')->with('booking',$booking);
+        return view('admin.bookings.view')->with('booking', $booking);
     }
 
     /**
@@ -1026,7 +955,7 @@ class AdminController extends Controller
 
         $providers = Provider::orderBy('id')->paginate(10);
 
-        return view('admin.providers.index')->with('providers',$providers);
+        return view('admin.providers.index')->with('providers', $providers);
     }
 
     /**
@@ -1049,7 +978,7 @@ class AdminController extends Controller
 
         $provider = NULL;
 
-        return view('admin.providers.create')->with('provider',$provider);;
+        return view('admin.providers.create')->with('provider', $provider);;
     }
 /**
      * @method providers_save()
@@ -1073,12 +1002,17 @@ class AdminController extends Controller
 
             'email' => 'required|email',
                 
-            'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg|max:2048',
+
+            'mobile' => 'regex:/[6-9][0-9]{9}/|nullable',
+
+            'work' => 'min:3|max:255|nullable',
+
+            'school' => 'min:3|max:255|nullable',
+
+            'languages' => 'min:3|max:255|nullable',
 
         ]);
-
-
-        
 
         if(!$request->id)
         {
@@ -1095,40 +1029,17 @@ class AdminController extends Controller
 
             $provider->password = Hash::make($request->password) ?: "";
 
-            $imageName=$provider->picture;
+            $provider->status = APPROVED;
 
-            if($request->hasFile('picture')){
-
-                $destination = PROFILE_PATH_PROVIDER;
-
-                $image = $request->file('picture');
-
-                $url = upload_picture($imageName,$image,$destination);
-
-                $provider->picture = $url;
-
-            }
-            else {
-
-                $provider->picture = '/placeholder.jpg';
-            }
-        } 
-
-        else {
+            $provider->picture = asset('placeholder.jpg');
+            
+        } else {
 
             $provider = Provider::find($request->id);
 
-            $imageName=$provider->picture;
-
             if($request->hasFile('picture')){
 
-                $destination = PROFILE_PATH_PROVIDER;
-
-                $image = $request->file('picture');
-
-                $url = upload_picture($imageName,$image,$destination);
-
-                $provider->picture = $url;
+                delete_picture($provider->picture, PROFILE_PATH_PROVIDER);
 
             }
 
@@ -1150,15 +1061,17 @@ class AdminController extends Controller
 
         $provider->remember_token = $request->remember_token?: "";
 
-        $provider->status = APPROVED;
+        if($request->hasFile('picture')){
 
-        
-        
+                $provider->picture = upload_picture($provider->picture, $request->file('picture'),PROFILE_PATH_PROVIDER);
+        }
+
         $provider->save();
 
-        return redirect(route('admin.providers.index'))->with('success','Provider Saved');
+        return redirect(route('admin.providers.index'))->with('success', 'Provider Saved');
        
     }
+
     /**
      * @method providers_view()
      * 
@@ -1178,8 +1091,9 @@ class AdminController extends Controller
 
         $provider = Provider::find($provider_id);
 
-        return view('admin.providers.view')->with('provider',$provider);
+        return view('admin.providers.view')->with('provider', $provider);
     }
+
     /**
      * @method providers_edit()
      * 
@@ -1201,13 +1115,14 @@ class AdminController extends Controller
 
         if(!$provider) {
 
-            return redirect()->route('admin.providers.index')->with('error','Provider Not Found');
+            return redirect()->route('admin.providers.index')->with('error', 'Provider Not Found');
 
         }
 
-        return view('admin.providers.edit')->with('provider',$provider);
+        return view('admin.providers.edit')->with('provider', $provider);
 
     }
+
     /**
      * @method providers_delete()
      * 
@@ -1233,15 +1148,11 @@ class AdminController extends Controller
 
         }
 
-        $imageName=$provider->picture;
-
-        $destination = PROFILE_PATH_PROVIDER;
-
-        delete_picture($imageName,$destination);
+        delete_picture($provider->picture, PROFILE_PATH_PROVIDER);
 
         $provider->delete();
 
-        return redirect(route('admin.providers.index'))->with('success','Provider Removed');
+        return redirect(route('admin.providers.index'))->with('success', 'Provider Removed');
     }
 
     /**
@@ -1272,12 +1183,10 @@ class AdminController extends Controller
 
         $provider->save();
 
-        return redirect()->back()->with('success','Status Updated !');
+        return redirect()->back()->with('success', 'Status Updated !');
         
         
     }
-
-
 
 
     /**
@@ -1311,7 +1220,6 @@ class AdminController extends Controller
 
     public function settings_save(Request $request) {
 
-
         $this->validate($request,[
 
             'site_name' => 'required|min:3|max:50',
@@ -1323,16 +1231,16 @@ class AdminController extends Controller
             'currency' => 'required',
 
         ]);
+
         setting();
 
         //Handle File Upload
         if($request->hasFile('favicon')){
 
-
             $image = $request->file('favicon');
 
             //Filename to store
-            $fileNameToStore = asset('/favicon.png');
+            $fileNameToStore = asset('favicon.png');
 
             //Upload Image
 
@@ -1347,7 +1255,7 @@ class AdminController extends Controller
             $image = $request->file('site_logo');
 
             //Filename to store
-            $fileNameToStore = asset('/logo.png');
+            $fileNameToStore = asset('logo.png');
 
             //Upload Image
 
@@ -1360,7 +1268,7 @@ class AdminController extends Controller
         setting(['site_name' => $request->site_name, 'currency' => $request->currency])->save();
 
 
-        return redirect()->route('admin.settings.index')->with('success','Settings Saved');
+        return redirect()->route('admin.settings.index')->with('success', 'Settings Saved');
     }
 
     /**
@@ -1387,7 +1295,7 @@ class AdminController extends Controller
                 
             'password' => 'sometimes|required|min:6|confirmed',
 
-            'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg|max:2048',
 
         ]);
 
@@ -1399,28 +1307,22 @@ class AdminController extends Controller
 
         $admin->about = $request->about?: "";
 
-        $admin->mobile = $request->mobile?: "";
-
-        $imageName = $admin->picture;
+        $admin->mobile = $request->mobile?: "";      
 
         if($request->hasFile('picture')){
 
-            $destination = PROFILE_PATH_ADMIN;
+            delete_picture($admin->picture, PROFILE_PATH_ADMIN);
 
-            $image = $request->file('picture');
-
-            $url = upload_picture($imageName,$image,$destination);
-
-            $admin->picture = $url;
+            $admin->picture = upload_picture($admin->picture,$request->file('picture'),PROFILE_PATH_ADMIN);
 
         }
-
-        
+    
         $admin->save();
 
-        return view('admin.profile.view')->with('admin',$admin);
-       
+        return view('admin.profile.view')->with('admin', $admin);
+        
     }
+
     /**
      * @method admin_profile_edit()
      * 
@@ -1440,9 +1342,10 @@ class AdminController extends Controller
         
         $admin = Admin::find($admin_id);
 
-        return view('admin.profile.edit')->with('admin',$admin);
+        return view('admin.profile.edit')->with('admin', $admin);
 
     }
+
     /**
      * @method admin_profile_view()
      * 
@@ -1464,6 +1367,7 @@ class AdminController extends Controller
         return view('admin.profile.view')->with('admin',$admin);
 
     }
+
     /**
      * @method change_password()
      * 
@@ -1482,8 +1386,9 @@ class AdminController extends Controller
     {
         $admin = Admin::find($admin_id);
 
-        return view('admin.profile.password')->with('admin',$admin);
+        return view('admin.profile.password')->with('admin', $admin);
     }
+
     /**
      * @method change_password_save()
      * 
@@ -1516,7 +1421,7 @@ class AdminController extends Controller
         } else
         {
 
-            return redirect()->back()->with('error','Wrong Old password!');
+            return redirect()->back()->with('error', 'Wrong Old password!');
         }
         return redirect()->route('admin.profile.view',$admin->id)->with('success', 'Password changed successfully');
 

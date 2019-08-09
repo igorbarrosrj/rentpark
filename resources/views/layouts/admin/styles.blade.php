@@ -39,8 +39,13 @@
 
  <style type="text/css">
 
+  .table-responsive {
+
+    overflow: visible;
+  }
+
   .size {
-    height: 110px;
+    height: 80px;
 
     width: 205px;
   }
