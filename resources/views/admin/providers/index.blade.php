@@ -12,6 +12,7 @@
                         <h3 class="text-themecolor">List Providers</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.providers.index') }}">Providers</a></li>
                             <li class="breadcrumb-item active">List providers</li>
                         </ol>
                     </div>
@@ -75,11 +76,15 @@
                                                         <li><a href="{{ route('admin.providers.edit',$provider->id) }}" class="dropdown-item" >Edit</a></li>
                                                         <li><a href="{{ route('admin.providers.delete',$provider->id) }}" class="dropdown-item" onclick="return confirm('Are you sure want to delete the provider {{ $provider->name }}?')" >Delete</a></li>
                                                          <div class="dropdown-divider"></div>
-                                                         <li><a href="{{ route('admin.providers.status',$provider->id) }}" class="dropdown-item">
-                                                             
-                                                            {{  $provider->status = $provider->status == APPROVED ? 'Decline' : 'Approve'}}
+                                                         <li>
+                                                            @if($provider->status == DECLINED)
+                                                                <a href="{{ route('admin.providers.status',$provider->id) }}" class="dropdown-item"> Approve</a>
+                                                
+                                                            @elseif($provider->status == APPROVED)
+                                                                <a href="{{ route('admin.providers.status',$provider->id) }}" class="dropdown-item" onclick="return confirm('Are you sure decline the provider {{ $provider->name }}')"> Decline</a>
 
-                                                         </a></li>
+                                                            @endif
+                                                        </li>
                                                       </ul>
                                                 </div> 
                                             </td>

@@ -12,6 +12,7 @@
                         <h3 class="text-themecolor">List Hosts</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.hosts.index') }}">View Hosts</a></li>
                             <li class="breadcrumb-item active">List Hosts</li>
                         </ol>
                     </div>
@@ -92,11 +93,17 @@
                                                 <li><a href="{{ route('admin.hosts.edit',$host->id) }}" class="dropdown-item">Edit</a></li>
                                                 <li><a href="{{ route('admin.hosts.delete',$host->id) }}" class="dropdown-item" onclick="return confirm('Are you sure want to delete host {{ $host->host_name }}?')" >Delete</a></li>
                                                 <div class="dropdown-divider"></div>
-                                                         <li><a href="{{ route('admin.hosts.status',$host->id) }}" class="dropdown-item">
-                                                             
-                                                            {{  $host->status = $host->status == APPROVED ? 'Decline' : 'Approve'}}
+                                                    <li>
+								                        @if($host->status==DECLINED)
+								                                
+								                            <a href="{{ route('admin.hosts.status',$host->id) }}" class="dropdown-item" > Approve</a>
 
-                                                         </a></li>
+								                        @elseif($host->status==APPROVED)
+								                                
+								                            <a href="{{ route('admin.hosts.status',$host->id) }}" class="dropdown-item" onclick="return confirm('Are you sure decline the host {{ $host->host_name }} ?')" > Decline</a>
+
+								                        @endif
+                                                     </li>
                                             </ul>
                                          </div> 
 									</td>								

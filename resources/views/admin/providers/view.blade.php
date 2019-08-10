@@ -12,6 +12,7 @@
                         <h3 class="text-themecolor">Provider Detail</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.providers.index') }}">View Providers</a></li>
                             <li class="breadcrumb-item active">Provider Detail</li>
                         </ol>
                     </div>
@@ -112,12 +113,14 @@
 		             		<td> <a href="{{ route('admin.providers.edit',$provider->id) }}" class="btn btn-primary">Edit</a></td>
 
 		             		<td>
-		             			
-		             			<a href="{{ route('admin.providers.status',$provider->id) }}" class="btn btn-info">
-                                                             
-                                   {{  $provider->status = $provider->status == APPROVED ? 'Decline' : 'Approve'}}
+		             			@if($provider->status == DECLINED)
+                                   <a href="{{ route('admin.providers.status',$provider->id) }}" class="btn btn-primary"> Approve</a>
 
-                                </a>
+                                @elseif($provider->status == APPROVED)
+                                    <a href="{{ route('admin.providers.status',$provider->id) }}" class="btn btn-info" onclick="return confirm('Are you sure decline the provider {{ $provider->name }}')"> Decline</a>
+
+                           		 @endif
+		             			
 		             		</td>
 
 		             		<td>

@@ -56,9 +56,9 @@ class AdminController extends Controller
 
         $total_earnings = Booking::orderBy('id')->sum('total');
 
-        $users = User::orderBy('id', 'desc')->take(10)->get();
+        $users = User::orderBy('created_at', 'desc')->take(10)->get();
 
-        $providers = Provider::orderBy('id', 'desc')->take(10)->get();
+        $providers = Provider::orderBy('created_at', 'desc')->take(10)->get();
 
         return view('admin.dashboard')->with(['total_users'=>$total_users, 'total_providers'=>$total_providers, 'total_bookings'=>$total_bookings, 'total_earnings'=> $total_earnings, 'users' => $users, 'providers' => $providers]);
     }
@@ -87,7 +87,7 @@ class AdminController extends Controller
 
     public function users_index() {
 
-        $users = User::orderBy('id')->paginate(10);
+        $users = User::orderBy('created_at','desc')->paginate(10);
 
         return view('admin.users.index')->with('users', $users);
         
@@ -172,7 +172,7 @@ class AdminController extends Controller
 
             'description' => 'required| min:5',
 
-            'mobile' => 'regex:/[6-9][0-9]{9}/|nullable',
+            'mobile' => 'digits_between:6,13|nullable',
 
         ]);
 
@@ -371,7 +371,7 @@ class AdminController extends Controller
      */
     public function service_locations_index() {
 
-        $service_locations = ServiceLocation::orderBy('id')->paginate(10);
+        $service_locations = ServiceLocation::orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.service_locations.index')->with('service_locations', $service_locations);
 
@@ -617,7 +617,7 @@ class AdminController extends Controller
      */
     public function hosts_index() {
 
-        $hosts = Host::orderBy('id')->paginate(10);
+        $hosts = Host::orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.hosts.index')->with('hosts',$hosts);        
 
@@ -895,7 +895,7 @@ class AdminController extends Controller
      */
     public function bookings_index() {
 
-        $bookings = Booking::orderBy('id')->paginate(10);
+        $bookings = Booking::orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.bookings.index')->with('bookings',$bookings);        
 
@@ -953,7 +953,7 @@ class AdminController extends Controller
 
     public function providers_index(Request $request) {
 
-        $providers = Provider::orderBy('id')->paginate(10);
+        $providers = Provider::orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.providers.index')->with('providers', $providers);
     }
@@ -1004,7 +1004,7 @@ class AdminController extends Controller
                 
             'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg|max:2048',
 
-            'mobile' => 'regex:/[6-9][0-9]{9}/|nullable',
+            'mobile' => 'digits_between:6,13|nullable',
 
             'work' => 'min:3|max:255|nullable',
 

@@ -5,7 +5,7 @@
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('provider.dashboard') }}">
         <div class="sidebar-brand-icon rotate-n-15">
         </div>
-        <img src="{{ Setting::get('site_logo')}}" alt="homepage" style="width: 135px; height: 50px" class="dark-logo" />
+        <div class="sidebar-brand-image mx-3"><img src="{{ Setting::get('site_logo')}}" alt="homepage"  class="dark-logo" /></div>
       </a>
 
       <!-- Divider -->

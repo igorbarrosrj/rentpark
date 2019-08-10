@@ -12,6 +12,7 @@
                         <h3 class="text-themecolor">Host Detail</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.hosts.index') }}">Home</a></li>
                             <li class="breadcrumb-item active">Host Detail</li>
                         </ol>
                     </div>
@@ -128,11 +129,16 @@
 
 		             		<td>
 		             			
-		             			<a href="{{ route('admin.hosts.status',$host->id) }}" class="btn btn-info">
-                                                             
-                                    {{  $host->status = $host->status == APPROVED ? 'Decline' : 'Approve'}}
+		             			@if($host->status==DECLINED)
+	                                    
+	                                <a href="{{ route('admin.hosts.status',$host->id) }}" class="btn btn-primary" > Approve</a>
 
-                                </a>
+	                            @elseif($host->status==APPROVED)
+	                                
+	                                <a href="{{ route('admin.hosts.status',$host->id) }}" class="btn btn-info" onclick="return confirm('Are you sure decline the host {{ $host->host_name }} ?')" > Decline</a>
+
+	                            @endif
+	                            
 		             		</td>
 
 		             		<td>

@@ -60,3 +60,35 @@
             }
         }
 </script>
+
+{{-- Active the sidebar --}}
+<script type="text/javascript">
+    $(function() {
+        var url = window.location;
+        var element = $('ul#sidebarnav a').filter(function() {
+            return this.href.toString().split('/index')[0]+'/view' == url.toString().split('/view')[0]+'/view'
+        }).addClass('active').parent().addClass('active');
+        while (true) {
+            if (element.is('li')) {
+                element = element.parent().addClass('in').parent().addClass('active');
+            } else {
+                break;
+            }
+        }
+
+    });
+    $(function() {
+        var url = window.location;
+        var element = $('ul#sidebarnav a').filter(function() {
+            return this.href.toString().split('/index')[0]+'/edit' == url.toString().split('/edit')[0]+'/edit'
+        }).addClass('active').parent().addClass('active');
+        while (true) {
+            if (element.is('li')) {
+                element = element.parent().addClass('in').parent().addClass('active');
+            } else {
+                break;
+            }
+        }
+
+    });
+</script>

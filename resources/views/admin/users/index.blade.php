@@ -12,6 +12,7 @@
                         <h3 class="text-themecolor">List Users</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">View Users</a></li>
                             <li class="breadcrumb-item active">List Users</li>
                         </ol>
                     </div>
@@ -75,10 +76,17 @@
                                                         <li><a href="{{ route('admin.users.edit',$user->id) }}" class="dropdown-item" >Edit</a></li>
                                                         <li><a href="{{ route('admin.users.delete',$user->id) }}" class="dropdown-item" onclick="return confirm('Are you sure want to delete the user {{ $user->name }}?')" >Delete</a></li>
                                                          <div class="dropdown-divider"></div>
-                                                         <li><a href="{{ route('admin.users.status',$user->id) }}" class="dropdown-item">
-                                                             
-                                                             {{  $user->status = $user->status == APPROVED ? 'Decline' : 'Approve'}}
-                                                         </a></li>
+                                                         <li>
+                                                             @if($user->status == DECLINED)
+                                                                
+                                                                <a href="{{ route('admin.users.status',$user->id) }}" class="dropdown-item">Approve</a>
+
+                                                            @elseif(APPROVED)
+                                                                
+                                                                <a href="{{ route('admin.users.status',$user->id) }}" class="dropdown-item" onclick="return confirm('Are you sure want to decline the user {{ $user->name }}')">Decline</a>
+
+                                                            @endif
+                                                         </li>
                                                       </ul>
                                                 </div> 
                                             </td>

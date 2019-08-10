@@ -94,8 +94,7 @@
 
                         <!-- Logout -->
 
-                         <li> <a class="waves-effect waves-dark" href="{{ route('admin.logout')}}" aria-expanded="false" onclick="confirm('Are you sure want to logout?');event.preventDefault();
-                                                 document.getElementById('logout-form').submit();" ><i class="fa fa-sign-out"></i><span class="hide-menu">Logout</span></a>\
+                         <li> <a class="waves-effect waves-dark" href="{{ route('admin.logout')}}" aria-expanded="false" data-toggle="modal" data-target="#logoutModal" ><i class="fa fa-sign-out"></i><span class="hide-menu">Logout</span></a>\
 
                           <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                                     @csrf

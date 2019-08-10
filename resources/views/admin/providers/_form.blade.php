@@ -76,7 +76,7 @@
                                 
                                 <label class="mobile">Mobile Number *</label>
 
-                                <input type="text" name="mobile" class="form-control" @if($provider!=NULL)value="{{ $provider->mobile }}" @else value="{{ old('mobile') }}" @endif placeholder="Mobile Number" required>
+                                <input type="number" name="mobile" class="form-control" @if($provider!=NULL)value="{{ $provider->mobile }}" @else value="{{ old('mobile') }}" @endif placeholder="Mobile Number" required>
 
                             </div>
                         </div>

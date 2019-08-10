@@ -141,7 +141,7 @@ class UserController extends Controller
 
             'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg|max:2048',
 
-            'mobile' => 'regex:/[6-9][0-9]{9}/',
+            'mobile' => 'digits_between:6,13|nullable',
             
 
         ]);
@@ -308,7 +308,7 @@ class UserController extends Controller
     public function bookings_index() {
 
 
-        $bookings = Booking::where('user_id', $this->user->id)->orderBy('id')->paginate(10);
+        $bookings = Booking::where('user_id', $this->user->id)->orderBy('created_at', 'desc')->paginate(10);
 
         return view('user.bookings.index')->with('bookings', $bookings);        
 
@@ -478,7 +478,7 @@ class UserController extends Controller
     public function hosts_index() {
 
 
-        $hosts = Host::where('status', APPROVED)->orderBy('id')->paginate(10);
+        $hosts = Host::where('status', APPROVED)->orderBy('created_at', 'desc')->paginate(10);
 
         return view('user.hosts.index')->with('hosts', $hosts);        
 

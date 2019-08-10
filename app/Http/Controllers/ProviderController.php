@@ -119,7 +119,7 @@ class ProviderController extends Controller
 
         $provider_id = Auth()->guard('provider')->user()->id;
 
-        $hosts = Host::where('provider_id',$provider_id)->orderBy('id')->paginate(10);
+        $hosts = Host::where('provider_id',$provider_id)->orderBy('created_at', 'desc')->paginate(10);
 
         return view('provider.hosts.index')->with('hosts', $hosts);        
 
@@ -453,7 +453,7 @@ class ProviderController extends Controller
 
             'description' => 'required| min:5',
 
-            'mobile' => 'regex:/[6-9][0-9]{9}/',
+            'mobile' => 'digits_between:6,13|nullable',
 
             'picture' => 'image|nullable|max:2999|mimes:jpeg,bmp,png,jpg',
 
@@ -641,7 +641,7 @@ class ProviderController extends Controller
 
         $provider_id = Auth()->guard('provider')->user()->id;
 
-        $bookings = Booking::where('provider_id', $provider_id)->orderBy('id')->paginate(10);
+        $bookings = Booking::where('provider_id', $provider_id)->orderBy('created_at', 'desc')->paginate(10);
 
         return view('provider.bookings.index')->with('bookings', $bookings);        
  

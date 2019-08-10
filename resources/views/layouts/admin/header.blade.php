@@ -11,6 +11,7 @@
                         <span>
                          <!-- dark Logo text -->
                          <img src="{{ Setting::get('site_logo')}}" alt="homepage" style="width: 135px; height: 50px" class="dark-logo" />
+                     </span>
                     </a>
                 </div>
                 <!-- ============================================================== -->
@@ -44,9 +45,7 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 
                                 <a class="dropdown-item" href="{{route('admin.profile.view',Auth::guard('admin')->user()->id)}}">Profile</a>
-                                <a class="dropdown-item" href="{{ route('admin.logout') }}"
-                                   onclick="confirm('Are you sure want to logout?'); event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
+                                <a class="dropdown-item" href="{{ route('admin.logout') }}" data-toggle="modal" data-target="#logoutModal" >
                                     {{ __('Logout') }}
                                 </a>
 

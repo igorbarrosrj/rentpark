@@ -9,10 +9,11 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">Service Location Detail</h3>
+                        <h3 class="text-themecolor">Edit Service Location</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Service Location Detail</li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.service_locations.index') }}">View Service Locations</a></li>
+                            <li class="breadcrumb-item active">Edit Service Location</li>
                         </ol>
                     </div>
                     <div class="col-md-7 align-self-center">

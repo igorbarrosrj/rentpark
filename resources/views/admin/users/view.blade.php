@@ -12,6 +12,7 @@
                         <h3 class="text-themecolor">User Detail</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">View Users</a></li>
                             <li class="breadcrumb-item active">User Detail</li>
                         </ol>
                     </div>
@@ -99,12 +100,18 @@
 		             		<td> <a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-primary">Edit</a></td>
 
 		             		<td>
-		             			
-		             			<a href="{{ route('admin.users.status',$user->id) }}" class="btn btn-info">
-                                                             
-                                    {{  $user->status = $user->status == APPROVED ? 'Decline' : 'Approve'}}
+		             			@switch($user->status)
 
-                                </a>
+	                                @case(DECLINED)
+	                                    <a href="{{ route('admin.users.status',$user->id) }}" class="btn btn-primary">Approve</a>
+	                                @break
+
+	                                @case(APPROVED)
+	                                    <a href="{{ route('admin.users.status',$user->id) }}" class="btn btn-info" onclick="return confirm('Are you sure want to decline the user {{ $user->name }}')">Decline</a>
+	                                @break
+
+	                            @endswitch			
+		             			
 		             		</td>
 
 		             		<td>

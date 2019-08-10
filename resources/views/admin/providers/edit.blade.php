@@ -9,10 +9,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">Provider Detail</h3>
+                        <h3 class="text-themecolor">Edit Provider</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.providers.index') }}">Provider Detail</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.providers.index') }}">View Providers</a></li>
                             <li class="breadcrumb-item active">Edit Provider</li>
                         </ol>
                     </div>

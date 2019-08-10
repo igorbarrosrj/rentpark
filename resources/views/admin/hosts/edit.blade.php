@@ -9,9 +9,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">Host Detail</h3>
+                        <h3 class="text-themecolor">Edit Host</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.hosts.index') }}">View Hosts</a></li>
                             <li class="breadcrumb-item active">Edit Host</li>
                         </ol>
                     </div>

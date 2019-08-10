@@ -33,6 +33,7 @@ class ProviderRegisterController extends Controller
       		'mobile' => 'regex:/[6-9][0-9]{9}/',
       		'email'=>'required|email|unique:providers,email',
       		'password'=>'required|min:6|confirmed',
+          'mobile' => 'digits_between:6,13|nullable',
       	]);
 
         $provider = New Provider;

@@ -12,6 +12,7 @@
                         <h3 class="text-themecolor">List Service Locations</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item active"><a href="{{ route('admin.service_locations.index') }}">View Service Locations</a></li>
                             <li class="breadcrumb-item active">List Service Locations</li>
                         </ol>
                     </div>
@@ -77,11 +78,19 @@
                                                         <li><a href="{{ route('admin.service_locations.edit',$service_location->id) }}" class="dropdown-item" >Edit</a></li>
                                                         <li><a href="{{ route('admin.service_locations.delete',$service_location->id) }}" class="dropdown-item" onclick="return confirm('Are you sure?')" >Delete</a></li>
                                                         <div class="dropdown-divider"></div>
-                                                         <li><a href="{{ route('admin.service_locations.status',$service_location->id) }}" class="dropdown-item">
-                                                             
-                                                             {{  $service_location->status = $service_location->status == APPROVED ? 'Decline' : 'Approve'}}
+                                                         <li>
+                                                             @if($service_location->status == DECLINED)
+                                                                
+                                                                <a href="{{ route('admin.service_locations.status',$service_location->id) }}" class="dropdown-item">Approve </a>
+                                                                @break
 
-                                                         </a></li>
+                                                            @elseif($service_location->status == APPROVED)
+                                                                
+                                                                <a href="{{ route('admin.service_locations.status',$service_location->id) }}" class="dropdown-item" onclick="return confirm('Are you sure want to decline the Service Location {{ $service_location->name }} ? ')">Decline</a>
+                                                                @break
+
+                                                            @endif
+                                                         </li>
                                                       </ul>
                                                 </div> 
 										</td>

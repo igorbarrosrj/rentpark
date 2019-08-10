@@ -12,6 +12,7 @@
                         <h3 class="text-themecolor">Service Location Detail</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.service_locations.index') }}">View Service Locations</a></li>
                             <li class="breadcrumb-item active">Service Location Detail</li>
                         </ol>
                     </div>
@@ -85,12 +86,19 @@
 		             		<td> <a href="{{ route('admin.service_locations.edit',$service_location->id) }}" class="btn btn-primary">Edit</a></td>
 
 		             		<td>
-		             			
-		             			<a href="{{ route('admin.service_locations.status',$service_location->id) }}" class="btn btn-info">
-                                                             
-                                    {{  $service_location->status = $service_location->status == APPROVED ? 'Decline' : 'Approve'}}
+		             			@switch($service_location->status)
 
-                                </a>
+	                                @case(DECLINED)
+	                                    <a href="{{ route('admin.service_locations.status',$service_location->id) }}" class="btn btn-primary">Approve </a>
+	                                @break
+
+	                                @case(APPROVED)
+	                                    <a href="{{ route('admin.service_locations.status',$service_location->id) }}" class="btn btn-info" onclick="return confirm('Are you sure want to decline the Service Location {{ $service_location->name }} ? ')">Decline</a>
+	                                @break
+
+	                            @endswitch
+		             			
+		             			
 		             		</td>
 
 		             		<td>

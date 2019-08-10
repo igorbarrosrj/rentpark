@@ -52,7 +52,7 @@
                             
                                 <label class="mobile">Mobile *</label>
 
-                                <input type="text" name="mobile" class="form-control" value="{{ $provider_details->mobile }}" placeholder="Mobile" required>
+                                <input type="number" name="mobile" class="form-control" value="{{ $provider_details->mobile }}" placeholder="Mobile" required>
 
                             </div>
 
