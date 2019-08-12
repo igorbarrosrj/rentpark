@@ -12,7 +12,7 @@
                         <h3 class="text-themecolor">List Providers</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.providers.index') }}">Providers</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.providers.index') }}">View Providers</a></li>
                             <li class="breadcrumb-item active">List providers</li>
                         </ol>
                     </div>
