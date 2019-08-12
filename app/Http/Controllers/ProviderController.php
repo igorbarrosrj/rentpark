@@ -269,7 +269,7 @@ class ProviderController extends Controller
 
         if($request->hasFile('picture')){
 
-            $url = upload_picture($host->picture, $request->file('picture'), FILE_PATH_HOST);
+            $url = upload_picture($request->file('picture'), FILE_PATH_HOST);
 
         } 
 
@@ -401,7 +401,7 @@ class ProviderController extends Controller
      *
      */
 
-    public function profile_edit($id) {
+    public function profile_edit() {
 
         $provider_id = Auth()->guard('provider')->user()->id;
         
@@ -596,7 +596,7 @@ class ProviderController extends Controller
      * @return view of profile's view
      *
      */
-    public function profile_delete($id) {
+    public function profile_delete() {
 
         $provider_id = Auth()->guard('provider')->user()->id;
         

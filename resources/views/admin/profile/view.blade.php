@@ -69,10 +69,10 @@
 
 		        
 
-		             		<td> <a href="{{ route('admin.profile.edit',$admin->id) }}" class="btn btn-primary">Edit</a></td>
+		             		<td> <a href="{{ route('admin.profile.edit') }}" class="btn btn-primary">Edit</a></td>
 
 		             		<td>
-		             			<a href="{{ route('admin.profile.password',$admin->id) }}" class="btn btn-danger" >Change Password</a>
+		             			<a href="{{ route('admin.profile.password') }}" class="btn btn-danger" >Change Password</a>
                				</td>
 		             	</tr>			             					
 									

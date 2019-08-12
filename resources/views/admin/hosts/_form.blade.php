@@ -113,7 +113,7 @@
                                 
                                 <label class="total_spaces">Total Spaces *</label>
 
-                                <input type="text" name="total_spaces" class="form-control" @if($host!=NULL)value="{{ $host->total_spaces }}" @else value="{{ old('total_spaces') }}" @endif placeholder="Total Spaces" required>
+                                <input type="number" name="total_spaces" class="form-control" @if($host!=NULL)value="{{ $host->total_spaces }}" @else value="{{ old('total_spaces') }}" @endif placeholder="Total Spaces" required>
 
                             </div>
 
@@ -134,7 +134,7 @@
                                 
                                 <label class="per_hour">Per Hour *</label>
 
-                                <input type="text" name="per_hour" class="form-control" @if($host!=NULL)value="{{ $host->per_hour }}" @else value="{{ old('per_hour') }}" @endif placeholder="Per Hour" required>
+                                <input type="number" name="per_hour" class="form-control" @if($host!=NULL)value="{{ $host->per_hour }}" @else value="{{ old('per_hour') }}" @endif placeholder="Per Hour" required>
 
                             </div>
 

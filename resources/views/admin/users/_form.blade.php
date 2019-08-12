@@ -65,9 +65,9 @@
 
                             <div class="form-group col-md-6 col-lg-6">
                             
-                                <label class="mobile">Mobile Number</label>
+                                <label class="mobile">Mobile Number *</label>
 
-                                <input type="number" name="mobile" class="form-control" @if($user!=NULL)value="{{ $user->mobile }}" @else value="{{ old('mobile') }}" @endif placeholder="Mobile Number">
+                                <input type="number" name="mobile" class="form-control" @if($user!=NULL)value="{{ $user->mobile }}" @else value="{{ old('mobile') }}" @endif placeholder="Mobile Number" required>
 
                             </div>
 

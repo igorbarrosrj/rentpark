@@ -6,7 +6,7 @@
             <div class="card-body">
                 <h4 class="card-title">Admin Profile</h4>
 
-                    <form action="{{ route('admin.profile.save', $admin->id )}}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.profile.save')}}" method="post" enctype="multipart/form-data">
 
                         {{ csrf_field() }}
 

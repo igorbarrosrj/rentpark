@@ -13,7 +13,7 @@
                         <h3 class="text-themecolor">Add Service Location</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.service_locations.index') }}">View Service Locations</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.service_locations.index') }}">Service Locations</a></li>
                             <li class="breadcrumb-item active">Add Service Location</li>
                         </ol>
                     </div>

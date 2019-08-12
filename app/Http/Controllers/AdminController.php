@@ -372,7 +372,7 @@ class AdminController extends Controller
     public function service_locations_index() {
 
         $service_locations = ServiceLocation::orderBy('created_at', 'desc')->paginate(10);
-
+        
         return view('admin.service_locations.index')->with('service_locations', $service_locations);
 
     }
@@ -492,7 +492,7 @@ class AdminController extends Controller
 
         if($request->hasFile('picture')){
 
-            $service_location->picture = upload_picture($service_location->picture, $request->file('picture'), FILE_PATH_SERVICE_LOCATION);
+            $service_location->picture = upload_picture($request->file('picture'), FILE_PATH_SERVICE_LOCATION);
 
         }
 
@@ -763,7 +763,7 @@ class AdminController extends Controller
 
         if($request->hasFile('picture')){
 
-            $url = upload_picture($host->picture, $request->file('picture'), $image, FILE_PATH_HOST);
+            $host->picture = upload_picture($request->file('picture'), FILE_PATH_HOST);
 
         }
 
@@ -834,7 +834,7 @@ class AdminController extends Controller
 
         $host->delete();
 
-        return redirect()->route('admin.hosts.index')->with('success', 'User Removed');
+        return redirect()->route('admin.hosts.index')->with('success', 'Host Removed');
         
     }
 
@@ -1063,7 +1063,7 @@ class AdminController extends Controller
 
         if($request->hasFile('picture')){
 
-                $provider->picture = upload_picture($provider->picture, $request->file('picture'),PROFILE_PATH_PROVIDER);
+                $provider->picture = upload_picture( $request->file('picture'),PROFILE_PATH_PROVIDER);
         }
 
         $provider->save();
@@ -1090,6 +1090,11 @@ class AdminController extends Controller
     {
 
         $provider = Provider::find($provider_id);
+
+        if(!$provider) {
+
+            return redirect()->route('admin.providers.index')->with('error', 'Provider Not Found');            
+        }
 
         return view('admin.providers.view')->with('provider', $provider);
     }
@@ -1278,14 +1283,14 @@ class AdminController extends Controller
      *
      * @created BALAJI M
      *
-     * @updated
+     * @updated NAVEEN S
      *
      * @param integer id
      *
      * @return admin profile view page
      *
      */
-    public function admin_profile_save(Request $request, $admin_id)
+    public function admin_profile_save(Request $request)
     {
         $request->validate([
                 
@@ -1299,7 +1304,7 @@ class AdminController extends Controller
 
         ]);
 
-        $admin = Admin::find($admin_id);
+        $admin = Admin::find(Auth()->guard('admin')->user()->id);
 
         $admin->name = $request->name?: "";
         
@@ -1313,7 +1318,7 @@ class AdminController extends Controller
 
             delete_picture($admin->picture, PROFILE_PATH_ADMIN);
 
-            $admin->picture = upload_picture($admin->picture,$request->file('picture'),PROFILE_PATH_ADMIN);
+            $admin->picture = upload_picture($request->file('picture'),PROFILE_PATH_ADMIN);
 
         }
     
@@ -1330,17 +1335,17 @@ class AdminController extends Controller
      *
      * @created BALAJI M
      *
-     * @updated
-     *
+     * @updated NAVEEN S
+     * 
      * @param integer id
      *
      * @return admin profile edit form
      *
      */
-    public function admin_profile_edit($admin_id) 
+    public function admin_profile_edit() 
     {
         
-        $admin = Admin::find($admin_id);
+        $admin = Admin::find(Auth()->guard('admin')->user()->id);
 
         return view('admin.profile.edit')->with('admin', $admin);
 
@@ -1360,9 +1365,9 @@ class AdminController extends Controller
      * @return admin profile view page
      *
      */
-    public function admin_profile_view($admin_id)
+    public function admin_profile_view()
     {
-        $admin = Admin::find($admin_id);
+        $admin = Admin::find(Auth()->guard('admin')->user()->id);
 
         return view('admin.profile.view')->with('admin',$admin);
 
@@ -1375,16 +1380,16 @@ class AdminController extends Controller
      *
      * @created BALAJI M
      *
-     * @updated
+     * @updated NAVEEN S
      *
      * @param integer id
      *
      * @return admin profile view page
      *
      */
-    public function change_password($admin_id)
+    public function change_password()
     {
-        $admin = Admin::find($admin_id);
+        $admin = Admin::find(Auth()->guard('admin')->user()->id);
 
         return view('admin.profile.password')->with('admin', $admin);
     }
@@ -1403,7 +1408,7 @@ class AdminController extends Controller
      * @return admin profile view page
      *
      */
-    public function change_password_save(Request $request, $admin_id)
+    public function change_password_save(Request $request)
     {
 
         $request->validate([
@@ -1411,7 +1416,7 @@ class AdminController extends Controller
                 'password' => 'sometimes|required|min:6|confirmed',
             ]);
 
-        $admin = Admin::find($admin_id);
+        $admin = Admin::find(Auth()->guard('admin')->user()->id);
 
         if (Hash::check($request->oldpassword, $admin->password)) {
             

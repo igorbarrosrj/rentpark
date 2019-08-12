@@ -67,13 +67,13 @@ Route::group(['middleware' => 'web'], function() {
          *
          */       
 
-        Route::get('/profile/edit/{id}', 'ProviderController@profile_edit')->name('profile.edit');
+        Route::get('/profile/edit/', 'ProviderController@profile_edit')->name('profile.edit');
 
         Route::post('/profile/save', 'ProviderController@profile_save')->name('profile.save');
 
         Route::get('/profile/view', 'ProviderController@profile_view')->name('profile.view');
 
-        Route::get('/profile/delete/{id}', 'ProviderController@profile_delete')->name('profile.delete');
+        Route::get('/profile/delete', 'ProviderController@profile_delete')->name('profile.delete');
 
         Route::get('/profile/password/', 'ProviderController@profile_password')->name('profile.password');
 

@@ -125,15 +125,15 @@ Route::group(['middleware' => 'web'], function() {
 
          //admin profile
 
-        Route::get('/profile/view/{id}', 'AdminController@admin_profile_view')->name('profile.view');
+        Route::get('/profile/view', 'AdminController@admin_profile_view')->name('profile.view');
 
-        Route::post('/profile/save/{id}', 'AdminController@admin_profile_save')->name('profile.save');
+        Route::post('/profile/save', 'AdminController@admin_profile_save')->name('profile.save');
 
-        Route::get('/profile/edit/{id}', 'AdminController@admin_profile_edit')->name('profile.edit');
+        Route::get('/profile/edit', 'AdminController@admin_profile_edit')->name('profile.edit');
 
-        Route::get('/profile/password/{id}', 'AdminController@change_password')->name('profile.password');
+        Route::get('/profile/password', 'AdminController@change_password')->name('profile.password');
 
-        Route::post('/profile/password/{id}','AdminController@change_password_save')->name('profile.password');
+        Route::post('/profile/password','AdminController@change_password_save')->name('profile.password');
 
 
 

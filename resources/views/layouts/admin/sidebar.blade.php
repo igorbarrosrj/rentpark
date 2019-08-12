@@ -89,7 +89,7 @@
 
                        <!-- Profile -->
 
-                         <li> <a class="waves-effect waves-dark" href="{{ route('admin.profile.view', Auth()->user()->id) }}" aria-expanded="false"><i class="fa fa-user-circle-o"></i><span class="hide-menu">Profile</span></a>
+                         <li> <a class="waves-effect waves-dark" href="{{ route('admin.profile.view')}}" aria-expanded="false"><i class="fa fa-user-circle-o"></i><span class="hide-menu">Profile</span></a>
                         </li>
 
                         <!-- Logout -->

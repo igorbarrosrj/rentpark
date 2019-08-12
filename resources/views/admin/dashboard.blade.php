@@ -155,7 +155,7 @@
                             
                                 <br>    
 
-                                <a href="{{ route('admin.providers.index') }}"><button class="btn btn-primary pl-10">View All</button></a>\
+                                <a href="{{ route('admin.providers.index') }}"><button class="btn btn-primary pl-10">View All</button></a>
                             @endif
                         </div>
                     </div>

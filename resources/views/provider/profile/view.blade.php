@@ -94,12 +94,12 @@
                   </tr>
 
                   <tr>
-                    <td> <a href="{{ route('provider.profile.edit',$provider_details->id) }}" class="btn btn-primary">Update Profile</a></td>
+                    <td> <a href="{{ route('provider.profile.edit') }}" class="btn btn-primary">Update Profile</a></td>
 
-                    <td> <a href="{{ route('provider.profile.password',$provider_details->id) }}" class="btn btn-info">Change Password</a></td>
+                    <td> <a href="{{ route('provider.profile.password') }}" class="btn btn-info">Change Password</a></td>
 
                     <td>
-                      <a href="{{ route('provider.profile.delete',$provider_details->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure want to delete your account?')">Delete Profile</a>
+                      <a href="{{ route('provider.profile.delete') }}" class="btn btn-danger" onclick="return confirm('Are you sure want to delete your account?')">Delete Profile</a>
                       </td>
                   </tr>                           
                   

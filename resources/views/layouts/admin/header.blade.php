@@ -44,7 +44,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 
-                                <a class="dropdown-item" href="{{route('admin.profile.view',Auth::guard('admin')->user()->id)}}">Profile</a>
+                                <a class="dropdown-item" href="{{route('admin.profile.view')}}">Profile</a>
                                 <a class="dropdown-item" href="{{ route('admin.logout') }}" data-toggle="modal" data-target="#logoutModal" >
                                     {{ __('Logout') }}
                                 </a>

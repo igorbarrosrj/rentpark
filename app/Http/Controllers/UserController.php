@@ -151,7 +151,7 @@ class UserController extends Controller
 
             delete_picture($user->picture, PROFILE_PATH_USER);
 
-            $url = upload_picture($user->picture,$request->file('picture'),PROFILE_PATH_USER);
+            $url = upload_picture($request->file('picture'),PROFILE_PATH_USER);
 
             $user->picture = $url;
 

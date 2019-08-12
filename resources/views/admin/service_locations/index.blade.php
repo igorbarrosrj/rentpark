@@ -12,7 +12,7 @@
                         <h3 class="text-themecolor">List Service Locations</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="{{ route('admin.service_locations.index') }}">View Service Locations</a></li>
+                            <li class="breadcrumb-item active"><a href="{{ route('admin.service_locations.index') }}">Service Locations</a></li>
                             <li class="breadcrumb-item active">List Service Locations</li>
                         </ol>
                     </div>
@@ -46,10 +46,12 @@
 			                  	<th>Updated At</th>
 			                  	<th>Status</th>
 			                  	<th>Action</th>
-			                </tr>
-					               	
+			                </tr> 	
+
 							@if(count($service_locations)>0)
+
 								@foreach($service_locations as $service_location)
+
 						            <tr>
 						            	<td>{{ ++$sno }}</td>
 										<td><a href="{{ route('admin.service_locations.view',$service_location->id) }}">{{ $service_location->name }}</a></td>
@@ -82,12 +84,10 @@
                                                              @if($service_location->status == DECLINED)
                                                                 
                                                                 <a href="{{ route('admin.service_locations.status',$service_location->id) }}" class="dropdown-item">Approve </a>
-                                                                @break
 
                                                             @elseif($service_location->status == APPROVED)
                                                                 
                                                                 <a href="{{ route('admin.service_locations.status',$service_location->id) }}" class="dropdown-item" onclick="return confirm('Are you sure want to decline the Service Location {{ $service_location->name }} ? ')">Decline</a>
-                                                                @break
 
                                                             @endif
                                                          </li>
@@ -95,21 +95,24 @@
                                                 </div> 
 										</td>
 						            </tr>
+
 						        @endforeach
 
 				            @else
 				            	<tr><td colspan=5><h3>No Service Location found</h3></td></tr>
+                                
 				            @endif
 
 				        </table>
-				        {{$service_locations->links()}}
+                        
+				        {{$service_locations->links()}} 
 
 		            </div>		            
 	          </div>				
 			</div>							
 		</div>
 	</div>
-		
+
 
 @endsection
 
