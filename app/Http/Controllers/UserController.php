@@ -14,7 +14,6 @@ use DB, Auth, Hash, Validator, Exception;
 
 use Carbon\Carbon;
 
-
 class UserController extends Controller
 {
 
@@ -25,8 +24,7 @@ class UserController extends Controller
      * @return void
      */
 
-    public function __construct()
-    {
+    public function __construct() {
 
         $this->middleware(function ($request, $next) {
             

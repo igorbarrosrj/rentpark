@@ -123,7 +123,7 @@ Route::group(['middleware' => 'web'], function() {
         Route::post('/settings/save', 'AdminController@settings_save')->name('settings.save');
 
 
-         //admin profile
+        # admin profile
 
         Route::get('/profile/view', 'AdminController@admin_profile_view')->name('profile.view');
 
@@ -136,8 +136,6 @@ Route::group(['middleware' => 'web'], function() {
         Route::post('/profile/password','AdminController@change_password_save')->name('profile.password');
 
 
-
-        
 
     });
 

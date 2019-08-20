@@ -1,24 +1,38 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Admin;
-use App\Booking;
-use App\Host;
-use App\Provider;
-use App\ServiceLocation;
-use App\User;
-use DB, Auth, Hash, Validator, Exception;
 use Faker\Provider\Image;
+
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Cookie;
+
 use Illuminate\Support\Facades\File;
+
 use Illuminate\Support\Facades\Storage;
+
 use Illuminate\Validation\Rule;
+
+use App\Admin;
+
+use App\Booking;
+
+use App\Host;
+
+use App\Provider;
+
+use App\ServiceLocation;
+
+use App\User;
+
+use DB, Auth, Hash, Validator, Exception;
+
 use Setting;
+
 use \Mail;
 
-class AdminController extends Controller
-{
+class AdminController extends Controller {
 
     /**
      * Create a new controller instance.
@@ -45,22 +59,26 @@ class AdminController extends Controller
      * @return view of dashboard
      *
      */
-    public function index()
-    { 
+    public function index() { 
+       
+        $recent_users = User::orderBy('created_at', 'desc')->take(10)->get();
+        
+        $recent_providers = Provider::orderBy('created_at', 'desc')->take(10)->get();
 
-        $total_users = Host::orderBy('id')->get()->count();
+        $data['total_users'] = Host::orderBy('id')->get()->count();
 
-        $total_providers = Provider::orderBy('id')->get()->count();
+        $data['total_providers'] = Provider::orderBy('id')->get()->count();
 
-        $total_bookings = Booking::orderBy('id')->get()->count();
+        $data['total_bookings'] = Booking::orderBy('id')->get()->count();
 
-        $total_earnings = Booking::orderBy('id')->sum('total');
+        $data['total_earnings'] = Booking::orderBy('id')->sum('total');
 
-        $users = User::orderBy('created_at', 'desc')->take(10)->get();
+        $data = json_decode(json_encode($data));
 
-        $providers = Provider::orderBy('created_at', 'desc')->take(10)->get();
-
-        return view('admin.dashboard')->with(['total_users'=>$total_users, 'total_providers'=>$total_providers, 'total_bookings'=>$total_bookings, 'total_earnings'=> $total_earnings, 'users' => $users, 'providers' => $providers]);
+        return view('admin.dashboard')
+                ->with('users',$recent_users)
+                ->with('recent_providers',$recent_providers)
+                ->with('data',$data);
     }
 
     /**
@@ -141,7 +159,8 @@ class AdminController extends Controller
             return redirect()->route('admin.users.index')->with('error',"No User found");
         }
 
-        return view('admin.users.view')->with('user', $user);
+        return view('admin.users.view')
+                    ->with('user', $user);
         
     }
 
@@ -162,96 +181,105 @@ class AdminController extends Controller
 
     public function users_save(Request $request) {
 
-        $this->validate($request,[
+        try {
+           
+            DB::begintransaction();
 
-            'name' => 'required|min:3|max:50|regex:/^[a-z A-Z]+$/',
+            $validator = Validator::make( $request->all(), [
 
-            'email' => 'required|email',
+                'name' => 'required|min:3|max:50|regex:/^[a-z A-Z]+$/',
+                'email' => $request->id ? 'required|email|max:191|unique:users,email,'.$request->user_id.',id' : 'required|email',
+                'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg|max:2048',
+                'description' => 'required|min:5',
+                'mobile' => 'digits_between:6,13|nullable',
+                'password' => $request->user_id ? "" : 'required|min:6'
+                ]
+            );
 
-            'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg|max:2048',
+            if($validator->fails()) {
 
-            'description' => 'required| min:5',
+                $error = implode(',', $validator->messages()->all());
 
-            'mobile' => 'digits_between:6,13|nullable',
-
-        ]);
-
-
-        if(!$request->id) {
-        
-            $this->validate($request,[
-
-                'email' => 'required|unique:users,email|email',
-
-                'password' => 'required|confirmed|min:6',
-
-            ]);
-
-            //Create User
-
-            $user = New User;
-
-            $user->unique_id = uniqid(base64_encode(str_random(60)));
-
-            $user->password = \Hash::make($request->password);
-
-            $user->status = APPROVED;
-
-            $user->picture = asset('placeholder.jpg');
-
-        } else {
-
-            $user = User::find($request->id);
-
-            if($request->hasFile('picture')) {
-
-                delete_picture($user->picture, PROFILE_PATH_USER);
+                throw new Exception($error, 101);
 
             }
             
-        }
+            if($request->id) {
 
-        $user->name = $request->name;        
+                $user_details = User::find($request->id);
 
-        $user->email = $request->email;        
+                if($request->hasFile('picture')) {
 
-        $user->description = $request->description?:'';
+                    delete_picture($user_details->picture, PROFILE_PATH_USER);
 
-        $user->mobile = $request->mobile?:'';
+                }
 
-        $user->gender = $request->gender;
+            } else {
+                
+                $user_details = New User;
 
-        $user->token = $request->token?:"";
+                $user_details->unique_id = uniqid(base64_encode(str_random(60)));
 
-        $user->token_expiry = $request->token_expiry?:"";
+                $user_details->password = \Hash::make($request->password);
 
-        if($request->hasFile('picture')) {
+                $user_details->status = APPROVED;
 
-            $user->picture = upload_picture($request->file('picture'), PROFILE_PATH_USER);
+                $user_details->picture = asset('placeholder.jpg');
 
-        }
+            }
+           
+            $user_details->name = $request->name;        
 
-        $user->save();
+            $user_details->email = $request->email;        
 
-        if(!$request->id) {
+            $user_details->description = $request->description?:'';
 
-            if(Setting::get('is_email_configured') == YES) {
+            $user_details->mobile = $request->mobile?:'';
 
-                $to_name = $request->name;
+            $user_details->gender = $request->gender;
 
-                $to_email = $request->email;            
+            $user_details->token = $request->token?:"";
 
-                $data = ["name"=> $request->name, "body" => "You account is created ", "username" => $request->email, "password" => $request->password, "link" => route('login')];
+            $user_details->token_expiry = $request->token_expiry?:"";
 
-                Mail::send('admin.users.mail.index', $data, function($message) use ($to_name, $to_email) {$message->to($to_email, $to_name)->subject("Account Activation");
+            if($request->hasFile('picture')) {
 
-                $message->from(\Config::get('mail.from.address'), "RentPark");;}); 
+                $user_details->picture = upload_picture($request->file('picture'), PROFILE_PATH_USER);
 
             }
 
-        }
+            $user_details->save();
 
-        return redirect()->route('admin.users.index')->with('success', 'User Saved');
+            if(!$request->id) {
+
+                if(Setting::get('is_email_configured') == YES) {
+
+                    $to_name = $request->name;
+
+                    $to_email = $request->email;            
+
+                    $data = ["name"=> $request->name, "body" => "You account is created ", "username" => $request->email, "password" => $request->password, "link" => route('login')];
+
+                    Mail::send('admin.users.mail.index', $data, function($message) use ($to_name, $to_email) {$message->to($to_email, $to_name)->subject("Account Activation");
+
+                    $message->from(\Config::get('mail.from.address'), "RentPark");;}); 
+
+                }
+
+            }
+
+            return redirect()->route('admin.users.index')->with('success', 'User Saved');
+        
+            
+        } catch (Exception $e) {
+            
+            DB::rollback();
+
+            $error = $e->getMessage();
+
+            return redirect()->back()->withInput()->with('flash_error', $error);
+
+        }
         
     }
 

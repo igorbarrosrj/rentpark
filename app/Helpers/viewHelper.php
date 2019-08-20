@@ -5,19 +5,19 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\File;
 
 /**
-     * @method upload_picture()
-     * 
-     * @uses used to upload the picture
-     *
-     * @created BALAJI M
-     *
-     * @updated VITHYA
-     *
-     * @param image, destination
-     *
-     * @return url of image
-     *
-     */
+ * @method upload_picture()
+ * 
+ * @uses used to upload the picture
+ *
+ * @created BALAJI M
+ *
+ * @updated VITHYA
+ *
+ * @param image, destination
+ *
+ * @return image url
+ *
+ */
 function upload_picture($image, $destination) {
 
     $extension = $image->getClientOriginalExtension();
@@ -31,19 +31,19 @@ function upload_picture($image, $destination) {
 }
 
 /**
-     * @method delete_picture()
-     * 
-     * @uses used to delete the image
-     *
-     * @created BALAJI M
-     *
-     * @updated VITHYA
-     *
-     * @param image and destination
-     *
-     * @return null
-     *
-     */
+ * @method delete_picture()
+ * 
+ * @uses To delete the image
+ *
+ * @created BALAJI M
+ *
+ * @updated VITHYA
+ *
+ * @param image and destination
+ *
+ * @return Null
+ *
+ */
 
 function delete_picture($image, $destination) {
 
@@ -58,5 +58,7 @@ function delete_picture($image, $destination) {
 
     return null;
 }
+
+
 
 
