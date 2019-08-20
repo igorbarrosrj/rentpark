@@ -86,5 +86,35 @@ function formatted_amount($amount = 0.00, $currency = "") {
     return $formatted_amount;
 }
 
+/**
+ * @method common_date()
+ *
+ * @uses to formate date with TimeZone
+ *
+ * @created Vidhya R
+ *
+ * @updated Anjana H
+ *
+ * @param integer $num
+ * 
+ * @param string $currency
+ *
+ * @return string $formatted_amount
+ */
+function common_date($date , $timezone = "" , $format = "d M Y h:i A") {
 
+    if($date == "0000-00-00 00:00:00" || $date == "0000-00-00" || !$date) {
+
+        return $date;
+    }
+
+    if($timezone) {
+
+        $date = convertTimeToUSERzone($date , $timezone , $format);
+
+    }
+
+    return date($format , strtotime($date));
+
+}
 

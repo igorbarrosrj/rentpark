@@ -154,6 +154,7 @@
                     <h5 class="card-title">Recent Providers</h5>
                    
                     <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
+                       
                         @if(count($recent_providers)>0)
 
                             @foreach($recent_providers as $provider_details)
@@ -181,12 +182,14 @@
 
                     @if(count($recent_providers)>0)
 
-                    <br>
+                        <br>
 
-                    <a href="{{ route('admin.providers.index') }}">
-                        <button class="btn btn-primary pl-10">View All</button>
-                    </a>
+                        <a href="{{ route('admin.providers.index') }}">
+                            <button class="btn btn-primary pl-10">View All</button>
+                        </a>
+               
                     @endif
+               
                 </div>
 
             </div>

@@ -107,7 +107,8 @@ class AdminController extends Controller {
 
         $users = User::orderBy('created_at','desc')->paginate(10);
 
-        return view('admin.users.index')->with('users', $users);
+        return view('admin.users.index')
+                    ->with('users', $users);
         
     }
 
@@ -128,9 +129,9 @@ class AdminController extends Controller {
 
     public function users_create() {
 
-        $user = NULL;
+        $user_details = NULL;
 
-        return view('admin.users.create')->with('user', $user);
+        return view('admin.users.create')->with('user_details', $user_details);
 
     }
 
@@ -152,15 +153,14 @@ class AdminController extends Controller {
 
     public function users_view($id) {
 
-        $user = User::find($id);
+        $user_details = User::find($id);
 
-        if(!$user) {
+        if(!$user_details) {
             
             return redirect()->route('admin.users.index')->with('error',"No User found");
         }
 
-        return view('admin.users.view')
-                    ->with('user', $user);
+        return view('admin.users.view')->with('user_details', $user_details);
         
     }
 
@@ -201,7 +201,6 @@ class AdminController extends Controller {
                 $error = implode(',', $validator->messages()->all());
 
                 throw new Exception($error, 101);
-
             }
             
             if($request->id) {
@@ -248,30 +247,34 @@ class AdminController extends Controller {
 
             }
 
-            $user_details->save();
+            if($user_details->save()) {
+    
+                DB::commit(); 
+            
+                if(!$request->id) {
 
-            if(!$request->id) {
+                    if(Setting::get('is_email_configured') == YES) {
 
-                if(Setting::get('is_email_configured') == YES) {
+                        $to_name = $request->name;
 
-                    $to_name = $request->name;
+                        $to_email = $request->email;            
 
-                    $to_email = $request->email;            
+                        $data = ["name"=> $request->name, "body" => "You account is created ", "username" => $request->email, "password" => $request->password, "link" => route('login')];
 
-                    $data = ["name"=> $request->name, "body" => "You account is created ", "username" => $request->email, "password" => $request->password, "link" => route('login')];
+                        Mail::send('admin.users.mail.index', $data, function($message) use ($to_name, $to_email) {$message->to($to_email, $to_name)->subject("Account Activation");
 
-                    Mail::send('admin.users.mail.index', $data, function($message) use ($to_name, $to_email) {$message->to($to_email, $to_name)->subject("Account Activation");
+                        $message->from(\Config::get('mail.from.address'), "RentPark");;}); 
 
-                    $message->from(\Config::get('mail.from.address'), "RentPark");;}); 
+                    }
 
-                }
-
+                }        
+    
+                return redirect()->route('admin.users.index')->with('success', 'User Saved');
             }
 
-            return redirect()->route('admin.users.index')->with('success', 'User Saved');
-        
-            
-        } catch (Exception $e) {
+            throw new Exception("Sorry! User Details could not be saved, Please try again", 1);
+                        
+        } catch (Exception $e) {var
             
             DB::rollback();
 
@@ -300,15 +303,23 @@ class AdminController extends Controller {
 
     public function users_edit($id) {
         
-        $user = User::find($id);
-
-        if(!$user) {
+        try {
             
+            $user_details = User::find($id);
+
+            if(!$user_details) {
+                
+                throw new Exception( "No User found", 101);                
+            }
+
+            return view('admin.users.edit')->with('user_details', $user_details);
+                
+        } catch (Exception $e) {
+
+            $error = $e->getMessage();
+
             return redirect()->route('admin.users.index')->with('error', "No User found");
         }
-
-        return view('admin.users.edit')->with('user', $user);
-
     }
 
 
