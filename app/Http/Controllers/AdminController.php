@@ -76,7 +76,7 @@ class AdminController extends Controller {
         $data = json_decode(json_encode($data));
 
         return view('admin.dashboard')
-                ->with('users',$recent_users)
+                ->with('recent_users',$recent_users)
                 ->with('recent_providers',$recent_providers)
                 ->with('data',$data);
     }

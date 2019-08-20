@@ -59,6 +59,32 @@ function delete_picture($image, $destination) {
     return null;
 }
 
+/**
+ * @method formatted_amount()
+ *
+ * @uses used to format the number
+ *
+ * @created vidhya R
+ *
+ * @updated vidhya R
+ *
+ * @param integer $num
+ * 
+ * @param string $currency
+ *
+ * @return string $formatted_amount
+ */
+
+function formatted_amount($amount = 0.00, $currency = "") {
+
+    $currency = $currency ?: Setting::get('currency', '$');
+
+    $amount = number_format((float)$amount, 2, '.', '');
+
+    $formatted_amount = $currency."".$amount ?: "0.00";
+
+    return $formatted_amount;
+}
 
 
 
