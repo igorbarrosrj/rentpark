@@ -4,9 +4,7 @@
 
 	<div class="content-wrapper">
 
- 		<!-- ============================================================== -->
-        <!-- Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
+        <!-- ================ Bread crumb ===================== -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
                 <h3 class="text-themecolor">User Detail</h3>
@@ -20,14 +18,12 @@
                 <a href="{{ route('admin.users.index') }}" class="btn btn-primary pull-right hidden-sm-down">Go Back</a>
             </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- End Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
+        <!-- ================ End Bread crumb =================== -->
 
          @include('notifications.notification')
 
 		<div class="row">
-	    <!-- column -->
+
 		    <div class="col-12">
 		        
 		        <div class="card">

@@ -126,7 +126,6 @@ class AdminController extends Controller {
      * @return view of Create User Page
      *
      */
-
     public function users_create() {
 
         $user_details = NULL;
@@ -134,7 +133,6 @@ class AdminController extends Controller {
         return view('admin.users.create')->with('user_details', $user_details);
 
     }
-
 
     /**
      * @method users_view()
@@ -150,18 +148,25 @@ class AdminController extends Controller {
      * @return view of particular user
      *
      */
-
     public function users_view($id) {
 
-        $user_details = User::find($id);
-
-        if(!$user_details) {
+        try {
             
-            return redirect()->route('admin.users.index')->with('error',"No User found");
-        }
+            $user_details = User::find($id);
 
-        return view('admin.users.view')->with('user_details', $user_details);
-        
+            if(!$user_details) {
+                
+                return redirect()->route('admin.users.index')->with('error',"No User found");
+            }
+
+            return view('admin.users.view')->with('user_details', $user_details);
+             
+        } catch (Exception $e) {
+
+            $error = $e->getMessage();
+
+            return redirect()->route('admin.users.index')->with('error', "No User found");
+        }
     }
 
    /**
@@ -244,7 +249,6 @@ class AdminController extends Controller {
             if($request->hasFile('picture')) {
 
                 $user_details->picture = upload_picture($request->file('picture'), PROFILE_PATH_USER);
-
             }
 
             if($user_details->save()) {
@@ -264,7 +268,6 @@ class AdminController extends Controller {
                         Mail::send('admin.users.mail.index', $data, function($message) use ($to_name, $to_email) {$message->to($to_email, $to_name)->subject("Account Activation");
 
                         $message->from(\Config::get('mail.from.address'), "RentPark");;}); 
-
                     }
 
                 }        
@@ -274,7 +277,7 @@ class AdminController extends Controller {
 
             throw new Exception("Sorry! User Details could not be saved, Please try again", 1);
                         
-        } catch (Exception $e) {var
+        } catch (Exception $e) {
             
             DB::rollback();
 
@@ -309,7 +312,7 @@ class AdminController extends Controller {
 
             if(!$user_details) {
                 
-                throw new Exception( "No User found", 101);                
+                throw new Exception("No User found", 101);                
             }
 
             return view('admin.users.edit')->with('user_details', $user_details);
@@ -339,18 +342,38 @@ class AdminController extends Controller {
      */
     public function users_delete($id) {
 
-        $user = User::find($id);
-
-        if(!$user) {
+        try {
             
-            return redirect()->route('admin.users.index')->with('error', "No User found");
-        }
+            DB::begintransaction();
 
-        delete_picture($user->picture, PROFILE_PATH_USER);
+            $user_details = User::find($id);
 
-        $user->delete();
+            if(!$user_details) {
+                
+                throw new Exception("No User found", 101);
+            }
 
-        return redirect()->route('admin.users.index')->with('success', 'User Removed');       
+            $user_picture = $user_details->picture;
+
+            if($user_details->delete()) {
+
+                DB::commit();
+                
+                delete_picture($user_picture , PROFILE_PATH_USER);
+
+                return redirect()->route('admin.users.index')->with('success', 'User Removed');  
+            }
+
+            throw new Exception("Sorry! User details could not be delated. Plese try again", 101);
+
+        } catch (Exception $e) {
+
+            DB::rollback();
+
+            $error = $e->getMessage();
+
+            return redirect()->back()->with('error', "No User found");
+        }       
         
     }
 
@@ -370,20 +393,37 @@ class AdminController extends Controller {
      */
     public function users_status($id) {
 
-        $user = User::find($id);
-
-        if(!$user) {
+        try {
             
-            return redirect()->route('admin.users.index')->with('error', "No User found");
-        }
+            DB::begintransaction();
 
-        $user->status = $user->status == APPROVED ? DECLINED : APPROVED;
+            $user_details = User::find($id);
 
-        $user->save();
+            if(!$user_details) {
+                
+                throw new Exception("No User found", 101);                
+            }
 
-        return redirect()->back()->with('success', 'Status Updated !');
-        
-        
+            $user_details->status = $user_details->status == APPROVED ? DECLINED : APPROVED;
+
+            if($user_details->save()) {
+
+                DB::commit();
+
+                return redirect()->back()->with('success', 'Status Updated!'); 
+            
+            }
+
+            throw new Exception("Sorry! User Status could not change. Plese try again", 1);
+            
+        } catch (Exception $e) {
+
+            DB::rollback();
+
+            $error = $e->getMessage();
+
+            return redirect()->back()->with('error', "No User found");
+        } 
     }
 
 
@@ -921,7 +961,7 @@ class AdminController extends Controller {
     /**
      * @method bookings_index()
      * 
-     * @uses used to display the list of booking 
+     * @uses To list out booking details
      *
      * @created NAVEEN S
      *
@@ -940,11 +980,10 @@ class AdminController extends Controller {
 
     }
 
-
     /**
      * @method bookings_view()
      * 
-     * @uses used to display the Booking Details Page
+     * @uses to display the Booking Details based on $id
      *
      * @created NAVEEN S
      *
@@ -957,15 +996,14 @@ class AdminController extends Controller {
      */
     public function bookings_view($id) {
 
-        $booking = Booking::find($id);
+        $booking_details = Booking::find($id);
 
-        if(!$booking){
+        if(!$booking_details){
 
-            return redirect()->route('admin.bookings.index')->with('error', "No Booking found");
-            
+            return redirect()->route('admin.bookings.index')->with('error', "No Booking found");            
         }
         
-        return view('admin.bookings.view')->with('booking', $booking);
+        return view('admin.bookings.view')->with('booking_details', $booking_details);
     }
 
     /**
@@ -1011,15 +1049,50 @@ class AdminController extends Controller {
      * @return provider's create form
      *
      */
-
-    public function providers_create()
-    {
+    public function providers_create() {
 
         $provider = NULL;
 
         return view('admin.providers.create')->with('provider', $provider);;
     }
-/**
+
+    /**
+     * @method providers_edit()
+     * 
+     * @uses used to edit the provider detail
+     *
+     * @created BALAJI M
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return provider's edit form
+     *
+     */
+    public function providers_edit($id) {
+        
+        try {
+            
+            $provider = Provider::find($id);
+
+            if(!$provider) {
+
+                throw new Exception("Provider Not Found", 101);
+            }
+
+            return view('admin.providers.edit')->with('provider', $provider);
+
+        } catch (Exception $e) {
+             
+            $error = $e->getMessage();
+
+            return redirect()->route('admin.providers.index')->with('error', 'Provider Not Found');
+        }
+
+    }
+    
+    /**
      * @method providers_save()
      * 
      * @uses used to save the provider's detail in db
@@ -1033,8 +1106,8 @@ class AdminController extends Controller {
      * @return provider's index page
      *
      */
-    public function providers_save(Request $request)
-    {
+    public function providers_save(Request $request) {
+
         $request->validate([
                 
             'name' => 'required|min:3|max:50|regex:/^[a-z A-Z]+$/',
@@ -1053,8 +1126,8 @@ class AdminController extends Controller {
 
         ]);
 
-        if(!$request->id)
-        {
+        if(!$request->id) {
+            
             $request->validate([
 
                 'email' => 'required|email|unique:providers,email',
@@ -1084,25 +1157,25 @@ class AdminController extends Controller {
 
         }
 
-        $provider->name = $request->name?: "";
+        $provider->name = $request->name ?: "";
 
-        $provider->email = $request->email?: "";
+        $provider->email = $request->email ?: "";
 
-        $provider->description = $request->description?: "";
+        $provider->description = $request->description ?: "";
 
-        $provider->mobile = $request->mobile?: "";
+        $provider->mobile = $request->mobile ?: "";
 
-        $provider->work = $request->work?: "";
+        $provider->work = $request->work ?: "";
 
-        $provider->school = $request->school?: "";
+        $provider->school = $request->school ?: "";
 
-        $provider->languages = $request->languages?: ""; 
+        $provider->languages = $request->languages ?: ""; 
 
-        $provider->remember_token = $request->remember_token?: "";
+        $provider->remember_token = $request->remember_token ?: "";
 
         if($request->hasFile('picture')){
 
-                $provider->picture = upload_picture( $request->file('picture'),PROFILE_PATH_PROVIDER);
+            $provider->picture = upload_picture( $request->file('picture'),PROFILE_PATH_PROVIDER);
         }
 
         $provider->save();
@@ -1125,8 +1198,7 @@ class AdminController extends Controller {
      * @return provider's detail
      *
      */
-    public function providers_view($provider_id) 
-    {
+    public function providers_view($provider_id) {
 
         $provider = Provider::find($provider_id);
 
@@ -1136,35 +1208,6 @@ class AdminController extends Controller {
         }
 
         return view('admin.providers.view')->with('provider', $provider);
-    }
-
-    /**
-     * @method providers_edit()
-     * 
-     * @uses used to edit the provider detail
-     *
-     * @created BALAJI M
-     *
-     * @updated
-     *
-     * @param integer id
-     *
-     * @return provider's edit form
-     *
-     */
-    public function providers_edit($id) 
-    {
-        
-        $provider = Provider::find($id);
-
-        if(!$provider) {
-
-            return redirect()->route('admin.providers.index')->with('error', 'Provider Not Found');
-
-        }
-
-        return view('admin.providers.edit')->with('provider', $provider);
-
     }
 
     /**
@@ -1181,8 +1224,7 @@ class AdminController extends Controller {
      * @return provider's index
      *
      */
-    public function providers_delete($id) 
-    {
+    public function providers_delete($id) {
 
         $provider = Provider::find($id);
 
@@ -1239,8 +1281,6 @@ class AdminController extends Controller {
     * Settings in Admin Panel
     *
     */
-
-
 
     /**
      * @method settings_index()

@@ -4,11 +4,8 @@
 
     <div class="content-wrapper">
 
-        <!-- ============================================================== -->
-        <!-- Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <div class="row page-titles">
-         
+        <!-- ================ Bread crumb ===================== -->
+        <div class="row page-titles">         
             <div class="col-md-5 align-self-center">
                 <h3 class="text-themecolor">Edit User</h3>
                 <ol class="breadcrumb">
@@ -23,9 +20,7 @@
             </div>
        
         </div>
-        <!-- ============================================================== -->
-        <!-- End Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
+        <!-- ================ End Bread crumb =================== -->
 
         @include('notifications.notification')
 

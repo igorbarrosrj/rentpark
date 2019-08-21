@@ -2,15 +2,10 @@
 
 @section('content')
 
-    <!-- ============================================================== -->
-    <!-- Container fluid  -->
-    <!-- ============================================================== -->
+    <!-- =========== Container fluid ==========================-->
     <div class="container-fluid">
         
-        <!-- ============================================================== -->
-        <!-- Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-       
+        <!-- ================ Bread crumb ===================== -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
                 <h3 class="text-themecolor">Dashboard</h3>
@@ -20,16 +15,12 @@
                 </ol>
             </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- End Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
+        <!-- ================ End Bread crumb ================= -->
 
-        <!-- ============================================================== -->
-        <!-- List -->
-        <!-- ============================================================== -->
+        <!-- =============== List ============================= -->
         <div class="row">
            
-            <!-- Total Users -->
+            <!-- =========== Total Users =========== -->
             <div class="col-lg-3 col-md-6">
                 <div class="card card-body mailbox " style="height: 150px">
                     <h5 class="card-title">Total Users</h5>
@@ -47,9 +38,9 @@
                     </div>
                 </div>
             </div>
-            <!-- End Total Users -->
+            <!-- =========== End Total Users ===========-->
 
-            <!-- Total Providers -->
+            <!-- =========== Total Providers ===========-->
             <div class="col-lg-3 col-md-6">
                 <div class="card card-body mailbox " style="height: 150px">
                     <h5 class="card-title">Total Providers</h5>
@@ -65,9 +56,9 @@
                     </div>
                 </div>
             </div>
-            <!-- End Total Providers -->
+            <!-- =========== End Total Providers  ===========-->
 
-            <!-- Total Bookings -->
+            <!-- =========== Total Bookings ===========-->
             <div class="col-lg-3 col-md-6">
                 <div class="card card-body mailbox " style="height: 150px">
                     <h5 class="card-title">Total Bookings</h5>
@@ -81,9 +72,9 @@
                     </div>
                 </div>
             </div>
-            <!-- End Total Users -->
+            <!-- =========== End Total Users ===========-->
 
-            <!-- Total Earnings -->
+            <!-- =========== Total Earnings  ======================-->
             <div class="col-lg-3 col-md-6">
                 <div class="card card-body mailbox " style="height: 150px">
                     <h5 class="card-title">Total Earnings</h5>
@@ -97,19 +88,15 @@
                     </div>
                 </div>
             </div>
-            <!-- End Total Earnings -->
+            <!-- =========== End Total Earnings  ===========-->
 
         </div>
-        <!-- ============================================================== -->
-        <!-- End List -->
-        <!-- ============================================================== -->
-        
-        <!-- ============================================================== -->
-        <!-- Users and Providers -->
-        <!-- ============================================================== -->
+        <!-- =============== End List ========================= -->
+ 
+        <!-- =========== Recent Users and Providers =========== -->
         <div class="row">
             
-            <!-- Start Recent Users details-->
+            <!--  =========== Start Recent Users details-->
             <div class="col-lg-6 col-md-12">
                 <div class="card card-body mailbox">
                     <h5 class="card-title">Recent Users</h5>
@@ -145,9 +132,9 @@
                 </div>
 
             </div>
-            <!-- End Recent Users details details -->
+            <!-- =========== End Recent Users details details =========== -->
 
-            <!-- Start Recent Providers -->
+            <!-- =========== Start Recent Providers =========== -->
             <div class="col-lg-6 col-md-12">
             
                 <div class="card card-body mailbox">
@@ -193,19 +180,12 @@
                 </div>
 
             </div>
-            <!-- End Recent Providers details -->
+            <!-- =========== End Recent Providers details =========== -->
             
         </div>
-        <!-- ============================================================== -->
-        <!-- End Users and Providers -->
-        <!-- ============================================================== -->
+        <!-- ========= End Recent Users and Providers ======== -->
       
-        <!-- ============================================================== -->
-        <!-- End Page Content -->
-        <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
-    <!-- End Container fluid  -->
-    <!-- ============================================================== -->
+    <!-- =========== End Container fluid ======================-->
 
 @endsection

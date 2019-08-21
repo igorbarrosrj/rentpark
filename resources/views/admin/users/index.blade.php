@@ -4,9 +4,7 @@
 
 <div class="content-fluid">
 
-    <!-- ============================================================== -->
-    <!-- Bread crumb and right sidebar toggle -->
-    <!-- ============================================================== -->
+    <!-- ================ Bread crumb ===================== -->
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
             <h3 class="text-themecolor">List Users</h3>
@@ -20,9 +18,7 @@
             <a href="{{ route('admin.users.create') }}" class="btn btn-primary pull-right hidden-sm-down">Add User</a>
         </div>
     </div>
-    <!-- ============================================================== -->
-    <!-- End Bread crumb and right sidebar toggle -->
-    <!-- ============================================================== -->
+    <!-- ================ End Bread crumb =================== -->
 
     @include('notifications.notification') 
 
@@ -65,15 +61,16 @@
                                             <td><a href="{{ route('admin.users.view',$user_details->id) }}">{{ $user_details->name }}</a></td>
                                             <td>{{ $user_details->email }}</td>
                                             <td>{{ $user_details->mobile }}</td>
-                                            <td>{{ $user_details->updated_at }}</td>
+                                            <td>{{ common_date($user_details->updated_at) }}</td>
                                            
-                                            @if($user_details->status) 
+                                            @if($user_details->status == APPROVED) 
+                                            
                                             <td>
-                                                <div class="label label-danger">Declined</div>
+                                                <div class="label label-success">Approved</div>
                                             </td>
                                             @else 
                                             <td>
-                                                <div class="label label-success">Approved</div>
+                                                <div class="label label-danger">Declined</div>
                                             </td>
                                             @endif
 
