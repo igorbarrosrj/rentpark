@@ -58,9 +58,13 @@
                                         
                                         <tr>
                                             <td>{{ ++$sno }}</td>
-                                            <td><a href="{{ route('admin.users.view',$user_details->id) }}">{{ $user_details->name }}</a></td>
+                                            
+                                            <td><a href="{{ route('admin.users.view', ['user_id' => $user_details->id]) }}">{{ $user_details->name }}</a></td>
+                                            
                                             <td>{{ $user_details->email }}</td>
+                                            
                                             <td>{{ $user_details->mobile }}</td>
+                                            
                                             <td>{{ common_date($user_details->updated_at) }}</td>
                                            
                                             @if($user_details->status == APPROVED) 
@@ -84,11 +88,11 @@
                                                    
                                                     <ul class="dropdown-menu">
                                                        
-                                                        <li><a href="{{ route('admin.users.view',$user_details->id) }}" class="dropdown-item">View</a></li>
+                                                        <li><a href="{{ route('admin.users.view',['user_id' => $user_details->id]) }}" class="dropdown-item">View</a></li>
                                                       
-                                                        <li><a href="{{ route('admin.users.edit',$user_details->id) }}" class="dropdown-item">Edit</a></li>
+                                                        <li><a href="{{ route('admin.users.edit',['user_id' => $user_details->id] ) }}" class="dropdown-item">Edit</a></li>
                                                        
-                                                        <li><a href="{{ route('admin.users.delete',$user_details->id) }}" class="dropdown-item" onclick="return confirm('Are you sure want to delete the user {{ $user_details->name }}?')">Delete</a>
+                                                        <li><a href="{{ route('admin.users.delete',['user_id' => $user_details->id]) }}" class="dropdown-item" onclick="return confirm('Are you sure want to delete the user {{ $user_details->name }}?')">Delete</a>
                                                         </li>
                                                         
                                                         <div class="dropdown-divider"></div>
@@ -96,11 +100,11 @@
                                                         <li>
                                                             @if($user_details->status == DECLINED)
 
-                                                            <a href="{{ route('admin.users.status',$user_details->id) }}" class="dropdown-item">Approve</a> 
+                                                            <a href="{{ route('admin.users.status',['user_id' => $user_details->id] ) }}" class="dropdown-item">Approve</a> 
 
                                                             @else
 
-                                                            <a href="{{ route('admin.users.status',$user_details->id) }}" class="dropdown-item" onclick="return confirm('Are you sure want to decline the user {{ $user_details->name }}')">Decline</a> 
+                                                            <a href="{{ route('admin.users.status',['user_id' => $user_details->id]) }}" class="dropdown-item" onclick="return confirm('Are you sure want to decline the user {{ $user_details->name }}')">Decline</a> 
 
                                                             @endif
                                                             

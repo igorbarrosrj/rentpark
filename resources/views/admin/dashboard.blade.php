@@ -105,7 +105,7 @@
                             
                             @foreach($recent_users as $user_details)
                             <!-- Message -->
-                            <a href="{{ route('admin.users.view',$user_details->id) }}">
+                            <a href="{{ route('admin.users.view',['user_id' => $user_details->id]) }}">
                                 <img src="{{ $user_details->picture }}" style="height: 40px; width: 40px" class="rounded-circle">
                                 <div class="mail-contnet">
                                     <h5>{{ $user_details->name }}</h5> 

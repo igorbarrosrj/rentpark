@@ -96,24 +96,24 @@
 
 				             	<tr>
 
-				             		<td> <a href="{{ route('admin.users.edit',$user_details->id) }}" class="btn btn-primary">Edit</a></td>
+				             		<td> <a href="{{ route('admin.users.edit',['user_id' => $user_details->id]) }}" class="btn btn-primary">Edit</a></td>
 
 				             		<td>
 		                               
 		                                @if($user_details->status == APPROVED)
 		                                   
-		                                    <a href="{{ route('admin.users.status',$user_details->id) }}" class="btn btn-info" onclick="return confirm('Are you sure want to decline the user {{ $user_details->name }}')">Decline</a>
+		                                    <a href="{{ route('admin.users.status',['user_id' => $user_details->id])}}" class="btn btn-info" onclick="return confirm('Are you sure want to decline the user {{ $user_details->name }}')">Decline</a>
 
 		                                @else
 		                                
-		                                  <a href="{{ route('admin.users.status',$user_details->id) }}" class="btn btn-primary">Approve</a>
+		                                  <a href="{{ route('admin.users.status',['user_id' => $user_details->id])}}" class="btn btn-primary">Approve</a>
 
 		                                @endif
 			             			
 				             		</td>
 
 				             		<td>
-				             			<a href="{{ route('admin.users.delete',$user_details->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure want to delete the user {{ $user_details->name }}?')" >Delete</a>
+				             			<a href="{{ route('admin.users.delete',['user_id' => $user_details->id])}}" class="btn btn-danger" onclick="return confirm('Are you sure want to delete the user {{ $user_details->name }}?')" >Delete</a>
 		               				</td>
 				             	</tr>			             					
 											

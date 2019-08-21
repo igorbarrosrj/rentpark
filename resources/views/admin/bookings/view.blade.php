@@ -43,7 +43,7 @@
 
 		             			@if($booking->user()->first()!=NULL)
 
-						            <a href="{{ route('admin.users.view',$booking->user()->first()->id) }}">{{ $booking->user()->first()->name }}</a>
+						            <a href="{{ route('admin.users.view',['user_id' => $booking->user()->first()->id]) }}">{{ $booking->user()->first()->name }}</a>
 						        @else
 						            No User Available
 						        @endif	

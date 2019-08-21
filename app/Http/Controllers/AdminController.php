@@ -81,13 +81,8 @@ class AdminController extends Controller {
                 ->with('data',$data);
     }
 
-    /**
-    *
-    *
-    * User Management in Admin Panel
-    *
-    */
-    
+    /** ========== User Management Methods starts =========== **/
+      
     /**
      * @method users_index()
      * 
@@ -102,13 +97,11 @@ class AdminController extends Controller {
      * @return view of users list
      *
      */
-
     public function users_index() {
 
         $users = User::orderBy('created_at','desc')->paginate(10);
 
-        return view('admin.users.index')
-                    ->with('users', $users);
+        return view('admin.users.index')->with('users', $users);
         
     }
 
@@ -135,32 +128,32 @@ class AdminController extends Controller {
     }
 
     /**
-     * @method users_view()
+     * @method users_edit()
      * 
-     * @uses used to display the view page
+     * @uses used to display the edit page
      *
      * @created NAVEEN S
      *
      * @updated
      *
-     * @param id
+     * @param integer id
      *
-     * @return view of particular user
+     * @return view of edit page
      *
      */
-    public function users_view($id) {
-
+    public function users_edit(Request $request) {
+        
         try {
             
-            $user_details = User::find($id);
+            $user_details = User::find($request->user_id);
 
             if(!$user_details) {
                 
-                return redirect()->route('admin.users.index')->with('error',"No User found");
+                throw new Exception("No User found", 101);                
             }
 
-            return view('admin.users.view')->with('user_details', $user_details);
-             
+            return view('admin.users.edit')->with('user_details', $user_details);
+                
         } catch (Exception $e) {
 
             $error = $e->getMessage();
@@ -169,7 +162,7 @@ class AdminController extends Controller {
         }
     }
 
-   /**
+    /**
      * @method users_save()
      * 
      * @uses used to save the data of user
@@ -183,7 +176,6 @@ class AdminController extends Controller {
      * @return view of users index
      *
      */
-
     public function users_save(Request $request) {
 
         try {
@@ -288,35 +280,34 @@ class AdminController extends Controller {
         }
         
     }
-
+    
     /**
-     * @method users_edit()
+     * @method users_view()
      * 
-     * @uses used to display the edit page
+     * @uses used to display the view page
      *
      * @created NAVEEN S
      *
      * @updated
      *
-     * @param integer id
+     * @param id
      *
-     * @return view of edit page
+     * @return view of particular user
      *
      */
+    public function users_view(Request $request) {
 
-    public function users_edit($id) {
-        
         try {
             
-            $user_details = User::find($id);
+            $user_details = User::find($request->user_id);
 
             if(!$user_details) {
                 
-                throw new Exception("No User found", 101);                
+                return redirect()->route('admin.users.index')->with('error',"No User found");
             }
 
-            return view('admin.users.edit')->with('user_details', $user_details);
-                
+            return view('admin.users.view',['user_id' =>$user_details->id])->with('user_details', $user_details);
+             
         } catch (Exception $e) {
 
             $error = $e->getMessage();
@@ -324,7 +315,6 @@ class AdminController extends Controller {
             return redirect()->route('admin.users.index')->with('error', "No User found");
         }
     }
-
 
     /**
      * @method users_delete()
@@ -340,13 +330,13 @@ class AdminController extends Controller {
      * @return view of user's index
      *
      */
-    public function users_delete($id) {
+    public function users_delete(Request $request) {
 
         try {
             
             DB::begintransaction();
 
-            $user_details = User::find($id);
+            $user_details = User::find($request->user_id);
 
             if(!$user_details) {
                 
@@ -391,13 +381,13 @@ class AdminController extends Controller {
      * @return view of user's index
      *
      */
-    public function users_status($id) {
+    public function users_status(Request $request) {
 
         try {
             
             DB::begintransaction();
 
-            $user_details = User::find($id);
+            $user_details = User::find($request->user_id);
 
             if(!$user_details) {
                 
@@ -425,6 +415,9 @@ class AdminController extends Controller {
             return redirect()->back()->with('error', "No User found");
         } 
     }
+
+    /** ========== User Management Methods ends =========== **/
+
 
 
     /**
