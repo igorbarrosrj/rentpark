@@ -9,15 +9,15 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">Host Detail</h3>
+                        <h3 class="text-themecolor">{{ tr('host_detail') }}</h3>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.hosts.index') }}">View Hosts</a></li>
-                            <li class="breadcrumb-item active">Host Detail</li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">{{ tr('home') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.hosts.index') }}">{{ tr('view_hosts') }}</a></li>
+                            <li class="breadcrumb-item active">{{ tr('host_detail') }}</li>
                         </ol>
                     </div>
                     <div class="col-md-7 align-self-center">
-                        <a href="{{ route('admin.hosts.index') }}" class="btn btn-primary pull-right hidden-sm-down">Go Back</a>
+                        <a href="{{ route('admin.hosts.index') }}" class="btn btn-primary pull-right hidden-sm-down">{{ tr('go_back') }}</a>
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -31,118 +31,118 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Host Detail</h4>
+                    <h4 class="card-title">{{ tr('host_detail') }}</h4>
 					
 
 		            <div class="box-body">
 		              <table class="table ">
 		                <tr>
-		                  	<th>Details</th>
-		                  	<th>User Data</th>
+		                  	<th>{{ tr('details') }}</th>
+		                  	<th>{{ tr('host_data') }}</th>
 		                </tr>
 		             	<tr>
-		             		<td>Host Name</td>
+		             		<td>{{ tr('host_name') }}</td>
 		             		<td>{{ $host->host_name }}</td>	
 		             	</tr>
 
 		             	<tr>
-		             		<td>Provider Name</td>
+		             		<td>{{ tr('provider_name') }}e</td>
 		             		<td>
 		             			@if($host->provider()->first()!=NULL)
 									<a href="{{ route('admin.providers.view', $host->provider()->first()->id) }}">{{ $host->provider()->first()->name }}</a>
 								@else
-									No Provider Available
+									{{ tr('no_provider_available') }}
 								@endif
 
 		             		</td>
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Host Type</td>
+		             		<td>{{ tr('host_type') }}</td>
 		             		<td>{{ $host->host_type }}</td>
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Description</td>
+		             		<td>{{ tr('description') }}</td>
 		             		<td>{{ $host->description }}</td>
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Picture</td>
+		             		<td>{{ tr('picture') }}</td>
 		             		<td><img src="{{ $host->picture }}" style="width: 200px;height: 200px"></td>
 		             	</tr>
 
 		             	<tr>
-		             		<td>Service Loction</td>
+		             		<td>{{ tr('service_location') }}</td>
 		             		<td>
 		             			@if($host->service_location()->first()!=NULL)
 									<a href="{{ route('admin.service_locations.view',$host->service_location()->first()->id) }}">{{ $host->service_location()->first()->name }}</a>
 								@else
-									No Service Location Found
+									{{ tr('no_service_location_found') }}
 								@endif
 
 		             		</td>
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Total Spaces</td>
+		             		<td>{{ tr('total_spaces') }}</td>
 		             		<td>{{ $host->total_spaces }}</td>
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Full Address</td>
+		             		<td>{{ tr('full_address') }}</td>
 		             		<td>{{ $host->full_address }}</td>
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Per Hour</td>
+		             		<td>{{ tr('per_hour') }}</td>
 		             		<td>{{ $host->per_hour }}</td>
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Created At</td>
+		             		<td>{{ tr('created_at') }}</td>
 		             		<td>{{ $host->created_at }}</td>
 		             	</tr>
 
 		             	<tr>
-		             		<td>Updated At</td>
+		             		<td>{{ tr('updated_at') }}</td>
 		             		<td>{{ $host->updated_at }}</td>
 		             	</tr>
 
 		             	<tr>
-		             		<td>Status</td>
+		             		<td>{{ tr('status') }}</td>
 		             		@switch($host->status)
 
                                 @case(DECLINED)
-                                    <td><div class="label label-danger">Declined</div></td>
+                                    <td><div class="label label-danger">{{ tr('declined') }}</div></td>
                                 @break
 
                                 @case(APPROVED)
-                                    <td><div class="label label-success">Approved</div></td>
+                                    <td><div class="label label-success">{{ tr('approved') }}</div></td>
                                 @break
 
                             @endswitch
 		             	</tr>
 
 		             	<tr>
-		             		<td> <a href="{{ route('admin.hosts.edit',$host->id) }}" class="btn btn-primary">Edit</a></td>
+		             		<td> <a href="{{ route('admin.hosts.edit',$host->id) }}" class="btn btn-primary">{{ tr('edit') }}</a></td>
 
 		             		<td>
 		             			
 		             			@if($host->status==DECLINED)
 	                                    
-	                                <a href="{{ route('admin.hosts.status',$host->id) }}" class="btn btn-primary" > Approve</a>
+	                                <a href="{{ route('admin.hosts.status',$host->id) }}" class="btn btn-primary" > {{ tr('approve') }}</a>
 
 	                            @elseif($host->status==APPROVED)
 	                                
-	                                <a href="{{ route('admin.hosts.status',$host->id) }}" class="btn btn-info" onclick="return confirm('Are you sure decline the host {{ $host->host_name }} ?')" > Decline</a>
+	                                <a href="{{ route('admin.hosts.status',$host->id) }}" class="btn btn-info" onclick="return confirm('{{  tr('host_decline_confirmation') . $host->host_name }} ?')" > {{ tr('decline') }}</a>
 
 	                            @endif
 	                            
 		             		</td>
 
 		             		<td>
-		             			<a href="{{ route('admin.hosts.delete',$host->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+		             			<a href="{{ route('admin.hosts.delete',$host->id) }}" class="btn btn-danger" onclick="return confirm('{{ tr('host_delete_confirmation') . $host->host_name }}?')">{{ tr('delete') }}</a>
                				</td>
 		             	</tr>			             					
 									

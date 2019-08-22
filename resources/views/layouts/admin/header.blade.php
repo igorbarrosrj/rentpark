@@ -44,9 +44,9 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 
-                                <a class="dropdown-item" href="{{route('admin.profile.view')}}">Profile</a>
+                                <a class="dropdown-item" href="{{route('admin.profile.view')}}">{{ tr('profile') }}</a>
                                 <a class="dropdown-item" href="{{ route('admin.logout') }}" data-toggle="modal" data-target="#logoutModal" >
-                                    {{ __('Logout') }}
+                                    {{ tr('logout') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">

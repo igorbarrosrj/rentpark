@@ -207,7 +207,7 @@ class ProviderController extends Controller
 
             'host_type' => 'required|min:6|max:8',
 
-            'description' => 'required| min:5',
+            'description' => 'required| min:5|max:255',
 
             'picture' => 'image|nullable|max:2999|mimes:jpeg,bmp,png,jpg',
 
@@ -451,7 +451,7 @@ class ProviderController extends Controller
 
             'email' => 'required|email',
 
-            'description' => 'required| min:5',
+            'description' => 'required| min:5|max:255',
 
             'mobile' => 'digits_between:6,13|nullable',
 

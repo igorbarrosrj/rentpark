@@ -8,11 +8,11 @@
           <!-- Page Heading -->
           <div class="row">
                         <div class="col-md-5">
-                             <h1 class="h3 mb-2 text-gray-800">Booking Detail</h1>
-          <p class="mb-4">Your Booking information can available:</p>
+                             <h1 class="h3 mb-2 text-gray-800">{{ tr('booking_detail') }}</h1>
+          <p class="mb-4">{{ tr('view_booking_info') }}</p>
                         </div>
                         <div class="col-md-7">
-                            <a href="{{ route('provider.bookings.index') }}"  class="btn btn-primary float-right hidden-sm-down">Go Back</a>
+                            <a href="{{ route('provider.bookings.index') }}"  class="btn btn-primary float-right hidden-sm-down">{{ tr('go_back') }}</a>
                         </div>
                     </div>  
          
@@ -20,127 +20,127 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Booking</h6>
+              <h6 class="m-0 font-weight-bold text-primary">{{ tr('booking') }}</h6>
             </div>
             <div class="card-body">
               <table class="table table-borderless">
                     <tr>
-                        <th>Details</th>
-                        <th>Booking Data</th>
+                        <th>{{ tr('details') }}</th>
+                        <th>{{ tr('booking_data') }}</th>
                     </tr>                                                                                         
                   <tr>
-                    <td>User Name</td>
+                    <td>{{ tr('user_name') }}</td>
                     <td>
 
                         @if($booking->user()->first()!=NULL)
 
                           {{ $booking->user()->first()->name }}
                         @else
-                            No User Available
+                            {{ tr('no_user_available') }}
                         @endif  
                     </td>  
                   </tr>
 
                   <tr>
-                    <td>User Image</td>
+                    <td>{{ tr('user_image') }}</td>
                     <td>
 
                         @if($booking->user()->first()!=NULL)
 
                          <img src="{{ $booking->user()->first()->picture }}" style="width: 200px;height: 200px">
                         @else
-                            No User Available
+                            {{ tr('no_user_available') }}
                         @endif  
                     </td>  
                   </tr>
-                  <td>User Mail id</td>
+                  <td>{{ tr('user_email') }}</td>
                     <td>
 
                         @if($booking->user()->first()!=NULL)
 
                           {{ $booking->user()->first()->email }}
                         @else
-                            No User Available
+                            {{ tr('no_user_available') }}
                         @endif  
                     </td>  
                   </tr>
 
-                  <td>User Mobile</td>
+                  <td>{{ tr('user_mobile') }}</td>
                     <td>
 
                         @if($booking->user()->first()!=NULL)
 
                           {{ $booking->user()->first()->mobile }}
                         @else
-                            No User Available
+                            {{ tr('no_user_available') }}
                         @endif  
                     </td>  
                   </tr>
 
                   <tr>
-                    <td>Host Name</td>
+                    <td>{{ tr('host_name') }}</td>
                     <td>
 
                       @if($booking->host()->first()!=NULL)
 
                         <a href="{{ route('provider.hosts.view',$booking->host()->first()->id) }}">{{ $booking->host()->first()->host_name }}</a>                   
                       @else
-                        No Host Available
+                        {{ tr('no_host_available') }}
                       @endif
 
                     </td>
                   </tr> 
 
                   <tr>
-                    <td>Check-in Time</td>
+                    <td>{{ tr('checkin_time') }}</td>
                     <td>{{ $booking->checkin }}</td>
                   </tr> 
 
                   <tr>
-                    <td>Check-out Time</td>
+                    <td>{{ tr('checkout_time') }}</td>
                     <td>{{ $booking->checkout }}</td>
                   </tr> 
 
                   <tr>
-                    <td>Mode of Payment</td>
+                    <td>{{ tr('mode_of_payment') }}</td>
                     <td>{{ $booking->payment_mode }}</td>
                   </tr> 
 
                   <tr>
-                    <td>Total Amount</td>
+                    <td>{{ tr('total_amount') }}</td>
                     <td>{{ $booking->currency }}{{ $booking->total }}</td>
                   </tr> 
 
                   <tr>
-                    <td>Status</td>
+                    <td>{{ tr('status') }}</td>
                     @switch($booking->status)
 
-                      @case(BOOKING_NONE)
-                          <td><div class="text-primary">None</div></td>
+                     @case(BOOKING_NONE)
+                          <td><div class="text-primary">{{ tr('none') }}</div></td>
                         @break
 
                         @case(BOOKING_CREATED)
-                          <td><div class="text-info">Booking Created</div></td>
+                          <td><div class="text-info">{{ tr('booking_created') }}</div></td>
                         @break
 
                         @case(BOOKING_CHECKIN)
-                          <td><div class="text-primary">Check in</div></td>
+                          <td><div class="text-primary">{{ tr('checkin') }}</div></td>
                         @break
 
                         @case(BOOKING_CHECKOUT)
-                          <td><div class="text-primary">Check Out</div></td>
+                          <td><div class="text-primary">{{ tr('checkout') }}</div></td>
                         @break
 
                         @case(BOOKING_COMPLETED)
-                          <td><div class="text-success">Completed</div></td>
+                          <td><div class="text-success">{{ tr('completed') }}</div></td>
                         @break
 
                         @case(BOOKING_USER_CANCEL)
-                          <td><div class="text-danger">User Cancel</div></td>
+                          <td><div class="text-danger">{{ tr('user_cancel') }}</div></td>
                         @break
 
                         @case(BOOKING_PROVIDER_CANCEL)
-                          <td><div class="text-danger">Provider Cancel</div></td>
+                          <td><div class="text-danger">{{ tr('provider_cancel') }}</div></td>
                         @break
 
                     @endswitch
@@ -149,9 +149,9 @@
                   </tr> 
                   @if($booking->status==BOOKING_CHECKOUT)
                   <tr>
-                    <td>Review</td>
+                    <td>{{ tr('review') }}</td>
 
-                    <td><button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Click Me!</button></td>   
+                    <td><button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">{{ tr('click_me') }}</button></td>   
 
                     <div class="modal fade" id="myModal" role="dialog">
                       <div class="modal-dialog">
@@ -204,18 +204,18 @@
                               
 
                               <div class="form-group">
-                                  <label>Comments *</label>
-                                  <input type="text" name="comment" class="form-control "  placeholder="Comment" @if($booking->provider_review()->first()!=NULL) value="{{ $booking->provider_review()->first()->comment}}"@endif>
+                                  <label>{{ tr('comments') }} *</label>
+                                  <input type="text" name="comment" class="form-control "  placeholder="{{ tr('comments') }}" @if($booking->provider_review()->first()!=NULL) value="{{ $booking->provider_review()->first()->comment}}"@endif>
 
                               </div> 
                                
                                
-                                <input type="submit" name="submit">
+                                <input type="submit" name="submit" value="{{ tr('submit') }}">
                        
                             </form>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{{ tr('close') }}</button>
                           </div>
                         </div>
                         
@@ -227,7 +227,7 @@
                   @if($booking->status == BOOKING_COMPLETED)
 
                     <tr>
-                      <td>Comment</td>
+                      <td>{{ tr('comment') }}</td>
                       <td>@if($booking->provider_review()->first()!=NULL) 
                           {{ $booking->provider_review()->first()->comment}}
                         @endif
@@ -235,7 +235,7 @@
                     </tr>
 
                     <tr>
-                      <td>Rating  </td>
+                      <td>{{ tr('rating') }}</td>
 
                       <td>
 
@@ -269,7 +269,7 @@
                     <td>
                       @if($booking->status!= BOOKING_PROVIDER_CANCEL && $booking->status!= BOOKING_USER_CANCEL & $booking->status!= BOOKING_COMPLETED)
               
-                        <a href="{{ route('provider.bookings.status',$booking->id) }}" class="btn btn-danger">Cancel</a>
+                        <a href="{{ route('provider.bookings.status',$booking->id) }}" class="btn btn-danger">{{ tr('cancel') }}</a>
                       @endif
                     </td>
                   </tr>    

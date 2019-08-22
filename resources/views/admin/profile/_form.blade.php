@@ -4,7 +4,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Admin Profile</h4>
+                <h4 class="card-title">{{ tr('admin_profile') }}</h4>
 
                     <form action="{{ route('admin.profile.save')}}" method="post" enctype="multipart/form-data">
 
@@ -21,17 +21,17 @@
                             
                             <div class="form-group col-md-6 col-lg-6">
                             
-                                <label class="name">Name *</label>
+                                <label class="name">{{ tr('name') }} *</label>
 
-                                <input type="text" name="name" class="form-control" value="{{ $admin->name }}" placeholder="Name" required>
+                                <input type="text" name="name" class="form-control" value="{{ $admin->name }}" placeholder="{{ tr('name') }}" required>
 
                             </div>
                             
                             <div class="form-group col-md-6 col-lg-6">
                                 
-                                <label class="email">Email Address *</label>
+                                <label class="email">{{ tr('email_address') }} *</label>
 
-                                <input type="text" name="email" class="form-control" value="{{ $admin->email }}" placeholder="Email Address" required>
+                                <input type="text" name="email" class="form-control" value="{{ $admin->email }}" placeholder="{{ tr('email_address') }} " required>
                                 
                             </div>
 
@@ -41,18 +41,18 @@
                             
                             <div class="form-group col-md-6 col-lg-6">
                             
-                                <label class="mobile">Mobile Number *</label>
+                                <label class="mobile">{{ tr('mobile_number') }} *</label>
 
-                                <input type="tel" name="mobile" class="form-control" value="{{ $admin->mobile }}" placeholder="Mobile Number" required>
+                                <input type="tel" name="mobile" class="form-control" value="{{ $admin->mobile }}" placeholder="{{ tr('mobile_number') }}" required>
 
                             </div>
 
 
                              <div class="form-group col-md-6 col-lg-6">
                             
-                                <label class="description">About *</label>
+                                <label class="description">{{ tr('about') }} *</label>
 
-                                <input type="text" name="about" class="form-control" value="{{ $admin->about }}" placeholder="About" required>
+                                <input type="text" name="about" class="form-control" value="{{ $admin->about }}" placeholder="{{ tr('about') }}" required>
 
                             </div>
 
@@ -63,7 +63,7 @@
                             
                              <div class="form-group col-md-6 col-lg-6">
                             
-                                <label class="picture">Picture</label>
+                                <label class="picture">{{ tr('picture') }}</label>
 
                                  <input type="file" name="picture" onchange="readURL(this);" class="form-control" value="{{ $admin->picture }}" accept="image/*">
 
@@ -78,7 +78,7 @@
 
                        
 
-                        <input type="submit" name="Submit" class="btn btn-primary">
+                        <input type="submit" name="Submit" value="{{ tr('submit') }}" class="btn btn-primary">
 
                     </form>
               </div>                                

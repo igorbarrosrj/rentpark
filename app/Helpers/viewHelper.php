@@ -118,3 +118,31 @@ function common_date($date , $timezone = "" , $format = "d M Y h:i A") {
 
 }
 
+/**
+ * Function Name: tr()
+ *
+ * Description: used to convert the string to language based string
+ *
+ * @created Vidhya R
+ *
+ * @updated
+ *
+ * @param string $key
+ *
+ * @return string value
+ */
+function tr($key , $additional_key = "" , $lang_path = "messages.") {
+
+    if (!\Session::has('locale')) {
+
+        $locale = \Session::put('locale', config('app.locale'));
+
+    }else {
+
+        $locale = \Session::get('locale');
+
+    }
+        
+    return \Lang::choice('messages.'.$key, 0, Array('other_key' => $additional_key), $locale);
+}
+

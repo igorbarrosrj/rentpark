@@ -12,17 +12,17 @@
                             
                             <div class="form-group col-md-6 col-lg-6">
                             
-                                <label class="site_name">Site Name *</label>
+                                <label class="site_name">{{ tr('site_name') }} *</label>
      
-                                <input type="text" name="site_name" class="form-control" value="{{ Setting::get('site_name') }}" placeholder="Site Name" required>
+                                <input type="text" name="site_name" class="form-control" value="{{ Setting::get('site_name') }}" placeholder="{{ tr('site_name') }}" required>
 
                             </div>
 
                             <div class="form-group col-md-6 col-lg-6">
                                 
-                                <label class="currency">Currency *</label>
+                                <label class="currency">{{ tr('currency') }} *</label>
      
-                                <input type="text" name="currency" class="form-control" value="{{ Setting::get('currency') }}" placeholder="Currency" required>
+                                <input type="text" name="currency" class="form-control" value="{{ Setting::get('currency') }}" placeholder="{{ tr('currency') }} " required>
 
                             </div>
 
@@ -48,9 +48,9 @@
                             
                             <div class="form-group col-md-6 col-lg-6">
                             
-                                <label class="favicon">Favicon *</label><br>
+                                <label class="favicon">{{ tr('favicon') }} *</label><br>
 
-                                <span>Only .png images</span>
+                                <span>{{ tr('only_png_images') }}</span>
 
                                  <input type="file" name="favicon" class="form-control" >
 
@@ -60,9 +60,9 @@
 
                             <div class="form-group col-md-6 col-lg-6">
                                 
-                                <label class="site_logo">Site Logo *</label><br>
+                                <label class="site_logo">{{ tr('site_logo') }} *</label><br>
 
-                                <span>Only .png images</span>
+                                <span>{{ tr('only_png_images') }}</span>
 
                                  <input type="file" name="site_logo" class="form-control" >
 
@@ -72,7 +72,7 @@
                         </div>
                          
                         
-                        <input type="submit" name="Submit" class="btn btn-primary">                       
+                        <input type="submit" name="Submit" value="{{ tr('submit') }}" class="btn btn-primary">                       
 
                     </form>
               </div>                                

@@ -7,7 +7,7 @@
         
             <div class="card-body">
                 
-                <h4 class="card-title">User Details</h4>
+                <h4 class="card-title">{{ tr('user_details') }}</h4>
 
                 <form action="{{ route('admin.users.save') }}" method="post" enctype="multipart/form-data">
 
@@ -23,17 +23,17 @@
                         
                         <div class="form-group col-md-6 col-lg-6">
                         
-                            <label class="name">Name *</label>
+                            <label class="name">{{ tr('name') }} *</label>
 
-                            <input type="text" name="name" class="form-control" @if($user_details != NULL) value="{{ $user_details->name }}" @else value="{{ old('name') }}" @endif placeholder="Name" required>
+                            <input type="text" name="name" class="form-control" @if($user_details != NULL) value="{{ $user_details->name }}" @else value="{{ old('name') }}" @endif placeholder="{{ tr('name') }}" required>
 
                         </div>
                         
                         <div class="form-group col-md-6 col-lg-6">
                             
-                            <label class="email">Email Address *</label>
+                            <label class="email">{{ tr('email_address') }} *</label>
 
-                            <input type="text" name="email" class="form-control" @if($user_details != NULL)value="{{ $user_details->email }}" @else value="{{ old('email') }}" @endif placeholder="Email Address" required>
+                            <input type="text" name="email" class="form-control" @if($user_details != NULL)value="{{ $user_details->email }}" @else value="{{ old('email') }}" @endif placeholder="{{ tr('email_address') }}" required>
                             
                         </div>
 
@@ -45,17 +45,17 @@
                          
                         <div class="form-group col-md-6 col-lg-6">
                             
-                            <label class="password">Password *</label>
+                            <label class="password">{{ tr('password') }} *</label>
 
-                            <input type="password" name="password" class="form-control" placeholder="Password" required>
+                            <input type="password" name="password" class="form-control" placeholder="{{ tr('password') }}" required>
                             
                         </div>
 
                         <div class="form-group col-md-6 col-lg-6">
                             
-                            <label class="cpassword">Confirm Password *</label>
+                            <label class="cpassword">{{ tr('confirm_password') }} *</label>
 
-                            <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password" required>
+                            <input type="password" name="password_confirmation" class="form-control" placeholder="{{ tr('confirm_password') }}" required>
                             
                         </div>
                     
@@ -67,17 +67,17 @@
 
                         <div class="form-group col-md-6 col-lg-6">
                         
-                            <label class="mobile">Mobile Number *</label>
+                            <label class="mobile">{{ tr('mobile_number') }} *</label>
 
-                            <input type="number" name="mobile" class="form-control" @if($user_details!=NULL)value="{{ $user_details->mobile }}" @else value="{{ old('mobile') }}" @endif placeholder="Mobile Number" required>
+                            <input type="number" name="mobile" class="form-control" @if($user_details!=NULL)value="{{ $user_details->mobile }}" @else value="{{ old('mobile') }}" @endif placeholder="{{ tr('mobile_number') }}" required>
 
                         </div>
 
                         <div class="form-group col-md-6 col-lg-6">
                             
-                            <label class="description">Description *</label>
+                            <label class="description">{{ tr('description') }} *</label>
 
-                            <input type="text" name="description" class="form-control" @if($user_details!=NULL)value="{{ $user_details->description }}" @else value="{{ old('description') }}" @endif placeholder="description" required>
+                            <input type="text" name="description" class="form-control" @if($user_details!=NULL)value="{{ $user_details->description }}" @else value="{{ old('description') }}" @endif placeholder="{{ tr('description') }}" required>
 
                         </div>
              
@@ -87,7 +87,7 @@
                         
                         <div class="form-group col-md-6 col-lg-6">
                         
-                            <label class="picture">Picture</label>
+                            <label class="picture">{{ tr('picture') }}</label>
 
                             <input type="file" onchange="readURL(this);"  name="picture" class="form-control" @if($user_details != NULL) value="{{ $user_details->picture }}" @endif accept="image/*">
 
@@ -95,12 +95,12 @@
 
                         <div class="form-group col-md-6 col-lg-6">
                         
-                            <label class="gender">Gender</label>
+                            <label class="gender">{{ tr('gender') }}</label>
 
                             <select name="gender" class="form-control">
-                                <option value="male" @if($user_details != NULL){{ $user_details->gender === 'male' ? 'selected' : '' }} @endif>Male</option>
-                                <option value="female" @if($user_details != NULL) {{ $user_details->gender === 'female' ? 'selected' : '' }} @endif>Female</option>
-                                <option value="others" @if($user_details != NULL) {{ $user_details->gender === 'others' ? 'selected' : '' }} @endif>Others</option>
+                                <option value="male" @if($user_details != NULL){{ $user_details->gender === 'male' ? 'selected' : '' }} @endif>{{ tr('male') }}</option>
+                                <option value="female" @if($user_details != NULL) {{ $user_details->gender === 'female' ? 'selected' : '' }} @endif>{{ tr('female') }}</option>
+                                <option value="others" @if($user_details != NULL) {{ $user_details->gender === 'others' ? 'selected' : '' }} @endif>{{ tr('others') }}</option>
                             </select>
 
                         </div>
@@ -113,7 +113,7 @@
 
                     </div>
                 
-                    <input type="submit" name="Submit" title="submit" value="Submit" class="btn btn-primary">
+                    <input type="submit" name="Submit" title="submit" value="{{ tr('submit') }}" class="btn btn-primary">
 
                 </form>
             

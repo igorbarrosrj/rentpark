@@ -7,7 +7,7 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ tr('dashboard') }}</h1>
           </div>
 
           <!-- Content Row -->
@@ -19,7 +19,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Hosts Available</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ tr('hosts_available') }}</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $total_hosts ?? 0}}</div>
                     </div>
                     <div class="col-auto">
@@ -36,7 +36,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Bookings</div>
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">{{ tr('bookings') }}</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
                           <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $total_bookings ?? 0.00}}</div>
@@ -58,7 +58,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings</div>
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">{{ tr('earnings') }}</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">{{Setting::get('currency') }} {{ $earnings ?? 0.00}}</div>
                     </div>
                     <div class="col-auto">
@@ -79,7 +79,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Recent Earnings Overview</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{{ tr('recent_earnings_overview') }}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -98,7 +98,7 @@
 
                                  <h6 class="ml-1 mb-1">
 
-                                          {{ $booking->user()->first() ? $booking->user()->first()->name : 'No User Available' }}
+                                          {{ $booking->user()->first() ? $booking->user()->first()->name :  tr('no_user_available') }}
 
                                           </h6>
 
@@ -110,7 +110,7 @@
 
                                               <a href="{{ route('provider.hosts.view',$booking->host()->first()->id) }}">{{ $booking->host()->first()->host_name }}</a>                    
                                             @else
-                                              No Host Available
+                                              {{ tr('no_host_available') }}
                                             @endif
                                           </small>
 
@@ -135,10 +135,10 @@
                             
                           @endforeach
                           <br>
-                            <a href="{{ route('provider.bookings.index') }}"><button class="btn btn-primary pl-10">View All</button></a>
+                            <a href="{{ route('provider.bookings.index') }}"><button class="btn btn-primary pl-10">{{ tr('view_all') }}</button></a>
               
                           @else
-                              <tr><td colspan=5><h3>No Booking found</h3></td></tr>
+                              <tr><td colspan=5><h3>{{ tr('no_booking_found') }}</h3></td></tr>
                           @endif
 
 
@@ -153,7 +153,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Hosts</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{{ tr('hosts') }}</h6>
                   
                 </div>
                 <!-- Card Body -->
@@ -161,7 +161,7 @@
                   <div class="row">
                      <div class="col-md-10 col-md-offset-1">
                          <div class="panel panel-default">
-                             <div class="panel-heading"><b>Hosts Status</b></div>
+                             <div class="panel-heading"><b>{{ tr('hosts_status') }}</b></div>
                              <div class="panel-body">
                                  <canvas id="canvas"></canvas>
                              </div>

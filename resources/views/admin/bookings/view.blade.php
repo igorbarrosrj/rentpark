@@ -9,14 +9,14 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">Booking Detail</h3>
+                        <h3 class="text-themecolor">{{ tr('booking_detail') }}</h3>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Booking Detail</li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">{{ tr('home') }}</a></li>
+                            <li class="breadcrumb-item active">{{ tr('booking_detail') }}</li>
                         </ol>
                     </div>
                     <div class="col-md-7 align-self-center">
-                        <a href="{{ route('admin.bookings.index') }}" class="btn btn-primary pull-right hidden-sm-down">Go Back</a>
+                        <a href="{{ route('admin.bookings.index') }}" class="btn btn-primary pull-right hidden-sm-down">{{ tr('go_back') }}</a>
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -34,94 +34,90 @@
 		            <div class="box-body">
 		              <table class="table ">
 		                <tr>
-		                  	<th>Details</th>
-		                  	<th>Booking Data</th>
+		                  	<th>{{ tr('details') }}</th>
+		                  	<th>{{ tr('booking_data') }}</th>
 		                </tr>
 		             	<tr>
-		             		<td>User Name</td>
+		             		<td>{{ tr('user_name') }}</td>
 		             		<td>
 
-		             			@if($booking->user()->first()!=NULL)
+		             			@if($booking_details->user()->first())
 
-						            <a href="{{ route('admin.users.view',['user_id' => $booking->user()->first()->id]) }}">{{ $booking->user()->first()->name }}</a>
+						            <a href="{{ route('admin.users.view',['user_id' => $booking_details->user()->first()->id]) }}">{{ $booking_details->user()->first()->name }}</a>
 						        @else
-						            No User Available
+						            {{ tr('no_user_available') }}
 						        @endif	
 						     </td>	
 		             	</tr>
 
 		             	<tr>
-		             		<td>Provider Name</td>
+		             		<td>{{ tr('provider_name') }}</td>
 		             		<td>
-		             			@if($booking->provider()->first()!=NULL)
+		             			@if($booking_details->provider()->first())
 
-						            <a href="{{ route('admin.providers.view',$booking->provider()->first()->id) }}">{{ $booking->provider()->first()->name }}</a>
+						            <a href="{{ route('admin.providers.view',$booking_details->provider()->first()->id) }}">{{ $booking_details->provider()->first()->name }}</a>
 						        @else
-						            No Provider Available
+						            {{ tr('no_provider_available') }}
 						        @endif
 		             		</td>
 		             	</tr>
 
-		             	{{-- <tr>
-		             		<td>Provider Name</td>
-		             		<td><a href="{{ route('admin.providers.view',$booking->provider()->first()->id) }}">{{ $booking->provider()->first()->name}}</a></td>
-		             	</tr>	
- --}}
 		             	<tr>
-		             		<td>Host Name</td>
+		             		<td>{{ tr('host_name') }}</td>
 		             		<td>
 
-		             			@if($booking->host()->first())
+		             			@if($booking_details->host()->first())
 
-									<a href="{{ route('admin.hosts.view',$booking->host()->first()->id) }}">{{ $booking->host()->first()->host_name }}</a>										
+									<a href="{{ route('admin.hosts.view',$booking_details->host()->first()->id) }}">{{ $booking_details->host()->first()->host_name }}</a>										
 								@else
-									No Host Available
+									{{ tr('no_host_available') }}
 								@endif
 
 		             		</td>
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Check-in Time</td>
-		             		<td>{{ $booking->checkin }}</td>
+		             		<td>{{ tr('checkin_time') }}</td>
+		             		<td>{{ $booking_details->checkin }}</td>
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Check-out Time</td>
-		             		<td>{{ $booking->checkout }}</td>
+		             		<td>{{ tr('checkout_time') }}</td>
+		             		<td>{{ $booking_details->checkout }}</td>
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Status</td>
-		             		@switch($booking->status)
+		             		<td>{{ tr('status') }}</td>
+		             		@switch($booking_details->status)
 
-		             			@case(0)
-		             				<td><div class="label label-primary">None</div></td>
-		             			@break
+		             			@case(BOOKING_NONE)
+									<td><div class="label label-primary">{{ tr('none') }}</div></td>
+								@break
 
-		             			@case(1)
-		             				<td><div class="label label-info">Booking Created</div></td>
-		             			@break
+								@case(BOOKING_CREATED)
+								    <td><div class="label label-info">{{ tr('booking_created') }}</div></td>
+								@break
 
-		             			@case(2)
-		             				<td><div class="label label-primary">Check in</div></td>
-		             			@break
+								@case(BOOKING_CHECKIN)
+								    <td><div class="label label-primary">{{ tr('checkin') }}</div></td>
+								
+								@break
 
-		             			@case(3)
-		             				<td><div class="label label-primary">Check Out</div></td>
-		             			@break
+								@case(BOOKING_CHECKOUT)
+								    <td><div class="label label-primary">{{ tr('checkout') }}</div></td>
+								@break
 
-		             			@case(4)
-		             				<td><div class="label label-success">Completed</div></td>
-		             			@break
+								@case(BOOKING_COMPLETED)
+								    <td><div class="label label-success">{{ tr('completed') }}</div></td>
+								@break
 
-		             			@case(5)
-		             				<td><div class="label label-danger">User Cancel</div></td>
-		             			@break
+								@case(BOOKING_USER_CANCEL)
+								    <td><div class="label label-danger">{{ tr('user_cancel') }}</div></td>
+								@break
 
-		             			@case(6)
-		             				<td><div class="label label-danger">Provider Cancel</div></td>
-		             			@break
+								@case(BOOKING_PROVIDER_CANCEL)
+								    <td><div class="label label-danger">{{ tr('provider_cancel') }}</div></td>
+								@break
 
 		             		@endswitch
 
@@ -129,28 +125,28 @@
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Comment</td>
+		             		<td>{{ tr('comment') }}</td>
 		             		<td>
-		             			@if($booking->provider_review()->first())
-		             				{{ $booking->provider_review()->first()->comment }}
+		             			@if($booking_details->provider_review()->first())
+		             				{{ $booking_details->provider_review()->first()->comment }}
 		             			@else
-									No Comment Available
+									{{ tr('no_comment_available') }}
 								@endif
 							</td>
 		             	</tr>	
 
 		             	<tr>
-                      <td>Rating  </td>
+                      <td>{{ tr('rating') }}</td>
 
                       <td>
 
 
-                        @if($booking->provider_review()->first())                           
+                        @if($booking_details->provider_review()->first())                           
                           <div class="rating">
                                 <label>
                                   
                                   <input type="radio" name="stars"  checked/>
-                                  @for($i=0; $i< $booking->provider_review()->first()->review; $i++)
+                                  @for($i=0; $i< $booking_details->provider_review()->first()->review; $i++)
                                     <span class="icon">★</span>
                                   @endfor
                                   

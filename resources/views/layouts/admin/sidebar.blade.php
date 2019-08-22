@@ -10,21 +10,21 @@
             <ul id="sidebarnav">
 
                 <!-- Dashboard -->
-                <li> <a class="waves-effect waves-dark" href="/admin" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
+                <li> <a class="waves-effect waves-dark" href="/admin" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">{{ tr('dashboard') }}</span></a>
                 </li>
 
                 <!-- Users -->
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-user"></i>
-                        <span>Users</span>
+                        <span>{{ tr('users') }}</span>
                         <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('admin.users.index') }}"><i class="fa fa-circle-o"></i> List Users</a></li>
-                        <li><a href="{{ route('admin.users.create') }}"><i class="fa fa-circle-o"></i> Add User</a></li>
+                        <li><a href="{{ route('admin.users.index') }}"><i class="fa fa-circle-o"></i> {{ tr('list_users') }}</a></li>
+                        <li><a href="{{ route('admin.users.create') }}"><i class="fa fa-circle-o"></i> {{ tr('add_user') }}</a></li>
                     </ul>
                 </li>
 
@@ -32,14 +32,14 @@
                 <li class="treeview">
                   <a href="#">
                     <i class="fa fa-users"></i>
-                    <span>Providers</span>
+                    <span>{{ tr('providers') }}</span>
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                     </span>
                   </a>
                   <ul class="treeview-menu">
-                    <li><a href="{{ route('admin.providers.index')}}"><i class="fa fa-circle-o"></i> List Providers</a></li>
-                    <li><a href="{{ route('admin.providers.create')}}"><i class="fa fa-circle-o"></i> Add Provider</a></li>
+                    <li><a href="{{ route('admin.providers.index')}}"><i class="fa fa-circle-o"></i> {{ tr('list_providers') }} </a></li>
+                    <li><a href="{{ route('admin.providers.create')}}"><i class="fa fa-circle-o"></i> {{ tr('add_provider') }}</a></li>
                   
                   </ul>
                 </li>
@@ -48,15 +48,15 @@
                 <li class="treeview">
                   <a href="#">
                     <i class="fa fa-map-marker"></i>
-                    <span>Service</span>
+                    <span>{{ tr('service') }}</span>
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
-                    <span style="padding-left: 43px;">Locations</span>
+                    <span style="padding-left: 43px;">{{ tr('locations') }}</span>
                     
                   </a>
                   <ul class="treeview-menu">
-                    <li><a href="{{ route('admin.service_locations.index') }}"><i class="fa fa-circle-o"></i> List Service Locations</a></li>
-                    <li><a href="{{ route('admin.service_locations.create') }}"><i class="fa fa-circle-o"></i> Add Service Locations</a></li>
+                    <li><a href="{{ route('admin.service_locations.index') }}"><i class="fa fa-circle-o"></i> {{ tr('list_service_locations') }}</a></li>
+                    <li><a href="{{ route('admin.service_locations.create') }}"><i class="fa fa-circle-o"></i> {{ tr('add_service_location') }}</a></li>
 
                   </ul>
                 </li>
@@ -65,37 +65,37 @@
                 <li class="treeview">
                   <a href="#">
                     <i class="fa fa-home"></i>
-                    <span>Hosts</span>
+                    <span>{{ tr('hosts') }}</span>
                     
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                     </span>
                   </a>
                   <ul class="treeview-menu">
-                     <li><a href="{{ route('admin.hosts.index') }}"><i class="fa fa-circle-o"></i> List Hosts</a></li>
-                     <li><a href="{{ route('admin.hosts.create') }}"><i class="fa fa-circle-o"></i> Add Host</a></li>
+                     <li><a href="{{ route('admin.hosts.index') }}"><i class="fa fa-circle-o"></i> {{ tr('list_hosts') }}</a></li>
+                     <li><a href="{{ route('admin.hosts.create') }}"><i class="fa fa-circle-o"></i> {{ tr('add_host') }} </a></li>
                   </ul>
                 </li>
 
                 <!-- Booking Management -->
 
-                 <li> <a class="waves-effect waves-dark" href="{{ route('admin.bookings.index') }}" aria-expanded="false"><i class="fa fa-calendar-check-o"></i><span class="hide-menu">Bookings</span></a>
+                 <li> <a class="waves-effect waves-dark" href="{{ route('admin.bookings.index') }}" aria-expanded="false"><i class="fa fa-calendar-check-o"></i><span class="hide-menu">{{ tr('bookings') }}</span></a>
                 </li>
 
                 <!-- Settings -->
 
-                 <li> <a class="waves-effect waves-dark" href="{{ route('admin.settings.index') }}" aria-expanded="false"><i class="fa fa-gear"></i><span class="hide-menu">Settings</span></a>
+                 <li> <a class="waves-effect waves-dark" href="{{ route('admin.settings.index') }}" aria-expanded="false"><i class="fa fa-gear"></i><span class="hide-menu">{{ tr('settings') }}</span></a>
                 </li>
                
 
                 <!-- Profile -->
 
-                 <li> <a class="waves-effect waves-dark" href="{{ route('admin.profile.view')}}" aria-expanded="false"><i class="fa fa-user-circle-o"></i><span class="hide-menu">Profile</span></a>
+                 <li> <a class="waves-effect waves-dark" href="{{ route('admin.profile.view')}}" aria-expanded="false"><i class="fa fa-user-circle-o"></i><span class="hide-menu">{{ tr('profile') }}</span></a>
                 </li>
 
                 <!-- Logout -->
 
-                <li> <a class="waves-effect waves-dark" href="{{ route('admin.logout')}}" aria-expanded="false" data-toggle="modal" data-target="#logoutModal" ><i class="fa fa-sign-out"></i><span class="hide-menu">Logout</span></a>\
+                <li> <a class="waves-effect waves-dark" href="{{ route('admin.logout')}}" aria-expanded="false" data-toggle="modal" data-target="#logoutModal" ><i class="fa fa-sign-out"></i><span class="hide-menu">{{ tr('logout') }}</span></a>\
 
                     <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                             @csrf

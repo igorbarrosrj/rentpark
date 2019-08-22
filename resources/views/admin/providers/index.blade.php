@@ -9,15 +9,15 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">List Providers</h3>
+                        <h3 class="text-themecolor">{{ tr('list_providers') }}</h3>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.providers.index') }}">View Providers</a></li>
-                            <li class="breadcrumb-item active">List providers</li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">{{ tr('home') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.providers.index') }}">{{ tr('view_providers') }}</a></li>
+                            <li class="breadcrumb-item active">{{ tr('list_providers') }}</li>
                         </ol>
                     </div>
                     <div class="col-md-7 align-self-center">
-                        <a href="{{ route('admin.providers.create') }}" class="btn btn-primary pull-right hidden-sm-down">Add Provider</a>
+                        <a href="{{ route('admin.providers.create') }}" class="btn btn-primary pull-right hidden-sm-down">{{ tr('add_provider') }}</a>
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -33,18 +33,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Providers</h4>
+                    <h4 class="card-title">{{ tr('providers') }}</h4>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>SNo</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Mobile</th>
-                                <th>Updated At</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th>{{ tr('sno') }}</th>
+                                <th>{{ tr('name') }}</th>
+                                <th>{{ tr('email') }}</th>
+                                <th>{{ tr('mobile') }}</th>
+                                <th>{{ tr('updated_at') }}</th>
+                                <th>{{ tr('status') }}</th>
+                                <th>{{ tr('action') }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -59,29 +59,29 @@
                                             @switch($provider->status)
 
                                                 @case(DECLINED)
-                                                    <td><div class="label label-danger">Declined</div></td>
+                                                    <td><div class="label label-danger">{{ tr('declined') }}</div></td>
                                                 @break
 
                                                 @case(APPROVED)
-                                                    <td><div class="label label-success">Approved</div></td>
+                                                    <td><div class="label label-success">{{ tr('approved') }}</div></td>
                                                 @break
 
                                             @endswitch
                                             <td>
                                                  <div class="dropdown">
-                                                      <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Action
+                                                      <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">{{ tr('action') }}
                                                       <span class="caret"></span></button>
                                                       <ul class="dropdown-menu">
-                                                        <li><a href="{{ route('admin.providers.view',$provider->id) }}" class="dropdown-item" >View</a></li>
-                                                        <li><a href="{{ route('admin.providers.edit',$provider->id) }}" class="dropdown-item" >Edit</a></li>
-                                                        <li><a href="{{ route('admin.providers.delete',$provider->id) }}" class="dropdown-item" onclick="return confirm('Are you sure want to delete the provider {{ $provider->name }}?')" >Delete</a></li>
+                                                        <li><a href="{{ route('admin.providers.view',$provider->id) }}" class="dropdown-item" >{{ tr('view') }}</a></li>
+                                                        <li><a href="{{ route('admin.providers.edit',$provider->id) }}" class="dropdown-item" >{{ tr('edit') }}</a></li>
+                                                        <li><a href="{{ route('admin.providers.delete',$provider->id) }}" class="dropdown-item" onclick="return confirm('{{ tr('provider_delete_confirmation') . $provider->name }} ?')" >{{ tr('delete') }}</a></li>
                                                          <div class="dropdown-divider"></div>
                                                          <li>
                                                             @if($provider->status == DECLINED)
-                                                                <a href="{{ route('admin.providers.status',$provider->id) }}" class="dropdown-item"> Approve</a>
+                                                                <a href="{{ route('admin.providers.status',$provider->id) }}" class="dropdown-item"> {{ tr('approve') }}</a>
                                                 
                                                             @elseif($provider->status == APPROVED)
-                                                                <a href="{{ route('admin.providers.status',$provider->id) }}" class="dropdown-item" onclick="return confirm('Are you sure decline the provider {{ $provider->name }}')"> Decline</a>
+                                                                <a href="{{ route('admin.providers.status',$provider->id) }}" class="dropdown-item" onclick="return confirm('{{ tr('provider_decline_confirmation') . $provider->name }} ?')"> {{ tr('decline') }}</a>
 
                                                             @endif
                                                         </li>
@@ -93,7 +93,7 @@
                                       
                                      
                                     @else
-                                        <tr><td colspan=5><h3>No providers found</h3></td></tr>
+                                        <tr><td colspan=5><h3>{{ tr('no_provider_found') }}</h3></td></tr>
                                     @endif
                             </tbody>
                         </table>

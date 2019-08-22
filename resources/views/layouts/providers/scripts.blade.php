@@ -91,8 +91,8 @@
         }],
 
         labels: [
-          'Approved',
-          'Declined'
+          '{{ tr('approved') }}',
+          '{{ tr('declined') }}'
         ]
 
       },

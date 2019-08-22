@@ -15,7 +15,7 @@
       <li class="nav-item active">
         <a class="nav-link" href="{{ route('provider.dashboard') }}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+          <span>{{ tr('dashboard') }}</span></a>
       </li>
 
       <!-- Divider -->
@@ -23,19 +23,19 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Items
+        {{ tr('items') }}
       </div>
 
       <!-- Nav Item - Pages Collapse Menu[ Hosts] -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-home"></i>
-          <span>Hosts</span>
+          <span>{{ tr('hosts') }}</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{ route('provider.hosts.index') }}">List Host</a>
-            <a class="collapse-item" href="{{ route('provider.hosts.create') }}">Add Host</a>
+            <a class="collapse-item" href="{{ route('provider.hosts.index') }}">{{ tr('list_hosts') }}</a>
+            <a class="collapse-item" href="{{ route('provider.hosts.create') }}">{{ tr('add_host') }}</a>
           </div>
         </div>
       </li>
@@ -44,7 +44,7 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ route('provider.bookings.index') }}">
           <i class="fas fa-calendar"></i>
-          <span>Bookings</span></a>
+          <span>{{ tr('bookings') }}</span></a>
       </li>
 
       <!-- Divider -->
@@ -52,21 +52,21 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Provider
+        {{ tr('provider') }}
       </div>
 
       <!-- Nav Item - Profile -->
       <li class="nav-item">
         <a class="nav-link" href="{{ route('provider.profile.view', Auth()->user()->id) }}">
           <i class="fas fa-user"></i>
-          <span>Profile</span></a>
+          <span>{{ tr('profile') }}</span></a>
       </li>
 
       <!-- Nav Item - Logout -->
       <li class="nav-item">
           <a class="nav-link" href="{{ route('provider.logout') }}" data-toggle="modal" data-target="#logoutModal">
           <i class="fas fa-sign-out-alt"></i>
-          <span>LogOut</span></a>
+          <span>{{ tr('logout') }}</span></a>
       </li>
 
       <!-- Sidebar Toggler (Sidebar) -->

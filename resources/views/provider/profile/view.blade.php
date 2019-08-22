@@ -8,8 +8,8 @@
           <!-- Page Heading -->
           <div class="row">
                         <div class="col-md-5">
-                             <h1 class="h3 mb-2 text-gray-800">Provider Profile</h1>
-          <p class="mb-4">Your Profile information can available:</p>
+                             <h1 class="h3 mb-2 text-gray-800">{{ tr('provider_profile') }}</h1>
+          <p class="mb-4">{{ tr('profile_info') }}</p>
                         </div>
                     </div>  
          
@@ -17,86 +17,86 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Profile</h6>
+              <h6 class="m-0 font-weight-bold text-primary">{{ tr('profile') }}</h6>
             </div>
             <div class="card-body">
               <table class="table table-borderless">
                     <tr>
-                        <th>Details</th>
-                        <th>User Data</th>
+                        <th>{{ tr('details') }}</th>
+                        <th>{{ tr('provider_data') }}</th>
                     </tr>                                                                                         
                   <tr>
-                    <td>Name</td>
+                    <td>{{ tr('name') }}</td>
                     <td>{{ $provider_details->name }}</td> 
                   </tr>
 
                   <tr>
-                    <td>Email</td>
+                    <td>{{ tr('email') }}</td>
                     <td>{{ $provider_details->email }}</td> 
                   </tr> 
 
                   <tr>
-                    <td>Mobile</td>
+                    <td>{{ tr('mobile') }}</td>
                     <td>{{ $provider_details->mobile }}</td>
                   </tr> 
                   
                   <tr>
-                    <td>Description</td>
+                    <td>{{ tr('description') }}</td>
                     <td>{{ $provider_details->description }}</td>
                   </tr> 
 
                   <tr>
-                    <td>Picture</td>
+                    <td>{{ tr('picture') }}</td>
                     <td><img src="{{ $provider_details->picture }}" style="width: 200px;height: 200px"></td>
                   </tr>
 
                   <tr>
-                    <td>Work</td>
+                    <td>{{ tr('work') }}</td>
                     <td>{{ $provider_details->work }}</td>
                   </tr> 
 
                   <tr>
-                    <td>School</td>
+                    <td>{{ tr('school') }}</td>
                     <td>{{ $provider_details->school }}</td>
                   </tr> 
 
                   <tr>
-                    <td>Languages</td>
+                    <td>{{ tr('languages') }}</td>
                     <td>{{ $provider_details->languages}}</td>
                   </tr> 
 
                   <tr>
-                    <td>Gender</td>
+                    <td>{{ tr('gender') }}</td>
                     <td>{{ $provider_details->gender }}</td>
                   </tr>
 
                   <tr>
-                    <td>Updated At</td>
+                    <td>{{ tr('updated_at') }}</td>
                     <td>{{ $provider_details->updated_at }}</td>
                   </tr>
 
                   <tr>
-                    <td>Status</td>
+                    <td>{{ tr('status') }}</td>
                     @switch($provider_details->status)
 
                                 @case(0)
-                                    <td><div class="label label-danger">Declined</div></td>
+                                    <td><div class="label label-danger">{{ tr('declined') }}</div></td>
                                 @break
 
                                 @case(1)
-                                    <td><div class="label label-success">Approved</div></td>
+                                    <td><div class="label label-success">{{ tr('approved') }}</div></td>
                                 @break
 
                             @endswitch
                   </tr>
 
                   <tr>
-                    <td> <a href="{{ route('provider.profile.edit') }}" class="btn btn-primary">Update Profile</a></td>
+                    <td> <a href="{{ route('provider.profile.edit') }}" class="btn btn-primary">{{ tr('update_profile') }}</a></td>
 
-                    <td> <a href="{{ route('provider.profile.password') }}" class="btn btn-info">Change Password</a></td>
+                    <td> <a href="{{ route('provider.profile.password') }}" class="btn btn-info">{{ tr('change_password') }}</a></td>
 
                     <td>
-                      <a href="{{ route('provider.profile.delete') }}" class="btn btn-danger" onclick="return confirm('Are you sure want to delete your account?')">Delete Profile</a>
+                      <a href="{{ route('provider.profile.delete') }}" class="btn btn-danger" onclick="return confirm('{{ tr('delete_account') }}')">{{ tr('delete_profile') }}</a>
                       </td>
                   </tr>                           
                   

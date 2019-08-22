@@ -372,7 +372,7 @@ class UserController extends Controller
 
             'check_out' => 'required|date|after:check_in',
 
-            'description' => 'required|min:3|max:300'
+            'description' => 'required|min:3|max:255'
 
         ]); 
 

@@ -32,6 +32,8 @@ use Setting;
 
 use \Mail;
 
+use App\Helpers\Helper;
+
 class AdminController extends Controller {
 
     /**
@@ -187,7 +189,7 @@ class AdminController extends Controller {
                 'name' => 'required|min:3|max:50|regex:/^[a-z A-Z]+$/',
                 'email' => $request->id ? 'required|email|max:191|unique:users,email,'.$request->user_id.',id' : 'required|email',
                 'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg|max:2048',
-                'description' => 'required|min:5',
+                'description' => 'required|min:5|max:255',
                 'mobile' => 'digits_between:6,13|nullable',
                 'password' => $request->user_id ? "" : 'required|min:6'
                 ]
@@ -515,7 +517,7 @@ class AdminController extends Controller {
 
             'picture' => 'sometimes|image|nullable|max:2999|mimes:jpeg,bmp,png,jpg',
 
-            'description' => 'required| min:5',
+            'description' => 'required| min:5|max:255',
 
         ]);
 
@@ -767,7 +769,7 @@ class AdminController extends Controller {
 
             'host_type' => 'required|min:6|max:8',
 
-            'description' => 'required| min:5',
+            'description' => 'required| min:5|max:255',
 
             'picture' => 'image|nullable|max:2999|mimes:jpeg,bmp,png,jpg',
 

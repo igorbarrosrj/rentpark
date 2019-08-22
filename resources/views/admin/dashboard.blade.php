@@ -8,10 +8,10 @@
         <!-- ================ Bread crumb ===================== -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h3 class="text-themecolor">Dashboard</h3>
+                <h3 class="text-themecolor">{{ tr('dashboard') }}</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">{{ tr('home') }}</a></li>
+                    <li class="breadcrumb-item active">{{ tr('dashboard') }}</li>
                 </ol>
             </div>
         </div>
@@ -23,7 +23,7 @@
             <!-- =========== Total Users =========== -->
             <div class="col-lg-3 col-md-6">
                 <div class="card card-body mailbox " style="height: 150px">
-                    <h5 class="card-title">Total Users</h5>
+                    <h5 class="card-title">{{ tr('total_users') }}</h5>
                     <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
                         <!-- Message-->
                         <a href="{{ route('admin.users.index') }}" class="size">
@@ -43,7 +43,7 @@
             <!-- =========== Total Providers ===========-->
             <div class="col-lg-3 col-md-6">
                 <div class="card card-body mailbox " style="height: 150px">
-                    <h5 class="card-title">Total Providers</h5>
+                    <h5 class="card-title">{{ tr('total_providers') }}</h5>
                     <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
                         <!-- Message-->
                         <a href="{{ route('admin.providers.index') }}" class="size">
@@ -61,7 +61,7 @@
             <!-- =========== Total Bookings ===========-->
             <div class="col-lg-3 col-md-6">
                 <div class="card card-body mailbox " style="height: 150px">
-                    <h5 class="card-title">Total Bookings</h5>
+                    <h5 class="card-title">{{ tr('total_bookings') }}</h5>
                     <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
                         <!-- Message-->
                         <a href="{{ route('admin.bookings.index') }}" class="size">
@@ -77,7 +77,7 @@
             <!-- =========== Total Earnings  ======================-->
             <div class="col-lg-3 col-md-6">
                 <div class="card card-body mailbox " style="height: 150px">
-                    <h5 class="card-title">Total Earnings</h5>
+                    <h5 class="card-title">{{ tr('total_earnings') }}</h5>
                     <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
                         <!-- Message-->
                         <a href="{{ route('admin.bookings.index') }}" class="size">
@@ -96,10 +96,10 @@
         <!-- =========== Recent Users and Providers =========== -->
         <div class="row">
             
-            <!--  =========== Start Recent Users details-->
+            <!--  =========== Start Recent Users details ======-->
             <div class="col-lg-6 col-md-12">
                 <div class="card card-body mailbox">
-                    <h5 class="card-title">Recent Users</h5>
+                    <h5 class="card-title">{{ tr('recent_users') }}</h5>
                     <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
                         @if(count($recent_users)>0)
                             
@@ -118,7 +118,7 @@
                         
                         @else
                         
-                            <h3>No User found</h3>
+                            <h3>{{ tr('no_user_found') }}</h3>
                               
                         @endif
                         
@@ -126,7 +126,7 @@
 
                     @if(count($recent_users)>0)
                         <br>
-                        <a href="{{ route('admin.users.index') }}"><button class="btn btn-primary pl-10">View All</button></a>
+                        <a href="{{ route('admin.users.index') }}"><button class="btn btn-primary pl-10">{{ tr('view_all') }}</button></a>
                     @endif
 
                 </div>
@@ -138,7 +138,7 @@
             <div class="col-lg-6 col-md-12">
             
                 <div class="card card-body mailbox">
-                    <h5 class="card-title">Recent Providers</h5>
+                    <h5 class="card-title">{{ tr('recent_providers') }}</h5>
                    
                     <div class="message-center ps ps--theme_default ps--active-y" data-ps-id="a045fe3c-cb6e-028e-3a70-8d6ff0d7f6bd">
                        
@@ -161,7 +161,7 @@
 
                         @else
 
-                            <h3>No Provider found</h3> 
+                            <h3>{{ tr('no_provider_found') }}</h3> 
 
                         @endif
 
@@ -172,7 +172,7 @@
                         <br>
 
                         <a href="{{ route('admin.providers.index') }}">
-                            <button class="btn btn-primary pl-10">View All</button>
+                            <button class="btn btn-primary pl-10">{{ tr('view_all') }}</button>
                         </a>
                
                     @endif

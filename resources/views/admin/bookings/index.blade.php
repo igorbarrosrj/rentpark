@@ -7,10 +7,10 @@
         <!-- ================ Bread crumb ===================== -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h3 class="text-themecolor">List Bookings</h3>
+                <h3 class="text-themecolor">{{ tr('list_bookings') }}</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                    <li class="breadcrumb-item active">List Bookings</li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">{{ tr('home') }}</a></li>
+                    <li class="breadcrumb-item active">{{ tr('list_bookings') }}</li>
                 </ol>
             </div>
         </div>
@@ -29,20 +29,20 @@
         
                 <div class="card-body">
         
-                    <h4 class="card-title">Users</h4>                    
+                    <h4 class="card-title">{{ tr('users') }}</h4>                    
         
                     <div class="table-responsive">
                         
                         <table class="table">
 				         	<tr>			                  	
-				                <th>SNo</th>
-				                <th>User Name</th>
-				                <th>Provider Name</th>
-				                <th>Host Name</th>
-				                <th>Check-in</th>
-				                <th>Check-Out</th>
-				                <th>Status</th>
-				                <th>Action</th>
+				                <th>{{ tr('sno') }}</th>
+				                <th>{{ tr('user_name') }}</th>
+				                <th>{{ tr('provider_name') }}</th>
+				                <th>{{ tr('host_name') }}</th>
+				                <th>{{ tr('checkin') }}</th>
+				                <th>{{ tr('checkout') }}</th>
+				                <th>{{ tr('status') }}</th>
+				                <th>{{ tr('action') }}</th>
 				            </tr>
 			            	               	
 							@if(count($bookings)>0)
@@ -56,7 +56,7 @@
 
 							            		<a href="{{ route('admin.users.view',['user_id' => $booking_details->user()->first()->id]) }}">{{ $booking_details->user()->first()->name }}</a>
 							            	@else
-							            		No User Available
+							            		{{ tr('no_user_available') }}
 							            	@endif	
 							            	</td>
 
@@ -65,7 +65,7 @@
 
 							            		<a href="{{ route('admin.providers.view',$booking_details->provider()->first()->id) }}">{{ $booking_details->provider()->first()->name }}</a>
 							            	@else
-							            		No Provider Available
+							            		{{ tr('no_provider_available') }}
 							            	@endif
 
 							            </td>
@@ -75,7 +75,7 @@
 
 												<a href="{{ route('admin.hosts.view',$booking_details->host()->first()->id) }}">{{ $booking_details->host()->first()->host_name }}</a>										
 											@else
-												No Host Available
+												{{ tr('no_host_available') }}
 											@endif
 										</td>
 
@@ -83,42 +83,42 @@
 										<td>{{ $booking_details->checkout }}</td>										
 								       	@switch($booking_details->status)
 
-								        	@case(0)
-								         	<td><div class="label label-primary">None</div></td>
+								        	@case(BOOKING_NONE)
+								         	<td><div class="label label-primary">{{ tr('none') }}</div></td>
 								        	@break
 
-								        	@case(1)
-								         	<td><div class="label label-info">Booking Created</div></td>
+								        	@case(BOOKING_CREATED)
+								         	<td><div class="label label-info">{{ tr('booking_created') }}</div></td>
 								        	@break
 
-								        	@case(2)
-								         	<td><div class="label label-primary">Check in</div></td>
+								        	@case(BOOKING_CHECKIN)
+								         	<td><div class="label label-primary">{{ tr('checkin') }}</div></td>
 								        	@break
 
-								        	@case(3)
-								         	<td><div class="label label-primary">Check Out</div></td>
+								        	@case(BOOKING_CHECKOUT)
+								         	<td><div class="label label-primary">{{ tr('checkout') }}</div></td>
 								        	@break
 
-								        	@case(4)
-								         	<td><div class="label label-success">Completed</div></td>
+								        	@case(BOOKING_COMPLETED)
+								         	<td><div class="label label-success">{{ tr('completed') }}</div></td>
 								        	@break
 
-								        	@case(5)
-								         	<td><div class="label label-danger">User Cancel</div></td>
+								        	@case(BOOKING_USER_CANCEL)
+								         	<td><div class="label label-danger">{{ tr('user_cancel') }}</div></td>
 								        	@break
 
-								        	@case(6)
-								         	<td><div class="label label-danger">Provider Cancel</div></td>
+								        	@case(BOOKING_PROVIDER_CANCEL)
+								         	<td><div class="label label-danger">{{ tr('provider_cancel') }}</div></td>
 								        	@break
 
 								       	@endswitch
 
-										<td><a href="{{ route('admin.bookings.view',$booking_details->id) }}" class="btn btn-info">View</a></td>
+										<td><a href="{{ route('admin.bookings.view',$booking_details->id) }}" class="btn btn-info">{{ tr('view') }}</a></td>
 							        </tr>
 							    @endforeach
 					       
 					        @else
-					           	<tr><td colspan=5><h3>No Booking found</h3></td></tr>
+					           	<tr><td colspan=5><h3>{{ tr('no_booking_found') }}</h3></td></tr>
 					        @endif
 
 				         </table>

@@ -9,10 +9,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">Admin Profile</h3>
+                        <h3 class="text-themecolor">{{ tr('admin_profile') }}</h3>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Admin Profile</li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">{{ tr('home') }}</a></li>
+                            <li class="breadcrumb-item active">{{ tr('admin_profile') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -29,50 +29,50 @@
 	    <div class="col-12">
 	        <div class="card">
 	            <div class="card-body">
-                <h4 class="card-title">Admin Profile</h4>
+                <h4 class="card-title">{{ tr('admin_profile') }}</h4>
 
 		            <div class="box-body">
 		              <table class="table ">
 		                <tr>
-		                  	<th>Details</th>
-		                  	<th>Admin Data</th>
+		                  	<th>{{ tr('details') }}</th>
+		                  	<th>{{ tr('admin_data') }}</th>
 		                </tr>
 		             	<tr>
-		             		<td> Name</td>
+		             		<td>{{ tr('name') }} </td>
 		             		<td>{{ $admin->name }}</td>	
 		             	</tr>
 
 		             	<tr>
-		             		<td>Email</td>
+		             		<td>{{ tr('email') }}</td>
 		             		<td>{{ $admin->email }}</td>
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Mobile</td>
+		             		<td>{{ tr('mobile') }}</td>
 		             		<td>{{ $admin->mobile }}</td>
 		             	</tr>	
 		             	
 		             	<tr>
-		             		<td>About</td>
+		             		<td>{{ tr('about') }}</td>
 		             		<td>{{ $admin->about }}</td>
 		             	</tr>
 
 		             	<tr>
-		             		<td>Picture</td>
+		             		<td>{{ tr('picture') }}</td>
 		             		<td><img src="{{ $admin->picture }}" style="width: 200px;height: 200px"></td>
 		             	</tr>	
 
 		             	<tr>
-		             		<td>Updated At</td>
+		             		<td>{{ tr('updated_at') }}</td>
 		             		<td>{{ $admin->updated_at }}</td>
 		             	</tr>
 
 		        
 
-		             		<td> <a href="{{ route('admin.profile.edit') }}" class="btn btn-primary">Edit</a></td>
+		             		<td> <a href="{{ route('admin.profile.edit') }}" class="btn btn-primary">{{ tr('edit') }}</a></td>
 
 		             		<td>
-		             			<a href="{{ route('admin.profile.password') }}" class="btn btn-danger" >Change Password</a>
+		             			<a href="{{ route('admin.profile.password') }}" class="btn btn-danger" >{{ tr('change_password') }}</a>
                				</td>
 		             	</tr>			             					
 									

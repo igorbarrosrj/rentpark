@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use Hash, Exception, Auth, Mail, File, Log, Storage, Setting, DB;
+use Hash, Exception, Auth, Mail, File, Log, Storage, Setting, DB; 
 
 class Helper {
 
@@ -66,4 +66,5 @@ class Helper {
 	    
 	    return time() + $token_expiry_hour*3600;  // 1 Hour
 	}
+
 }
