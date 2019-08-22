@@ -33,13 +33,13 @@
 
                                 <select name="provider_name" required class="form-control">
 
-                                        @foreach($providers as $provider)
-                                            
-                                           <option @if($host!=NULL)
-                                                        {{ $host->provider_id ===  $provider->id ? 'selected' : '' }}     @endif >{{ $provider->name}}
-                                                </option>
+                                    @foreach($providers as $provider)
+                                        
+                                       <option @if($host != NULL) {{ $host->provider_id ===  $provider->id ? 'selected' : '' }} @endif >
+                                            {{ $provider->name}}
+                                        </option>
 
-                                        @endforeach
+                                    @endforeach
 
                                 </select>
 

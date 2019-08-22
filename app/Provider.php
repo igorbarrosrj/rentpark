@@ -54,14 +54,19 @@ class Provider extends Authenticatable
         return $this->hasMany('App\Booking');
     }
 
-     public function sendPasswordResetNotification($token)
-    {
+    public function sendPasswordResetNotification($token) {
+
         $this->notify(new ProviderResetPasswordNotification($token));
     }
 
     public function provider_review() {
 
         return $this->hasMany('App\ProviderReview');
+    }
+
+    public function scopeApproved($query) { 
+            
+        return $query->where('status', APPROVED)->orderBy('name');
     }
 
 }

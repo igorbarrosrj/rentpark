@@ -419,14 +419,8 @@ class AdminController extends Controller {
     /** ========== User Management Methods ends =========== **/
 
 
+    /** ===== Service Location Management Methods starts ====== **/
 
-    /**
-    *
-    *
-    * Service Location Management in Admin Panel
-    *
-    */
-    
     /**
      * @method service_locations_index()
      * 
@@ -449,7 +443,6 @@ class AdminController extends Controller {
 
     }
 
-
     /**
      * @method service_locations_create()
      * 
@@ -464,15 +457,12 @@ class AdminController extends Controller {
      * @return view of Create Service Location Page
      *
      */
-
     public function service_locations_create() {
 
         $service_location = NULL;
 
         return view('admin.service_locations.create')->with('service_location', $service_location);
-
     }
-
 
     /**
      * @method service_locations_view()
@@ -497,8 +487,7 @@ class AdminController extends Controller {
             return redirect()->route('admin.service_locations.index')->with('error', "No Service Location found");
         }
 
-        return view('admin.service_locations.view')->with('service_location', $service_location);
-        
+        return view('admin.service_locations.view')->with('service_location', $service_location);        
     }
 
 
@@ -634,7 +623,7 @@ class AdminController extends Controller {
         
     }
 
-     /**
+    /**
      * @method service_locations_status()
      * 
      * @uses used to status of the service_location
@@ -664,6 +653,8 @@ class AdminController extends Controller {
         return redirect()->back()->with('Success', 'Status updated !');
         
     }
+
+    /** ====== Service Location Management Methods ends ====== **/
 
 
     /**
@@ -716,7 +707,7 @@ class AdminController extends Controller {
 
         $service_locations = ServiceLocation::where('status', APPROVED)->orderBy('name')->get();
 
-        $providers = Provider::where('status', APPROVED)->orderBy('name')->get();
+        $providers = Provider::approved()->get();
 
         return view('admin.hosts.create')->with(['host' => $host, 'service_locations' => $service_locations, 'providers' => $providers ]);
 

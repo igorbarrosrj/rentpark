@@ -81,17 +81,18 @@
 				             	</tr>
 
 				             	<tr>
-				             		<td>Status</td>
-				             		
-		                            @if($user_details->status) 
-	                                    <td>
-	                                        <div class="label label-danger">Declined</div>
-	                                    </td>
-	                                @else 
-	                                    <td>
-	                                        <div class="label label-success">Approved</div>
-	                                    </td>
-	                                @endif
+			             		<td>Status</td>
+			             		
+	                            @if($user_details->status == APPROVED) 
+                                    <td>
+                                        <div class="label label-success">Approved</div>
+                                    </td>
+                                @else
+                                 	<td>
+                                        <div class="label label-danger">Declined</div>
+                                    </td> 
+                                @endif
+
 				             	</tr>
 
 				             	<tr>
