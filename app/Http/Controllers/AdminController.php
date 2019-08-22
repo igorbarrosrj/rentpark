@@ -1319,7 +1319,6 @@ class AdminController extends Controller
             delete_picture($admin->picture, PROFILE_PATH_ADMIN);
 
             $admin->picture = upload_picture($request->file('picture'),PROFILE_PATH_ADMIN);
-
         }
     
         $admin->save();
@@ -1423,6 +1422,7 @@ class AdminController extends Controller
             $admin->password = Hash::make($request->password);
 
             $admin->save();
+            
         } else
         {
 

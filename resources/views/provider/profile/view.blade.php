@@ -11,9 +11,6 @@
                              <h1 class="h3 mb-2 text-gray-800">Provider Profile</h1>
           <p class="mb-4">Your Profile information can available:</p>
                         </div>
-                        <div class="col-md-7">
-                            <a href="{{ route('provider.profile.view') }}"  class="btn btn-primary float-right hidden-sm-down">Go Back</a>
-                        </div>
                     </div>  
          
 

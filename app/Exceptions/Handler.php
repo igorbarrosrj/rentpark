@@ -49,13 +49,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-
-        // dd($exception);
+        
         if ($exception instanceof \Swift_TransportException ){
 
             // Redirect to a form. Here is an example of how I handle mine
             return redirect()->back()->with('error',"Problem on Sending Mail");
         }
+
         if ($exception instanceof ModelNotFoundException && $request->wantsJson())
         {
             return response()->json([

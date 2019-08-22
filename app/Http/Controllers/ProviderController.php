@@ -269,7 +269,7 @@ class ProviderController extends Controller
 
         if($request->hasFile('picture')){
 
-            $url = upload_picture($request->file('picture'), FILE_PATH_HOST);
+            $host->picture = upload_picture($request->file('picture'), FILE_PATH_HOST);
 
         } 
 
@@ -469,9 +469,9 @@ class ProviderController extends Controller
         //Handle File Upload
         if($request->hasFile('picture')){
 
-            delete_picture($request->picture,PROFILE_PATH_PROVIDER);
+            delete_picture($provider_details->picture,PROFILE_PATH_PROVIDER);
 
-            $provider_details->picture = upload_picture($request->picture,$request->file('picture'),PROFILE_PATH_PROVIDER);
+            $provider_details->picture = upload_picture($request->file('picture'),PROFILE_PATH_PROVIDER);
 
         } 
 
