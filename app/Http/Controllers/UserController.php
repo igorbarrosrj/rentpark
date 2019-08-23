@@ -44,7 +44,7 @@ class UserController extends Controller
     /**
      * @method profile_view()
      * 
-     * @uses used to view the user's detail
+     * @uses To view the user's detail
      *
      * @created NAVEEN S
      *
@@ -61,8 +61,6 @@ class UserController extends Controller
         $user = $this->user;
 
         if(!$user){
-
-            // return redirect()->route('profile.view')->with('error',"No Profile found");
 
             Auth::logout();
 
@@ -107,7 +105,7 @@ class UserController extends Controller
     /**
      * @method profile_save()
      * 
-     * @uses used to store the user's detail
+     * @uses To store the user's detail
      *
      * @created NAVEEN S
      *
@@ -363,7 +361,7 @@ class UserController extends Controller
 
     	if(!$host) {
 
-    		return 'no hosts found';
+    		return tr('no_host_found');
     	}
 
        $this->validate($request,[
@@ -436,7 +434,7 @@ class UserController extends Controller
     public function bookings_status($id) {
 
         $booking = Booking::where('user_id', $this->user->id)
-            ->where('id',$id)->first();
+                            ->where('id',$id)->first();
 
         if(!$booking){
 
