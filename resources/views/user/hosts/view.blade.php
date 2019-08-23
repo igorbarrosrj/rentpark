@@ -1,126 +1,67 @@
-@extends('layouts.provider') 
+@extends('layouts.user') 
 
 @section('content')
 
-  <!-- Begin Page Content -->
-        <div class="container-fluid">
+  <section class="single_host">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
 
-          <!-- Page Heading -->
-          <div class="row">
-                        <div class="col-md-5">
-                             <h1 class="h3 mb-2 text-gray-800">Host Detail</h1>
-          <p class="mb-4">Your Host information can available:</p>
+                    <img class="img" src="{{ asset('user-assets/img/team2.jpg') }}" alt="No Photo">
+
+                    <p class="figure_text">RESERVABLE</p>
+
+                    <img class="reservable_img" src="{{ asset('user-assets/img/reservable.svg') }} " alt="No Photo">
+
+                    <p class="p">Space Name:<a href="#">Banglore</a></p>
+
+                    <p class="p">Description:</p>
+
+                    <p class="Description">*This Car Park may be inaccessible between 4am Saturday the 3rd of August and 10pm Sunday 4th of August due to the Prudential Ride London. We advise you check your route for road closures before booking.</p>
+
+                    <h2 class="h2"><span class="span">Car Park</span> on <a href="!#"><c class="loc">Bloomsbury Square, WC1A</c></a></h2>
+
+                    <span class="i"><i class="fa fa-star checked"></i>
+
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+
+                        <b class="b">(3,376)</b>
+                    </span>
+
+                    <p class="p"><a href="#">Available Spaces:  <b>5</b></a></p>
+                    <p class="p"><a href="#">Per Hour:  <b>$10</b></a></p>
+
+                </div>
+                <div class="col-sm-5 other">
+                    <form>
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="text6" class="form-control" placeholder="Check In"><img src="{{ asset('user-assets/img/dropdown.svg') }}">
+                            </div>
+
+                            <div class="col">
+                                <input type="text7" class="form-control" placeholder="Check Out"><img class="drop_img" src="{{ asset('user-assets/img/dropdown.svg') }} ">
+                            </div>
                         </div>
-                        <div class="col-md-7">
-                            <a href="{{ route('hosts.index') }}"  class="btn btn-primary float-right hidden-sm-down">Go Back</a>
+                    </form>
+
+                        <p>Payment mode: COD</p>
+                        
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck">
+                            <label class="form-check-label" for="gridCheck">Terms & Condition
+                            </label>
                         </div>
-                    </div>  
-         
-
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Host</h6>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-              <table class="table table-borderless">
-                    <tr>
-                        <th>Details</th>
-                        <th>Host Data</th>
-                    </tr>                                                                                         
-                  <tr>
-                    <td>Host Name</td>
-                    <td>{{ $host->host_name }}</td> 
-                  </tr>
-
-                  <tr>
-                    <td>Host Type</td>
-                    <td>{{ $host->host_type }}</td>
-                  </tr> 
-
-                  <tr>
-                    <td>Description</td>
-                    <td>{{ $host->description }}</td>
-                  </tr> 
-
-                  <tr>
-                    <td>Picture</td>
-                    <td><img src="{{ $host->picture }}" style="width: 200px;height: 200px"></td>
-                  </tr>
-
-                  <tr>
-                    <td>Loction</td>
-                    <td>
-                      @if($host->service_location()->first()!=NULL)
-                        {{ $host->service_location()->first()->name }}
-                      @else
-                        No Location Found
-                      @endif
-                  </td>
-                  </tr> 
-
-                  <tr>
-                    <td>Total Spaces</td>
-                    <td>{{ $host->total_spaces }}</td>
-                  </tr> 
-
-                  <tr>
-                    <td>Full Address</td>
-                    <td>{{ $host->full_address }}</td>
-                  </tr> 
-
-                  <tr>
-                    <td>Per Hour</td>
-                    <td>{{ $host->per_hour }}</td>
-                  </tr> 
-
-                  <tr>
-                    <td>Created At</td>
-                    <td>{{ $host->created_at }}</td>
-                  </tr>
-
-                  <tr>
-                    <td>Updated At</td>
-                    <td>{{ $host->updated_at }}</td>
-                  </tr>
-
-                  <tr>
-                    <td>Status</td>
-                    @switch($host->status)
-
-                                @case(0)
-                                    <td><div class="label label-danger">Declined</div></td>
-                                @break
-
-                                @case(1)
-                                    <td><div class="label label-success">Approved</div></td>
-                                @break
-
-                            @endswitch
-                  </tr>
-
-                  <tr>
-                    <td> <a href="{{ route('bookings.save',$host->id) }}" class="btn btn-primary">Book</a></td>
-
-                  </tr>                 
-                  
-                  </table>
-
-                  <form action="{{ route('bookings.save',$host->id) }}" method="post">
-                    @csrf
-                     
-                    <input type="datetime" name="check_in"><br>
-                    <input type="datetime" name="check_out"><br>
-                    <input type="hidden" name="timezone" id="timezone">
-                    <input type="text" name="description"><br>
-                    <input type="submit" name="submit">
-                  </form>
-
-                   
-            </div>
-          </div>
-
         </div>
+    </section>
+    
+    <!--Section_end-->
 
-  <!-- /.container-fluid -->
 @endsection

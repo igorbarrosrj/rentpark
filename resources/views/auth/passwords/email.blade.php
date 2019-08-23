@@ -1,47 +1,39 @@
-@extends('layouts.app')
+@extends('layouts.users.focused')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+<!--Section_Start-->
+<section class="forget_password">
+  <div id="login">
+    <div class="container">
+      <div id="login-row" class="row justify-content-center align-items-center">
+        <div id="login-column" class="col-md-12">
+          <div id="login-box" class="col-md-12">
+            <a href="#"><img class="img" src="{{ setting()->get('favicon')}} "></a>
+            <h5 class="h5">{{ tr('reset_info') }}</h5>
+            <form method="POST" action="{{ route('password.email') }}">
+              @csrf
+              <div class="form-group row">
+                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">{{ tr('email_address') }}
+                </label>
+                <div class="col-sm-5">
+                <input type="email" class="form-control form-control-lg" id="colFormLabelLg" placeholder="example@mail.com" {{ $errors->has('email') ? ' is-invalid' : '' }} name="email" value="{{ old('email') }}" required>
                 </div>
-            </div>
+              </div>
+
+              <div>
+                <input type="reset" class="a1"{{ tr('reset') }}>
+              </div>
+              
+              <div class="text-right">
+                <button type="submit">{{ tr('reset_password') }}</button>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+</section>
+
+<!--Section_end-->
 @endsection

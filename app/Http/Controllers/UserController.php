@@ -28,7 +28,7 @@ class UserController extends Controller
 
         $this->middleware(function ($request, $next) {
             
-            $this->user= Auth::user();
+            $this->user= Auth::user();;
 
             return $next($request);
         });
@@ -327,7 +327,7 @@ class UserController extends Controller
     public function bookings_view($id) {
 
 
-        $booking = Booking::where('user_id', $this->user->id)
+        $booking = Booking::where('user_id', $this->user->id1)
             ->where('id',$id)->first();
 
         if(!$booking){

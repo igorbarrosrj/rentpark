@@ -232,6 +232,32 @@ return array(
  	'provider_password' => 'Provider Password',
  	'reset_password' => 'Reser Password',
 
+ 	/**************** USER PANEL ************/
+
+ 	'register_info_1' => 'Please choose a secure password (at least 6 characters)',
+ 	'register_info_2' => 'By proceeding with creating an account you agree to the RentPark', 
+ 	'terms' => 'Terms & Conditions',
+ 	'and' => 'and',
+ 	'privacy_policy' => 'Privacy Policy',
+ 	'reset' => 'Reset',
+ 	'login_info' => 'Welcome back! Let\'s get you signed in.',
+ 	'reset_info' => 'Enter email or phone number to reset your password',
+
+ 	'copyright' => 'Copyright JustPark 2019',
+ 	'sitemap' => 'Site map',
+ 	'cancellation_policy' => 'Cancellation Policy',
+
+ 	'term' => 'Terms & Conditions',
+ 	'license' => 'Licensing Policy',
+ 	'license_info' => 'The Bootstrap themes are released under the GNU General Public License v2 or later. You can use all our themes for personal and commercial use. Please go through the licensing policy page for licensing details.',
+ 	'delievery' => 'Delivery',
+ 	'delievery_info' => 'Any kind of information related to your purchased product(s) will be emailed to the email address that you have provided once we receive your payment. This process usually takes few minutes, but for some issue might get extended to 24 hours. In case you do not receive your email up to the allocated time period, you can contact us through our contact page. Also, you can access the products that you have purchased from your account in the bootstrap theme after logging in.',
+ 	'ownership' => 'Ownership',
+ 	'ownership_info'=> 'The Bootstrap Themes claims ownership on all of its products. Hence, you may not demand your any kind of proprietorship over any of our products, modified or unmodified. We provide our products without any warranty, as it is. You cannot hold our legit person accountable to any kind of damage including, but not limited to direct, indirect, special, incidental or consequential damages or other losses caused due to inefficiency in using our products.',
+ 	'browser' => 'Browser Compatibility',
+ 	'browser_info' => 'We are solely concerned with providing the best possible quality in products to our users. Thus, we make it sure that our themes and templates are compatible across most major browsers including the latest version of modern web browsers such as Safari, Firefox, Internet explorer 9+ and Chrome.',
+ 	'updates' => 'Updates',
+ 	'updates_info' => 'We provide our license holders who have an active and valid subscription and licence key with one click updates. As long as the license key generated from the purchase is valid and active, you can get access to the updates. We have provision of updates for a 1 year time period.',
 
 	/*************** SETTINGS ****************/
 
@@ -240,8 +266,7 @@ return array(
 	'favicon' => 'Favicon',
 	'site_logo' => 'Site Logo',
 	'only_png_images' => 'Only .png Images',
-
-
+	'booking_management' => 'Booking Management',
 );
 
 ?>

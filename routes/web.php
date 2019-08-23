@@ -12,12 +12,16 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::get('terms', function () {
+    return view('layouts.users.terms');
+})->name('terms');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 
 /**
@@ -64,12 +68,11 @@ Route::post('/profile/password/save', 'UserController@profile_password_save')->n
 
 
 /***
-         *
-         * Hosts management
-         *
-         */       
-        Route::get('/hosts/index', 'UserController@hosts_index')->name('hosts.index');
+*
+* Hosts management
+*
+*/       
+Route::get('/hosts/index', 'UserController@hosts_index')->name('hosts.index');
 
-
-        Route::get('/hosts/view/{id}', 'UserController@hosts_view')->name('hosts.view');
+Route::get('/hosts/view/{id}', 'UserController@hosts_view')->name('hosts.view');
 

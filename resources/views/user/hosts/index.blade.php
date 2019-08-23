@@ -1,90 +1,171 @@
-@extends('layouts.provider')
+@extends('layouts.user')
 
 @section('content')
 
-	<!-- Begin Page Content -->
-        <div class="container-fluid">
+	<!--Section_Content_Start-->
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Hosts Index</h1>
-          <p class="mb-4">It shows all hosts which you entered</p>
+    <section class="hosts">
+      <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+                <a href="index.html">
+                    <img class="img" src="{{ asset('user-assets/img/back-parking.jpg') }}" alt="No Photo">
+                    <h2 class="h2"><span class="span">Car Park</span> on <c class="loc">Hungerford Lane, WC2</c></h2>
+                    <span>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <b class="b">(3,376)</b>
+                    </span>
 
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">List Hosts</h6>
+                    <span>
+                        <p class="p">$4.<d class="price_sub">55</d></p>
+                        <h6 class="h6">total price</h6>
+                    </span>
+
+                    <h4 class="h4">Banglore</h4>
+                    <h5 class="h5">to destination</h5>
+                </a>
             </div>
-            @php  $sno = 0; @endphp
 
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>SNo</th>
-                        <th>Host Name</th>
-                        <th>Host Type</th>
-                        <th>Location</th>
-                        <th>Total Spaces</th>
-                        <th>Per Hour</th>
-                        <th>Updated At</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                  </thead>
-                
-                    @if(count($hosts)>0)
-              @foreach($hosts as $host)
-                <tr>
-                  <td>{{ ++$sno }}</td>
-                  <td><a href="{{ route('provider.hosts.view',$host->id) }}">{{ $host->host_name }}</a></td>
-                  <td>{{ $host->host_type }}</td>
-                  <td>
-                    @if($host->service_location()->first()!=NULL)
-                      {{ $host->service_location()->first()->name }}
-                    @else
-                      No Location Found
-                    @endif
-                  </td>
-                  <td>{{ $host->total_spaces }}</td>
-                  <td>{{ $host->per_hour }}</td>
-                  <td>{{ $host->updated_at }}</td>
-                   @switch($host->status)
+            <div class="col-md-4">
+                <a href="index.html">
+                    <img class="img" src="{{ asset('user-assets/img/park1.jpg') }}" alt="No Photo">
 
-                                                @case(0)
-                                                    <td><div class="label label-danger">Declined</div></td>
-                                                @break
+                    <h2 class="h2">
+                        <span class="span">Car Park</span> on <c class="loc">St Martin's Street, WC2H</c>
+                    </h2>
 
-                                                @case(1)
-                                                    <td><div class="label label-success">Approved</div></td>
-                                                @break
+                    <span>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <b class="b">(3,376)</b>
+                    </span>
 
-                                            @endswitch
-                  <td>
-                    <div class="dropdown">
-                                            <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Action
-                                            <span class="caret"></span></button>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="{{ route('hosts.view',$host->id) }}" class="dropdown-item" >View</a></li>
-                                                
-                                                <div class="dropdown-divider"></div>
-                                                      
-                                            </ul>
-                                         </div> 
-                  </td>               
-                </tr>
-              @endforeach
-            @else
-                    <tr><td colspan=5><h3>No Hosts found</h3></td></tr>
-                @endif
-                      
-            </table>
+                    <span>
+                        <p class="p">$4.<d class="price_sub">55</d></p>
+                        <h6 class="h6">total price</h6>
+                    </span>
 
-              {{$hosts->links()}}
+                    <h4 class="h4">Banglore</h4>
+                    <h5 class="h5">to destination</h5>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="index.html">
+                    <img class="img" src="{{ asset('user-assets/img/park2.jpg') }}" alt="No Photo">
+                    <h2 class="h2">
+                        <span class="span">Car Park</span> on <c class="loc">Southampton Buildings</c>
+                    </h2>
+
+                    <span>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <b class="b">(3,376)</b>
+                    </span>
+
+                    <span>
+                        <p class="p">$4.<d class="price_sub">55</d></p>
+                        <h6 class="h6">total price</h6>
+                    </span>
+
+                    <h4 class="h4">Banglore</h4>
+                    <h5 class="h5">to destination</h5>
+                </a>
               </div>
-            </div>
           </div>
 
+          <div class="row">
+              <div class="col-md-4">
+                <a href="index.html">
+                    <img class="img" src="{{ asset('user-assets/img/park3.jpg') }}" alt="No Photo">
+                    <h2 class="h2">
+                        <span class="span">Car Park</span> on <c class="loc">Bloomsbury Square, WC1A</c>
+                    </h2>
+
+                    <span>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <b class="b">(3,376)</b>
+                    </span>
+
+                    <span>
+                        <p class="p">$4.<d class="price_sub">55</d></p>
+                        <h6 class="h6">total price</h6>
+                    </span>
+
+                    <h4 class="h4">Banglore</h4>
+                    <h5 class="h5">to destination</h5>
+                </a>
+              </div>
+
+              <div class="col-md-4">
+                <a href="index.html">
+                    <img class="img" src="{{ asset('user-assets/img/park4.jpg') }} " alt="No Photo">
+                    <h2 class="h2">
+                        <span class="span">Car Park</span> on <c class="loc">Arlington Street, SW1A</c>
+                    </h2>
+
+                    <span>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <b class="b">(3,376)</b>
+                    </span>
+
+                    <span>
+                        <p class="p">$4.<d class="price_sub">55</d></p>
+                        <h6 class="h6">total price</h6>
+                    </span>
+
+                    <h4 class="h4">Banglore</h4>
+                    <h5 class="h5">to destination</h5>
+                </a>    
+              </div>
+
+              <div class="col-md-4">
+                <a href="index.html">
+                    <img class="img" src="{{ asset('user-assets/img/park5.jpg') }} " alt="No Photo">
+                    <h2 class="h2"><span class="span">Car Park</span> on <c class="loc">Brick Street, W1</c></h2>
+
+                    <span>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <i class="fa fa-star checked"></i>
+                        <b class="b">(3,376)</b>
+                    </span>
+
+                    <span>
+                        <p class="p">$4.<d class="price_sub">55</d></p>
+                        <h6 class="h6">total price</h6>
+                    </span>
+                    <h4 class="h4">Banglore</h4>
+                    <h5 class="h5">to destination</h5>
+                </a>
+              </div>
+            </div>
         </div>
-        <!-- /.container-fluid -->
+    
+        <a href="#"><button type="hosts_submit">Load More</button></a>
+    
+    <section>
+    
+    <!--Section_Content_end-->
+
 @endsection

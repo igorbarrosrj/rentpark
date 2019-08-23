@@ -54,7 +54,7 @@
 
            <a class="btn btn-primary" href="{{ route('provider.logout') }}"    onclick="event.preventDefault();
               document.getElementById('logout-form').submit();">
-              {{ __('Logout') }}
+              {{ tr('logout') }}
            </a>
 
           <form id="logout-form" action="{{ route('provider.logout') }}" method="POST" style="display: none;">
