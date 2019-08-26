@@ -29,7 +29,7 @@ class CreateBookingsTable extends Migration
             $table->float('per_hour')->default(0.00);
             $table->float('total')->default(0.00);
             $table->tinyInteger('status')->default(0);
-            $table->dateTime('cancelled_date');
+            $table->dateTime('cancelled_date')->nullable();
             $table->timestamps();
         });
     }

@@ -66,11 +66,6 @@
                   </tr> 
 
                   <tr>
-                    <td>{{ tr('gender') }}</td>
-                    <td>{{ $provider_details->gender }}</td>
-                  </tr>
-
-                  <tr>
                     <td>{{ tr('updated_at') }}</td>
                     <td>{{ $provider_details->updated_at }}</td>
                   </tr>

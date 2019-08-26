@@ -1,10 +1,15 @@
-@extends('layouts.provider')
+@extends('layouts.user')
 
 @section('content')
 
-    <!-- Begin Page Content -->
-    <div class="container-fluid">
+	<section class="update_profile">
+	  
+	  <div class="container">
+	  	
+	  	@include('user.profile._form')
 
-        @include('user.profile._form')
-    </div>
+	  </div>
+
+	</section>
+
 @endsection

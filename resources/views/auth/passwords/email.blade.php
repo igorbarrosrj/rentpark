@@ -9,6 +9,7 @@
         <div id="login-column" class="col-md-12">
           <div id="login-box" class="col-md-12">
             <a href="#"><img class="img" src="{{ setting()->get('favicon')}} "></a>
+            @include('notifications.notification')
             <h5 class="h5">{{ tr('reset_info') }}</h5>
             <form method="POST" action="{{ route('password.email') }}">
               @csrf

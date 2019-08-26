@@ -40,7 +40,7 @@
                             
                             <label class="old_password">{{ tr('old_password') }} *</label>
 
-                            <input type="password" name="old_password" class="form-control" placeholder="{{ tr('old_password')}} " required>
+                            <input type="password" name="old_password" class="form-control" placeholder="{{ tr('old_password')}} " value="{{ old('old_password') }}" required>
 
                         </div>
 
@@ -48,7 +48,7 @@
                             
                             <label class="password">{{ tr('new_password') }} *</label>
 
-                            <input type="password" name="password" class="form-control" placeholder="{{ tr('new_password') }} " required>
+                            <input type="password" name="password" class="form-control" placeholder="{{ tr('new_password') }} " value="{{ old('password') }}" required>
 
                         </div>
 
@@ -56,7 +56,7 @@
                             
                             <label class="password_confirmation">{{ tr('confirm_new_password') }} *</label>
 
-                            <input type="password" name="password_confirmation" class="form-control" placeholder="{{ tr('confirm_new_password') }}" required>
+                            <input type="password" name="password_confirmation" class="form-control" placeholder="{{ tr('confirm_new_password') }}" value="{{ old('password_confirmation') }}" required>
 
                         </div>
 

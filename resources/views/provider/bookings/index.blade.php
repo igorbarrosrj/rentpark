@@ -58,38 +58,8 @@
 
                   <td>{{ $booking->checkin }}</td>
                   <td>{{ $booking->checkout }}</td>                   
-                      @switch($booking->status)
-
-                        @case(BOOKING_NONE)
-                          <td><div class="text-primary">{{ tr('none') }}</div></td>
-                        @break
-
-                        @case(BOOKING_CREATED)
-                          <td><div class="text-info">{{ tr('booking_created') }}</div></td>
-                        @break
-
-                        @case(BOOKING_CHECKIN)
-                          <td><div class="text-primary">{{ tr('checkin') }}</div></td>
-                        @break
-
-                        @case(BOOKING_CHECKOUT)
-                          <td><div class="text-primary">{{ tr('checkout') }}</div></td>
-                        @break
-
-                        @case(BOOKING_COMPLETED)
-                          <td><div class="text-success">{{ tr('completed') }}</div></td>
-                        @break
-
-                        @case(BOOKING_USER_CANCEL)
-                          <td><div class="text-danger">{{ tr('user_cancel') }}</div></td>
-                        @break
-
-                        @case(BOOKING_PROVIDER_CANCEL)
-                          <td><div class="text-danger">{{ tr('provider_cancel') }}</div></td>
-                        @break
-
-                      @endswitch
-
+                      
+                      {!! booking_status($booking->status) !!}
 
                   <td>
                     <div class="dropdown">

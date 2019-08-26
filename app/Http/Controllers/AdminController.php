@@ -26,6 +26,8 @@ use App\ServiceLocation;
 
 use App\User;
 
+use App\StaticPage;
+
 use DB, Auth, Hash, Validator, Exception;
 
 use Setting;
@@ -160,7 +162,7 @@ class AdminController extends Controller {
 
             $error = $e->getMessage();
 
-            return redirect()->route('admin.users.index')->with('error', "No User found");
+            return redirect()->route('admin.users.index')->with('error', tr('no_user_found'));
         }
     }
 
@@ -234,8 +236,6 @@ class AdminController extends Controller {
 
             $user_details->mobile = $request->mobile?:'';
 
-            $user_details->gender = $request->gender;
-
             $user_details->token = $request->token?:"";
 
             $user_details->token_expiry = $request->token_expiry?:"";
@@ -257,19 +257,19 @@ class AdminController extends Controller {
 
                         $to_email = $request->email;            
 
-                        $data = ["name"=> $request->name, "body" => "You account is created ", "username" => $request->email, "password" => $request->password, "link" => route('login')];
+                        $data = ["name"=> $request->name, "body" => tr('account_created'), "username" => $request->email, "password" => $request->password, "link" => route('login')];
 
-                        Mail::send('admin.users.mail.index', $data, function($message) use ($to_name, $to_email) {$message->to($to_email, $to_name)->subject("Account Activation");
+                        Mail::send('admin.users.mail.index', $data, function($message) use ($to_name, $to_email) {$message->to($to_email, $to_name)->subject(tr('account_activation'));
 
                         $message->from(\Config::get('mail.from.address'), "RentPark");;}); 
                     }
 
                 }        
     
-                return redirect()->route('admin.users.index')->with('success', 'User Saved');
+                return redirect()->route('admin.users.index')->with('success', tr('user_saved'));
             }
 
-            throw new Exception("Sorry! User Details could not be saved, Please try again", 1);
+            throw new Exception(tr('user_not_saved'), 1);
                         
         } catch (Exception $e) {
             
@@ -305,7 +305,7 @@ class AdminController extends Controller {
 
             if(!$user_details) {
                 
-                return redirect()->route('admin.users.index')->with('error',"No User found");
+                return redirect()->route('admin.users.index')->with('error',tr('no_user_found'));
             }
 
             return view('admin.users.view',['user_id' =>$user_details->id])->with('user_details', $user_details);
@@ -314,7 +314,7 @@ class AdminController extends Controller {
 
             $error = $e->getMessage();
 
-            return redirect()->route('admin.users.index')->with('error', "No User found");
+            return redirect()->route('admin.users.index')->with('error', tr('no_user_found'));
         }
     }
 
@@ -342,7 +342,7 @@ class AdminController extends Controller {
 
             if(!$user_details) {
                 
-                throw new Exception("No User found", 101);
+                throw new Exception(tr('no_user_found'), 101);
             }
 
             $user_picture = $user_details->picture;
@@ -353,10 +353,10 @@ class AdminController extends Controller {
                 
                 delete_picture($user_picture , PROFILE_PATH_USER);
 
-                return redirect()->route('admin.users.index')->with('success', 'User Removed');  
+                return redirect()->route('admin.users.index')->with('success', tr('user_removed'));  
             }
 
-            throw new Exception("Sorry! User details could not be delated. Plese try again", 101);
+            throw new Exception(tr('user_not_removed'), 101);
 
         } catch (Exception $e) {
 
@@ -364,7 +364,7 @@ class AdminController extends Controller {
 
             $error = $e->getMessage();
 
-            return redirect()->back()->with('error', "No User found");
+            return redirect()->back()->with('error', tr('no_user_found'));
         }       
         
     }
@@ -393,7 +393,7 @@ class AdminController extends Controller {
 
             if(!$user_details) {
                 
-                throw new Exception("No User found", 101);                
+                throw new Exception(tr('no_user_found'), 101);                
             }
 
             $user_details->status = $user_details->status == APPROVED ? DECLINED : APPROVED;
@@ -402,11 +402,11 @@ class AdminController extends Controller {
 
                 DB::commit();
 
-                return redirect()->back()->with('success', 'Status Updated!'); 
+                return redirect()->back()->with('success', tr('status_updated')); 
             
             }
 
-            throw new Exception("Sorry! User Status could not change. Plese try again", 1);
+            throw new Exception(tr('user_status_not_updated'), 1);
             
         } catch (Exception $e) {
 
@@ -414,7 +414,7 @@ class AdminController extends Controller {
 
             $error = $e->getMessage();
 
-            return redirect()->back()->with('error', "No User found");
+            return redirect()->back()->with('error', tr('no_user_found'));
         } 
     }
 
@@ -486,7 +486,7 @@ class AdminController extends Controller {
 
         if(!$service_location) {
             
-            return redirect()->route('admin.service_locations.index')->with('error', "No Service Location found");
+            return redirect()->route('admin.service_locations.index')->with('error', tr('no_service_location_found'));
         }
 
         return view('admin.service_locations.view')->with('service_location', $service_location);        
@@ -561,7 +561,7 @@ class AdminController extends Controller {
 
         $service_location->save();
 
-        return redirect()->route('admin.service_locations.index')->with('success', 'Service Location Saved');
+        return redirect()->route('admin.service_locations.index')->with('success', tr('service_location_saved'));
     }
 
     /**
@@ -585,7 +585,7 @@ class AdminController extends Controller {
 
         if(!$service_location) {
             
-            return redirect()->route('admin.service_locations.index')->with('error', "No Service Location found");
+            return redirect()->route('admin.service_locations.index')->with('error', tr('no_service_location_found'));
         }
 
         return view('admin.service_locations.edit')->with('service_location', $service_location);
@@ -613,14 +613,14 @@ class AdminController extends Controller {
 
         if(!$service_location) {
             
-            return redirect()->route('admin.service_locations.index')->with('error', "No Service Location found");
+            return redirect()->route('admin.service_locations.index')->with('error', tr('no_service_location_found'));
         }
 
         delete_picture($service_location->picture, FILE_PATH_SERVICE_LOCATION);
 
         $service_location->delete();
 
-        return redirect()->route('admin.service_locations.index')->with('success', 'Service Location Removed');
+        return redirect()->route('admin.service_locations.index')->with('success', tr('service_location_removed'));
         
         
     }
@@ -645,14 +645,14 @@ class AdminController extends Controller {
 
         if(!$service_location) {
             
-            return redirect()->route('admin.service_locations.index')->with('error', "No Service Location found");
+            return redirect()->route('admin.service_locations.index')->with('error', tr('no_service_location_found'));
         }
 
         $service_location->status = $service_location->status == APPROVED ? DECLINED : APPROVED;
 
         $service_location->save();
 
-        return redirect()->back()->with('Success', 'Status updated !');
+        return redirect()->back()->with('Success', tr('status_updated'));
         
     }
 
@@ -736,7 +736,7 @@ class AdminController extends Controller {
 
         if(!$host){
 
-            return redirect()->route('admin.hosts.index')->with('error', "No Host found");
+            return redirect()->route('admin.hosts.index')->with('error', tr('no_host_found'));
             
         }
         
@@ -834,7 +834,7 @@ class AdminController extends Controller {
 
         $host->save();
 
-        return redirect()->route('admin.hosts.index')->with('success', 'Host Saved');
+        return redirect()->route('admin.hosts.index')->with('success', tr('host_saved'));
     }
 
     /**
@@ -858,7 +858,7 @@ class AdminController extends Controller {
 
         if(!$host){
 
-            return redirect()->route('admin.hosts.index')->with('error', "No Host found");
+            return redirect()->route('admin.hosts.index')->with('error', tr('no_host_found'));
             
         }
 
@@ -891,7 +891,7 @@ class AdminController extends Controller {
 
         if(!$host){
 
-            return redirect()->route('admin.hosts.index')->with('error',"No Host found");
+            return redirect()->route('admin.hosts.index')->with('error',tr('no_host_found'));
             
         }
 
@@ -899,7 +899,7 @@ class AdminController extends Controller {
 
         $host->delete();
 
-        return redirect()->route('admin.hosts.index')->with('success', 'Host Removed');
+        return redirect()->route('admin.hosts.index')->with('success', tr('host_removed'));
         
     }
 
@@ -923,14 +923,251 @@ class AdminController extends Controller {
 
         if(!$host) {
             
-            return redirect()->route('admin.hosts.index')->with('error', "No Host found");
+            return redirect()->route('admin.hosts.index')->with('error', tr('no_host_found'));
         }
 
         $host->status = $host->status == APPROVED ? DECLINED : APPROVED;
 
         $host->save();
 
-        return redirect()->back()->with('Success', 'Status updated !');
+        return redirect()->back()->with('Success', tr('status_updated'));
+        
+        
+    }
+
+
+
+    /**
+    *
+    *
+    * Static Pages Management in Admin Panel
+    *
+    */
+
+    /**
+     * @method static_pages_index()
+     * 
+     * @uses To display the list of static pages
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param NULL
+     *
+     * @return view of static pages list
+     *
+     */
+    public function static_pages_index() {
+
+        $static_pages = StaticPage::orderBy('created_at', 'desc')->paginate(10);
+
+        return view('admin.static_pages.index')->with('static_pages',$static_pages);        
+
+    }
+
+    /**
+     * @method static_pages_create()
+     * 
+     * @uses used to create the Static Page
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param NULL
+     *
+     * @return view of Create Static Page
+     *
+     */
+
+    public function static_pages_create() {
+
+        $static_page = NULL;
+
+        $page_types = ['about' , 'contact' , 'privacy' , 'terms' , 'help' , 'faq' , 'refund', 'cancellation'];
+
+        return view('admin.static_pages.create')
+                ->with('static_page' , $static_page)
+                ->with('page_types' , $page_types);
+
+    }
+
+
+    /**
+     * @method static_pages_view()
+     * 
+     * @uses used to display the view page
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param id
+     *
+     * @return view of particular Static Page
+     *
+     */
+    public function static_pages_view($id) {
+
+        $static_page = StaticPage::find($id);
+
+        if(!$static_page){
+
+            return redirect()->route('admin.static_pages.index')->with('error', tr('no_static_page_found'));
+            
+        }
+        
+        return view('admin.static_pages.view')->with('static_page', $static_page);
+    }
+
+
+   /**
+     * @method static_pages_save()
+     * 
+     * @uses To save the data of static_page
+     *
+     * @created NAVEEN S
+     *
+     * @updated 
+     *
+     * @param Request of all data
+     *
+     * @return view of static_pages index
+     *
+     */
+    public function static_pages_save(Request $request) {
+
+
+        $this->validate($request,[
+
+            'title' => 'required|min:3|max:255',
+
+            'type' => 'required|min:3|max:255',
+
+            'description' => 'required',
+
+        ]);
+;
+        if(!$request->id){
+        
+            //Create Static Page
+
+            $static_page = New StaticPage;
+
+            $static_page->unique_id = uniqid(base64_encode(str_random(60)));
+
+            $static_page->status = APPROVED;
+
+        } else {
+
+            $static_page = StaticPage::find($request->id);
+
+        }
+
+        $static_page->title = $request->title;
+        
+        $static_page->type = $request->type;
+
+        $static_page->description = $request->description;
+
+        $static_page->save();
+
+        return redirect()->route('admin.static_pages.index')->with('success', tr('page_saved'));
+    }
+
+    /**
+     * @method static_pages_edit()
+     * 
+     * @uses used to display the edit page
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return view of edit page
+     *
+     */
+
+    public function static_pages_edit($id) {
+        
+        $static_page = StaticPage::find($id);
+
+        if(!$static_page){
+
+            return redirect()->route('admin.static_pages.index')->with('error', tr('no_page_found'));
+            
+        }
+
+        $page_types = ['about' , 'contact' , 'privacy' , 'terms' , 'help' , 'faq' , 'refund', 'cancellation'];
+
+        return view('admin.static_pages.edit')
+            ->with('static_page', $static_page)
+            ->with('page_types' , $page_types);
+    
+    }
+
+
+    /**
+     * @method static_pages_delete()
+     * 
+     * @uses used to delete the user
+     *
+     * @created NAVEEN S
+     *
+     * @updated 
+     *
+     * @param integer id
+     *
+     * @return view of static_pages's index
+     *
+     */
+    public function static_pages_delete($id) {
+
+        $static_pages = StaticPage::find($id);
+
+        if(!$static_pages){
+
+            return redirect()->route('admin.static_pages.index')->with('error',tr('no_page_found'));
+            
+        }
+
+        $static_pages->delete();
+
+        return redirect()->route('admin.static_pages.index')->with('success', tr('page_removed'));
+        
+    }
+
+    /**
+     * @method static_pages_status()
+     * 
+     * @uses used to status of the host
+     *
+     * @created NAVEEN S
+     *
+     * @updated
+     *
+     * @param integer id
+     *
+     * @return view of static_page's index
+     *
+     */
+    public function static_pages_status($id) {
+
+        $static_page = StaticPage::find($id);
+
+        if(!$static_page) {
+            
+            return redirect()->route('admin.static_pages.index')->with('error', tr('no_page_found'));
+        }
+
+        $static_page->status = $static_page->status == APPROVED ? DECLINED : APPROVED;
+
+        $static_page->save();
+
+        return redirect()->back()->with('Success', tr('status_updated'));
         
         
     }
@@ -986,8 +1223,10 @@ class AdminController extends Controller {
 
         if(!$booking_details){
 
-            return redirect()->route('admin.bookings.index')->with('error', "No Booking found");            
+            return redirect()->route('admin.bookings.index')->with('error', tr('no_booking_found'));            
         }
+
+        $booking_details->rating = $booking_details->users_review()->first()->ratings ?? 0;
         
         return view('admin.bookings.view')->with('booking_details', $booking_details);
     }
@@ -1073,7 +1312,7 @@ class AdminController extends Controller {
              
             $error = $e->getMessage();
 
-            return redirect()->route('admin.providers.index')->with('error', 'Provider Not Found');
+            return redirect()->route('admin.providers.index')->with('error', tr('no_provider_found'));
         }
 
     }
@@ -1166,7 +1405,7 @@ class AdminController extends Controller {
 
         $provider->save();
 
-        return redirect(route('admin.providers.index'))->with('success', 'Provider Saved');
+        return redirect(route('admin.providers.index'))->with('success', tr('provider_saved'));
        
     }
 
@@ -1190,7 +1429,7 @@ class AdminController extends Controller {
 
         if(!$provider) {
 
-            return redirect()->route('admin.providers.index')->with('error', 'Provider Not Found');            
+            return redirect()->route('admin.providers.index')->with('error', tr('no_provider_found'));            
         }
 
         return view('admin.providers.view')->with('provider', $provider);
@@ -1216,7 +1455,7 @@ class AdminController extends Controller {
 
         if(!$provider) {
 
-            return redirect()->route('admin.providers.index')->with('error','Provider Not Found');
+            return redirect()->route('admin.providers.index')->with('error',tr('no_provider_found'));
 
         }
 
@@ -1224,7 +1463,7 @@ class AdminController extends Controller {
 
         $provider->delete();
 
-        return redirect(route('admin.providers.index'))->with('success', 'Provider Removed');
+        return redirect(route('admin.providers.index'))->with('success', tr('provider_removed'));
     }
 
     /**
@@ -1247,15 +1486,14 @@ class AdminController extends Controller {
 
         if(!$provider) {
             
-            return redirect()->route('admin.providers.index')->with('error',"No Provider
-             found");
+            return redirect()->route('admin.providers.index')->with('error',tr('no_provider_found'));
         }
 
         $provider->status = $provider->status == APPROVED ? DECLINED : APPROVED;
 
         $provider->save();
 
-        return redirect()->back()->with('success', 'Status Updated !');
+        return redirect()->back()->with('success', tr('status_updated'));
         
         
     }
@@ -1491,9 +1729,9 @@ class AdminController extends Controller {
         } else
         {
 
-            return redirect()->back()->with('error', 'Wrong Old password!');
+            return redirect()->back()->with('error', tr('wrong_old_password'));
         }
-        return redirect()->route('admin.profile.view',$admin->id)->with('success', 'Password changed successfully');
+        return redirect()->route('admin.profile.view',$admin->id)->with('success', tr('password_changed'));
 
     }
 

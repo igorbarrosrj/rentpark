@@ -146,3 +146,80 @@ function tr($key , $additional_key = "" , $lang_path = "messages.") {
     return \Lang::choice('messages.'.$key, 0, Array('other_key' => $additional_key), $locale);
 }
 
+
+/**
+ * @method booking_status()
+ * 
+ * @uses To display the booking value
+ *
+ * @created Naveen
+ *
+ * @updated 
+ *
+ * @param image and destination
+ *
+ * @return 
+ *
+ */
+
+function booking_status($status) {
+
+    switch($status){
+    
+        case(BOOKING_NONE):
+          return "<td><div class='text-primary'>".tr('none')."</div></td>";
+        break;
+
+        case(BOOKING_CREATED);
+          return "<td><div class='text-info'>".tr('booking_created')."</div></td>";
+        break;
+
+        case(BOOKING_CHECKIN):
+           return "<td><div class='text-primary'>". tr('checkin') ."</div></td>";
+        break;
+
+        case(BOOKING_CHECKOUT):
+          return "<td><div class='text-primary'>". tr('checkout') ."</div></td>";
+        break;
+
+        case(BOOKING_COMPLETED):
+          return "<td><div class='text-success'>". tr('completed') ."</div></td>";
+        break;
+
+        case(BOOKING_USER_CANCEL):
+          return "<td><div class='text-danger'>". tr('user_cancel') ."</div></td>";
+        break;
+
+        case(BOOKING_PROVIDER_CANCEL):
+          return "<td><div class='text-danger'>". tr('provider_cancel') ."</div></td>";
+        break;
+
+    }
+}
+
+/**
+ * @method time_show()
+ *
+ * @uses To show the hour
+ *
+ * @created Naveen
+ *
+ * @updated 
+ *
+ * @param integer hour
+ *
+ * @return string hour
+ */
+
+function time_show($hour = 0.00) {
+
+    if($hour <= 1) {
+
+        return $hour." hour";
+
+    } else {
+
+        return round($hour,2)." hours";
+    }
+
+}

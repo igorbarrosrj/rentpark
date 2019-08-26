@@ -46,7 +46,7 @@
                                 
                                 <label class="password">{{ tr('password') }} *</label>
 
-                                <input type="password" name="password" class="form-control" placeholder="{{ tr('password') }}" required>
+                                <input type="password" name="password" class="form-control" placeholder="{{ tr('password') }}"  value="{{ old('password') }}" required>
                                 
                             </div>
 
@@ -54,7 +54,7 @@
                                 
                                 <label class="cpassword">{{ tr('confirm_password') }} *</label>
 
-                                <input type="password" name="password_confirmation" class="form-control" placeholder="{{ tr('confirm_password') }}" required>
+                                <input type="password" name="password_confirmation" class="form-control" placeholder="{{ tr('confirm_password') }}" value="{{ old('password_confirmation') }}" required>
                                 
                             </div>
 
@@ -127,17 +127,6 @@
 
                             </div>
 
-                            <div class="form-group col-md-6 col-lg-6">
-                                
-                                <label class="gender">{{ tr('gender') }}</label>
-
-                                <select name="gender" class="form-control">
-                                    <option value="Male" @if($provider!=NULL){{ $provider->gender === 'Male' ? 'selected' : '' }}@endif>{{ tr('male') }}</option>
-                                    <option value="Female" @if($provider!=NULL) {{ $provider->gender === 'Female' ? 'selected' : '' }}@endif>{{ tr('female') }}</option>
-                                    <option value="Others" @if($provider!=NULL) {{ $provider->gender === 'Others' ? 'selected' : '' }}@endif>{{ tr('others') }}</option>
-                                </select>
-
-                            </div>
                         </div>
 
                         <input type="submit" name="Submit" value="{{ tr('submit') }}" class="btn btn-primary">

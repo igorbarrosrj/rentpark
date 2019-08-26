@@ -77,6 +77,22 @@
                   </ul>
                 </li>
 
+                <!-- Static Pages -->
+                <li class="treeview">
+                  <a href="#">
+                    <i class="fa fa-file"></i>
+                    <span>{{ tr('static_pages') }}</span>
+                    
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                     <li><a href="{{ route('admin.static_pages.index') }}"><i class="fa fa-circle-o"></i> {{ tr('list_static_pages') }}</a></li>
+                     <li><a href="{{ route('admin.static_pages.create') }}"><i class="fa fa-circle-o"></i> {{ tr('add_static_page') }} </a></li>
+                  </ul>
+                </li>
+
                 <!-- Booking Management -->
 
                  <li> <a class="waves-effect waves-dark" href="{{ route('admin.bookings.index') }}" aria-expanded="false"><i class="fa fa-calendar-check-o"></i><span class="hide-menu">{{ tr('bookings') }}</span></a>

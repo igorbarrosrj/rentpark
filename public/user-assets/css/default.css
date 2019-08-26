@@ -213,6 +213,13 @@ body{
 }
 
 .active{
+  /*border: 1px solid var(--primary-color);
+  border-radius:19px;
+  padding: 0.5em 2em;*/
+  text-align:center;
+}
+
+ .link-active{
   border: 1px solid var(--primary-color);
   border-radius:19px;
   padding: 0.5em 2em;
@@ -336,7 +343,11 @@ button[type=click_option_btn]{
   font-weight:500;
   line-height:2.8rem;
 }
- 
+
+.a-color { 
+
+  color: var(--secondary-color);
+}
 button[type=click_option_btn]:hover{
   background-color:var(--nonary-color);
 }
@@ -368,7 +379,7 @@ button[type=click_option_btn]:hover{
 input[type=text]{
   background-color:var(--secondary-color); 
   max-width:100%;
-  min-height:5rem;
+/*  min-height:5rem;*/
   border: 1px solid var(--secondary-color);
   padding: 10px;
   margin-top:1em;
@@ -379,6 +390,22 @@ input[type=text]{
   line-height:3rem;
   text-indent:0.5em;
 }
+
+input[type=text11]{
+  background-color:var(--secondary-color); 
+  max-width:100%;
+  min-height:5rem ;
+  border: 1px solid var(--secondary-color);
+  padding: 10px;
+  margin-top:1em;
+  border-radius: 4px;
+  font-family: Nunito,Avenir,sans-serif;
+  font-size:1.3rem;
+  font-weight:500;
+  line-height:3rem;
+  text-indent:0.5em;
+}
+
 
 input[type=text1]{
   background-color:var(--secondary-color); 
@@ -514,6 +541,10 @@ input[type=text2]{
   box-shadow: 2px 2px 10px 0 rgba(0,0,0,.04);
 }
 
+.container{
+  min-height: 23rem;
+}
+
 .container h1{
   font-family: Nunito,Avenir,sans-serif;
   font-size:2.1rem;
@@ -523,6 +554,17 @@ input[type=text2]{
   text-rendering: optimizeLegibility;
   line-height:1.4;
   margin:5rem 24rem;
+  display:block;
+}
+
+.container .booking{
+  font-family: Nunito,Avenir,sans-serif;
+  font-size:2.1rem;
+  color:var(--primary-color);
+  font-style: normal;
+  font-weight:400;
+  text-rendering: optimizeLegibility;
+  line-height:1.4;
   display:block;
 }
 
@@ -1040,7 +1082,6 @@ button[type=submit_btn2]:hover{
 /*Footer_Content_start*/
 
 .page-footer{
-  min-width:100%;
   min-height:20rem;
   background-color:var(--secondary-color);
   border-top: 1px solid hsla(0,0%,60%,.2);
@@ -1144,13 +1185,15 @@ button[type=submit_btn2]:hover{
 
 .booking_management_container{
   background-color: var(--senary-color);  
+  min-height: 40rem;
 }
 
 .booking_management_container .container{
-  margin: 0 0 2rem;
   padding:7rem;
   padding-bottom:0rem;
   min-width: 100%;
+  min-height: 40rem;
+
 }
 
 .booking_management_container .container .row .col-sm-6{
@@ -1205,6 +1248,7 @@ button[type=submit_btn2]:hover{
   text-align: left; 
 }
 
+
 /*Choose_account_CSS*/
 
 .choose_account{
@@ -1223,7 +1267,7 @@ button[type=submit_btn2]:hover{
   text-decoration: none;
 }
 
-.img{
+.choose_account #login .container #login-row #login-column .img{
   width:50px;
   height:50px;
   margin:3.5rem 2.5rem;
@@ -1389,9 +1433,9 @@ button[type=submit_btn2]:hover{
 }
 
 .forget_password #login .container #login-row #login-column #login-box .img{
-  min-width:2.5%;
-  min-height:5%;
-  margin:4rem 1.8rem;
+  width:50px;
+  height:50px;
+  margin:2rem 1.8rem;
 }
 
 .forget_password #login .container #login-row #login-column #login-box .h5{
@@ -1510,9 +1554,9 @@ button[type=submit_btn2]:hover{
 }
 
 .signup #login .container #login-row #login-column #login-box .img{
-  min-width:2.5%;
-  min-height:5%;
-  margin:4rem 1.8rem;
+  width:50px;
+  height:50px;
+  margin:2rem 1.8rem;
 }
 
 .signup #login .container #login-row #login-column #login-box .h5{
@@ -1619,7 +1663,7 @@ button[type=submit_btn2]:hover{
   font-family: Nunito,Avenir,sans-serif;
   font-weight: 400;
   text-rendering: optimizeLegibility;
-  margin:3rem 0; 
+  margin:2rem 0; 
   color:var(--primary-color);
   text-decoration: none;
   font-size:1.1em; 
@@ -1640,7 +1684,7 @@ button[type=submit_btn2]:hover{
   color:var(--secondary-color);
   cursor: pointer;
   font-size:1.1em;
-  margin:1rem 0rem;
+  margin:0.8rem 0rem;
 }
 
 .signup button[type=signup_submit]:hover{
@@ -1671,9 +1715,9 @@ button[type=submit_btn2]:hover{
 }
 
 .login_container #login .container #login-row #login-column #login-box .img {
-  min-width:2.5%;
-  min-height:5%;
-  margin:4rem 1.8rem;
+  width:50px;
+  height:50px;
+  margin:2rem 1.8rem;
  }
 
 .login_container #login .container #login-row #login-column #login-box .h5 {
@@ -1794,6 +1838,7 @@ button[type=submit_btn2]:hover{
 
 .hosts .container{
   min-width: 100%;
+  min-height: 40rem;
   margin:0rem 1rem 4rem 1rem;
   padding:7rem 0;
   margin-bottom: 0;
@@ -1819,7 +1864,7 @@ button[type=submit_btn2]:hover{
 
 .hosts .container .row .col-md-4 .img{
   min-width:26.7rem;
-  max-height:13rem;
+  height:208px;
 }
 
 .hosts .container .row .col-md-4 .h2{
@@ -1857,7 +1902,7 @@ button[type=submit_btn2]:hover{
 .hosts .container .row .col-md-4 .b{
   color:var(--quinary-color);
   font-family: Avenir;
-  font-size: 0.9em;
+  font-size: 1.4em;
   line-height: 1;
   padding-left:0.2rem;
 }
@@ -1942,6 +1987,7 @@ button[type=submit_btn2]:hover{
   margin: 0rem 5rem 2rem;
   padding:5rem 0;
   min-width:90%;
+  min-height: 40rem;
   padding-bottom:0;
   background-color: var(--senary-color);
 }
@@ -1963,8 +2009,8 @@ button[type=submit_btn2]:hover{
 }
 
 .single_host .container .row .col-sm-6 .img{
-  max-width:20rem;
-  min-height:5rem;
+  width:320px;
+  height:210px;
   border-radius:25px;
   margin:0 4.5rem;
 }
@@ -2002,9 +2048,22 @@ button[type=submit_btn2]:hover{
 
 .single_host .container .row .col-sm-6 .Description{
   max-width:60%;
-  font-size:0.68rem;
-  margin:1em 7.3em;
+  font-size:0.9rem;
+  margin:1em 0.3em 1em 7.3em;
 }
+
+.single_host .container .row .col-sm-6 .address{
+  max-width:60%;
+  font-size:1rem;
+  margin:1em 0.3em 1em 7.3em;
+}
+
+.single_host .container .row .col-sm-6 .rating{
+  max-width:100%;
+  font-size:1.5rem;
+  margin:0.8em 0.3em 0.8em 4.8em;
+}
+
 .single_host .container .row .col-sm-6 .span{
   font-size: .75rem;
   color: var(--denary-color);
@@ -2027,15 +2086,29 @@ button[type=submit_btn2]:hover{
 .single_host .container .row .col-sm-6 .b{
   color:var(--quinary-color);
   font-family: Avenir;
-  font-size:0.9em;
+  font-size:1.5rem;
   line-height: 1;
-  padding-left:0.2em;
+  padding-left:0.3em;
+  padding-top: 5px;
 }
 
-.single_host .col-sm-5 .form-row .col input[type=text6]{
-  max-width:50%;
-  min-height:3rem;
-  margin:4rem 0;
+.single_host  input[type=text]{
+  height:50px;  
+  margin:1rem 0;
+}
+
+.single_host input[type=text]::placeholder{
+  background-color:var(--secondary-color); 
+  color: var(--default-placeholder-color);
+  border: 1px solid var(--secondary-color);
+  padding: 10px;
+  border-radius: 4px;
+  font-family: Nunito,Avenir,sans-serif;
+  font-size:1rem;
+  font-weight:500;
+  line-height:3rem;
+  text-indent:0.5em;
+
 }
 
 .single_host .col-sm-5 .form-row .col input[type=text7]{
@@ -2081,6 +2154,17 @@ button[type=submit_btn2]:hover{
   margin: 0 9rem 2rem;
   padding:5rem 0rem 2rem;
   min-width: 100%;
+}
+
+.container .profile{
+  font-family: Nunito,Avenir,sans-serif;
+  font-size:2.1rem;
+  color:var(--primary-color);
+  font-style: normal;
+  font-weight:400;
+  text-rendering: optimizeLegibility;
+  line-height:1.4;
+  display:block;
 }
 
 .profile .container .row .col-sm-5{
@@ -2166,10 +2250,10 @@ button[type=submit_btn2]:hover{
 
 .update_profile .container .row .col-lg-6{
   background-color:var(--secondary-color);
-  padding:2rem 1rem;
-  margin:3rem 0 auto;
-  min-width:75%;
-  min-height:38rem;
+  padding:1rem 1rem;
+  margin:0rem 0 auto;
+  min-width:50%;
+  /*min-height:38rem;*/
 }
 
 .update_profile .container .row .col-lg-6 h2{
@@ -2184,7 +2268,7 @@ button[type=submit_btn2]:hover{
   border:none !important;
 }
 
-.update_profile .col-sm-5 input[type=text8]::placeholder{
+.update_profile  input[type=password]::placeholder{
   color:var(--default-placeholder-color);
   font-size:0.8em;
   font-weight:300;
@@ -2243,7 +2327,7 @@ button[type=submit_btn2]:hover{
 
 .terms #login .container #login-row #login-column #login-box{
   max-width:63rem;
-  min-height:40rem;
+  min-height:30.5rem;
   background-color:var(--secondary-color);
   margin:7rem 3rem;
   padding:1rem 2rem;
@@ -2274,6 +2358,10 @@ button[type=submit_btn2]:hover{
 }
 
 #userDropdown {
-  width: 50px;
   padding-right: 20px;
 }
+
+.booking-pos { 
+
+  position: sticky;
+ }

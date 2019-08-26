@@ -27,4 +27,9 @@ class Booking extends Model
     public function provider_review(){
         return $this->hasOne('App\ProviderReview');
     } 
+
+    public function users_review() {
+
+        return $this->hasMany('App\UsersReview');
+    }
 }

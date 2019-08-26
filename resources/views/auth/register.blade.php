@@ -11,7 +11,8 @@
                 <div id="login-column" class="col-md-12">
                     <div id="login-box" class="col-md-12">
                         <a href="#"><img class="img" src="{{ setting()->get('favicon')}}"></a>
-                        <h5 class="h5">Create an account to continue</h5>
+                        @include('notifications.notification')
+                        <h5 class="h5">{{ tr('create_account') }}</h5>
 
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
@@ -86,7 +87,7 @@
                             </div>
 
                             <div>
-                                <input type="reset" class="a1" value="{{ tr('reset') }}" >
+                                <input type="reset"  class="a1" value="{{ tr('reset') }}" >
                                 
                             </div>
 

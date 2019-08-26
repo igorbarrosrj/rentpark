@@ -3981,7 +3981,7 @@ Table Cell
   display: table;
   width: 100%; }
 
-.table.no-border tbody td {
+.table .no-border tbody td {
   border: 0px; }
 
 .cell {

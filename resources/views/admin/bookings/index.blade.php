@@ -81,37 +81,7 @@
 
 										<td>{{ $booking_details->checkin }}</td>
 										<td>{{ $booking_details->checkout }}</td>										
-								       	@switch($booking_details->status)
-
-								        	@case(BOOKING_NONE)
-								         	<td><div class="label label-primary">{{ tr('none') }}</div></td>
-								        	@break
-
-								        	@case(BOOKING_CREATED)
-								         	<td><div class="label label-info">{{ tr('booking_created') }}</div></td>
-								        	@break
-
-								        	@case(BOOKING_CHECKIN)
-								         	<td><div class="label label-primary">{{ tr('checkin') }}</div></td>
-								        	@break
-
-								        	@case(BOOKING_CHECKOUT)
-								         	<td><div class="label label-primary">{{ tr('checkout') }}</div></td>
-								        	@break
-
-								        	@case(BOOKING_COMPLETED)
-								         	<td><div class="label label-success">{{ tr('completed') }}</div></td>
-								        	@break
-
-								        	@case(BOOKING_USER_CANCEL)
-								         	<td><div class="label label-danger">{{ tr('user_cancel') }}</div></td>
-								        	@break
-
-								        	@case(BOOKING_PROVIDER_CANCEL)
-								         	<td><div class="label label-danger">{{ tr('provider_cancel') }}</div></td>
-								        	@break
-
-								       	@endswitch
+								       	{!! booking_status($booking_details->status) !!}
 
 										<td><a href="{{ route('admin.bookings.view',$booking_details->id) }}" class="btn btn-info">{{ tr('view') }}</a></td>
 							        </tr>

@@ -177,7 +177,7 @@ class ProviderController extends Controller
 
         if(!$host){
 
-            return redirect()->route('provider.hosts.index')->with('error', "No Host found");
+            return redirect()->route('provider.hosts.index')->with('error', tr('no_host_found'));
             
         }
         
@@ -275,7 +275,7 @@ class ProviderController extends Controller
 
         $host->save();
 
-        return redirect()->route('provider.hosts.index')->with('success', 'Host Saved');
+        return redirect()->route('provider.hosts.index')->with('success', tr('host_saved'));
     }
 
     /**
@@ -302,7 +302,7 @@ class ProviderController extends Controller
 
         if(!$host){
 
-            return redirect()->route('provider.hosts.index')->with('error', "No Host found");
+            return redirect()->route('provider.hosts.index')->with('error', tr('no_host_found'));
             
         }
 
@@ -337,7 +337,7 @@ class ProviderController extends Controller
 
         if(!$host){
 
-            return redirect()->route('provider.hosts.index')->with('error',"No Host found");
+            return redirect()->route('provider.hosts.index')->with('error',tr('no_host_found'));
             
         }
 
@@ -345,7 +345,7 @@ class ProviderController extends Controller
 
         $host->delete();
 
-        return redirect()->route('provider.hosts.index')->with('success', 'Host Removed');
+        return redirect()->route('provider.hosts.index')->with('success', tr('host_removed'));
         
     }
 
@@ -379,7 +379,7 @@ class ProviderController extends Controller
 
         if(!$provider_details){
 
-            return redirect()->route('provider.profile.view')->with('error', "No Profile found");
+            return redirect()->route('provider.profile.view')->with('error', tr('no_profile_found'));
             
         }
         
@@ -409,7 +409,7 @@ class ProviderController extends Controller
 
         if(!$provider_details){
 
-            return redirect()->route('provider.profile.view')->with('error', "No Profile found");
+            return redirect()->route('provider.profile.view')->with('error', tr('no_profile_found'));
             
         }
 
@@ -441,7 +441,7 @@ class ProviderController extends Controller
 
         if(!$provider_details){
 
-            return redirect()->route('provider.profile.view')->with('error', "No Profile found");
+            return redirect()->route('provider.profile.view')->with('error', tr('no_profile_found'));
             
         }
 
@@ -489,11 +489,9 @@ class ProviderController extends Controller
 
         $provider_details->languages = $request->languages?: "";
 
-        $provider_details->gender = $request->gender;
-
         $provider_details->save();
 
-        return redirect()->route('provider.profile.view')->with('success', 'Profile Saved');
+        return redirect()->route('provider.profile.view')->with('success', tr('profile_saved'));
     }
 
 
@@ -519,7 +517,7 @@ class ProviderController extends Controller
 
         if(!$provider_details){
 
-            return redirect()->route('provider.profile.view')->with('error',"No Profile found");
+            return redirect()->route('provider.profile.view')->with('error',tr('no_profile_found'));
             
         }
 
@@ -551,7 +549,7 @@ class ProviderController extends Controller
 
         if(!$provider_details){
 
-            return redirect()->route('provider.profile.view')->with('error',"No Profile found");
+            return redirect()->route('provider.profile.view')->with('error',tr('no_profile_found'));
             
         }
           
@@ -570,14 +568,12 @@ class ProviderController extends Controller
 
              return redirect()->back()->with('error', "Old Password is wrong");
         }
-            
-        $password = \Hash::make($request->password);
 
-        $provider_details->password = $password;        
+        $provider_details->password = \Hash::make($request->password);      
 
         $provider_details->save();
 
-        return redirect()->route('provider.profile.view')->with('success', 'Password Changed');
+        return redirect()->route('provider.profile.view')->with('success', tr('password_changed'));
         
     }
 
@@ -604,7 +600,7 @@ class ProviderController extends Controller
 
         if(!$provider_details){
 
-            return redirect()->route('provider.profile.view')->with('error', "No Profile found");
+            return redirect()->route('provider.profile.view')->with('error', tr('no_profile_found'));
             
         }
 
@@ -612,7 +608,7 @@ class ProviderController extends Controller
 
         $provider_details->delete();
 
-        return redirect()->route('provider.login')->with('success', 'Account Deleted');
+        return redirect()->route('provider.login')->with('success', tr('account_deleted'));
         
     }
 
@@ -671,10 +667,12 @@ class ProviderController extends Controller
 
         if(!$booking){
 
-            return redirect()->route('provider.bookings.index')->with('error', "No Booking found");
+            return redirect()->route('provider.bookings.index')->with('error', tr('no_booking_found'));
             
         }
-        
+
+        $booking->rating = $booking->provider_review()->first()->review ?? 0;
+
         return view('provider.bookings.view')->with('booking', $booking);
     }
 
@@ -701,7 +699,7 @@ class ProviderController extends Controller
 
         if(!$booking){
 
-            return redirect()->route('provider.bookings.index')->with('error', "No Booking found");
+            return redirect()->route('provider.bookings.index')->with('error', tr('no_booking_found'));
             
         }
 
@@ -709,7 +707,7 @@ class ProviderController extends Controller
 
         $booking->save();
 
-        return redirect()->back()->with('success','Status Updated !');
+        return redirect()->back()->with('success',tr('status_updated'));
       
     }
 
@@ -736,14 +734,14 @@ class ProviderController extends Controller
 
         if(!$booking){
 
-            return redirect()->route('provider.bookings.index')->with('error', "No Booking found");
+            return redirect()->route('provider.bookings.index')->with('error', tr('no_booking_found'));
             
         }
 
 
         if($booking->provider_review()->first()!=NULL) {
 
-            return redirect()->back()->with('error', "Already Review Updated");
+            return redirect()->back()->with('error', tr('already_review_updated'));
         }
 
          $this->validate($request,[
@@ -774,7 +772,7 @@ class ProviderController extends Controller
 
         $provider_review->save();
 
-        return redirect()->back()->with('success',"Review Updated");
+        return redirect()->back()->with('success',tr('review_updated'));
         
     }
 

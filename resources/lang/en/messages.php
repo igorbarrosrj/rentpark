@@ -81,6 +81,10 @@ return array(
  	'no_user_found' => 'No User Found',
  	'no_provider_found' => 'No Provider Found',
 
+ 	'provider_saved' => 'Provider Saved',
+ 	'provider_removed'=> 'Provider Removed',
+
+
  	/******************** ADMIN PANEL************/
 
  	'view_users' => 'View Users',
@@ -175,6 +179,38 @@ return array(
 
  	'admin_data' => 'Admin Data',
 
+ 	'list_static_pages' => 'List Static Pages',
+ 	'add_static_page' => 'Add Static Page',
+ 	'view_static_pages' => 'View Static Pages',
+ 	'no_static_page_found' => 'No Static Page Found',
+ 	'static_page_detail' => 'Static Page Detail',
+ 	'static_page_name' => 'Static Page Name',
+ 	'static_page_type' => 'Static Page Type',
+ 	'title' => 'Title',
+ 	'term' => 'Terms',
+ 	'privacy' => 'Privacy',
+
+ 	'account_created' => 'You account is created',
+ 	'account_activation' => 'Account Activation',
+ 	'user_saved' => 'User Saved',
+ 	'user_not_saved' => 'Sorry! User Details could not be saved, Please try again',
+ 	'user_removed' => 'User Removed',
+ 	'user_not_removed' => 'Sorry! User details could not be deleted. Plese try again',
+ 	'status_updated' => 'Status Updated!',
+ 	'user_status_not_updated' => 'Sorry! User Status could not change. Plese try again',
+
+ 	'service_location_saved' => 'no_service_location_found',
+ 	'service_location_removed' => 'Service Location Removed',
+
+ 	'host_saved' => 'Host Saved',
+ 	'host_removed' => 'Host Removed',
+ 	'page_saved' => 'Page Saved',
+ 	'no_page_found' => 'No Page Found',
+ 	'page_removed' => 'Page Removed',
+ 	
+ 	'wrong_old_password' => 'Wrong Old password!',
+ 	'password_changed' => 'Password changed successfully',
+
  	/******************** PROVIDER PANEL************/
 
  	'hosts_available' => 'Hosts Available',
@@ -232,6 +268,13 @@ return array(
  	'provider_password' => 'Provider Password',
  	'reset_password' => 'Reser Password',
 
+ 	'no_profile_found' => 'No Profile Found',
+ 	'profile_saved' => 'Profile Saved',
+
+ 	'account_deleted' => 'Account Deleted',
+ 	'already_review_updated' => 'Already Review Updated',
+ 	'review_updated' => 'Review Updated',
+
  	/**************** USER PANEL ************/
 
  	'register_info_1' => 'Please choose a secure password (at least 6 characters)',
@@ -241,13 +284,12 @@ return array(
  	'privacy_policy' => 'Privacy Policy',
  	'reset' => 'Reset',
  	'login_info' => 'Welcome back! Let\'s get you signed in.',
- 	'reset_info' => 'Enter email or phone number to reset your password',
+ 	'reset_info' => 'Enter email to reset your password',
 
- 	'copyright' => 'Copyright JustPark 2019',
+ 	'copyright' => 'Copyright RentPark 2019',
  	'sitemap' => 'Site map',
  	'cancellation_policy' => 'Cancellation Policy',
 
- 	'term' => 'Terms & Conditions',
  	'license' => 'Licensing Policy',
  	'license_info' => 'The Bootstrap themes are released under the GNU General Public License v2 or later. You can use all our themes for personal and commercial use. Please go through the licensing policy page for licensing details.',
  	'delievery' => 'Delivery',
@@ -258,6 +300,91 @@ return array(
  	'browser_info' => 'We are solely concerned with providing the best possible quality in products to our users. Thus, we make it sure that our themes and templates are compatible across most major browsers including the latest version of modern web browsers such as Safari, Firefox, Internet explorer 9+ and Chrome.',
  	'updates' => 'Updates',
  	'updates_info' => 'We provide our license holders who have an active and valid subscription and licence key with one click updates. As long as the license key generated from the purchase is valid and active, you can get access to the updates. We have provision of updates for a 1 year time period.',
+
+ 	'on' => 'on',
+ 	'is' => 'is',
+ 	'space_name' => 'Space Name',
+ 	'mode_of_payment' => 'Mode of Payment',
+ 	'cod' => 'Cash on Delievery',
+ 	'book_now' => 'Book Now',	
+ 	'per_hour_price' => 'per Hour Price',
+ 	'available_spaces' => 'Available Spaces',
+ 	'duration' => 'Duration',
+ 	'no_location_available' => 'No Location Available',
+ 	'cancelled_date' => 'Cancelled Date',
+ 	'booking_cancel' => 'Booking Cancel',
+
+ 	'booking_delete' => 'Are you want to cancel the booking?',
+
+ 	'total' => 'Total',
+ 	'user_profile' => 'User Profile',
+ 	'checkin_confirm' => 'Are you sure Check-in ? ',
+ 	'checkout_confirm' => 'Are you sure Check-out ? ',
+
+ 	'find_parkings' => 'Find parking in seconds',
+ 	'choose_spaces_info' => 'Choose from millions of available spaces, or reserve your space in advance. Join over 2.5 million drivers enjoying easy parking.',
+ 	'hourly' => 'HOURLY / DAILY',
+ 	'monthly' => 'MONTHLY',
+ 	'parking_at' => 'PARKING AT',
+ 	'show_parking_spaces' => 'Show parking spaces',
+ 	'Parking made easy' => 'Parking made easy',
+ 	'whenever_whereever' => 'Wherever, whenever',
+ 	'choose_millions_across'=> 'Choose from millions of spaces across',
+ 	'the_uk' => 'the UK',
+ 	'find_your_best_option' => 'Find your best option for every car',
+ 	'journey' => 'journey',
+ 	'piece_of_mind' => 'Peace of mind',
+ 	'view_information_on' => 'View information on availability,price ',
+ 	'and_restrictions' => 'and restrictions',
+ 	'reserve_in_advance' => 'Reserve in advance at over 45,000+ locations',
+ 	'seemless_experience' => 'Seamless experience',
+ 	'pay_for_rentpark' => 'Pay for RentPark spaces via the app or website',
+
+ 	'follow_easy_directions' => 'Follow easy directions and access instructions',
+ 	'download_the' => 'Download the ',
+ 	'uks_favourite' => 'UK\'s favourite',
+ 	'parking_app' => 'parking app',
+ 	'rated_5_stars' => 'Rated 5 stars with an average satisfaction rating of 96%, JustPark is the UK’s favourite 
+            parking service. But don’t just take our word for it – check out some of the latest customer
+            reviews below for our London parking spaces.',
+    'enter_email_address_to_download' => 'Enter your email address below to receive a one-time text message with a link to download the free RentPark app.',
+
+    'send_link' => 'Send Link',
+
+    'or_download_from' => 'OR DOWNLOAD FROM:',
+    'rent_out_parking' => 'Rent out your parking space',
+    'make_easy_tax_free' => 'Make easy tax free money by renting out your parking space. It‘s free 
+            to list and only takes a few minutes to get up and running.',
+    'learn_how_to_earn_today' => 'Learn how to earn today',
+    'what' => 'What',
+    'are_saying' => 'are Saying',
+    'dont_just_take' => 'Don’t just take our word for it – check out some of the latest',
+    'customer_reviews_for_london' => 'customer reviews for our London parking spaces',
+    'simple_and_easy_to_use' => 'Simple and easy-to-use app, perfect for my commute into work.Saves on stress of having to find a space in the morning in such a difficult area to find parking.',
+    'car_park_management' =>'Car park management',
+    'maximised_yield_of_app' => 'Maximise yield from underused car parks and vacant land, or transform payments with the UK’s favourite parking app.',
+    'learn_about_solution'=> 'Learn about our solution',
+    'parking_made_easy' => 'Parking Made Easy',
+    'submit_review' => 'Submit Review of Place',
+    'static_pages' => 'Static Pages',
+    'refund' => 'Refund',
+    'cancellation' => 'Cancellation',
+    'contact' => 'Contact',
+    'faq' => 'FAQ',
+    'help' => 'Help',
+    'type' => 'Type',
+    'static_page_decline_confirmation' => 'Are you sure want to decline the page',
+    'static_page_delete_confirmation' => 'Are you sure want to delete the page',
+    'edit_static_page' => 'Edit Static Page',
+    'static_page_data' => 'Static Page Data',
+
+    'cancellation_info' => 'This is Cancellation',
+    'terms_info' => 'This is terms',
+    'privacy_info' => 'This is privacy',
+
+    'checkin_completed' => 'Checkin Completed',
+    'checkout_completed' => 'Checkout Completed',
+    'select_page_type' => 'Select Page Type',
 
 	/*************** SETTINGS ****************/
 

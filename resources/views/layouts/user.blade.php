@@ -6,8 +6,6 @@
 <body>
 
 	@include('layouts.users.header')
-
-	@include('notifications.notification')
 	
 	@yield('content')
 
@@ -45,5 +43,6 @@
 	      </div>
 	    </div>
 	  </div>
+
 </body>
 </html>

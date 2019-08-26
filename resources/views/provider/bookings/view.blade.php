@@ -113,41 +113,11 @@
 
                   <tr>
                     <td>{{ tr('status') }}</td>
-                    @switch($booking->status)
-
-                     @case(BOOKING_NONE)
-                          <td><div class="text-primary">{{ tr('none') }}</div></td>
-                        @break
-
-                        @case(BOOKING_CREATED)
-                          <td><div class="text-info">{{ tr('booking_created') }}</div></td>
-                        @break
-
-                        @case(BOOKING_CHECKIN)
-                          <td><div class="text-primary">{{ tr('checkin') }}</div></td>
-                        @break
-
-                        @case(BOOKING_CHECKOUT)
-                          <td><div class="text-primary">{{ tr('checkout') }}</div></td>
-                        @break
-
-                        @case(BOOKING_COMPLETED)
-                          <td><div class="text-success">{{ tr('completed') }}</div></td>
-                        @break
-
-                        @case(BOOKING_USER_CANCEL)
-                          <td><div class="text-danger">{{ tr('user_cancel') }}</div></td>
-                        @break
-
-                        @case(BOOKING_PROVIDER_CANCEL)
-                          <td><div class="text-danger">{{ tr('provider_cancel') }}</div></td>
-                        @break
-
-                    @endswitch
-
+                    
+                    {!! booking_status($booking->status) !!}
                     
                   </tr> 
-                  @if($booking->status==BOOKING_CHECKOUT)
+                  @if($booking->status==BOOKING_COMPLETED)
                   <tr>
                     <td>{{ tr('review') }}</td>
 
@@ -241,25 +211,9 @@
 
 
                         @if($booking->provider_review()->first()!=NULL)                           
-                          <div class="rating">
-                                <label>
-                                  
-                                  <input type="radio" name="stars"  checked/>
-                                  @for($i=0; $i< $booking->provider_review()->first()->review; $i++)
-                                    <span class="icon">★</span>
-                                  @endfor
-                                  
-                                </label>
-                                <label> 
-                                  <span class="icon">★</span>
-                                  <span class="icon">★</span>
-                                  <span class="icon">★</span>
-                                  <span class="icon">★</span>
-                                  <span class="icon">★</span>
-                                </label>
-                              </div>
 
-                            @endif
+                              <div class="booking-rating"></div>
+                          @endif
                       </td>
                     </tr>
 
@@ -283,4 +237,21 @@
         </div>
 
   <!-- /.container-fluid -->
+
+  <script src="{{ asset('provider-assets/vendor/jquery/jquery.min.js')}}"></script>
+
+  <script type="text/javascript" src="{{asset('provider-assets/js/jquery.star-rating-svg.min.js')}}"> </script>
+
+  <link rel="stylesheet" type="text/css" href="{{ asset('provider-assets/css/star-rating-svg.css') }} ">
+  <script type="text/javascript">
+
+        $(".booking-rating").starRating({
+            starSize: 20,
+            initialRating: "{{ $booking->rating }}",
+            readOnly: true,
+            callback: function(currentRating, $el){
+                // make a server call here
+            }
+        });
+  </script>
 @endsection

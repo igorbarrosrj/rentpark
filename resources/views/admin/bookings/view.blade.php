@@ -88,49 +88,18 @@
 
 		             	<tr>
 		             		<td>{{ tr('status') }}</td>
-		             		@switch($booking_details->status)
-
-		             			@case(BOOKING_NONE)
-									<td><div class="label label-primary">{{ tr('none') }}</div></td>
-								@break
-
-								@case(BOOKING_CREATED)
-								    <td><div class="label label-info">{{ tr('booking_created') }}</div></td>
-								@break
-
-								@case(BOOKING_CHECKIN)
-								    <td><div class="label label-primary">{{ tr('checkin') }}</div></td>
-								
-								@break
-
-								@case(BOOKING_CHECKOUT)
-								    <td><div class="label label-primary">{{ tr('checkout') }}</div></td>
-								@break
-
-								@case(BOOKING_COMPLETED)
-								    <td><div class="label label-success">{{ tr('completed') }}</div></td>
-								@break
-
-								@case(BOOKING_USER_CANCEL)
-								    <td><div class="label label-danger">{{ tr('user_cancel') }}</div></td>
-								@break
-
-								@case(BOOKING_PROVIDER_CANCEL)
-								    <td><div class="label label-danger">{{ tr('provider_cancel') }}</div></td>
-								@break
-
-		             		@endswitch
-
+		             		
+		             		{!! booking_status($booking_details->status) !!}
 		             		
 		             	</tr>	
 
 		             	<tr>
-		             		<td>{{ tr('comment') }}</td>
+		             		<td>{{ tr('review') }}</td>
 		             		<td>
-		             			@if($booking_details->provider_review()->first())
-		             				{{ $booking_details->provider_review()->first()->comment }}
+		             			@if($booking_details->users_review()->first())
+		             				{{ $booking_details->users_review()->first()->review }}
 		             			@else
-									{{ tr('no_comment_available') }}
+									{{ tr('no_review_available') }}
 								@endif
 							</td>
 		             	</tr>	
@@ -140,8 +109,7 @@
 
                       <td>
 
-
-                        @if($booking_details->provider_review()->first())                           
+                        {{-- @if($booking_details->provider_review()->first())                           
                           <div class="rating">
                                 <label>
                                   
@@ -160,7 +128,8 @@
                                 </label>
                               </div>
 
-                            @endif
+                            @endif --}}
+                            <div class="booking-rating"></div>
                       </td>
                     </tr>
 
@@ -171,4 +140,19 @@
 			</div>							
 		</div>
 	</div>
+	
+	<script src="{{asset('admin-assets/node_modules/jquery/jquery.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('admin-assets/js/jquery.star-rating-svg.min.js')}}"> </script>
+	<link rel="stylesheet" type="text/css" href="{{ asset('admin-assets/css/star-rating-svg.css') }} ">
+	<script type="text/javascript">
+
+        $(".booking-rating").starRating({
+            starSize: 20,
+            initialRating: "{{ $booking_details->rating }}",
+            readOnly: true,
+            callback: function(currentRating, $el){
+                // make a server call here
+            }
+        });
+	</script>
 @endsection

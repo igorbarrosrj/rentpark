@@ -46,7 +46,7 @@
 		             	</tr>
 
 		             	<tr>
-		             		<td>{{ tr('provider_name') }}e</td>
+		             		<td>{{ tr('provider_name') }}</td>
 		             		<td>
 		             			@if($host->provider()->first()!=NULL)
 									<a href="{{ route('admin.providers.view', $host->provider()->first()->id) }}">{{ $host->provider()->first()->name }}</a>

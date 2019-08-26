@@ -100,6 +100,25 @@ Route::group(['middleware' => 'web'], function() {
         Route::get('/hosts/delete/{id}', 'AdminController@hosts_delete')->name('hosts.delete');
 
         Route::get('/hosts/status/{id}', 'AdminController@hosts_status')->name('hosts.status');
+
+         /***
+         *
+         * Static pages management
+         *
+         */       
+        Route::get('/static_pages/index', 'AdminController@static_pages_index')->name('static_pages.index');
+
+        Route::get('/static_pages/create', 'AdminController@static_pages_create')->name('static_pages.create');
+
+        Route::get('/static_pages/edit/{id}', 'AdminController@static_pages_edit')->name('static_pages.edit');
+
+        Route::post('/static_pages/save', 'AdminController@static_pages_save')->name('static_pages.save');
+
+        Route::get('/static_pages/view/{id}', 'AdminController@static_pages_view')->name('static_pages.view');
+
+        Route::get('/static_pages/delete/{id}', 'AdminController@static_pages_delete')->name('static_pages.delete');
+
+        Route::get('/static_pages/status/{id}', 'AdminController@static_pages_status')->name('static_pages.status');
         
 
         /***

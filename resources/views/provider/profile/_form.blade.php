@@ -111,17 +111,6 @@
 
                             </div>
 
-                            <div class="form-group col-md-6 col-lg-6">
-                                
-                                <label class="gender">{{ tr('gender') }}</label>
-
-                                <select name="gender" class="form-control">
-                                    <option  @if($provider_details!=NULL){{ $provider_details->gender === 'male' ? 'selected' : '' }}@endif>{{ tr('male') }}</option>
-                                    <option @if($provider_details!=NULL) {{ $provider_details->gender === 'female' ? 'selected' : '' }}@endif>{{ tr('female') }}</option>
-                                    <option  @if($provider_details!=NULL) {{ $provider_details->gender === 'others' ? 'selected' : '' }}@endif>{{ tr('others') }}</option>
-                                </select>
-
-                            </div>
                         </div>
 
                         <input type="submit" name="Submit" value="{{ tr('submit') }}" class="btn btn-primary">

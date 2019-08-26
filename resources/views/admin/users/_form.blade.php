@@ -47,7 +47,7 @@
                             
                             <label class="password">{{ tr('password') }} *</label>
 
-                            <input type="password" name="password" class="form-control" placeholder="{{ tr('password') }}" required>
+                            <input type="password" name="password" class="form-control" placeholder="{{ tr('password') }}" value="{{ old('password') }}" required>
                             
                         </div>
 
@@ -55,7 +55,7 @@
                             
                             <label class="cpassword">{{ tr('confirm_password') }} *</label>
 
-                            <input type="password" name="password_confirmation" class="form-control" placeholder="{{ tr('confirm_password') }}" required>
+                            <input type="password" name="password_confirmation" class="form-control" placeholder="{{ tr('confirm_password') }}" value="{{ old('password_confirmation') }}" required>
                             
                         </div>
                     
@@ -92,19 +92,6 @@
                             <input type="file" onchange="readURL(this);"  name="picture" class="form-control" @if($user_details != NULL) value="{{ $user_details->picture }}" @endif accept="image/*">
 
                         </div>
-
-                        <div class="form-group col-md-6 col-lg-6">
-                        
-                            <label class="gender">{{ tr('gender') }}</label>
-
-                            <select name="gender" class="form-control">
-                                <option value="male" @if($user_details != NULL){{ $user_details->gender === 'male' ? 'selected' : '' }} @endif>{{ tr('male') }}</option>
-                                <option value="female" @if($user_details != NULL) {{ $user_details->gender === 'female' ? 'selected' : '' }} @endif>{{ tr('female') }}</option>
-                                <option value="others" @if($user_details != NULL) {{ $user_details->gender === 'others' ? 'selected' : '' }} @endif>{{ tr('others') }}</option>
-                            </select>
-
-                        </div>
-                        
                     </div>
 
                     <div class="form-group">

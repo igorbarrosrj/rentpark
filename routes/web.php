@@ -11,14 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
-Route::get('terms', function () {
-    return view('layouts.users.terms');
-})->name('terms');
-
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
@@ -30,6 +22,7 @@ Auth::routes();
 *
 **/
 
+Route::get('/', 'UserController@index')->name('home');
 /***
  *
  * Profile management
@@ -66,13 +59,26 @@ Route::post('/profile/password/save', 'UserController@profile_password_save')->n
 
     Route::post('/bookings/rating/{id}', 'UserController@bookings_rating')->name('bookings.rating');
 
+    Route::get('/bookings/checkin/{id}', 'UserController@bookings_checkin')->name('bookings.checkin');
+
+    Route::get('/bookings/checkout/{id}', 'UserController@bookings_checkout')->name('bookings.checkout');
+
 
 /***
 *
 * Hosts management
 *
 */       
-Route::get('/hosts/index', 'UserController@hosts_index')->name('hosts.index');
+Route::match(array('GET','POST'),'/hosts/index', 'UserController@hosts_index')->name('hosts.index');
 
 Route::get('/hosts/view/{id}', 'UserController@hosts_view')->name('hosts.view');
+
+
+/****
+*
+* Pages
+* 
+*/
+Route::get('/page/{page_type}', 'UserController@pages')->name('pages');
+
 

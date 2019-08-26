@@ -66,11 +66,6 @@
 				             	</tr>
 
 				             	<tr>
-				             		<td>{{ tr('gender') }}</td>
-				             		<td>{{ $user_details->gender }}</td>
-				             	</tr>	
-
-				             	<tr>
 				             		<td>{{ tr('created_at') }}</td>
 				             		<td>{{ common_date($user_details->created_at) }}</td>
 				             	</tr>
