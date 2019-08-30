@@ -13,7 +13,7 @@
                         <div class="form-group">
                             
 
-                            <input type="hidden" name="id" class="form-control" @if($static_page!=NULL)value="{{ $static_page->id }}"  @endif >
+                            <input type="hidden" name="static_page_id" class="form-control" @if($static_page!=NULL)value="{{ $static_page->id }}"  @endif >
 
                         </div>
 
@@ -52,7 +52,7 @@
                                 
                                 <label class="description">{{ tr('description') }} *</label>
                                 
-                                <textarea id="froala-editor" name="description" class="form-control" name="description" placeholder="{{ tr('description') }}" required > @if($static_page!=NULL) {{ $static_page->description }} @else {{ old('description') }} @endif</textarea>
+                                <textarea id="summernote" rows="5"  name="description" class="form-control" name="description" placeholder="{{ tr('description') }}" required > @if($static_page!=NULL)  {{ old('description') ?: $static_page->description }} @else {{ old('description') }} @endif</textarea>
                             </div>
 
 

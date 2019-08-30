@@ -37,9 +37,9 @@ Route::group(['middleware' => 'web'], function() {
 
         Route::get('/users/view', 'AdminController@users_view')->name('users.view');
 
-        Route::get('/users/delete/{id}', 'AdminController@users_delete')->name('users.delete');
+        Route::get('/users/delete/{user_id}', 'AdminController@users_delete')->name('users.delete');
 
-        Route::get('/users/status/{id}', 'AdminController@users_status')->name('users.status');
+        Route::get('/users/status/{user_id}', 'AdminController@users_status')->name('users.status');
 
 
         /***
@@ -110,7 +110,7 @@ Route::group(['middleware' => 'web'], function() {
 
         Route::get('/static_pages/create', 'AdminController@static_pages_create')->name('static_pages.create');
 
-        Route::get('/static_pages/edit/{id}', 'AdminController@static_pages_edit')->name('static_pages.edit');
+        Route::get('/static_pages/edit', 'AdminController@static_pages_edit')->name('static_pages.edit');
 
         Route::post('/static_pages/save', 'AdminController@static_pages_save')->name('static_pages.save');
 

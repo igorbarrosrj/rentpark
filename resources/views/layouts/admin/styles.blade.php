@@ -42,6 +42,9 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css" rel="stylesheet" type="text/css" />
 
+{{-- TextArea Editor --}}
+ <link rel="stylesheet" href="{{ asset('admin-assets/node_modules/summernote/dist/summernote-bs4.css')}}">
+
 
  <style type="text/css">
 

@@ -1863,7 +1863,7 @@ button[type=submit_btn2]:hover{
 }
 
 .hosts .container .row .col-md-4 .img{
-  min-width:26.7rem;
+  width:26.7rem;
   height:208px;
 }
 
@@ -1905,6 +1905,7 @@ button[type=submit_btn2]:hover{
   font-size: 1.4em;
   line-height: 1;
   padding-left:0.2rem;
+  padding-top: 0.2rem;
 }
 
 .hosts .container .row .col-md-4 .h4{
@@ -2365,3 +2366,8 @@ button[type=submit_btn2]:hover{
 
   position: sticky;
  }
+
+ .table-responsive { 
+
+    overflow-x: visible;
+}

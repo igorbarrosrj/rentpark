@@ -72,7 +72,7 @@
                                             <span class="caret"></span></button>
                                             <ul class="dropdown-menu">
                                                 <li><a href="{{ route('admin.static_pages.view',$static_page->id) }}" class="dropdown-item" >{{ tr('view') }}</a></li>
-                                                <li><a href="{{ route('admin.static_pages.edit',$static_page->id) }}" class="dropdown-item">{{ tr('edit') }}</a></li>
+                                                <li><a href="{{ route('admin.static_pages.edit',['static_page_id' => $static_page->id]) }}" class="dropdown-item">{{ tr('edit') }}</a></li>
                                                 <li><a href="{{ route('admin.static_pages.delete',$static_page->id) }}" class="dropdown-item" onclick="return confirm('{{ tr('static_page_delete_confirmation') . $static_page->static_page_name }}?')" >{{ tr('delete') }}</a></li>
                                                 <div class="dropdown-divider"></div>
                                                     <li>

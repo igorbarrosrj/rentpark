@@ -37,6 +37,9 @@
 <!-- Chart JS -->
 <script src="{{asset('admin-assets/js/dashboard1.js')}}"></script>
 
+{{-- TextArea Editor --}}
+<script src="{{ asset('admin-assets/node_modules/summernote/dist/summernote-bs4.min.js')}}"></script>
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
@@ -101,5 +104,14 @@
 
     $(function() {
       $('textarea#froala-editor').froalaEditor()
+    });
+
+    $(document).ready(function() {
+
+        $('#summernote').summernote({
+            height: 300,
+            tabsize: 2
+        });
+
     });
 </script>

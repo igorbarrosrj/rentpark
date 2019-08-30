@@ -199,7 +199,7 @@ return array(
  	'status_updated' => 'Status Updated!',
  	'user_status_not_updated' => 'Sorry! User Status could not change. Plese try again',
 
- 	'service_location_saved' => 'no_service_location_found',
+ 	'service_location_saved' => 'Service Location Saved',
  	'service_location_removed' => 'Service Location Removed',
 
  	'host_saved' => 'Host Saved',
@@ -210,6 +210,7 @@ return array(
  	
  	'wrong_old_password' => 'Wrong Old password!',
  	'password_changed' => 'Password changed successfully',
+ 	'no_review_available' => 'No Review Available',
 
  	/******************** PROVIDER PANEL************/
 
@@ -275,6 +276,7 @@ return array(
  	'already_review_updated' => 'Already Review Updated',
  	'review_updated' => 'Review Updated',
 
+ 	'password_confirmation' => 'Password Confirmation',
  	/**************** USER PANEL ************/
 
  	'register_info_1' => 'Please choose a secure password (at least 6 characters)',

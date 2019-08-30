@@ -81,7 +81,7 @@
 		             	</tr>
 
 		             	<tr>
-		             		<td> <a href="{{ route('admin.static_pages.edit',$static_page->id) }}" class="btn btn-primary">{{ tr('edit') }}</a></td>
+		             		<td> <a href="{{ route('admin.static_pages.edit',['static_page_id' => $static_page->id]) }}" class="btn btn-primary">{{ tr('edit') }}</a></td>
 
 		             		<td>
 		             			

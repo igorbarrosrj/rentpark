@@ -52,7 +52,7 @@
                                                     
                                         <label class="cpassword">{{ tr('confirm_new_password') }} *</label>
 
-                                        <input type="password" name="password_confirmation" class="form-control" placeholder="{{ tr('confirm_new_password') }}" value="{{ tr('password_confirmation') }}" value="{{ old('password_confirmation') }}" required>
+                                        <input type="password" name="password_confirmation" class="form-control" placeholder="{{ tr('confirm_new_password') }}"  value="{{ old('password_confirmation') }}" required>
                                                     
                                     </div>
                                   

@@ -189,11 +189,11 @@ class AdminController extends Controller {
             $validator = Validator::make( $request->all(), [
 
                 'name' => 'required|min:3|max:50|regex:/^[a-z A-Z]+$/',
-                'email' => $request->id ? 'required|email|max:191|unique:users,email,'.$request->user_id.',id' : 'required|email',
+                'email' => $request->user_id ? 'required|email|max:191|unique:users,email,'.$request->user_id.',id' : 'required|email',
                 'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg|max:2048',
                 'description' => 'required|min:5|max:255',
                 'mobile' => 'digits_between:6,13|nullable',
-                'password' => $request->user_id ? "" : 'required|min:6'
+                'password' => $request->user_id ? "" : 'required|min:6',
                 ]
             );
 
@@ -204,9 +204,9 @@ class AdminController extends Controller {
                 throw new Exception($error, 101);
             }
             
-            if($request->id) {
+            if($request->user_id) {
 
-                $user_details = User::find($request->id);
+                $user_details = User::find($request->user_id);
 
                 if($request->hasFile('picture')) {
 
@@ -227,7 +227,6 @@ class AdminController extends Controller {
                 $user_details->picture = asset('placeholder.jpg');
 
             }
-           
             $user_details->name = $request->name;        
 
             $user_details->email = $request->email;        
@@ -249,7 +248,7 @@ class AdminController extends Controller {
     
                 DB::commit(); 
             
-                if(!$request->id) {
+                if(!$request->user_id) {
 
                     if(Setting::get('is_email_configured') == YES) {
 
@@ -277,7 +276,7 @@ class AdminController extends Controller {
 
             $error = $e->getMessage();
 
-            return redirect()->back()->withInput()->with('flash_error', $error);
+            return redirect()->back()->withInput()->with('error', $error);
 
         }
         
@@ -386,7 +385,7 @@ class AdminController extends Controller {
     public function users_status(Request $request) {
 
         try {
-            
+
             DB::begintransaction();
 
             $user_details = User::find($request->user_id);
@@ -987,6 +986,18 @@ class AdminController extends Controller {
 
         $page_types = ['about' , 'contact' , 'privacy' , 'terms' , 'help' , 'faq' , 'refund', 'cancellation'];
 
+
+        foreach ($page_types as $key => $page_type) {
+
+            // Check the record exists
+
+            $check_page = StaticPage::where('type', $page_type)->first();
+
+            if($check_page) {
+                unset($page_types[$key]);
+            }
+        }
+
         return view('admin.static_pages.create')
                 ->with('static_page' , $static_page)
                 ->with('page_types' , $page_types);
@@ -1038,40 +1049,50 @@ class AdminController extends Controller {
      */
     public function static_pages_save(Request $request) {
 
+        try {
 
-        $this->validate($request,[
+            $this->validate($request,[
 
-            'title' => 'required|min:3|max:255',
+                'title' => 'required|min:3|max:255',
 
-            'type' => 'required|min:3|max:255',
+                'type' => 'required|min:3|max:255',
 
-            'description' => 'required',
+                'description' => 'required',
 
-        ]);
-;
-        if(!$request->id){
+            ]);
         
-            //Create Static Page
+            if(!$request->static_page_id){
+        
+                //Create Static Page
 
-            $static_page = New StaticPage;
+                $static_page = New StaticPage;
 
-            $static_page->unique_id = uniqid(base64_encode(str_random(60)));
+                $static_page->unique_id = uniqid(base64_encode(str_random(60)));
 
-            $static_page->status = APPROVED;
+                $static_page->status = APPROVED;
 
-        } else {
+            } else {
 
-            $static_page = StaticPage::find($request->id);
+                $static_page = StaticPage::find($request->static_page_id);
 
+            }
+
+            $static_page->title = $request->title;
+            
+            $static_page->type = $request->type;
+
+            $static_page->description = $request->description;
+
+            $static_page->save();
+
+        } catch(Exception $e) {
+
+            $error = $e->getMessage();
+
+            return redirect()->route('admin.static_pages.index')->with('error' , $error);
+            
         }
-
-        $static_page->title = $request->title;
         
-        $static_page->type = $request->type;
-
-        $static_page->description = $request->description;
-
-        $static_page->save();
 
         return redirect()->route('admin.static_pages.index')->with('success', tr('page_saved'));
     }
@@ -1091,9 +1112,9 @@ class AdminController extends Controller {
      *
      */
 
-    public function static_pages_edit($id) {
+    public function static_pages_edit(Request $request) {
         
-        $static_page = StaticPage::find($id);
+        $static_page = StaticPage::find($request->static_page_id);
 
         if(!$static_page){
 
@@ -1102,7 +1123,7 @@ class AdminController extends Controller {
         }
 
         $page_types = ['about' , 'contact' , 'privacy' , 'terms' , 'help' , 'faq' , 'refund', 'cancellation'];
-
+        
         return view('admin.static_pages.edit')
             ->with('static_page', $static_page)
             ->with('page_types' , $page_types);

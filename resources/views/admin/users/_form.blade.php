@@ -15,7 +15,7 @@
 
                     <div class="form-group">
                         
-                        <input type="hidden" name="id" class="form-control" @if($user_details != NULL) value="{{ $user_details->id }}" @endif >
+                        <input type="hidden" name="user_id" @if($user_details != NULL) value="{{ $user_details->id }}" @endif >
 
                     </div>
                     
