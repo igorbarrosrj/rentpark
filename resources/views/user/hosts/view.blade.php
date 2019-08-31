@@ -79,12 +79,16 @@
                                     <div class="row">         
                                         <div class="col-6 form-group pmd-textfield pmd-textfield-floating-label">
                                             <label class="control-label" for="check_in">{{ tr('checkin') }} * </label>
-                                            <input type="datetime-local" name="check_in" class="check_in form-control" value="{{ old('check_in') }}" onchange="checkin_func(this)"  step="1" required  />
+                                           {{--  <input type="datetime-local" name="check_in" class="check_in form-control" value="{{ old('check_in') }}" onchange="checkin_func(this)"  step="1" required  /> --}}
+
+                                           <input type='datetime' class="form-control" placeholder="{{ tr('checkin') }}" name="check_in" id='check_in' autocomplete="off" />
                                         </div>
 
                                         <div class="col-6 form-group pmd-textfield pmd-textfield-floating-label">
                                             <label class="control-label" for="check_out">{{ tr('checkout') }} *</label>
-                                            <input type="datetime-local" name="check_out" class="form-control check_out" value="{{ old('check_out') }}" onchange="checkout_func(this);" step="1"  required />
+                                            {{-- <input type="datetime-local" name="check_out" class="form-control check_out" value="{{ old('check_out') }}" onchange="checkout_func(this);" step="1"  required /> --}}
+
+                                            <input type='datetime' class="form-control" name="check_out" id='check_out' placeholder="{{ tr('checkout') }}" autocomplete="off"/>
                                         </div>
 
                                     </div>
@@ -132,6 +136,11 @@
     
     <!--Section_end-->
 
+{{-- Datetime Plugin --}}
+<script type="text/javascript" src="{{asset('user-assets/js/Intimidatetime.js')}}"> </script>
+<link rel="stylesheet" type="text/css" href="{{ asset('user-assets/css/Intimidatetime.css') }} ">
+
+{{-- Rating Plugin --}}
 <script type="text/javascript" src="{{asset('user-assets/js/jquery.star-rating-svg.min.js')}}"> </script>
 <link rel="stylesheet" type="text/css" href="{{ asset('user-assets/css/star-rating-svg.css') }} ">
 
@@ -154,4 +163,9 @@
 
         document.getElementById('timezone').value = timezone;
     </script>
+
+<script type="text/javascript">
+    $('#check_in').intimidatetime();
+    $('#check_out').intimidatetime();
+</script>
 @endsection

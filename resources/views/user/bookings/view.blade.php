@@ -122,29 +122,29 @@
 		                                  <div class="rating" class="form-control">
 		                                  
 		                                  <label>
-		                                    <input type="radio" name="stars" value="1" @if($booking_details->users_review()->first()!=NULL) {{ $booking_details->users_review()->first()->rating == '1' ? 'checked' : '' }} @endif/>
+		                                    <input type="radio" name="rating" value="1" @if($booking_details->users_review()->first()!=NULL) {{ $booking_details->users_review()->first()->rating == '1' ? 'checked' : '' }} @endif/>
 		                                    <span class="icon">★</span>
 		                                  </label>
 		                                  <label>
-		                                    <input type="radio" name="stars" value="2" @if($booking_details->users_review()->first()!=NULL) {{ $booking_details->users_review()->first()->rating == '2' ? 'checked' : '' }} @endif/>
+		                                    <input type="radio" name="rating" value="2" @if($booking_details->users_review()->first()!=NULL) {{ $booking_details->users_review()->first()->rating == '2' ? 'checked' : '' }} @endif/>
 		                                    <span class="icon">★</span>
 		                                    <span class="icon">★</span>
 		                                  </label>
 		                                  <label>
-		                                    <input type="radio" name="stars" value="3" @if($booking_details->users_review()->first()!=NULL) {{ $booking_details->users_review()->first()->rating == '3' ? 'checked' : '' }} @endif/>
+		                                    <input type="radio" name="rating" value="3" @if($booking_details->users_review()->first()!=NULL) {{ $booking_details->users_review()->first()->rating == '3' ? 'checked' : '' }} @endif/>
 		                                    <span class="icon">★</span>
 		                                    <span class="icon">★</span>
 		                                    <span class="icon">★</span>   
 		                                  </label>
 		                                  <label>
-		                                    <input type="radio" name="stars" value="4" @if($booking_details->users_review()->first()!=NULL) {{ $booking_details->users_review()->first()->rating == '4' ? 'checked' : '' }} @endif/>
+		                                    <input type="radio" name="rating" value="4" @if($booking_details->users_review()->first()!=NULL) {{ $booking_details->users_review()->first()->rating == '4' ? 'checked' : '' }} @endif/>
 		                                    <span class="icon">★</span>
 		                                    <span class="icon">★</span>
 		                                    <span class="icon">★</span>
 		                                    <span class="icon">★</span>
 		                                  </label>
 		                                  <label>
-		                                    <input type="radio" name="stars" value="5" @if($booking_details->users_review()->first()!=NULL) {{ $booking_details->users_review()->first()->rating == '5' ? 'checked' : '' }} @endif/>
+		                                    <input type="radio" name="rating" value="5" @if($booking_details->users_review()->first()!=NULL) {{ $booking_details->users_review()->first()->rating == '5' ? 'checked' : '' }} @endif/>
 		                                    <span class="icon">★</span>
 		                                    <span class="icon">★</span>
 		                                    <span class="icon">★</span>

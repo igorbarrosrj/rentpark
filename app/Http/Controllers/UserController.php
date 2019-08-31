@@ -394,10 +394,10 @@ class UserController extends Controller
             'description' => 'required|min:3|max:255'
 
         ]); 
+  
+		$check_in = Carbon::createFromFormat('Y-m-d H:i', $request->check_in);
 
-		$check_in = Carbon::createFromFormat('Y-m-d\TH:i:s', $request->check_in);
-
-		$check_out = Carbon::createFromFormat('Y-m-d\TH:i:s', $request->check_out);
+		$check_out = Carbon::createFromFormat('Y-m-d H:i', $request->check_out);
  		
         $duration_min = $check_in->diffInMinutes($check_out);
 
@@ -534,7 +534,7 @@ class UserController extends Controller
 
         $booking_details->save();
 
-        return redirect()->back()->with('success', tr('checkin_completed'));
+        return redirect()->back()->with('success', tr('checkout_completed'));
                
     }
 
@@ -578,7 +578,7 @@ class UserController extends Controller
 
             'review' => 'required|min:3',
 
-            'stars' => 'required|numeric|min:1|max:5',
+            'rating' => 'required|numeric|min:1|max:5',
 
         ]);
         
@@ -592,7 +592,7 @@ class UserController extends Controller
 
         $user_review->review = $request->review;
 
-        $user_review->ratings = $request->stars;
+        $user_review->ratings = $request->rating;
 
         $booking_details->status = BOOKING_COMPLETED;
 
@@ -646,6 +646,7 @@ class UserController extends Controller
                         ->where('hosts.status',APPROVED)
                         ->where('providers.status',APPROVED)
                         ->where('service_locations.name','like', '%' . $request->search . '%')
+                        ->orWhere('hosts.host_name','like', '%' . $request->search . '%')
                         ->orderBy('created_at', 'desc')
                         ->paginate(30);
 

@@ -221,7 +221,7 @@
 
                   <tr>
                     <td>
-                      @if($booking->status!= BOOKING_PROVIDER_CANCEL && $booking->status!= BOOKING_USER_CANCEL & $booking->status!= BOOKING_COMPLETED)
+                      @if($booking->status == BOOKING_CREATED)
               
                         <a href="{{ route('provider.bookings.status',$booking->id) }}" class="btn btn-danger">{{ tr('cancel') }}</a>
                       @endif

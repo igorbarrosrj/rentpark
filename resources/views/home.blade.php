@@ -23,7 +23,7 @@
                     <div class="form-group">
                         <small>{{ tr('parking_at') }}</small>
                         <input class="form-control input-lg" id="inputl" name="search" type="text11" placeholder="Where do you want to park?">
-                        <i class="material-icons">&#xe55c;</i>
+                        <button class="material-icons">&#xe55c;</button>
                     </div>
                     
                     <div class="input-group">

@@ -147,7 +147,7 @@ a:hover{
   --default-border-color:#177b29;
   --default-hover-color:#dfdfdf;
   --default-submit-color:#4CAF50;
-  --default-submit-border-color:#c1d0d7;
+  --default-submit-border-color:#0015f7;
   --default-submit-hover-color:#a2b9c3;
   --default-placeholder-color:#ddd;
   --para-color:#94a7bb;
@@ -358,6 +358,16 @@ button[type=click_option_btn]:hover{
   cursor: pointer;
   margin:-2.3em 21em;
   position:absolute;
+  background:none;border:none;padding:0;
+}
+
+.form-group button{
+  font-size:1.5em;
+  color:var(--primary-color);
+  cursor: pointer;
+  margin:-2.3em 20em;
+  position:absolute;
+  background:none;border:none;padding:0;
 }
 
 .input-group i{
@@ -453,7 +463,7 @@ input[type=text2]{
 }
 
 .form-group .form-control::placeholder{
-  color:var(--tertiary-color);
+  color:var(--default-placeholder-color);
   border-radius: 4px;
   font-family: Nunito-SemiBold,Nunito,Avenir,sans-serif;
   font-size:1.2rem;
