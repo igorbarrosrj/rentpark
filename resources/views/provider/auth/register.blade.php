@@ -18,7 +18,7 @@
                     <input type="text" class="form-control form-control-user" id="Name" name="name" placeholder="{{ tr('name') }}" required>
                   </div>
                   <div class="col-sm-6">
-                    <input type="number" class="form-control" id="Mobile" name="mobile" placeholder="{{ tr('mobile_number') }}" required>
+                    <input type="number" class="form-control form-control-user" id="Mobile" name="mobile" placeholder="{{ tr('mobile_number') }}" required>
                   </div>
                 </div>
                 <div class="form-group">

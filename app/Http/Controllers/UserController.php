@@ -256,22 +256,21 @@ class UserController extends Controller
         return redirect()->route('profile.view')->with('success', tr('password_changed'));
         
     }
-
     /**
-     * @method profile_delete()
+     * @method password_check()
      * 
-     * @uses used to delete the user
+     * @uses check the password and delete the user.
      *
-     * @created NAVEEN S
+     * @created Akshata
      *
      * @updated
      *
-     * @param integer id
+     * @param 
      *
      * @return view of profile's view
      *
      */
-    public function profile_delete($id) {
+    public function password_check(Request $request) {
         
         $user_details = $this->user;
 
@@ -280,17 +279,39 @@ class UserController extends Controller
             return redirect()->route('profile.view')->with('error', tr('no_profile_found'));
             
         }
-          
-        $imageName=$user_details->picture;
+        if (\Hash::check($request->password, $user_details->password)) {
 
-        delete_picture($imageName,PROFILE_PATH_USER);
+            delete_picture($user_details->picture, PROFILE_PATH_USER);
 
-        $user_details->delete();
+            $user_details->delete();
 
-        return redirect()->route('login')->with('success', tr('account_deleted'));
+            return redirect()->route('login')->with('success', tr('account_deleted'));
         
-    }
+        }else{
 
+            return redirect()->back()->with('error','password_not_match');
+        }
+
+    }
+    /**
+     * @method profile_delete()
+     * 
+     * @uses used to delete the user
+     *
+     * @created NAVEEN S
+     *
+     * @updated Akshata
+     *
+     * @param integer id
+     *
+     * @return view of profile's view
+     *
+     */
+    public function profile_delete() {
+
+        return view('user.profile.delete');
+
+    }
 
 	/**
 	*

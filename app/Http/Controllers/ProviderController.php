@@ -542,7 +542,6 @@ class ProviderController extends Controller
      */
     public function profile_password_save(Request $request) {
     
-
         $provider_id = Auth()->guard('provider')->user()->id;
         
         $provider_details = Provider::where('id', $provider_id)->first();
@@ -553,7 +552,6 @@ class ProviderController extends Controller
             
         }
           
-
         $this->validate($request,[
 
             'old_password' => 'required|min:6',
@@ -561,7 +559,6 @@ class ProviderController extends Controller
             'password' => 'required|confirmed|min:6',
 
         ]);
-
 
 
         if (!\Hash::check($request->old_password, $provider_details->password)) {
@@ -577,7 +574,40 @@ class ProviderController extends Controller
         
     }
 
+    /**
+     * @method password_check()
+     * 
+     * @uses check the password and delete the user.
+     *
+     * @created Akshata
+     *
+     * @updated
+     *
+     * @param 
+     *
+     * @return view of profile's view
+     *
+     */
+    public function password_check(Request $request) {
 
+        $provider_id = Auth()->guard('provider')->user()->id;
+        
+        $provider_details = Provider::where('id', $provider_id)->first();
+       
+        if (\Hash::check($request->password, $provider_details->password)) {
+
+            delete_picture($provider_details->picture, PROFILE_PATH_PROVIDER);
+
+            $provider_details->delete();
+
+            return redirect()->route('provider.login')->with('success', tr('account_deleted'));
+        
+        }else{
+
+            return redirect()->back()->with('error','password_not_match');
+        }
+
+    }
     /**
      * @method profile_delete()
      * 
@@ -585,7 +615,7 @@ class ProviderController extends Controller
      *
      * @created NAVEEN S
      *
-     * @updated
+     * @updated Akshata
      *
      * @param integer id
      *
@@ -594,22 +624,7 @@ class ProviderController extends Controller
      */
     public function profile_delete() {
 
-        $provider_id = Auth()->guard('provider')->user()->id;
-        
-        $provider_details = Provider::where('id', $provider_id)->first();
-
-        if(!$provider_details){
-
-            return redirect()->route('provider.profile.view')->with('error', tr('no_profile_found'));
-            
-        }
-
-        delete_picture($provider_details->picture, PROFILE_PATH_PROVIDER);
-
-        $provider_details->delete();
-
-        return redirect()->route('provider.login')->with('success', tr('account_deleted'));
-        
+        return view('provider.profile.delete');
     }
 
     /**

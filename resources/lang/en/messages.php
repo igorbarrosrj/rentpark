@@ -39,6 +39,8 @@ return array(
 
 	'about' => 'About',
 	'location' => 'Location',
+	'items'=>'Items',
+	'provider'=>'Provider',
 
 	/***************** COMMON *************/
 
@@ -64,7 +66,7 @@ return array(
 
 	'list_hosts' => 'List Hosts',
 	'add_host' => 'Add Host',
- 	
+ 	'password_not_match'=>'Password did not match with your account please enter correct password',
  	/*************** ADMIN DASHBOARD *************/
 
  	'home' => 'Home',
