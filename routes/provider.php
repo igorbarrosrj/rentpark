@@ -74,6 +74,8 @@ Route::group(['middleware' => 'web'], function() {
         Route::get('/profile/view', 'ProviderController@profile_view')->name('profile.view');
 
         Route::get('/profile/delete', 'ProviderController@profile_delete')->name('profile.delete');
+        
+        Route::post('/profile/delete/password','ProviderController@password_check')->name('password.check');
 
         Route::get('/profile/password/', 'ProviderController@profile_password')->name('profile.password');
 
