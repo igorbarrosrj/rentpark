@@ -287,6 +287,8 @@ return array(
  	'reset' => 'Reset',
  	'login_info' => 'Welcome back! Let\'s get you signed in.',
  	'reset_info' => 'Enter email to reset your password',
+ 	'user_created_success'=>'User Created Successfully!!',
+ 	'user_updated_success'=>'User Updated Successfully!!',
 
  	'copyright' => 'Copyright RentPark 2019',
  	'sitemap' => 'Site map',

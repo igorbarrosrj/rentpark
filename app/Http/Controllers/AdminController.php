@@ -69,7 +69,7 @@ class AdminController extends Controller {
         
         $recent_providers = Provider::orderBy('created_at', 'desc')->take(10)->get();
 
-        $data['total_users'] = Host::orderBy('id')->get()->count();
+        $data['total_users'] = User::count();
 
         $data['total_providers'] = Provider::orderBy('id')->get()->count();
 
@@ -125,7 +125,7 @@ class AdminController extends Controller {
      */
     public function users_create() {
 
-        $user_details = NULL;
+        $user_details = new User;
 
         return view('admin.users.create')->with('user_details', $user_details);
 
@@ -189,7 +189,7 @@ class AdminController extends Controller {
             $validator = Validator::make( $request->all(), [
 
                 'name' => 'required|min:3|max:50|regex:/^[a-z A-Z]+$/',
-                'email' => $request->user_id ? 'required|email|max:191|unique:users,email,'.$request->user_id.',id' : 'required|email',
+               'email' => $request->user_id ? 'required|email|max:191'.$request->user_id.',id' : 'required|email|max:191|unique:users,email,NULL,id',
                 'picture' => 'sometimes|required|image|mimes:jpeg,png,jpg|max:2048',
                 'description' => 'required|min:5|max:255',
                 'mobile' => 'digits_between:6,13|nullable',
@@ -208,6 +208,8 @@ class AdminController extends Controller {
 
                 $user_details = User::find($request->user_id);
 
+                $message = tr('user_updated_success');
+
                 if($request->hasFile('picture')) {
 
                     delete_picture($user_details->picture, PROFILE_PATH_USER);
@@ -218,6 +220,8 @@ class AdminController extends Controller {
                 
                 $user_details = New User;
 
+                $message = tr('user_created_success');
+
                 $user_details->unique_id = uniqid(base64_encode(str_random(60)));
 
                 $user_details->password = \Hash::make($request->password);
@@ -227,17 +231,18 @@ class AdminController extends Controller {
                 $user_details->picture = asset('placeholder.jpg');
 
             }
-            $user_details->name = $request->name;        
+            $user_details->name = $request->name ?: $user_details->name;        
 
-            $user_details->email = $request->email;        
+            $user_details->email = $request->email ?: $user_details->email;        
 
-            $user_details->description = $request->description?:'';
+            $user_details->description = $request->description ?: $user_details->description;
 
-            $user_details->mobile = $request->mobile?:'';
+            $user_details->mobile = $request->mobile ?: $user_details->mobile;
 
-            $user_details->token = $request->token?:"";
+            $user_details->token = $request->token ?: "";
 
-            $user_details->token_expiry = $request->token_expiry?:"";
+            $user_details->token_expiry = $request->token_expiry ?: "";
+            
 
             if($request->hasFile('picture')) {
 
@@ -265,7 +270,7 @@ class AdminController extends Controller {
 
                 }        
     
-                return redirect()->route('admin.users.index')->with('success', tr('user_saved'));
+                return redirect()->route('admin.users.index')->with('success',$message);
             }
 
             throw new Exception(tr('user_not_saved'), 1);

@@ -9,13 +9,14 @@
                 
                 <h4 class="card-title">{{ tr('user_details') }}</h4>
 
-                <form action="{{ route('admin.users.save') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.users.save') }}" method="POST" enctype="multipart/form-data">
 
                     {{ csrf_field() }}
 
+                @if($user_details)
                     <div class="form-group">
                         
-                        <input type="hidden" name="user_id" @if($user_details != NULL) value="{{ $user_details->id }}" @endif >
+                        <input type="hidden" name="user_id" value="{{ $user_details->id }}" >
 
                     </div>
                     
@@ -25,7 +26,7 @@
                         
                             <label class="name">{{ tr('name') }} *</label>
 
-                            <input type="text" name="name" class="form-control" @if($user_details != NULL) value="{{ $user_details->name }}" @else value="{{ old('name') }}" @endif placeholder="{{ tr('name') }}" required>
+                            <input type="text" name="name" class="form-control" value="{{old('name')?:$user_details->name}}" placeholder="{{ tr('name') }}" required>
 
                         </div>
                         
@@ -33,13 +34,13 @@
                             
                             <label class="email">{{ tr('email_address') }} *</label>
 
-                            <input type="text" name="email" class="form-control" @if($user_details != NULL)value="{{ $user_details->email }}" @else value="{{ old('email') }}" @endif placeholder="{{ tr('email_address') }}" required>
+                            <input type="text" name="email" class="form-control" value="{{old('email')?:$user_details->email}}" placeholder="{{ tr('email_address') }}" required>
                             
                         </div>
 
                     </div>
                     
-                    @if($user_details == NULL) 
+                    @if($user_details->user_id == NULL) 
 
                     <div class="row">
                          
@@ -69,7 +70,7 @@
                         
                             <label class="mobile">{{ tr('mobile_number') }} *</label>
 
-                            <input type="number" name="mobile" class="form-control" @if($user_details!=NULL)value="{{ $user_details->mobile }}" @else value="{{ old('mobile') }}" @endif placeholder="{{ tr('mobile_number') }}" required>
+                            <input type="number" name="mobile" class="form-control" value="{{old('mobile')?:$user_details->mobile}}" placeholder="{{ tr('mobile_number') }}" required>
 
                         </div>
 
@@ -77,7 +78,7 @@
                             
                             <label class="description">{{ tr('description') }} *</label>
 
-                            <input type="text" name="description" class="form-control" @if($user_details!=NULL)value="{{ $user_details->description }}" @else value="{{ old('description') }}" @endif placeholder="{{ tr('description') }}" required>
+                            <input type="text" name="description" class="form-control" value="{{old('description')?:$user_details->description}}" placeholder="{{ tr('description') }}" required>
 
                         </div>
              
@@ -89,19 +90,19 @@
                         
                             <label class="picture">{{ tr('picture') }}</label>
 
-                            <input type="file" onchange="readURL(this);"  name="picture" class="form-control" @if($user_details != NULL) value="{{ $user_details->picture }}" @endif accept="image/*">
+                            <input type="file" onchange="readURL(this);"  name="picture" class="form-control" value="{{ $user_details->picture }}"  accept="image/*">
 
                         </div>
                     </div>
 
                     <div class="form-group">
                         
-                        @if($user_details != NULL) <img src="{{ $user_details->picture }}" id="preview" style="width: 200px;height: 200px"> @endif
-
+                        <img src="{{ asset('placeholder.jpg')?:$user_details->picture }}" id="preview" style="width: 200px;height: 200px">
                     </div>
                 
                     <input type="submit" name="Submit" title="submit" value="{{ tr('submit') }}" class="btn btn-primary">
 
+                @endif
                 </form>
             
             </div>                                
