@@ -35,9 +35,9 @@ Route::post('/profile/save', 'UserController@profile_save')->name('profile.save'
 
 Route::get('/profile/view', 'UserController@profile_view')->name('profile.view');
 
-Route::get('/profile/delete/password', 'UserController@profile_delete')->name('profile.delete');
+Route::get('/profile/password_check', 'UserController@password_check')->name('password.check');
 
-Route::post('/profile/delete','UserController@password_check')->name('password.check');
+Route::post('/profile/delete','UserController@profile_delete')->name('profile.delete');
 
 Route::get('/profile/password/', 'UserController@profile_password')->name('profile.password');
 

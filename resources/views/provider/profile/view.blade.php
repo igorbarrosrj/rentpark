@@ -91,7 +91,7 @@
                     <td> <a href="{{ route('provider.profile.password') }}" class="btn btn-info">{{ tr('change_password') }}</a></td>
 
                     <td>
-                      <a href="{{ route('provider.profile.delete') }}" class="btn btn-danger" onclick="return confirm('{{ tr('delete_account') }}')">{{ tr('delete_profile') }}</a>
+                      <a href="{{ route('provider.password.check')}}" class="btn btn-danger">{{ tr('delete_profile') }}</a>
                       </td>
                   </tr>                           
                   

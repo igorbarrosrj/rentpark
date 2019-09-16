@@ -71,11 +71,11 @@ class AdminController extends Controller {
 
         $data['total_users'] = User::count();
 
-        $data['total_providers'] = Provider::orderBy('id')->get()->count();
+        $data['total_providers'] = Provider::count();
 
-        $data['total_bookings'] = Booking::orderBy('id')->get()->count();
+        $data['total_bookings'] = Booking::count();
 
-        $data['total_earnings'] = Booking::orderBy('id')->sum('total');
+        $data['total_earnings'] = Booking::sum('total');
 
         $data = json_decode(json_encode($data));
 

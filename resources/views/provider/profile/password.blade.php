@@ -1,4 +1,3 @@
- 
  @extends('layouts.provider')
 
 @section('content')

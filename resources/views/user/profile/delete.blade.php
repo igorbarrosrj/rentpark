@@ -2,9 +2,16 @@
 
 @section('content')
 
-<section class="update_profile pb-4">
+<section class="update_profile">
+   <div class="row">
+      <div class="col-md-5">
+        <h2 class="h3 mb-2 text-gray-800 profile">{{ tr('confirm_passwords') }}</h2>
+        <p class="mb-4">{{ tr('password_info') }}</p>
+        @include('notifications.notification')
+      </div>
+    </div>  
     
-    <div class="container">
+  <div class="container">
       
       <!-- DataTales Example -->
       <div class="card shadow mb-4">
@@ -14,7 +21,7 @@
             
         <div class="card-body">
                 
-          <form action="{{ route('password.check') }}" method="post" enctype="multipart/form-data">
+          <form action="{{ route('profile.delete') }}" method="post" enctype="multipart/form-data">
 
             {{ csrf_field() }}
 

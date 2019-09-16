@@ -270,44 +270,55 @@ class UserController extends Controller
      * @return view of profile's view
      *
      */
-    public function password_check(Request $request) {
-        
-        $user_details = $this->user;
+    public function profile_delete(Request $request) {
+        try{
+            DB::beginTransaction();
 
-        if(!$user_details){
+            $user_details = $this->user;
 
-            return redirect()->route('profile.view')->with('error', tr('no_profile_found'));
+            if(!$user_details){
+
+                throw new Exception(tr('no_profile_found'));
+                
+            }
+            if (\Hash::check($request->password, $user_details->password)) {
+
+                delete_picture($user_details->picture, PROFILE_PATH_USER);
+
+                $user_details->delete();
+
+                DB::commit();
+                
+                return redirect()->route('login')->with('success', tr('account_deleted'));
             
-        }
-        if (\Hash::check($request->password, $user_details->password)) {
+            }else{
 
-            delete_picture($user_details->picture, PROFILE_PATH_USER);
+                throw new Exception(tr('password_not_match'));
+                
+            }
+        } catch(Exception $e){
 
-            $user_details->delete();
+            DB::rollback();
 
-            return redirect()->route('login')->with('success', tr('account_deleted'));
-        
-        }else{
-
-            return redirect()->back()->with('error','password_not_match');
+            return redirect()->back()->with('flash_error',$e->getMessage());
         }
 
     }
     /**
-     * @method profile_delete()
+     * @method password_check()
      * 
      * @uses used to delete the user
      *
-     * @created NAVEEN S
+     * @created Akshata
      *
-     * @updated Akshata
+     * @updated 
      *
      * @param integer id
      *
      * @return view of profile's view
      *
      */
-    public function profile_delete() {
+    public function password_check() {
 
         return view('user.profile.delete');
 

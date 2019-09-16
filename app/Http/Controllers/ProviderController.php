@@ -575,9 +575,9 @@ class ProviderController extends Controller
     }
 
     /**
-     * @method password_check()
+     * @method profile_delete()
      * 
-     * @uses check the password and delete the user.
+     * @uses check the password and delete the provider.
      *
      * @created Akshata
      *
@@ -588,41 +588,53 @@ class ProviderController extends Controller
      * @return view of profile's view
      *
      */
-    public function password_check(Request $request) {
+    public function profile_delete() {
+        try{
+            DB::beginTransaction();
 
-        $provider_id = Auth()->guard('provider')->user()->id;
+            $provider_id = Auth()->guard('provider')->user()->id;
         
-        $provider_details = Provider::where('id', $provider_id)->first();
+            $provider_details = Provider::where('id', $provider_id)->first();
        
-        if (\Hash::check($request->password, $provider_details->password)) {
+            if (\Hash::check($request->password, $provider_details->password)) {
 
             delete_picture($provider_details->picture, PROFILE_PATH_PROVIDER);
 
             $provider_details->delete();
 
+            DB::commit();
+
             return redirect()->route('provider.login')->with('success', tr('account_deleted'));
         
-        }else{
+            }else{
 
-            return redirect()->back()->with('error','password_not_match');
+                throw new Exception(tr('password_not_match'));
+            }
+
+
+        } catch(Exception $e){
+
+            DB::rollback();
+
+            return redirect()->back()->with('error',$e->getMessage());
         }
-
+        
     }
     /**
-     * @method profile_delete()
+     * @method password_check()
      * 
-     * @uses used to delete the user
+     * @uses checking password before deleting the provider
      *
-     * @created NAVEEN S
+     * @created Akshata
      *
-     * @updated Akshata
+     * @updated 
      *
      * @param integer id
      *
      * @return view of profile's view
      *
      */
-    public function profile_delete() {
+    public function password_check() {
 
         return view('provider.profile.delete');
     }

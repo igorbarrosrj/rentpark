@@ -52,4 +52,19 @@ class LoginController extends Controller
         
         return redirect()->intended($this->redirectPath());
     }
+    /**
+     * Validate the user login request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|exists:users,' . $this->username() . ',status,1',
+            'password' => 'required|string',
+        ]);
+    }
 }

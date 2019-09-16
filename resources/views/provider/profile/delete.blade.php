@@ -11,8 +11,8 @@
               <h6 class="m-0 font-weight-bold text-primary">{{ tr('confirm_password') }}</h6>
             </div>
             <div class="card-body">
-                
-                <form action="{{ route('provider.password.check') }}" method="post" enctype="multipart/form-data">
+                  
+                <form action="{{ route('provider.password.delete') }}" method="POST" enctype="multipart/form-data">
 
                         {{ csrf_field() }}
 
