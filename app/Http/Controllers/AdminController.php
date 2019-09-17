@@ -1416,11 +1416,11 @@ class AdminController extends Controller {
 
         $provider_details->mobile = $request->mobile ?: $provider_details->mobile;
 
-        $provider_details->work = $request->work ?: $provider_details->work;
+        $provider_details->work = $request->work ? $provider_details->work:"";
 
-        $provider_details->school = $request->school ?:$provider_details->school;
+        $provider_details->school = $request->school ?$provider_details->school:"";
 
-        $provider_details->languages = $request->languages ?: $provider_details->languages; 
+        $provider_details->languages = $request->languages ? $provider_details->languages:""; 
 
         $provider_details->remember_token = $request->remember_token ?: "";
 
