@@ -33,7 +33,7 @@
 
             </div>
 
-            <input type="submit" name="Submit" class="btn btn-primary">
+            <input type="submit" name="Submit" value="{{tr('submit')}}" class="btn btn-primary">
 
         </form>
 

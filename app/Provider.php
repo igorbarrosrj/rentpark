@@ -68,5 +68,37 @@ class Provider extends Authenticatable
             
         return $query->where('status', APPROVED)->orderBy('name');
     }
+      public static function boot()
+    {
+        //execute the parent's boot method 
+        parent::boot();
+
+        //delete your related models here, for example
+        static::deleting(function($provider)
+        {
+
+            if ($provider) {
+
+                if($provider->picture) {
+
+                    delete_picture($provider->picture , PROFILE_PATH_USER);
+ 
+                }
+            }
+
+            if (count($provider->hosts) > 0) {
+
+                foreach($provider->hosts as $host)
+                {
+                    $host->delete();
+                } 
+
+            }
+          
+            
+        }); 
+
+    }
+
 
 }

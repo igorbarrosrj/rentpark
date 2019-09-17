@@ -54,7 +54,7 @@
 
                                   <li><a href="{{ route('bookings.view',$booking->id) }}" class="dropdown-item">{{ tr('view') }}</a></li>
 
-                                  @if($booking->status == BOOKING_CREATED )
+                                  @if($booking->status == BOOKING_CREATED)
                                       
                                       <li><a href="{{ route('bookings.checkin',$booking->id) }}" class="dropdown-item" onclick="return confirm('{{ tr('checkin_confirm')}}')">{{ tr('checkin') }} </a></li>
                                   @endif

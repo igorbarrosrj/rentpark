@@ -500,7 +500,9 @@ class UserController extends Controller
 
         $booking_details->save();
 
-        return redirect()->back()->with('success', tr('status_updated'));
+        $bookings = Booking::where('user_id', $this->user->id)->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('user.bookings.index')->with('bookings', $bookings);        
                
     }
 

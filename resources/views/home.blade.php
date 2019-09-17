@@ -21,7 +21,7 @@
                 <form action="{{ route('hosts.index') }}" method="post">
                     @csrf
                     <div class="form-group">
-                        <small>{{ tr('parking_at') }}</small>
+                        <span>{{ tr('parking_at') }}</span><br>
                         <input class="form-control input-lg" id="inputl" name="search" type="text11" placeholder="Where do you want to park?">
                         <button class="material-icons">&#xe55c;</button>
                     </div>
