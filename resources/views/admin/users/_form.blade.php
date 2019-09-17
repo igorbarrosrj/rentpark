@@ -11,9 +11,9 @@
 
                 <form action="{{ route('admin.users.save') }}" method="POST" enctype="multipart/form-data">
 
-                    {{ csrf_field() }}
+                    @csrf
 
-                    @if($user_details->id)
+                    @if($user_details!="")
                         <div class="form-group">
                             <input type="hidden" name="user_id" value="{{ $user_details->id }}" >
                         </div>
@@ -95,7 +95,7 @@
 
                         <div class="form-group">
                             
-                            <img src="{{ asset('placeholder.jpg')?:$user_details->picture }}" id="preview" style="width: 200px;height: 200px">
+                            <img src="{{ $user_details->picture?:asset('placeholder.jpg') }}" id="preview" style="width: 200px;height: 200px">
                         </div>
                     
                         <input type="submit" name="Submit" title="submit" value="{{ tr('submit') }}" class="btn btn-primary">

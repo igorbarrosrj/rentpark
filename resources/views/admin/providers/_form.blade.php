@@ -8,7 +8,7 @@
 
                     <form action="{{ route('admin.providers.save') }}" method="post" enctype="multipart/form-data">
 
-                        {{ csrf_field() }}
+                        @csrf
 
                         <div class="form-group">
                             @if($provider_details!="")

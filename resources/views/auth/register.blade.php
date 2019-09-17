@@ -69,9 +69,9 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">{{ tr('mobile') }}</label>
+                                <label for="mobile" class="col-sm-2 col-form-label col-form-label-lg">{{ tr('mobile') }}</label>
                                 <div class="col-sm-5">
-                                    <input type="text4" class="form-control form-control-lg" id="colFormLabelLg" placeholder="{{ tr('mobile') }}" name="mobile" value="{{ old('mobile') }}" required autofocus>
+                                    <input type="text4" class="form-control form-control-lg" id="mobile" placeholder="{{ tr('mobile') }}" name="mobile" value="{{ old('mobile') }}" required autofocus>
 
                                     @if ($errors->has('mobile'))
                                         <span class="invalid-feedback" role="alert">

@@ -292,11 +292,10 @@ class UserController extends Controller
                 
                 return redirect()->route('login')->with('success', tr('account_deleted'));
             
-            }else{
-
-                throw new Exception(tr('password_not_match'));
-                
             }
+
+            throw new Exception(tr('password_not_match'));
+                
         } catch(Exception $e){
 
             DB::rollback();
