@@ -18,7 +18,7 @@
                         </ol>
                     </div>
                     <div class="col-md-7 align-self-center">
-                        <a href="{{ route('admin.static_pages.index') }}" class="btn btn-primary pull-right hidden-sm-down">{{ tr('go_back') }}</a>
+                        <a href="{{ route('admin.static_pages.index') }}" class="btn btn-primary pull-right hidden-sm-down">{{ tr('view_static_pages') }}</a>
                     </div>
                 </div>
                 <!-- ============================================================== -->

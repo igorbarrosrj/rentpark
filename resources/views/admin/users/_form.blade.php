@@ -13,13 +13,11 @@
 
                     {{ csrf_field() }}
 
-                    @if($user_details)
+                    @if($user_details->id)
                         <div class="form-group">
-                            
                             <input type="hidden" name="user_id" value="{{ $user_details->id }}" >
-
                         </div>
-                        
+                    @endif
                         <div class="row">
                             
                             <div class="form-group col-md-6 col-lg-6">
@@ -40,7 +38,7 @@
 
                         </div>
                         
-                        @if($user_details->user_id == NULL) 
+                        @if($user_details->id == "") 
 
                         <div class="row">
                              
@@ -102,7 +100,6 @@
                     
                         <input type="submit" name="Submit" title="submit" value="{{ tr('submit') }}" class="btn btn-primary">
 
-                    @endif
                 </form>
             
             </div>                                

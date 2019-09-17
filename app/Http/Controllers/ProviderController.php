@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Facades\File;
 
+use DB,Exception;
 
 class ProviderController extends Controller
 {
@@ -375,7 +376,7 @@ class ProviderController extends Controller
 
         $provider_id = Auth()->guard('provider')->user()->id;
 
-        $provider_details = Provider::where('id', $provider_id)->first();
+        $provider_details = Provider::find($provider_id);
 
         if(!$provider_details){
 
@@ -405,7 +406,7 @@ class ProviderController extends Controller
 
         $provider_id = Auth()->guard('provider')->user()->id;
         
-        $provider_details = Provider::where('id', $provider_id)->first();
+        $provider_details = Provider::find($provider_id);
 
         if(!$provider_details){
 
@@ -432,12 +433,11 @@ class ProviderController extends Controller
      * @return view of profile view
      *
      */
-    public function profile_save(Request $request) {
-
-
+public function profile_save(Request $request) {
+    
         $provider_id = Auth()->guard('provider')->user()->id;
         
-        $provider_details = Provider::where('id', $provider_id)->first();
+        $provider_details = Provider::find($provider_id);
 
         if(!$provider_details){
 
@@ -513,7 +513,7 @@ class ProviderController extends Controller
     
         $provider_id = Auth()->guard('provider')->user()->id;
         
-        $provider_details = Provider::where('id', $provider_id)->first();
+        $provider_details = Provider::find($provider_id);
 
         if(!$provider_details){
 
@@ -544,7 +544,7 @@ class ProviderController extends Controller
     
         $provider_id = Auth()->guard('provider')->user()->id;
         
-        $provider_details = Provider::where('id', $provider_id)->first();
+        $provider_details = Provider::find($provider_id);
 
         if(!$provider_details){
 
@@ -588,13 +588,13 @@ class ProviderController extends Controller
      * @return view of profile's view
      *
      */
-    public function profile_delete() {
+    public function profile_delete(Request $request) {
         try{
             DB::beginTransaction();
 
             $provider_id = Auth()->guard('provider')->user()->id;
         
-            $provider_details = Provider::where('id', $provider_id)->first();
+            $provider_details = Provider::find($provider_id);
        
             if (\Hash::check($request->password, $provider_details->password)) {
 
@@ -606,10 +606,10 @@ class ProviderController extends Controller
 
             return redirect()->route('provider.login')->with('success', tr('account_deleted'));
         
-            }else{
+            }
 
                 throw new Exception(tr('password_not_match'));
-            }
+        
 
 
         } catch(Exception $e){

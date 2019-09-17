@@ -1302,9 +1302,9 @@ class AdminController extends Controller {
      */
     public function providers_create() {
 
-        $provider = NULL;
+        $provider_details = new Provider;
 
-        return view('admin.providers.create')->with('provider', $provider);;
+        return view('admin.providers.create')->with('provider_details', $provider_details);;
     }
 
     /**
@@ -1325,14 +1325,14 @@ class AdminController extends Controller {
         
         try {
             
-            $provider = Provider::find($id);
+            $provider_details = Provider::find($id);
 
-            if(!$provider) {
+            if(!$provider_details) {
 
                 throw new Exception("Provider Not Found", 101);
             }
 
-            return view('admin.providers.edit')->with('provider', $provider);
+            return view('admin.providers.edit')->with('provider_details', $provider_details);
 
         } catch (Exception $e) {
              
@@ -1386,50 +1386,50 @@ class AdminController extends Controller {
                 'password' => 'sometimes|required|min:6|confirmed',
             ]);
             
-            $provider = new Provider;
+            $provider_details = new Provider;
 
-            $provider->unique_id = rand();
+            $provider_details->unique_id = rand();
 
-            $provider->password = Hash::make($request->password) ?: "";
+            $provider_details->password = Hash::make($request->password) ?: "";
 
-            $provider->status = APPROVED;
+            $provider_details->status = APPROVED;
 
-            $provider->picture = asset('placeholder.jpg');
+            $provider_details->picture = asset('placeholder.jpg');
             
         } else {
 
-            $provider = Provider::find($request->id);
+            $provider_details = Provider::find($request->id);
 
             if($request->hasFile('picture')){
 
-                delete_picture($provider->picture, PROFILE_PATH_PROVIDER);
+                delete_picture($provider_details->picture, PROFILE_PATH_PROVIDER);
 
             }
 
         }
 
-        $provider->name = $request->name ?: "";
+        $provider_details->name = $request->name ?: $provider_details->name;
 
-        $provider->email = $request->email ?: "";
+        $provider_details->email = $request->email ?:$provider_details->email;
 
-        $provider->description = $request->description ?: "";
+        $provider_details->description = $request->description ?: $provider_details->description;
 
-        $provider->mobile = $request->mobile ?: "";
+        $provider_details->mobile = $request->mobile ?: $provider_details->mobile;
 
-        $provider->work = $request->work ?: "";
+        $provider_details->work = $request->work ?: $provider_details->work;
 
-        $provider->school = $request->school ?: "";
+        $provider_details->school = $request->school ?:$provider_details->school;
 
-        $provider->languages = $request->languages ?: ""; 
+        $provider_details->languages = $request->languages ?: $provider_details->languages; 
 
-        $provider->remember_token = $request->remember_token ?: "";
+        $provider_details->remember_token = $request->remember_token ?: "";
 
         if($request->hasFile('picture')){
 
-            $provider->picture = upload_picture( $request->file('picture'),PROFILE_PATH_PROVIDER);
+            $provider_details->picture = upload_picture( $request->file('picture'),PROFILE_PATH_PROVIDER);
         }
 
-        $provider->save();
+        $provider_details->save();
 
         return redirect(route('admin.providers.index'))->with('success', tr('provider_saved'));
        

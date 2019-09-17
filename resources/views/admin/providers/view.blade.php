@@ -17,7 +17,7 @@
                         </ol>
                     </div>
                     <div class="col-md-7 align-self-center">
-                        <a href="{{ route('admin.providers.index') }}" class="btn btn-primary pull-right hidden-sm-down">{{ tr('go_back') }}</a>
+                        <a href="{{ route('admin.providers.index') }}" class="btn btn-primary pull-right hidden-sm-down">{{ tr('view_providers') }}</a>
                     </div>
                 </div>
                 <!-- ============================================================== -->

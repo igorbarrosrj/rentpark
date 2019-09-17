@@ -7,12 +7,12 @@
       <div class="col-md-5">
         <h2 class="h3 mb-2 text-gray-800 profile">{{ tr('confirm_passwords') }}</h2>
         <p class="mb-4">{{ tr('password_info') }}</p>
-        @include('notifications.notification')
+        
       </div>
     </div>  
     
   <div class="container">
-      
+      @include('notifications.notification')
       <!-- DataTales Example -->
       <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -23,7 +23,7 @@
                 
           <form action="{{ route('profile.delete') }}" method="post" enctype="multipart/form-data">
 
-            {{ csrf_field() }}
+            @csrf
 
             <div class="form-group">
                 

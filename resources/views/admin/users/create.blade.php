@@ -15,7 +15,7 @@
                 </ol>
             </div>
             <div class="col-md-7 align-self-center">
-                <a href="{{ route('admin.users.index') }}" class="btn btn-primary pull-right hidden-sm-down">{{ tr('go_back') }}</a>
+                <a href="{{ route('admin.users.index') }}" class="btn btn-primary pull-right hidden-sm-down">{{ tr('view_users') }}</a>
             </div>
         </div>
         <!-- ================ End Bread crumb =================== -->

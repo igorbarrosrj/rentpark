@@ -31,7 +31,7 @@ class ProviderLoginController extends Controller
       		'password'=>'required|min:6'
       	]);
 
-      	if (Auth::guard('provider')->attempt(['email' => $request->email,'password' => $request->password,'status'=>1], $request->remember)) {
+      	if (Auth::guard('provider')->attempt(['email' => $request->email,'password' => $request->password,'status'=>APPROVED], $request->remember)) {
 
       		return redirect()->intended(route('provider.dashboard'));
 
@@ -48,19 +48,5 @@ class ProviderLoginController extends Controller
         return redirect()->route('provider.login');
     }
 
-    /**
-     * Validate the provider login request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return void
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    protected function validateLogin(Request $request)
-    {
-        $request->validate([
-            $this->username() => 'required|exists:providers,' . $this->username() . ',status,1',
-            'password' => 'required|string',
-        ]);
-    }
+   
 }

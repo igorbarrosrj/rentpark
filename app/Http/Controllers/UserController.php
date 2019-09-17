@@ -271,6 +271,7 @@ class UserController extends Controller
      *
      */
     public function profile_delete(Request $request) {
+        
         try{
             DB::beginTransaction();
 
@@ -300,7 +301,7 @@ class UserController extends Controller
 
             DB::rollback();
 
-            return redirect()->back()->with('flash_error',$e->getMessage());
+            return redirect()->back()->with('error',$e->getMessage());
         }
 
     }

@@ -63,7 +63,7 @@
                 <td> <a href="{{ route('profile.password',$user_details->id) }}" class="btn btn-info">{{ tr('change_password') }}</a></td>
 
                 <td>
-                  <a href="{{ route('password.check') }}" class="btn btn-danger" onclick="return confirm('{{ tr('delete_account') }}')">{{ tr('delete_profile') }}</a>
+                  <a href="{{ route('password.check') }}" class="btn btn-danger">{{ tr('delete_profile') }}</a>
                   </td>
               </tr>                           
               

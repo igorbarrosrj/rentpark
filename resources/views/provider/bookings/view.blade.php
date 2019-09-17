@@ -12,7 +12,7 @@
           <p class="mb-4">{{ tr('view_booking_info') }}</p>
                         </div>
                         <div class="col-md-7">
-                            <a href="{{ route('provider.bookings.index') }}"  class="btn btn-primary float-right hidden-sm-down">{{ tr('go_back') }}</a>
+                            <a href="{{ route('provider.bookings.index') }}"  class="btn btn-primary float-right hidden-sm-down">{{ tr('view_bookings') }}</a>
                         </div>
                     </div>  
          

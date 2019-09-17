@@ -16,7 +16,7 @@
                         </ol>
                     </div>
                     <div class="col-md-7 align-self-center">
-                        <a href="{{ route('admin.profile.view') }}" class="btn btn-primary pull-right hidden-sm-down">{{ tr('go_back') }}</a>
+                        <a href="{{ route('admin.profile.view') }}" class="btn btn-primary pull-right hidden-sm-down">{{ tr('admin_profile') }}</a>
                     </div>
                 </div>
                 <!-- ============================================================== -->

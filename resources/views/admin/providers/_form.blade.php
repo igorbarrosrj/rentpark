@@ -11,9 +11,10 @@
                         {{ csrf_field() }}
 
                         <div class="form-group">
-                            
+                            @if($provider_details!="")
 
-                            <input type="hidden" name="id" class="form-control" @if($provider!=NULL)value="{{ $provider->id }}"@endif >
+                            <input type="hidden" name="id" class="form-control" value="{{$provider_details->id}}" >
+                            @endif
 
                         </div>
 
@@ -23,7 +24,7 @@
                             
                                 <label class="name">{{ tr('name') }} *</label>
 
-                                <input type="text" name="name" class="form-control" @if($provider!=NULL)value="{{ $provider->name }}" @else value="{{ old('name') }}" @endif placeholder="{{ tr('name') }}" required>
+                                <input type="text" name="name" class="form-control" value="{{old('name')?: $provider_details->name}}" placeholder="{{ tr('name') }}" required>
 
                             </div>
                             
@@ -31,14 +32,14 @@
                                 
                                 <label class="email">{{ tr('email_address') }} *</label>
 
-                                <input type="text" name="email" class="form-control" @if($provider!=NULL)value="{{ $provider->email }}" @else value="{{ old('email') }}" @endif placeholder="{{ tr('email_address') }}" required>
+                                <input type="text" name="email" class="form-control" value="{{old('email')?:$provider_details->email}}" placeholder="{{ tr('email_address') }}" required>
                                 
                             </div>
                         </div>
                         
                        
 
-                         @if($provider==NULL) 
+                         @if($provider_details->id=="") 
 
                          <div class="row">
                             
@@ -68,7 +69,7 @@
                             
                                 <label class="description">{{ tr('description') }} *</label>
 
-                                <input type="text" name="description" class="form-control" @if($provider!=NULL)value="{{ $provider->description }}" @else value="{{ old('description') }}" @endif placeholder="{{ tr('description') }}" required>
+                                <input type="text" name="description" class="form-control" value="{{old('description')?:$provider_details->description}}"placeholder="{{ tr('description') }}" required>
 
                             </div>
 
@@ -76,14 +77,14 @@
                                 
                                 <label class="mobile">{{ tr('mobile_number') }} *</label>
 
-                                <input type="number" name="mobile" class="form-control" @if($provider!=NULL)value="{{ $provider->mobile }}" @else value="{{ old('mobile') }}" @endif placeholder="{{ tr('mobile_number') }}" required>
+                                <input type="number" name="mobile" class="form-control" value="{{old('mobile')?:$provider_details->mobile}}" placeholder="{{ tr('mobile_number') }}" required>
 
                             </div>
                         </div>
                         
 
                         <div class="form-group">
-                             @if($provider!=NULL) <img src="{{ $provider->picture }}" id="preview" style="width: 200px;height: 200px"> @endif
+                              <img src="{{ $provider_details->picture?:asset('placeholder.jpg') }}" id="preview" style="width: 200px;height: 200px"> 
 
                         </div>
 
@@ -93,7 +94,7 @@
                             
                                 <label class="picture">{{ tr('picture') }}</label>
 
-                                 <input type="file" onchange="readURL(this);"  name="picture" class="form-control" @if($provider!=NULL)value="{{ $provider->picture }}"@endif accept="image/*">
+                                 <input type="file" onchange="readURL(this);"  name="picture" class="form-control" value="{{asset('placeholder.jpg')?:$provider_details->picture}}" accept="image/*">
 
                             </div>
                         </div>
@@ -104,7 +105,7 @@
                             
                                 <label class="work">{{ tr('work') }} </label>
 
-                                <input type="text" name="work" class="form-control" @if($provider!=NULL)value="{{ $provider->work }}" @else value="{{ old('work') }}" @endif placeholder="{{ tr('work') }}">
+                                <input type="text" name="work" class="form-control" value="{{old('work')?:$provider_details->work}}" placeholder="{{ tr('work') }}">
 
                             </div>
 
@@ -112,7 +113,7 @@
                                 
                                 <label class="school">{{ tr('school') }} </label>
 
-                                <input type="text" name="school" class="form-control" @if($provider!=NULL)value="{{ $provider->school }}" @else value="{{ old('school') }}" @endif placeholder="{{ tr('school') }}">
+                                <input type="text" name="school" class="form-control" value="{{old('school')?:$provider_details->school}}" placeholder="{{ tr('school') }}">
 
                             </div>
                         </div>
@@ -123,7 +124,7 @@
                             
                                 <label class="mobile">{{ tr('languages') }} ({{ tr('seperate_by_comma') }}[,])</label>
 
-                                <textarea name="languages" class="form-control"> @if($provider!=NULL){{$provider->languages }}@else{{ old('languages') }} @endif</textarea> 
+                                <textarea name="languages" class="form-control">{{$provider_details->description?:""}}</textarea> 
 
                             </div>
 

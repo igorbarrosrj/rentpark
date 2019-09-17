@@ -14,7 +14,7 @@
                   
                 <form action="{{ route('provider.password.delete') }}" method="POST" enctype="multipart/form-data">
 
-                        {{ csrf_field() }}
+                        @csrf
 
                         <div class="form-group">
                             
