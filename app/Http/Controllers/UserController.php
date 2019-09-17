@@ -367,28 +367,34 @@ class UserController extends Controller
      * @return view of particular Booking
      *
      */
-    public function bookings_view($booking_id) {
+    public function bookings_view(Request $request) {
+        try{
 
-        $booking_details = Booking::where('user_id', $this->user->id)
-            ->where('id',$booking_id)->first();
+            $booking_details = Booking::where('user_id', $this->user->id)
+            ->where('id',$request->booking_id)->first();
 
-        if(!$booking_details){
+            if(!$booking_details){
 
-            return redirect()->route('bookings.index')->with('error', tr('no_booking_found'));
+                throw new Exception(tr('no_booking_found'));  
+            }
             
+            $booking_details->host_id = $booking_details->host->id;
+
+            $booking_details->host_name = $booking_details->host->host_name ?? tr('no_user_available');
+
+            $booking_details->provider_name = $booking_details->provider->name ?? tr('no_provider_available'); 
+
+            $booking_details->location = $booking_details->host->service_location->name ?? tr('no_location_available');
+
+            $booking_details->rating = $booking_details->users_review()->first()->ratings ?? 0;
+
+            return view('user.bookings.view')->with('booking_details', $booking_details);
+
+        } catch(Exception $e){
+
+            return redirect()->route('bookings.index')->with('error',$e->getMessage());
         }
-        
-        $booking_details->host_id = $booking_details->host->id;
 
-        $booking_details->host_name = $booking_details->host->host_name ?? tr('no_user_available');
-
-        $booking_details->provider_name = $booking_details->provider->name ?? tr('no_provider_available'); 
-
-        $booking_details->location = $booking_details->host->service_location->name ?? tr('no_location_available');
-
-        $booking_details->rating = $booking_details->users_review()->first()->ratings ?? 0;
-
-        return view('user.bookings.view')->with('booking_details', $booking_details);
     }
 
 
@@ -485,24 +491,35 @@ class UserController extends Controller
      * @return view of booking's index
      *
      */
-    public function bookings_status($id) {
+    public function bookings_status(Request $request) {
+        try{
+            DB::beginTransaction();
 
-        $booking_details = Booking::where('user_id', $this->user->id)
-                            ->where('id',$id)->first();
+            $booking_details = Booking::where('user_id', $this->user->id)
+                            ->where('id',$request->id)->first();
 
-        if(!$booking_details){
+            if(!$booking_details){
 
-            return redirect()->route('bookings.index')->with('error', tr('no_booking_found'));
-            
-        }
+                throw new Exception(tr('no_booking_found'));
+                
+            }
 
-        $booking_details->status = BOOKING_USER_CANCEL;
+            $booking_details->status = BOOKING_USER_CANCEL;
 
-        $booking_details->save();
+            $booking_details->save();
 
-        $bookings = Booking::where('user_id', $this->user->id)->orderBy('created_at', 'desc')->paginate(10);
+            DB::commit();
 
-        return view('user.bookings.index')->with('bookings', $bookings);        
+            $bookings = Booking::where('user_id', $this->user->id)->orderBy('created_at', 'desc')->paginate(10);
+
+            return view('user.bookings.index')->with('bookings', $bookings); 
+
+        } catch(Exception $e){
+
+            DB::rollback();
+
+            return redirect()->route('bookings.index')->with('error',$e->getMessage());
+        }       
                
     }
 
