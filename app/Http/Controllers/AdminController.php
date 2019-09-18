@@ -1408,22 +1408,22 @@ class AdminController extends Controller {
 
         }
 
-        $provider_details->name = $request->name ?: $provider_details->name;
+        $provider_details->name = $request->name;
 
-        $provider_details->email = $request->email ?:$provider_details->email;
+        $provider_details->email = $request->email;
 
-        $provider_details->description = $request->description ?: $provider_details->description;
+        $provider_details->description = $request->description;
 
-        $provider_details->mobile = $request->mobile ?: $provider_details->mobile;
+        $provider_details->mobile = $request->mobile ;
 
-        $provider_details->work = $request->work ? $provider_details->work:"";
+        $provider_details->work = $request->work ?:"";
 
-        $provider_details->school = $request->school ?$provider_details->school:"";
+        $provider_details->school = $request->school ?:"";
 
-        $provider_details->languages = $request->languages ? $provider_details->languages:""; 
+        $provider_details->languages = $request->languages ?:""; 
 
         $provider_details->remember_token = $request->remember_token ?: "";
-
+        
         if($request->hasFile('picture')){
 
             $provider_details->picture = upload_picture( $request->file('picture'),PROFILE_PATH_PROVIDER);
