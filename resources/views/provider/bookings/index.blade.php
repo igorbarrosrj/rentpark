@@ -69,7 +69,7 @@
                       <ul class="dropdown-menu">
                         <li><a href="{{ route('provider.bookings.view',$booking->id) }}" class="dropdown-item">{{ tr('view') }}</a></li>
                                         
-                        @if($booking->status ==BOOKING_CREATED)
+                        @if($booking->status ==BOOKING_CREATED || $booking->status == BOOKING_CHECKIN)
                             <div class="dropdown-divider"></div>
                               <li><a href="{{ route('provider.bookings.status',$booking->id) }}" class="dropdown-item">{{ tr('cancel') }}</a></li>
                         @endif

@@ -46,6 +46,26 @@ class User extends Authenticatable
 
         return $this->hasMany('App\UsersReview');
     }
+    public static function boot(){
+        //execute the parent's boot method 
+        parent::boot();
 
+        //delete your related models here, for example
+        static::deleting(function($user)
+        {
+
+            if (count($user->hosts) > 0) {
+
+                foreach($user->hosts as $host)
+                {
+                    $host->delete();
+                } 
+
+            }
+          
+            
+        }); 
+
+    }
   
 }

@@ -12,9 +12,8 @@
         
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
-        <a class="nav-item nav-link" href="{{ route('hosts.index') }}">{{ tr('hosts') }}</a>
-        <a class="nav-item nav-link" href="{{ route('bookings.index') }}">{{ tr('booking_management') }}</a>
-
+        
+        <a class="nav-item nav-link" href="{{ route('provider.login') }}">{{ tr('hosts') }}</a>
         <div class="topbar-divider d-none d-sm-block"></div>
 
         <!-- Authentication Links -->
@@ -23,11 +22,13 @@
           <a class="nav-item nav-link active link-active" href="{{ route('register') }}">{{ tr('register') }}<span class="sr-only">(current)</span></a> 
         @else
           <div class="topbar-divider d-none d-sm-block"></div>
-
+          <a class="nav-item nav-link" href="{{ route('hosts.index') }}">{{ tr('hosts') }}</a>
+           <a class="nav-item nav-link" href="{{ route('bookings.index') }}">{{ tr('booking_management') }}</a>
           <a class="nav-item nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ Auth()->user()->name }}<span class="sr-only">(current)</span>
             
           </a>
+          
           <!-- Dropdown - User Information -->
           <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
             <a class="dropdown-item" href="{{ route('profile.view') }}">

@@ -68,8 +68,7 @@ class Provider extends Authenticatable
             
         return $query->where('status', APPROVED)->orderBy('name');
     }
-      public static function boot()
-    {
+    public static function boot(){
         //execute the parent's boot method 
         parent::boot();
 

@@ -62,6 +62,7 @@
                                    @if($booking->status == BOOKING_CHECKIN )
                                       
                                       <li><a href="{{ route('bookings.checkout',$booking->id) }}" class="dropdown-item" onclick="return confirm('{{ tr('checkout_confirm')}}')">{{ tr('checkout') }} </a></li>
+                                
                                   @endif
 
                                   @if($booking->status ==BOOKING_CREATED)

@@ -360,7 +360,7 @@ class UserController extends Controller
      *
      * @created NAVEEN S
      *
-     * @updated
+     * @updated Akshata
      *
      * @param id
      *
@@ -371,16 +371,16 @@ class UserController extends Controller
         try{
 
             $booking_details = Booking::where('user_id', $this->user->id)
-            ->where('id',$request->booking_id)->first();
-
+            ->where('id',$request->id)->first();
+        
             if(!$booking_details){
 
-                throw new Exception(tr('no_booking_found'));  
+                throw new Exception(tr('no_booking_found'),101);  
             }
             
             $booking_details->host_id = $booking_details->host->id;
 
-            $booking_details->host_name = $booking_details->host->host_name ?? tr('no_user_available');
+            $booking_details->host_name = $booking_details->host->host_name ?? tr('no_host_available');
 
             $booking_details->provider_name = $booking_details->provider->name ?? tr('no_provider_available'); 
 
@@ -484,7 +484,7 @@ class UserController extends Controller
      *
      * @created NAVEEN S
      *
-     * @updated
+     * @updated Akshata
      *
      * @param integer id
      *
@@ -500,7 +500,7 @@ class UserController extends Controller
 
             if(!$booking_details){
 
-                throw new Exception(tr('no_booking_found'));
+                throw new Exception(tr('no_booking_found'),101);
                 
             }
 
