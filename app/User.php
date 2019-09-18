@@ -54,11 +54,11 @@ class User extends Authenticatable
         static::deleting(function($user)
         {
 
-            if (count($user->hosts) > 0) {
+            if (count($user->bookings) > 0) {
 
-                foreach($user->hosts as $host)
+                foreach($user->bookings as $booking)
                 {
-                    $host->delete();
+                    $booking->delete();
                 } 
 
             }

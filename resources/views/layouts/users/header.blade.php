@@ -13,11 +13,12 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
         
-        <a class="nav-item nav-link" href="{{ route('provider.login') }}">{{ tr('hosts') }}</a>
+
         <div class="topbar-divider d-none d-sm-block"></div>
 
         <!-- Authentication Links -->
         @guest
+          <a class="nav-item nav-link" href="{{ route('provider.login') }}">{{ tr('hosts') }}</a>
           <a class="nav-item nav-link notactive" href="{{ route('login') }}">{{ tr('login') }} <span class="sr-only">(current)</span></a>
           <a class="nav-item nav-link active link-active" href="{{ route('register') }}">{{ tr('register') }}<span class="sr-only">(current)</span></a> 
         @else
